@@ -1,34 +1,73 @@
-[gd_scene load_steps=4 format=3 uid="uid://cu5vxr7m0nptx"]
+[gd_scene format=3 uid="uid://cu5vxr7m0nptx"]
 
 [ext_resource type="Script" uid="uid://r45tisj2jqte" path="res://entity/main_character/main_character.gd" id="1_a3m1w"]
-[ext_resource type="Texture2D" uid="uid://b3f4rq6uiwelp" path="res://entity/main_character/priest3_v2_1.png" id="2_c4o6u"]
+[ext_resource type="Texture2D" uid="uid://cnpar43vqwl6v" path="res://entity/assets/zombie_cat/Walking_Cat_Zombie.png" id="2_a3m1w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
 radius = 4.0
 height = 12.0
 
-[node name="main_character" type="CharacterBody2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3m1w"]
+atlas = ExtResource("2_a3m1w")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4o6u"]
+atlas = ExtResource("2_a3m1w")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bggxh"]
+atlas = ExtResource("2_a3m1w")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_em0ca"]
+atlas = ExtResource("2_a3m1w")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w8oee"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3m1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4o6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bggxh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_em0ca")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="main_character" type="CharacterBody2D" unique_id=1753746331]
 script = ExtResource("1_a3m1w")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1270332802]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1439371861]
+visible = false
 offset_left = -6.0
 offset_top = -4.0
 offset_right = 6.0
 offset_bottom = 4.0
 color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_c4o6u")
-offset = Vector2(1, -8)
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=724737383]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_w8oee")
+autoplay = "default"
+offset = Vector2(1, 0)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1412213500]
+zoom = Vector2(5, 5)
 
-[node name="cooldown" type="Timer" parent="."]
+[node name="cooldown" type="Timer" parent="." unique_id=1310501084]
 one_shot = true
 
 [connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
