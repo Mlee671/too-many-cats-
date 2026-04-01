@@ -3,18 +3,20 @@ class_name main_character
 
 const SPEED := 100
 const ACCEL_SMOOTH := 20 # how smooth stop/start movement
-const COOLDOWN := .5 # firing cd
+const FIRE_COOLDOWN := .5 # firing cd
 
 # loads the bullet scene when starting the game
 @onready var projectile := preload("res://entity/Projectiles/Bullet.tscn")
 
 # gets a reference to the cooldown timer
 @onready var cooldown := $cooldown
-@onready var evade_active := $evade_active
-@onready var evade_cooldown := $evade_cooldown
+@onready var evade_timer := $evade_timer
+
+# noting 3 states. more verbose than 0,1,2
+enum evadeState {READY, ACTIVE, COOLDOWN}
 
 var on_cooldown := false
-var dodge_flag := false
+var evade_flag := evadeState.READY
 
 func _ready() -> void:
 	pass
@@ -27,7 +29,7 @@ func _physics_process(delta: float) -> void:
 	# scans if wasd is pressed then returns a Vector2. x direction is left/right. y is up/down 
 	var input_vector = Input.get_vector("Left", "Right", "Up", "Down")
 	
-	if dodge_flag:
+	if evade_flag == evadeState.ACTIVE:
 		# probably can't shoot during dodge
 		velocity = lerp(velocity, input_vector * SPEED * 2, ACCEL_SMOOTH * delta)
 		pass
@@ -40,12 +42,10 @@ func _physics_process(delta: float) -> void:
 		if not on_cooldown:
 			fire_gun(get_local_mouse_position())
 			
-	if Input.is_action_just_pressed("ability"):
+	if Input.is_action_just_pressed("ability") and evade_flag == evadeState.READY:
 		# change sprite
-		dodge_flag = true
-		evade_active.start();
-		
-		pass
+		evade_flag = evadeState.ACTIVE
+		evade_timer.start(0.2);
 	
 	# physics procees for moving a character2D, returns bool if collision
 	move_and_slide()
@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 func fire_gun(target):
 	on_cooldown = true
 	# starts timer
-	cooldown.start(COOLDOWN)
+	cooldown.start(FIRE_COOLDOWN)
 	# method for spawning a new bullet
 	var spawn = projectile.instantiate()
 	var direction = target.normalized()
@@ -67,10 +67,10 @@ func fire_gun(target):
 func _on_cooldown_timeout() -> void:
 	on_cooldown = false
 
-
 func _on_evade_active_timeout() -> void:
-	dodge_flag = false
-
-
-func _on_evade_cooldown_timeout() -> void:
-	pass # Replace with function body.
+	if evade_flag == evadeState.ACTIVE:
+		# set to cooldown state
+		evade_flag = evadeState.COOLDOWN
+		evade_timer.start(0.5)
+	elif evade_flag == evadeState.COOLDOWN:
+		evade_flag = evadeState.READY

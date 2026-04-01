@@ -31,14 +31,9 @@ zoom = Vector2(3, 3)
 [node name="cooldown" type="Timer" parent="." unique_id=1186056371]
 one_shot = true
 
-[node name="evade_active" type="Timer" parent="." unique_id=764013633]
+[node name="evade_timer" type="Timer" parent="." unique_id=764013633]
 wait_time = 0.2
 one_shot = true
 
-[node name="evade_cooldown" type="Timer" parent="." unique_id=1960702315]
-wait_time = 0.8
-one_shot = true
-
 [connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
-[connection signal="timeout" from="evade_active" to="." method="_on_evade_active_timeout"]
-[connection signal="timeout" from="evade_cooldown" to="." method="_on_evade_cooldown_timeout"]
+[connection signal="timeout" from="evade_timer" to="." method="_on_evade_active_timeout"]
