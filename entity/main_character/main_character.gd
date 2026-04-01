@@ -2,16 +2,19 @@ extends CharacterBody2D
 class_name main_character
 
 const SPEED := 100
-const ACCEL_SMOOTH := 20
-const COOLDOWN := .5
+const ACCEL_SMOOTH := 20 # how smooth stop/start movement
+const COOLDOWN := .5 # firing cd
 
 # loads the bullet scene when starting the game
 @onready var projectile := preload("res://entity/Projectiles/Bullet.tscn")
 
 # gets a reference to the cooldown timer
 @onready var cooldown := $cooldown
+@onready var evade_active := $evade_active
+@onready var evade_cooldown := $evade_cooldown
 
 var on_cooldown := false
+var dodge_flag := false
 
 func _ready() -> void:
 	pass
@@ -23,15 +26,28 @@ func _physics_process(delta: float) -> void:
 	
 	# scans if wasd is pressed then returns a Vector2. x direction is left/right. y is up/down 
 	var input_vector = Input.get_vector("Left", "Right", "Up", "Down")
-	# sets the velocity. lerp is an accelleration function(starting speed, target speed, accel factor)
-	velocity = lerp(velocity, input_vector * SPEED, ACCEL_SMOOTH * delta)
+	
+	if dodge_flag:
+		# probably can't shoot during dodge
+		velocity = lerp(velocity, input_vector * SPEED * 2, ACCEL_SMOOTH * delta)
+		pass
+	else:
+		# sets the velocity. lerp is an acceleration function(starting speed, target speed, accel factor)
+		velocity = lerp(velocity, input_vector * SPEED, ACCEL_SMOOTH * delta)
 	
 	# checks if your left clicking
 	if Input.is_action_pressed("fire_gun"):
 		if not on_cooldown:
 			fire_gun(get_local_mouse_position())
+			
+	if Input.is_action_just_pressed("ability"):
+		# change sprite
+		dodge_flag = true
+		evade_active.start();
+		
+		pass
 	
-	# physics procees for moving a character2D
+	# physics procees for moving a character2D, returns bool if collision
 	move_and_slide()
 
 			
@@ -50,3 +66,11 @@ func fire_gun(target):
 # is called when timer hits zero
 func _on_cooldown_timeout() -> void:
 	on_cooldown = false
+
+
+func _on_evade_active_timeout() -> void:
+	dodge_flag = false
+
+
+func _on_evade_cooldown_timeout() -> void:
+	pass # Replace with function body.
