@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c8i8yc680567c"]
+
+[ext_resource type="Script" uid="uid://doahr55okvtto" path="res://entities/entity.gd" id="1_7r3o5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aoolu"]
+radius = 4.0
+height = 12.0
+
+[node name="Entity" type="CharacterBody2D" unique_id=2015725724]
+script = ExtResource("1_7r3o5")
+
+[node name="hitbox" type="CollisionShape2D" parent="." unique_id=340362185]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_aoolu")
+
+[node name="flippable" type="Node2D" parent="." unique_id=2018460720]
+
+[node name="entity_shadow" type="ColorRect" parent="flippable" unique_id=1848414123]
+offset_left = -37.0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
+
+[node name="char_animation" type="AnimatedSprite2D" parent="flippable" unique_id=1359280650]

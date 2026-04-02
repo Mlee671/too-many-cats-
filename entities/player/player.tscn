@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://clj6o25jdpkw0"]
+
+[ext_resource type="PackedScene" uid="uid://c8i8yc680567c" path="res://entities/Entity.tscn" id="1_sglur"]
+[ext_resource type="Texture2D" uid="uid://esprj84wagrx" path="res://entities/player/priest3_v2_1.png" id="2_bls4j"]
+[ext_resource type="Script" uid="uid://50j203yqn4uw" path="res://entities/player/player.gd" id="2_fkugw"]
+[ext_resource type="Texture2D" uid="uid://dqjvydhyl34pf" path="res://entities/player/priest3_v2_2.png" id="3_fkugw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8fjmc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bls4j")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bls4j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_fkugw")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[node name="Player" unique_id=2015725724 instance=ExtResource("1_sglur")]
+script = ExtResource("2_fkugw")
+
+[node name="hitbox" parent="." index="0" unique_id=340362185]
+position = Vector2(-2, -4)
+
+[node name="flippable" parent="." index="1" unique_id=2018460720]
+position = Vector2(0, -8)
+
+[node name="entity_shadow" parent="flippable" index="0" unique_id=1848414123]
+offset_left = -9.0
+offset_top = 5.0
+offset_right = 9.0
+offset_bottom = 11.0
+metadata/_edit_use_anchors_ = true
+
+[node name="char_animation" parent="flippable" index="1" unique_id=1359280650]
+sprite_frames = SubResource("SpriteFrames_8fjmc")
+animation = &"idle"
+
+[node name="Camera2D" type="Camera2D" parent="." index="2" unique_id=343460482]
+zoom = Vector2(3, 3)
+
+[node name="cooldown" type="Timer" parent="." index="3" unique_id=507265628]
+
+[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]

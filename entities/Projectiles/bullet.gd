@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 
 # is called when its colliding with a collision box
 func _on_body_entered(body: Node2D) -> void:
-	if body is not main_character:
+	if body is not Player:
 		# deletes itself
 		queue_free()
 
