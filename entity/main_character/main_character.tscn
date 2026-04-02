@@ -15,27 +15,29 @@ position = Vector2(0, -2)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1086470191]
-offset_left = -6.0
-offset_top = -4.0
-offset_right = 6.0
-offset_bottom = 4.0
-color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
-
-[node name="char_sprite" type="Sprite2D" parent="." unique_id=401215296]
-position = Vector2(0, 2)
-texture = ExtResource("2_c4o6u")
-offset = Vector2(1, -8)
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1717588214]
 zoom = Vector2(3, 3)
 
-[node name="cooldown" type="Timer" parent="." unique_id=1186056371]
+[node name="attack_cooldown" type="Timer" parent="." unique_id=1186056371]
 one_shot = true
 
 [node name="evade_timer" type="Timer" parent="." unique_id=764013633]
 wait_time = 0.2
 one_shot = true
 
-[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
+[node name="char_visual" type="Node2D" parent="." unique_id=711158056]
+
+[node name="char_shadow" type="ColorRect" parent="char_visual" unique_id=1086470191]
+offset_left = -6.0
+offset_top = -4.0
+offset_right = 6.0
+offset_bottom = 4.0
+color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
+
+[node name="char_sprite" type="Sprite2D" parent="char_visual" unique_id=401215296]
+position = Vector2(0, 2)
+texture = ExtResource("2_c4o6u")
+offset = Vector2(1, -8)
+
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_cooldown_timeout"]
 [connection signal="timeout" from="evade_timer" to="." method="_on_evade_active_timeout"]
