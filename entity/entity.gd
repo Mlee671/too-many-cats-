@@ -12,10 +12,7 @@ func _ready() -> void:
 @abstract
 func get_move_direction() -> Vector2
 
-func move(direction: Vector2, delta: float) -> void:
-	velocity = lerp(velocity, direction * speed, acceleration * delta)
+func move(delta: float) -> void:
+	velocity = lerp(velocity, get_move_direction() * speed, acceleration * delta)
 	move_and_slide()
-
-func _physics_process(delta: float) -> void:
-	move(get_move_direction(), delta)
 	

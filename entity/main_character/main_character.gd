@@ -1,8 +1,6 @@
-extends CharacterBody2D
+extends Entity
 class_name main_character
 
-const SPEED := 100
-const ACCEL_SMOOTH := 20
 const COOLDOWN := .5
 
 # loads the bullet scene when starting the game
@@ -13,26 +11,25 @@ const COOLDOWN := .5
 
 var on_cooldown := false
 
+func get_move_direction() -> Vector2:
+	return Input.get_vector("Left", "Right", "Up", "Down")
+
 func _ready() -> void:
-	pass
+	speed = 100
+	acceleration = 20
 	
 func _process(_delta: float) -> void:
 	pass
 	
 func _physics_process(delta: float) -> void:
 	
-	# scans if wasd is pressed then returns a Vector2. x direction is left/right. y is up/down 
-	var input_vector = Input.get_vector("Left", "Right", "Up", "Down")
-	# sets the velocity. lerp is an accelleration function(starting speed, target speed, accel factor)
-	velocity = lerp(velocity, input_vector * SPEED, ACCEL_SMOOTH * delta)
-	
 	# checks if your left clicking
 	if Input.is_action_pressed("fire_gun"):
 		if not on_cooldown:
 			fire_gun(get_local_mouse_position())
 	
-	# physics procees for moving a character2D
-	move_and_slide()
+	# movement, as per Entity superclass
+	super.move(delta)
 
 			
 func fire_gun(target):
