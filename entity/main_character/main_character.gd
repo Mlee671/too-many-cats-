@@ -1,9 +1,14 @@
 extends CharacterBody2D
 class_name main_character
 
+const DODGE_SPRITE := preload("res://entity/main_character/dodge_placeholder.png")
+const BASE_SPRITE := preload("res://entity/main_character/priest3_v2_1.png")
+
 const SPEED := 100
 const ACCEL_SMOOTH := 20 # how smooth stop/start movement
 const FIRE_COOLDOWN := .5 # firing cd
+
+
 
 # loads the bullet scene when starting the game
 @onready var projectile := preload("res://entity/Projectiles/Bullet.tscn")
@@ -11,6 +16,7 @@ const FIRE_COOLDOWN := .5 # firing cd
 # gets a reference to the cooldown timer
 @onready var cooldown := $cooldown
 @onready var evade_timer := $evade_timer
+@onready var char_sprite := $char_sprite
 
 # noting 3 states. more verbose than 0,1,2
 enum evadeState {READY, ACTIVE, COOLDOWN}
@@ -45,6 +51,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ability") and evade_flag == evadeState.READY:
 		# change sprite
 		evade_flag = evadeState.ACTIVE
+		char_sprite.texture = DODGE_SPRITE;
 		evade_timer.start(0.2);
 	
 	# physics procees for moving a character2D, returns bool if collision
@@ -71,6 +78,7 @@ func _on_evade_active_timeout() -> void:
 	if evade_flag == evadeState.ACTIVE:
 		# set to cooldown state
 		evade_flag = evadeState.COOLDOWN
+		char_sprite.texture = BASE_SPRITE
 		evade_timer.start(0.5)
 	elif evade_flag == evadeState.COOLDOWN:
 		evade_flag = evadeState.READY

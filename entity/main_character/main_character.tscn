@@ -11,6 +11,7 @@ height = 12.0
 script = ExtResource("1_a3m1w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754863285]
+position = Vector2(0, -2)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
 
@@ -21,7 +22,8 @@ offset_right = 6.0
 offset_bottom = 4.0
 color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=401215296]
+[node name="char_sprite" type="Sprite2D" parent="." unique_id=401215296]
+position = Vector2(0, 2)
 texture = ExtResource("2_c4o6u")
 offset = Vector2(1, -8)
 
