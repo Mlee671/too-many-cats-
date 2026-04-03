@@ -7,6 +7,50 @@
 radius = 4.0
 height = 12.0
 
+[sub_resource type="Animation" id="Animation_g2gkq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippable/char_visual:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pf75e"]
+resource_name = "death"
+
+[sub_resource type="Animation" id="Animation_fuwxr"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippable/char_visual:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_ikttq"]
+resource_name = "moving"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ikttq"]
+_data = {
+&"RESET": SubResource("Animation_g2gkq"),
+&"death": SubResource("Animation_pf75e"),
+&"idle": SubResource("Animation_fuwxr"),
+&"moving": SubResource("Animation_ikttq")
+}
+
 [node name="Entity" type="CharacterBody2D" unique_id=2015725724]
 script = ExtResource("1_7r3o5")
 
@@ -22,9 +66,13 @@ offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
 
-[node name="char_animation" type="AnimatedSprite2D" parent="flippable" unique_id=1359280650]
+[node name="char_visual" type="Sprite2D" parent="flippable" unique_id=264305284]
+hframes = 2
 
 [node name="HealthComponent" parent="." unique_id=1865545371 instance=ExtResource("2_g2gkq")]
+
+[node name="char_animation" type="AnimationPlayer" parent="." unique_id=195339595]
+libraries/ = SubResource("AnimationLibrary_ikttq")
 
 [connection signal="damaged" from="." to="HealthComponent" method="_on_damaged" binds= [0]]
 [connection signal="heal" from="." to="HealthComponent" method="_on_heal" binds= [0]]

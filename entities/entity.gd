@@ -11,15 +11,16 @@ extends CharacterBody2D
 # health.set_health(value): setter for health value and max-hp
 #
 # Other stuff to setup
-# char_animation (AnimatedSprite2D): should have following animations:
+# char_animation (AnimationPlayer): should have following animations:
 #   - "idle"
 #   - "moving"
 #   - "death" (idk if ideal for one-shot)
+# Animation -> Manage Animations -> Save Button -> Make Unique to edit from Entity
 
 signal heal
 signal damaged
 
-@onready var animation := $flippable/char_animation
+@onready var animation := $char_animation
 
 @onready var health := $HealthComponent
 
