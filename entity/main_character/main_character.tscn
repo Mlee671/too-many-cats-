@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cu5vxr7m0nptx"]
+[gd_scene format=3 uid="uid://cu5vxr7m0nptx"]
 
 [ext_resource type="Script" uid="uid://r45tisj2jqte" path="res://entity/main_character/main_character.gd" id="1_a3m1w"]
 [ext_resource type="Texture2D" uid="uid://b3f4rq6uiwelp" path="res://entity/main_character/priest3_v2_1.png" id="2_c4o6u"]
@@ -7,28 +7,37 @@
 radius = 4.0
 height = 12.0
 
-[node name="main_character" type="CharacterBody2D"]
+[node name="main_character" type="CharacterBody2D" unique_id=551877325]
 script = ExtResource("1_a3m1w")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754863285]
+position = Vector2(0, -2)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1717588214]
+zoom = Vector2(3, 3)
+
+[node name="attack_cooldown" type="Timer" parent="." unique_id=1186056371]
+one_shot = true
+
+[node name="evade_timer" type="Timer" parent="." unique_id=764013633]
+wait_time = 0.2
+one_shot = true
+
+[node name="char_visual" type="Node2D" parent="." unique_id=711158056]
+
+[node name="char_shadow" type="ColorRect" parent="char_visual" unique_id=1086470191]
 offset_left = -6.0
 offset_top = -4.0
 offset_right = 6.0
 offset_bottom = 4.0
 color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="char_sprite" type="Sprite2D" parent="char_visual" unique_id=401215296]
+position = Vector2(0, 2)
 texture = ExtResource("2_c4o6u")
 offset = Vector2(1, -8)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
-
-[node name="cooldown" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="evade_timer" to="." method="_on_evade_active_timeout"]
