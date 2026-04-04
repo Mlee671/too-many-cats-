@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cu5vxr7m0nptx"]
+[gd_scene load_steps=6 format=3 uid="uid://cu5vxr7m0nptx"]
 
 [ext_resource type="Script" uid="uid://r45tisj2jqte" path="res://entity/main_character/main_character.gd" id="1_a3m1w"]
 [ext_resource type="Texture2D" uid="uid://b3f4rq6uiwelp" path="res://entity/main_character/priest3_v2_1.png" id="2_c4o6u"]
+[ext_resource type="Script" uid="uid://dxpc6sqw6sjvl" path="res://entity/main_character/char_switcher.gd" id="3_bggxh"]
+[ext_resource type="Script" uid="uid://bghbph6307nj1" path="res://Priest.gd" id="4_em0ca"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
 radius = 4.0
@@ -38,6 +40,13 @@ color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
 position = Vector2(0, 2)
 texture = ExtResource("2_c4o6u")
 offset = Vector2(1, -8)
+
+[node name="Char_switcher" type="Node" parent="."]
+script = ExtResource("3_bggxh")
+
+[node name="Priest" type="Node" parent="Char_switcher"]
+script = ExtResource("4_em0ca")
+metadata/_custom_type_script = "uid://bghbph6307nj1"
 
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_cooldown_timeout"]
 [connection signal="timeout" from="evade_timer" to="." method="_on_evade_active_timeout"]

@@ -21,6 +21,7 @@ const EVADE_COOLDOWN := 0.5
 @onready var evade_timer := $evade_timer
 @onready var char_sprite := $char_visual/char_sprite
 @onready var char_visual := $char_visual
+@onready var char := $Char_switcher
 
 # noting 3 states. more verbose than 0,1,2
 enum evadeState {READY, ACTIVE, COOLDOWN}
