@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://b5c58jagrlp5r"]
+
+[ext_resource type="Script" uid="uid://bwfj5js77orbp" path="res://entity/enemy/enemy.gd" id="1_uy4mc"]
+[ext_resource type="PackedScene" uid="uid://cu7va32w0ae3h" path="res://entity/enemy/health/HealthBar.tscn" id="2_2vbla"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pux1x"]
+radius = 7.0
+height = 14.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=310538941]
+script = ExtResource("1_uy4mc")
+
+[node name="visual" type="Node2D" parent="." unique_id=1227261934]
+
+[node name="shadow" type="ColorRect" parent="visual" unique_id=1237059839]
+offset_left = -13.0
+offset_right = 13.0
+offset_bottom = 8.0
+color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
+
+[node name="texture" type="Sprite2D" parent="visual" unique_id=1680913945]
+
+[node name="hitbox" type="CollisionShape2D" parent="." unique_id=1076322931]
+position = Vector2(0, -12)
+shape = SubResource("CapsuleShape2D_pux1x")
+
+[node name="iframe_timer" type="Timer" parent="." unique_id=666830676]
+
+[node name="HealthBar" parent="." unique_id=51232230 instance=ExtResource("2_2vbla")]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=221465016]
+path_max_distance = 96.0
+avoidance_enabled = true
+radius = 30.0
+debug_enabled = true
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_nav_dist_adjust"]
