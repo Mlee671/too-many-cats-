@@ -25,9 +25,12 @@ signal damaged
 @onready var health := $HealthComponent
 
 # should be set in subclass
-var speed: int
-var acceleration: int
+var speed: float
+var acceleration: float
 var can_move := true
+
+# lock playing default animations, e.g. special animations
+var animation_lock := false
 
 func _ready() -> void:
 	animation.play("idle")
@@ -41,10 +44,11 @@ func move(delta: float) -> void:
 	if can_move:
 		var vector_move = get_move_direction()
 		# if not moving, idle animation
-		if vector_move == Vector2.ZERO:
-			animation.play("idle")
-		else:
-			animation.play("moving")
+		if not animation_lock:
+			if vector_move == Vector2.ZERO:
+				animation.play("idle")
+			else:
+				animation.play("moving")
 		
 		# apply speed and move
 		velocity = lerp(velocity, vector_move * speed, acceleration * delta)

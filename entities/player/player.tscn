@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c8i8yc680567c" path="res://entities/Entity.tscn" id="1_sglur"]
 [ext_resource type="Script" uid="uid://50j203yqn4uw" path="res://entities/player/player.gd" id="2_fkugw"]
-[ext_resource type="Texture2D" uid="uid://ciqicruvxyuhi" path="res://entities/player/placeholder_spritesheet_v2.png" id="5_fkugw"]
+[ext_resource type="Texture2D" uid="uid://0qh3nxgvs4q1" path="res://entities/player/placeholder_spritesheet_v3.png" id="3_sglur"]
 
 [sub_resource type="Animation" id="Animation_bls4j"]
 length = 0.001
@@ -21,6 +21,21 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_fkugw"]
 resource_name = "death"
+
+[sub_resource type="Animation" id="Animation_sglur"]
+resource_name = "evade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippable/char_visual:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
 
 [sub_resource type="Animation" id="Animation_8fjmc"]
 resource_name = "idle"
@@ -56,6 +71,7 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_bls4j"),
 &"death": SubResource("Animation_fkugw"),
+&"evade": SubResource("Animation_sglur"),
 &"idle": SubResource("Animation_8fjmc"),
 &"moving": SubResource("Animation_qiwj3")
 }
@@ -76,14 +92,18 @@ offset_right = 5.0
 offset_bottom = 10.0
 
 [node name="char_visual" parent="flippable" index="1" unique_id=264305284]
-texture = ExtResource("5_fkugw")
+texture = ExtResource("3_sglur")
+hframes = 3
 
 [node name="Camera2D" type="Camera2D" parent="." index="2" unique_id=343460482]
 zoom = Vector2(3, 3)
 
-[node name="cooldown" type="Timer" parent="." index="3" unique_id=507265628]
+[node name="atk_timer" type="Timer" parent="." index="3" unique_id=507265628]
 
-[node name="char_animation" parent="." index="5" unique_id=195339595]
+[node name="evade_timer" type="Timer" parent="." index="4" unique_id=808368138]
+
+[node name="char_animation" parent="." index="6" unique_id=195339595]
 libraries/ = SubResource("AnimationLibrary_26q78")
 
-[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="atk_timer" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="evade_timer" to="." method="_on_evade_timeout"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqjvydhyl34pf"
-path="res://.godot/imported/priest3_v2_2.png-d0acf9affbdf487a9c79e1981f659311.ctex"
+uid="uid://0qh3nxgvs4q1"
+path="res://.godot/imported/placeholder_spritesheet_v3.png-a151f094bc47c8c1ba413010411bb5a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/priest3_v2_2.png"
-dest_files=["res://.godot/imported/priest3_v2_2.png-d0acf9affbdf487a9c79e1981f659311.ctex"]
+source_file="res://entities/player/placeholder_spritesheet_v3.png"
+dest_files=["res://.godot/imported/placeholder_spritesheet_v3.png-a151f094bc47c8c1ba413010411bb5a9.ctex"]
 
 [params]
 
