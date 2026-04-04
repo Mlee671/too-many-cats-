@@ -48,7 +48,6 @@ func _physics_process(delta: float) -> void:
 	if evade_flag == evadeState.ACTIVE:
 		# probably can't shoot during dodge
 		velocity = lerp(velocity, input_vector * SPEED * EVADE_MOVEMENT_SCALING, ACCEL_SMOOTH * delta)
-		pass
 	else:
 		# sets the velocity. lerp is an acceleration function(starting speed, target speed, accel factor)
 		velocity = lerp(velocity, input_vector * SPEED, ACCEL_SMOOTH * delta)
