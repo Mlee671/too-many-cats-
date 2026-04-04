@@ -25,7 +25,7 @@ func _load_selection():
 	
 func change_char() -> Texture2D:
 	current_char += 1
-	if current_char > 2:
+	if current_char >= char_array.size():
 		current_char = 0
 	_load_stats()
 	return char_array[current_char].BASE_SPRITE
