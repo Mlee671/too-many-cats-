@@ -1,0 +1,17 @@
+extends Node
+class_name Priest
+
+const DODGE_SPRITE := preload("res://entity/main_character/dodge_placeholder.png")
+const BASE_SPRITE := preload("res://entity/main_character/priest3_v2_1.png")
+
+@export var SPEED := 100
+@export var ACCEL_SMOOTH := 20 # how smooth stop/start movement
+
+@export var EVADE_MOVEMENT_SCALING := 2.5
+@export var EVADE_DURATION := 0.2
+@export var EVADE_COOLDOWN := 0.5
+
+@export var FIRE_COOLDOWN := .1 # firing cd
+
+var max_health := 100.0
+var current_health := 100.0

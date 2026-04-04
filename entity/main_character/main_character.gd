@@ -1,18 +1,6 @@
 extends CharacterBody2D
 class_name main_character
 
-const DODGE_SPRITE := preload("res://entity/main_character/dodge_placeholder.png")
-const BASE_SPRITE := preload("res://entity/main_character/priest3_v2_1.png")
-
-const SPEED := 100
-const ACCEL_SMOOTH := 20 # how smooth stop/start movement
-const FIRE_COOLDOWN := .5 # firing cd
-
-const EVADE_MOVEMENT_SCALING := 2.5
-# units in seconds
-const EVADE_DURATION := 0.2
-const EVADE_COOLDOWN := 0.5
-
 # loads the bullet scene when starting the game
 @onready var projectile := preload("res://entity/Projectiles/Bullet.tscn")
 
@@ -21,6 +9,7 @@ const EVADE_COOLDOWN := 0.5
 @onready var evade_timer := $evade_timer
 @onready var char_sprite := $char_visual/char_sprite
 @onready var char_visual := $char_visual
+@onready var char_controller := $Char_switcher
 
 # noting 3 states. more verbose than 0,1,2
 enum evadeState {READY, ACTIVE, COOLDOWN}
@@ -31,7 +20,7 @@ var on_cooldown := false
 var evade_flag := evadeState.READY
 
 func _ready() -> void:
-	pass
+	char_sprite.texture = char_controller.get_sprite("base")
 	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
@@ -47,11 +36,10 @@ func _physics_process(delta: float) -> void:
 	
 	if evade_flag == evadeState.ACTIVE:
 		# probably can't shoot during dodge
-		velocity = lerp(velocity, input_vector * SPEED * EVADE_MOVEMENT_SCALING, ACCEL_SMOOTH * delta)
-		pass
+		velocity = lerp(velocity, input_vector * char_controller.speed * char_controller.evade, char_controller.accel * delta)
 	else:
 		# sets the velocity. lerp is an acceleration function(starting speed, target speed, accel factor)
-		velocity = lerp(velocity, input_vector * SPEED, ACCEL_SMOOTH * delta)
+		velocity = lerp(velocity, input_vector * char_controller.speed, char_controller.accel * delta)
 	
 		# checks if your left clicking
 		if Input.is_action_pressed("fire_gun"):
@@ -62,9 +50,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ability") and evade_flag == evadeState.READY:
 		# change sprite
 		evade_flag = evadeState.ACTIVE
-		char_sprite.texture = DODGE_SPRITE;
-		evade_timer.start(EVADE_DURATION);
+		char_sprite.texture = char_controller.get_sprite("dodge");
+		evade_timer.start(char_controller.evade_dur);
 	
+	if Input.is_action_just_pressed("character_change"):
+		char_sprite.texture = char_controller.change_char()
 	# physics procees for moving a character2D, returns bool if collision
 	move_and_slide()
 
@@ -72,7 +62,7 @@ func _physics_process(delta: float) -> void:
 func fire_gun(target):
 	on_cooldown = true
 	# starts timer
-	attack_cooldown.start(FIRE_COOLDOWN)
+	attack_cooldown.start(char_controller.fire_cd)
 	# method for spawning a new bullet
 	var spawn = projectile.instantiate()
 	var direction = target.normalized()
@@ -89,7 +79,7 @@ func _on_evade_active_timeout() -> void:
 	if evade_flag == evadeState.ACTIVE:
 		# set to cooldown state
 		evade_flag = evadeState.COOLDOWN
-		char_sprite.texture = BASE_SPRITE
-		evade_timer.start(EVADE_COOLDOWN)
+		char_sprite.texture = char_controller.get_sprite("base")
+		evade_timer.start(char_controller.evade_cd)
 	elif evade_flag == evadeState.COOLDOWN:
 		evade_flag = evadeState.READY

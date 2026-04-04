@@ -2,42 +2,56 @@
 
 [ext_resource type="Script" uid="uid://r45tisj2jqte" path="res://entity/main_character/main_character.gd" id="1_a3m1w"]
 [ext_resource type="Texture2D" uid="uid://b3f4rq6uiwelp" path="res://entity/main_character/priest3_v2_1.png" id="2_c4o6u"]
+[ext_resource type="Script" uid="uid://dxpc6sqw6sjvl" path="res://entity/main_character/char_switcher.gd" id="3_bggxh"]
+[ext_resource type="Script" uid="uid://bghbph6307nj1" path="res://Priest.gd" id="4_em0ca"]
+[ext_resource type="Script" uid="uid://wue3dnxgifbd" path="res://Hammer_man.gd" id="5_em0ca"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
 radius = 4.0
 height = 12.0
 
-[node name="main_character" type="CharacterBody2D" unique_id=551877325]
+[node name="main_character" type="CharacterBody2D" unique_id=2044665017]
 script = ExtResource("1_a3m1w")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754863285]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1575622610]
 position = Vector2(0, -2)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1717588214]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1320116309]
 zoom = Vector2(3, 3)
 
-[node name="attack_cooldown" type="Timer" parent="." unique_id=1186056371]
+[node name="attack_cooldown" type="Timer" parent="." unique_id=190503675]
 one_shot = true
 
-[node name="evade_timer" type="Timer" parent="." unique_id=764013633]
+[node name="evade_timer" type="Timer" parent="." unique_id=1923964845]
 wait_time = 0.2
 one_shot = true
 
-[node name="char_visual" type="Node2D" parent="." unique_id=711158056]
+[node name="char_visual" type="Node2D" parent="." unique_id=569010630]
 
-[node name="char_shadow" type="ColorRect" parent="char_visual" unique_id=1086470191]
+[node name="char_shadow" type="ColorRect" parent="char_visual" unique_id=1333672836]
 offset_left = -6.0
 offset_top = -4.0
 offset_right = 6.0
 offset_bottom = 4.0
 color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
 
-[node name="char_sprite" type="Sprite2D" parent="char_visual" unique_id=401215296]
+[node name="char_sprite" type="Sprite2D" parent="char_visual" unique_id=889715202]
 position = Vector2(0, 2)
 texture = ExtResource("2_c4o6u")
 offset = Vector2(1, -8)
+
+[node name="Char_switcher" type="Node" parent="." unique_id=1627462595]
+script = ExtResource("3_bggxh")
+
+[node name="Priest" type="Node" parent="Char_switcher" unique_id=918222437]
+script = ExtResource("4_em0ca")
+metadata/_custom_type_script = "uid://bghbph6307nj1"
+
+[node name="Hammer_man" type="Node" parent="Char_switcher" unique_id=1260107341]
+script = ExtResource("5_em0ca")
+metadata/_custom_type_script = "uid://wue3dnxgifbd"
 
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_cooldown_timeout"]
 [connection signal="timeout" from="evade_timer" to="." method="_on_evade_active_timeout"]
