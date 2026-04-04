@@ -23,7 +23,7 @@ func _load_selection():
 		char_array.append(child)
 	current_char = 0
 	
-func change_char() -> CompressedTexture2D:
+func change_char() -> Texture2D:
 	current_char += 1
 	if current_char > 2:
 		current_char = 0
@@ -39,7 +39,7 @@ func _load_stats():
 	evade_cd = temp.EVADE_COOLDOWN
 	fire_cd = temp.FIRE_COOLDOWN
 
-func get_sprite(type : String):
+func get_sprite(type : String) -> Texture2D:
 	if type == "dodge":
 		return char_array[current_char].DODGE_SPRITE
 	else:
