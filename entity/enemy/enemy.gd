@@ -54,6 +54,12 @@ func attack_logic() -> void:
 		push_warning("Attack Logic not implemented. Must be overwritten.")
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("debug_damage_enemy"):
+		animation.play_animation("damaged")
+		animation.no_interrupt = true
+		await animation.animation_finished
+		animation.no_interrupt = false
+	
 	if vision.can_see_player():
 		enemyState = BEHAVIOUR.ATTACK
 		# stop vector drift from interrupting path
