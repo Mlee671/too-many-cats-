@@ -55,10 +55,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_23wh4")
 position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_pux1x")
 
+[node name="HealthBar" parent="." unique_id=51232230 instance=ExtResource("2_2vbla")]
+
 [node name="WanderTimer" type="Timer" parent="." unique_id=666830676]
 one_shot = true
 
-[node name="HealthBar" parent="." unique_id=51232230 instance=ExtResource("2_2vbla")]
+[node name="AttackTimer" type="Timer" parent="." unique_id=338756223]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=221465016]
 path_max_distance = 30.0
@@ -66,15 +68,16 @@ path_postprocessing = 1
 avoidance_enabled = true
 debug_enabled = true
 
+[node name="VisionRadius" type="RayCast2D" parent="." unique_id=883219311]
+script = ExtResource("3_3vmdj")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_5iluk")
 script = ExtResource("3_23wh4")
 
-[node name="VisionRadius" type="RayCast2D" parent="." unique_id=883219311]
-script = ExtResource("3_3vmdj")
-
 [connection signal="damage" from="." to="HealthBar" method="_on_damage"]
 [connection signal="heal" from="." to="HealthBar" method="_on_heal"]
-[connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timeout"]
 [connection signal="death" from="HealthBar" to="." method="_on_death"]
+[connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_nav_dist_adjust"]

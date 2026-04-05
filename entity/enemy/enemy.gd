@@ -5,8 +5,8 @@ class_name Enemy
 @export var target: main_character
 @export var vision_range: float
 
-@export var move_speed: float
-@export var accel: float
+var move_speed: float
+var accel: float
 
 ## Emitted when enemy has taken damage
 signal damage(amount: int)
@@ -111,3 +111,7 @@ func _on_death() -> void:
 	animation.no_interrupt = true
 	await animation.animation_finished
 	queue_free()
+
+
+func _on_attack_timeout() -> void:
+	pass # Replace with function body.
