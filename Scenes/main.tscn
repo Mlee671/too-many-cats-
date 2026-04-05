@@ -617,7 +617,7 @@ tile_set = SubResource("TileSet_8gbba")
 position = Vector2(552, 106)
 tilemap = NodePath("../TileMapOrganiser/TileMapLayer")
 target = NodePath("../main_character")
-vision_range = 200.0
+vision_range = 10.0
 
 [node name="main_character" parent="." unique_id=1328872590 instance=ExtResource("2_bo1nx")]
 position = Vector2(380, 64)

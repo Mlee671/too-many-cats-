@@ -43,7 +43,7 @@ color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
 
 [node name="texture" type="Sprite2D" parent="visual" unique_id=1680913945]
 
-[node name="hitbox" type="CollisionShape2D" parent="." unique_id=1076322931]
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1076322931]
 position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_pux1x")
 

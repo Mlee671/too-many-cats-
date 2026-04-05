@@ -24,6 +24,8 @@ var wander_stalling := false
 @onready var vision := $VisionRadius
 @onready var health := $HealthBar
 @onready var animation := $AnimationPlayer
+@onready var visual := $visual
+@onready var hitbox := $Hitbox
 
 func nearby_vector(range: Vector2) -> Vector2i:
 	return Vector2i(
@@ -48,9 +50,6 @@ func attack_logic() -> void:
 	push_error("Attack Logic not implemented. Must be overwritten.")
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("debug_kill_enemy"):
-		_on_death()
-	
 	if vision.can_see_player():
 		enemyState = BEHAVIOUR.ATTACK
 		# stop vector drift from interrupting path
@@ -69,10 +68,17 @@ func _physics_process(delta: float) -> void:
 		var smooth_velocity: Vector2 = lerp(velocity, new_velocity, accel * delta)
 		nav_agent.set_velocity(smooth_velocity)
 		animation.play_animation("moving")
+		
+		# enemy looks left or right based on vector.x
+		if smooth_velocity.x < 0:
+			visual.scale.x = -1
+		else:
+			visual.scale.x = 1
 	
 	# if attacking user, run corresponding logic
 	elif enemyState == BEHAVIOUR.ATTACK:
 		attack_logic()
+		# enemy should look left or right based on raycast to player
 
 ## navigation agent handles movement after adjusting vector
 func _on_nav_dist_adjust(safe_velocity: Vector2) -> void:
@@ -83,9 +89,15 @@ func _on_wander_timeout() -> void:
 	wander_stalling = false
 	set_wander_target()
 
+## Generic on death function:
+## - Plays death animation
+## - prevents movement
+## - removes hitbox
+## - removes instance after animation plays
 func _on_death() -> void:
 	animation.play_animation("death")
 	move_speed = 0
+	hitbox.set_deferred("disabled", true)
 	animation.no_interrupt = true
 	await animation.animation_finished
 	queue_free()
