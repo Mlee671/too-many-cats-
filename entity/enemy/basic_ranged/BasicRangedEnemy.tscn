@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cipi44ms8luce" path="res://icon.svg" id="3_l8j17"]
 
 [node name="BasicRangedEnemy" unique_id=310538941 instance=ExtResource("1_enhxg")]
+collision_layer = 4
 script = ExtResource("2_ocqek")
 
 [node name="texture" parent="visual" parent_id_path=PackedInt32Array(1227261934) index="1" unique_id=1680913945]

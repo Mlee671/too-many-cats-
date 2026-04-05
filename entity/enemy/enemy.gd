@@ -2,6 +2,8 @@ extends CharacterBody2D
 class_name Enemy
 
 @export var tilemap: TileMapLayer
+@export var target: main_character
+@export var vision_range: float
 
 @export var move_speed: float
 @export var accel: int
@@ -11,15 +13,15 @@ signal damage(amount: int)
 ## Emitted when enemy has received healing
 signal heal(amount: int)
 
+# the assumption that enemies do not de-aggro
 enum BEHAVIOUR {WANDER, ATTACK}
 
 var enemyState := BEHAVIOUR.WANDER
 var wander_stalling := false
 
-#proc on char sight
-
 @onready var wander_timer := $WanderTimer
 @onready var nav_agent := $NavigationAgent2D
+@onready var vision := $VisionRadius
 @onready var health := $HealthBar
 
 func nearby_vector(range: Vector2) -> Vector2i:
@@ -28,13 +30,14 @@ func nearby_vector(range: Vector2) -> Vector2i:
 		randi_range(position.y - range.y, position.y + range.y))
 
 func _ready() -> void:
+	vision.target = target
+	vision.vision_range = vision_range
 	setup_nav.call_deferred()
 
 func setup_nav() -> void:
+	# wait until map sync
 	while tilemap == null:
 		await get_tree().process_frame
-	# wait until map sync
-	await get_tree().physics_frame
 	set_wander_target()
 
 func set_wander_target() -> void:
@@ -44,6 +47,11 @@ func attack_logic() -> void:
 	push_error("Attack Logic not implemented. Must be overwritten.")
 
 func _physics_process(delta: float) -> void:
+	if vision.can_see_player():
+		enemyState = BEHAVIOUR.ATTACK
+		# stop vector drift from interrupting path
+		nav_agent.target_position = global_position
+		nav_agent.set_velocity(Vector2.ZERO)
 	if enemyState == BEHAVIOUR.WANDER and not wander_stalling:
 		# if at target node, get new target node
 		if nav_agent.is_navigation_finished():

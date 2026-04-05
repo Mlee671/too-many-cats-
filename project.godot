@@ -61,6 +61,11 @@ character_change={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Terrain Layer"
+2d_physics/layer_3="Enemy Layer"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

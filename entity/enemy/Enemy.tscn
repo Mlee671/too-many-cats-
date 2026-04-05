@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bwfj5js77orbp" path="res://entity/enemy/enemy.gd" id="1_uy4mc"]
 [ext_resource type="PackedScene" uid="uid://cu7va32w0ae3h" path="res://entity/enemy/health/HealthBar.tscn" id="2_2vbla"]
+[ext_resource type="Script" uid="uid://c0rwmgxx271u3" path="res://entity/enemy/vision_radius.gd" id="3_3vmdj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pux1x"]
 radius = 7.0
 height = 14.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=310538941]
+collision_layer = 4
 script = ExtResource("1_uy4mc")
 
 [node name="visual" type="Node2D" parent="." unique_id=1227261934]
@@ -36,6 +38,9 @@ avoidance_enabled = true
 debug_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2102798003]
+
+[node name="VisionRadius" type="RayCast2D" parent="." unique_id=883219311]
+script = ExtResource("3_3vmdj")
 
 [connection signal="damage" from="." to="HealthBar" method="_on_damage"]
 [connection signal="heal" from="." to="HealthBar" method="_on_heal"]

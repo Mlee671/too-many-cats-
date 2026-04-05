@@ -615,9 +615,11 @@ tile_set = SubResource("TileSet_8gbba")
 collision_visibility_mode = 1
 navigation_visibility_mode = 1
 
-[node name="BasicRangedEnemy" parent="." unique_id=310538941 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_8gbba")]
+[node name="BasicRangedEnemy" parent="." unique_id=310538941 node_paths=PackedStringArray("tilemap", "target") instance=ExtResource("2_8gbba")]
 position = Vector2(552, 106)
 tilemap = NodePath("../TileMapOrganiser/TileMapLayer")
+target = NodePath("../main_character")
+vision_range = 200.0
 
 [node name="main_character" parent="." unique_id=1328872590 instance=ExtResource("2_bo1nx")]
-position = Vector2(540, 294)
+position = Vector2(380, 64)
