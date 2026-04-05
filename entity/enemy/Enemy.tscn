@@ -5,6 +5,14 @@
 [ext_resource type="Script" uid="uid://c0rwmgxx271u3" path="res://entity/enemy/vision_radius.gd" id="3_3vmdj"]
 [ext_resource type="Script" uid="uid://cwqusbmtuox3n" path="res://entity/enemy/enemy_animation.gd" id="3_23wh4"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23wh4"]
+bg_color = Color(0.24313726, 0.24313726, 0.24313726, 0.7921569)
+corner_radius_top_left = 1000
+corner_radius_top_right = 1000
+corner_radius_bottom_right = 1000
+corner_radius_bottom_left = 1000
+corner_detail = 15
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pux1x"]
 radius = 5.0
 height = 16.0
@@ -35,11 +43,11 @@ script = ExtResource("1_uy4mc")
 
 [node name="visual" type="Node2D" parent="." unique_id=1227261934]
 
-[node name="shadow" type="ColorRect" parent="visual" unique_id=1237059839]
+[node name="shadow" type="Panel" parent="visual" unique_id=167189831]
 offset_left = -13.0
 offset_right = 13.0
 offset_bottom = 8.0
-color = Color(0.36862746, 0.36862746, 0.36862746, 0.7921569)
+theme_override_styles/panel = SubResource("StyleBoxFlat_23wh4")
 
 [node name="texture" type="Sprite2D" parent="visual" unique_id=1680913945]
 

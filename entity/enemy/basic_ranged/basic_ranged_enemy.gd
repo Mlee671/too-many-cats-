@@ -6,8 +6,3 @@ func _ready() -> void:
 	move_speed = 30.0
 	accel = 20.0
 	super._ready()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

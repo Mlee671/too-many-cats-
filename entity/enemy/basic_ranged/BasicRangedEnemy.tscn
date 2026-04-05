@@ -120,9 +120,9 @@ _data = {
 [node name="BasicRangedEnemy" unique_id=310538941 instance=ExtResource("1_enhxg")]
 script = ExtResource("2_ocqek")
 
-[node name="shadow" parent="visual" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=1237059839]
-offset_left = -6.0
-offset_right = 6.0
+[node name="shadow" parent="visual" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=167189831]
+offset_left = -5.0
+offset_right = 7.0
 offset_bottom = 6.0
 
 [node name="texture" parent="visual" parent_id_path=PackedInt32Array(1227261934) index="1" unique_id=1680913945]
@@ -130,7 +130,7 @@ texture = ExtResource("3_l8j17")
 hframes = 4
 vframes = 6
 
-[node name="hitbox" parent="." index="1" unique_id=1076322931]
+[node name="Hitbox" parent="." index="1" unique_id=1076322931]
 position = Vector2(0, -1)
 rotation = 1.5707964
 

@@ -6,7 +6,7 @@ class_name Enemy
 @export var vision_range: float
 
 @export var move_speed: float
-@export var accel: int
+@export var accel: float
 
 ## Emitted when enemy has taken damage
 signal damage(amount: int)
@@ -19,6 +19,8 @@ enum BEHAVIOUR {WANDER, ATTACK}
 var enemyState := BEHAVIOUR.WANDER
 var wander_stalling := false
 
+var attack_logic_flag := false
+
 @onready var wander_timer := $WanderTimer
 @onready var nav_agent := $NavigationAgent2D
 @onready var vision := $VisionRadius
@@ -27,10 +29,10 @@ var wander_stalling := false
 @onready var visual := $visual
 @onready var hitbox := $Hitbox
 
-func nearby_vector(range: Vector2) -> Vector2i:
-	return Vector2i(
-		randi_range(position.x - range.x, position.x + range.x),
-		randi_range(position.y - range.y, position.y + range.y))
+func nearby_vector(tile_range: Vector2) -> Vector2:
+	return Vector2(
+		randf_range(position.x - tile_range.x, position.x + tile_range.x),
+		randf_range(position.y - tile_range.y, position.y + tile_range.y))
 
 func _ready() -> void:
 	vision.target = target
@@ -47,7 +49,9 @@ func set_wander_target() -> void:
 	nav_agent.target_position = nearby_vector(tilemap.map_to_local(Vector2i(6, 6)))
 
 func attack_logic() -> void:
-	push_error("Attack Logic not implemented. Must be overwritten.")
+	if not attack_logic_flag:
+		attack_logic_flag = true
+		push_warning("Attack Logic not implemented. Must be overwritten.")
 
 func _physics_process(delta: float) -> void:
 	if vision.can_see_player():
