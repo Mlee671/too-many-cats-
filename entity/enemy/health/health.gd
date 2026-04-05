@@ -3,7 +3,11 @@ extends Node
 signal death
 
 @export var max_health: int
-var current_health := max_health
+var current_health: int
+
+func set_health(amount: int):
+	max_health = amount
+	current_health = amount
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("debug_kill_enemy"):

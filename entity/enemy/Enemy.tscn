@@ -61,6 +61,7 @@ shape = SubResource("CapsuleShape2D_pux1x")
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=338756223]
+one_shot = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=221465016]
 path_max_distance = 30.0

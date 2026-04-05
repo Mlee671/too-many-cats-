@@ -7,6 +7,7 @@ class_name Enemy
 
 var move_speed: float
 var accel: float
+var pathfind_range: int # tile range to pathfind to
 
 ## Emitted when enemy has taken damage
 signal damage(amount: int)
@@ -14,7 +15,7 @@ signal damage(amount: int)
 signal heal(amount: int)
 
 # the assumption that enemies do not de-aggro
-enum BEHAVIOUR {WANDER, ATTACK}
+enum BEHAVIOUR {WANDER, ATTACK, DEAD}
 
 var enemyState := BEHAVIOUR.WANDER
 var wander_stalling := false
@@ -46,7 +47,7 @@ func setup_nav() -> void:
 	set_wander_target()
 
 func set_wander_target() -> void:
-	nav_agent.target_position = nearby_vector(tilemap.map_to_local(Vector2i(6, 6)))
+	nav_agent.target_position = nearby_vector(tilemap.map_to_local(Vector2i(pathfind_range, pathfind_range)))
 
 func attack_logic() -> void:
 	if not attack_logic_flag:
@@ -106,6 +107,7 @@ func _on_wander_timeout() -> void:
 ## - removes instance after animation plays
 func _on_death() -> void:
 	animation.play_animation("death")
+	enemyState = BEHAVIOUR.DEAD
 	move_speed = 0
 	hitbox.set_deferred("disabled", true)
 	animation.no_interrupt = true
