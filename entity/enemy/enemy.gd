@@ -23,6 +23,7 @@ var wander_stalling := false
 @onready var nav_agent := $NavigationAgent2D
 @onready var vision := $VisionRadius
 @onready var health := $HealthBar
+@onready var animation := $AnimationPlayer
 
 func nearby_vector(range: Vector2) -> Vector2i:
 	return Vector2i(
@@ -47,6 +48,9 @@ func attack_logic() -> void:
 	push_error("Attack Logic not implemented. Must be overwritten.")
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("debug_kill_enemy"):
+		_on_death()
+	
 	if vision.can_see_player():
 		enemyState = BEHAVIOUR.ATTACK
 		# stop vector drift from interrupting path
@@ -57,11 +61,14 @@ func _physics_process(delta: float) -> void:
 		if nav_agent.is_navigation_finished():
 			wander_stalling = true
 			wander_timer.start(randf_range(1.0, 2.0))
+			animation.play_animation("idle")
+			return
 
 		# get new direction to get to next path node
 		var new_velocity: Vector2 = (nav_agent.get_next_path_position() - global_position).normalized() * move_speed
 		var smooth_velocity: Vector2 = lerp(velocity, new_velocity, accel * delta)
 		nav_agent.set_velocity(smooth_velocity)
+		animation.play_animation("moving")
 	
 	# if attacking user, run corresponding logic
 	elif enemyState == BEHAVIOUR.ATTACK:
@@ -77,4 +84,8 @@ func _on_wander_timeout() -> void:
 	set_wander_target()
 
 func _on_death() -> void:
-	pass # Replace with function body.
+	animation.play_animation("death")
+	move_speed = 0
+	animation.no_interrupt = true
+	await animation.animation_finished
+	queue_free()

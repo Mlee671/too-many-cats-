@@ -3,10 +3,31 @@
 [ext_resource type="Script" uid="uid://bwfj5js77orbp" path="res://entity/enemy/enemy.gd" id="1_uy4mc"]
 [ext_resource type="PackedScene" uid="uid://cu7va32w0ae3h" path="res://entity/enemy/health/HealthBar.tscn" id="2_2vbla"]
 [ext_resource type="Script" uid="uid://c0rwmgxx271u3" path="res://entity/enemy/vision_radius.gd" id="3_3vmdj"]
+[ext_resource type="Script" uid="uid://cwqusbmtuox3n" path="res://entity/enemy/enemy_animation.gd" id="3_23wh4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pux1x"]
-radius = 7.0
-height = 14.0
+radius = 5.0
+height = 16.0
+
+[sub_resource type="Animation" id="Animation_3vmdj"]
+resource_name = "damaged"
+
+[sub_resource type="Animation" id="Animation_23wh4"]
+resource_name = "death"
+
+[sub_resource type="Animation" id="Animation_qvxbr"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_v63k0"]
+resource_name = "moving"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5iluk"]
+_data = {
+&"damaged": SubResource("Animation_3vmdj"),
+&"death": SubResource("Animation_23wh4"),
+&"idle": SubResource("Animation_qvxbr"),
+&"moving": SubResource("Animation_v63k0")
+}
 
 [node name="Enemy" type="CharacterBody2D" unique_id=310538941]
 collision_layer = 4
@@ -38,6 +59,8 @@ avoidance_enabled = true
 debug_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2102798003]
+libraries/ = SubResource("AnimationLibrary_5iluk")
+script = ExtResource("3_23wh4")
 
 [node name="VisionRadius" type="RayCast2D" parent="." unique_id=883219311]
 script = ExtResource("3_3vmdj")

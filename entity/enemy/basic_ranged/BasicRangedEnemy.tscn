@@ -2,15 +2,140 @@
 
 [ext_resource type="PackedScene" uid="uid://b5c58jagrlp5r" path="res://entity/enemy/Enemy.tscn" id="1_enhxg"]
 [ext_resource type="Script" uid="uid://b7rw6ss3s6dgp" path="res://entity/enemy/basic_ranged/basic_ranged_enemy.gd" id="2_ocqek"]
-[ext_resource type="Texture2D" uid="uid://cipi44ms8luce" path="res://icon.svg" id="3_l8j17"]
+[ext_resource type="Texture2D" uid="uid://x815c1srcasp" path="res://entity/enemy/basic_ranged/ikoiku_itchio_mouse.png" id="3_l8j17"]
+
+[sub_resource type="Animation" id="Animation_l8j17"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visual/texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visual:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_wewrm"]
+resource_name = "damaged"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visual/texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 7, 11, 15]
+}
+
+[sub_resource type="Animation" id="Animation_7g1hh"]
+resource_name = "death"
+length = 1.8333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visual/texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5, 0.6667, 0.8333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 6, 10, 14, 18, 22]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visual:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8333333, 1.8333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_soa10"]
+resource_name = "idle"
+length = 0.8333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visual/texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5, 0.6667, 0.8333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 4, 8, 12, 16, 20]
+}
+
+[sub_resource type="Animation" id="Animation_fn27k"]
+resource_name = "moving"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visual/texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 5, 9, 13, 17, 21]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wswxn"]
+_data = {
+&"RESET": SubResource("Animation_l8j17"),
+&"damaged": SubResource("Animation_wewrm"),
+&"death": SubResource("Animation_7g1hh"),
+&"idle": SubResource("Animation_soa10"),
+&"moving": SubResource("Animation_fn27k")
+}
 
 [node name="BasicRangedEnemy" unique_id=310538941 instance=ExtResource("1_enhxg")]
-collision_layer = 4
 script = ExtResource("2_ocqek")
 
+[node name="shadow" parent="visual" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=1237059839]
+offset_left = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+
 [node name="texture" parent="visual" parent_id_path=PackedInt32Array(1227261934) index="1" unique_id=1680913945]
-scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_l8j17")
+hframes = 4
+vframes = 6
 
 [node name="hitbox" parent="." index="1" unique_id=1076322931]
-position = Vector2(0, 0)
+position = Vector2(0, -1)
+rotation = 1.5707964
+
+[node name="NavigationAgent2D" parent="." index="4" unique_id=221465016]
+debug_enabled = false
+
+[node name="AnimationPlayer" parent="." index="5" unique_id=2102798003]
+libraries/ = SubResource("AnimationLibrary_wswxn")
