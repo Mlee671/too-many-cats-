@@ -40,9 +40,10 @@ func switch_to(target_character: String):
 	call_deferred("_do_switch_to", target_character)
 	pass
 	
-func _do_swtich_to(target_character: String):
+func _do_switch_to(target_character: String):
 	var old_node = get_parent().get_node("character_slot")
-	var new_node = characters.get(target_character)
+	var new_node = character_scenes[characters.get(target_character)]
+	print(new_node)
 	var parent = old_node.get_parent()
 	
 	new_node.global_position = old_node.global_position

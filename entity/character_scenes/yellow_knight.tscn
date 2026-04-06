@@ -90,6 +90,7 @@ wait_time = 0.1
 
 [node name="AnimatedSprite2D" parent="char_visual" parent_id_path=PackedInt32Array(569010630) index="0" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_bk7k0")
+animation = &"idle"
 frame_progress = 0.0
 
 [node name="Stats" parent="." index="5" unique_id=201965470]
