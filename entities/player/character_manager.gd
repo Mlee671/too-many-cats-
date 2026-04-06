@@ -18,6 +18,10 @@ func _ready() -> void:
 	for c in characters:
 		character_nodes.append(load(path + c + ".tscn").instantiate())
 
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("character_change"):
+		switch_next()
+
 func _do_switch(target_character: String = "") -> void:
 	var old_node = get_parent().get_node(NAME_OF_NODE)
 	var new_node

@@ -11,9 +11,6 @@ class_name main_character
 @onready var char_visual := $CharacterVisuals
 @onready var stats := $Stats
 
-# current_character_scene
-@onready var cm = $"../character_manager"
-
 enum evadeState {READY, ACTIVE, COOLDOWN}
 
 var attack_cooldown := false
@@ -54,9 +51,6 @@ func _physics_process(delta: float) -> void:
 		animate_2d_sprite.play("dodge")
 		evade_flag = evadeState.ACTIVE
 		evade_timer.start(stats.evade_dur);
-	
-	if Input.is_action_just_pressed("character_change"):
-		cm.switch_next()
 		
 	# move and animate if not in dodge state
 	move_and_slide()
