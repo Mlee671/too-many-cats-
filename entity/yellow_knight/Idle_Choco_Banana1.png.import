@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cefmvw8mjyvnc"
-path="res://.godot/imported/dodge_placeholder.png-66b7fa1c16d80887e811cd4359b6f72b.ctex"
+uid="uid://d0xolhr72equs"
+path="res://.godot/imported/Idle_Choco_Banana1.png-be902d63628b44b43fff31496d950572.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/main_character/dodge_placeholder.png"
-dest_files=["res://.godot/imported/dodge_placeholder.png-66b7fa1c16d80887e811cd4359b6f72b.ctex"]
+source_file="res://entity/yellow_knight/Idle_Choco_Banana1.png"
+dest_files=["res://.godot/imported/Idle_Choco_Banana1.png-be902d63628b44b43fff31496d950572.ctex"]
 
 [params]
 
