@@ -11,8 +11,7 @@ class_name main_character
 @onready var stats := $Stats
 
 # current_character_scene
-@onready var main = get_tree().current_scene
-
+@onready var cm = $"../character_manager"
 # noting 3 states. more verbose than 0,1,2
 enum evadeState {READY, ACTIVE, COOLDOWN}
 
@@ -22,6 +21,7 @@ var on_cooldown := false
 var evade_flag = evadeState.READY
 
 func _ready() -> void:
+	print("New Character node created: ", self)
 	pass
 	
 func _process(_delta: float) -> void:
@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 		evade_timer.start(stats.evade_dur);
 	
 	if Input.is_action_just_pressed("character_change"):
-		main.switch()
+		cm.switch()
 		pass
 		#char_sprite.texture = char_controller.change_char()
 		
@@ -79,6 +79,8 @@ func fire_gun(target):
 	spawn.position = position + Vector2(8,8) * direction + Vector2(0,-8)
 	# adds it to the main node otherwise it would move when we move
 	get_parent().add_child(spawn)
+	stats.shots_fired += 1
+	print("shots fired total: " + str(stats.shots_fired))
 
 # is called when timer hits zero
 func _on_cooldown_timeout() -> void:
