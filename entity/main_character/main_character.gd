@@ -21,7 +21,6 @@ var on_cooldown := false
 var evade_flag = evadeState.READY
 
 func _ready() -> void:
-	print("New Character readied: ", self)
 	animate_2d_sprite.play("idle")
 	pass
 	
@@ -53,16 +52,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ability") and evade_flag == evadeState.READY:
 		# change sprite
 		animate_2d_sprite.play("dodge")
-		print(evade_flag)
 		evade_flag = evadeState.ACTIVE
-		print("evade_flag now :" + str(evade_flag))
-		#char_sprite.texture = char_controller.get_sprite("dodge");
 		evade_timer.start(stats.evade_dur);
 	
 	if Input.is_action_just_pressed("character_change"):
 		cm.switch()
 		pass
-		#char_sprite.texture = char_controller.change_char()
 		
 	# physics procees for moving a character2D, returns bool if collision
 	move_and_slide()
@@ -82,7 +77,6 @@ func fire_gun(target):
 	# adds it to the main node otherwise it would move when we move
 	get_parent().add_child(spawn)
 	stats.shots_fired += 1
-	print("shots fired total: " + str(stats.shots_fired))
 
 # is called when timer hits zero
 func _on_cooldown_timeout() -> void:

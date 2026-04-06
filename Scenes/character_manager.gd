@@ -43,7 +43,6 @@ func switch_to(target_character: String):
 func _do_switch_to(target_character: String):
 	var old_node = get_parent().get_node("character_slot")
 	var new_node = character_nodes[characters.get(target_character)]
-	print(new_node)
 	var parent = old_node.get_parent()
 	
 	new_node.global_position = old_node.global_position
