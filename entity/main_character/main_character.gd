@@ -21,7 +21,8 @@ var on_cooldown := false
 var evade_flag = evadeState.READY
 
 func _ready() -> void:
-	print("New Character node created: ", self)
+	print("New Character readied: ", self)
+	animate_2d_sprite.play("idle")
 	pass
 	
 func _process(_delta: float) -> void:
@@ -51,6 +52,7 @@ func _physics_process(delta: float) -> void:
 	# current implementation, cannot hold down to spam dodge - makes more sense to me
 	if Input.is_action_just_pressed("ability") and evade_flag == evadeState.READY:
 		# change sprite
+		animate_2d_sprite.play("dodge")
 		print(evade_flag)
 		evade_flag = evadeState.ACTIVE
 		print("evade_flag now :" + str(evade_flag))
@@ -90,7 +92,6 @@ func _on_evade_active_timeout() -> void:
 	if evade_flag == evadeState.ACTIVE:
 		# set to cooldown state
 		evade_flag = evadeState.COOLDOWN
-		animate_2d_sprite.play("dodge")
 
 		evade_timer.start(stats.evade_cd)
 	elif evade_flag == evadeState.COOLDOWN:

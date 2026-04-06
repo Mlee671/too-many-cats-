@@ -36,7 +36,24 @@ func _do_switch_next():
 	
 	new_node.name = "character_slot"
 	
-
+func switch_to(target_character: String):
+	call_deferred("_do_switch_to", target_character)
+	pass
+	
+func _do_swtich_to(target_character: String):
+	var old_node = get_parent().get_node("character_slot")
+	var new_node = characters.get(target_character)
+	var parent = old_node.get_parent()
+	
+	new_node.global_position = old_node.global_position
+	
+	parent.add_child(new_node)
+	parent.move_child(new_node, old_node.get_index())
+	parent.remove_child(old_node)
+	
+	new_node.name = "character_slot"
+	pass
+	
 	
 # returns the scene of the next character
 func switch_next():
@@ -45,3 +62,4 @@ func switch_next():
 		character_index = 0
 
 	return	character_scenes[character_index]
+	
