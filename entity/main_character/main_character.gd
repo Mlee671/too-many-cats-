@@ -3,13 +3,15 @@ class_name main_character
 
 # loads the bullet scene when starting the game
 @onready var projectile := preload("res://entity/Projectiles/Bullet.tscn")
-
 # gets a reference to the cooldown timer
 @onready var attack_cooldown := $attack_cooldown
 @onready var evade_timer := $evade_timer
-@onready var char_sprite := $char_visual/char_sprite
+@onready var animate_2d_sprite := $char_visual/AnimatedSprite2D
 @onready var char_visual := $char_visual
-@onready var char_controller := $Char_switcher
+@onready var stats := $Stats
+
+# current_character_scene
+@onready var main = get_tree().current_scene
 
 # noting 3 states. more verbose than 0,1,2
 enum evadeState {READY, ACTIVE, COOLDOWN}
@@ -17,10 +19,10 @@ enum evadeState {READY, ACTIVE, COOLDOWN}
 var on_cooldown := false
 
 # probably use this for i-frame checking (if evadeState.ACTIVE)
-var evade_flag := evadeState.READY
+var evade_flag = evadeState.READY
 
 func _ready() -> void:
-	char_sprite.texture = char_controller.get_sprite("base")
+	pass
 	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
@@ -36,10 +38,10 @@ func _physics_process(delta: float) -> void:
 	
 	if evade_flag == evadeState.ACTIVE:
 		# probably can't shoot during dodge
-		velocity = lerp(velocity, input_vector * char_controller.speed * char_controller.evade, char_controller.accel * delta)
+		velocity = lerp(velocity, input_vector * stats.speed * stats.evade_movement_scaling, stats.accel * delta)
 	else:
 		# sets the velocity. lerp is an acceleration function(starting speed, target speed, accel factor)
-		velocity = lerp(velocity, input_vector * char_controller.speed, char_controller.accel * delta)
+		velocity = lerp(velocity, input_vector * stats.speed, stats.accel * delta)
 	
 		# checks if your left clicking
 		if Input.is_action_pressed("fire_gun"):
@@ -49,20 +51,27 @@ func _physics_process(delta: float) -> void:
 	# current implementation, cannot hold down to spam dodge - makes more sense to me
 	if Input.is_action_just_pressed("ability") and evade_flag == evadeState.READY:
 		# change sprite
+		print(evade_flag)
 		evade_flag = evadeState.ACTIVE
-		char_sprite.texture = char_controller.get_sprite("dodge");
-		evade_timer.start(char_controller.evade_dur);
+		print("evade_flag now :" + str(evade_flag))
+		#char_sprite.texture = char_controller.get_sprite("dodge");
+		evade_timer.start(stats.evade_dur);
 	
 	if Input.is_action_just_pressed("character_change"):
-		char_sprite.texture = char_controller.change_char()
+		main.switch()
+		pass
+		#char_sprite.texture = char_controller.change_char()
+		
 	# physics procees for moving a character2D, returns bool if collision
 	move_and_slide()
+	if evade_flag != evadeState.ACTIVE:
+		handle_animation()
 
 			
 func fire_gun(target):
 	on_cooldown = true
 	# starts timer
-	attack_cooldown.start(char_controller.fire_cd)
+	attack_cooldown.start(stats.fire_cd)
 	# method for spawning a new bullet
 	var spawn = projectile.instantiate()
 	var direction = target.normalized()
@@ -79,7 +88,14 @@ func _on_evade_active_timeout() -> void:
 	if evade_flag == evadeState.ACTIVE:
 		# set to cooldown state
 		evade_flag = evadeState.COOLDOWN
-		char_sprite.texture = char_controller.get_sprite("base")
-		evade_timer.start(char_controller.evade_cd)
+		animate_2d_sprite.play("dodge")
+
+		evade_timer.start(stats.evade_cd)
 	elif evade_flag == evadeState.COOLDOWN:
 		evade_flag = evadeState.READY
+		
+func handle_animation():
+	if velocity.length_squared() > 0.5:
+		animate_2d_sprite.play("run")
+	else:
+		animate_2d_sprite.play("idle")
