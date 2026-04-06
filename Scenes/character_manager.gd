@@ -4,6 +4,8 @@ class_name character_manager
 # the scene name of each character
 enum characters {blue_knight, yellow_knight}
 
+const NAME_OF_NODE = "character_slot"
+
 var path := "res://entity/character_scenes/"
 
 # all loaded character nodes gets added to this array
@@ -28,7 +30,7 @@ func switch_to(target_character: String):
 	pass
 	
 func _do_switch(target_character: String):
-	var old_node = get_parent().get_node("character_slot")
+	var old_node = get_parent().get_node(NAME_OF_NODE)
 	var new_node
 	if target_character != "":
 		new_node = character_nodes[characters.get(target_character)]
@@ -44,7 +46,7 @@ func _do_switch(target_character: String):
 	parent.move_child(new_node, old_node.get_index())
 	parent.remove_child(old_node)
 	
-	new_node.name = "character_slot"	
+	new_node.name = NAME_OF_NODE
 	
 # returns the node of the next character
 func get_next():
