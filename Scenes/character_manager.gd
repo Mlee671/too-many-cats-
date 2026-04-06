@@ -7,7 +7,7 @@ enum characters {blue_knight, yellow_knight}
 var path := "res://entity/character_scenes/"
 
 # all loaded character nodes gets added to this array
-var character_scenes := []
+var character_nodes := []
 
 var character_index : int = 0
 
@@ -17,7 +17,7 @@ var character_index : int = 0
 func _ready() -> void:
 	# loads all character nodes and adds them into an array
 	for c in characters:
-		character_scenes.append(load(path + c + ".tscn").instantiate())
+		character_nodes.append(load(path + c + ".tscn").instantiate())
 	pass
 	
 func switch():
@@ -42,7 +42,7 @@ func switch_to(target_character: String):
 	
 func _do_switch_to(target_character: String):
 	var old_node = get_parent().get_node("character_slot")
-	var new_node = character_scenes[characters.get(target_character)]
+	var new_node = character_nodes[characters.get(target_character)]
 	print(new_node)
 	var parent = old_node.get_parent()
 	
@@ -62,5 +62,5 @@ func switch_next():
 	if character_index == characters.size():
 		character_index = 0
 
-	return	character_scenes[character_index]
+	return	character_nodes[character_index]
 	
