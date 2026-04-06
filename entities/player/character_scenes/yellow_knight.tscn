@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://itihf4vr1umj"]
 
-[ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entity/character_scenes/blue_knight.tscn" id="1_bk7k0"]
-[ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entity/dodge_placeholder.png" id="2_604g3"]
-[ext_resource type="Texture2D" uid="uid://d0xolhr72equs" path="res://entity/yellow_knight/Idle_Choco_Banana1.png" id="2_bk7k0"]
-[ext_resource type="Script" uid="uid://dbmwv2bwa6afu" path="res://entity/yellow_knight/yk_stats.gd" id="3_2si07"]
-[ext_resource type="Texture2D" uid="uid://bewjbmrkg2otp" path="res://entity/yellow_knight/Run_Choco_Banana.png" id="3_232be"]
+[ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/character_scenes/blue_knight.tscn" id="1_bk7k0"]
+[ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_604g3"]
+[ext_resource type="Texture2D" uid="uid://d0xolhr72equs" path="res://entities/player/yellow_knight/Idle_Choco_Banana1.png" id="2_bk7k0"]
+[ext_resource type="Script" uid="uid://dbmwv2bwa6afu" path="res://entities/player/yellow_knight/yk_stats.gd" id="3_2si07"]
+[ext_resource type="Texture2D" uid="uid://bewjbmrkg2otp" path="res://entities/player/yellow_knight/Run_Choco_Banana.png" id="3_232be"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_604g3"]
 atlas = ExtResource("2_bk7k0")

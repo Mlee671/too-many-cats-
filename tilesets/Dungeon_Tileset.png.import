@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0xolhr72equs"
-path="res://.godot/imported/Idle_Choco_Banana1.png-be902d63628b44b43fff31496d950572.ctex"
+uid="uid://bavgh2guhg0fp"
+path="res://.godot/imported/Dungeon_Tileset.png-28a25fb93447c55623dca3a7ec8fd8d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/yellow_knight/Idle_Choco_Banana1.png"
-dest_files=["res://.godot/imported/Idle_Choco_Banana1.png-be902d63628b44b43fff31496d950572.ctex"]
+source_file="res://tilesets/Dungeon_Tileset.png"
+dest_files=["res://.godot/imported/Dungeon_Tileset.png-28a25fb93447c55623dca3a7ec8fd8d7.ctex"]
 
 [params]
 

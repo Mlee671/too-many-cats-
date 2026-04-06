@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x815c1srcasp"
-path="res://.godot/imported/ikoiku_itchio_mouse.png-ada00ad0fb21c15b3db1ea2409ce852b.ctex"
+uid="uid://bewjbmrkg2otp"
+path="res://.godot/imported/Run_Choco_Banana.png-bdc563e6d72644649e650ed724267522.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/enemy/basic_ranged/ikoiku_itchio_mouse.png"
-dest_files=["res://.godot/imported/ikoiku_itchio_mouse.png-ada00ad0fb21c15b3db1ea2409ce852b.ctex"]
+source_file="res://entities/player/yellow_knight/Run_Choco_Banana.png"
+dest_files=["res://.godot/imported/Run_Choco_Banana.png-bdc563e6d72644649e650ed724267522.ctex"]
 
 [params]
 

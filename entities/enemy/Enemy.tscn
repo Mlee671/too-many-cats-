@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b5c58jagrlp5r"]
 
-[ext_resource type="Script" uid="uid://bwfj5js77orbp" path="res://entity/enemy/enemy.gd" id="1_uy4mc"]
-[ext_resource type="PackedScene" uid="uid://cu7va32w0ae3h" path="res://entity/enemy/health/HealthBar.tscn" id="2_2vbla"]
-[ext_resource type="Script" uid="uid://c0rwmgxx271u3" path="res://entity/enemy/vision_radius.gd" id="3_3vmdj"]
-[ext_resource type="Script" uid="uid://cwqusbmtuox3n" path="res://entity/enemy/enemy_animation.gd" id="3_23wh4"]
+[ext_resource type="Script" uid="uid://bwfj5js77orbp" path="res://entities/enemy/enemy.gd" id="1_uy4mc"]
+[ext_resource type="PackedScene" uid="uid://cu7va32w0ae3h" path="res://entities/enemy/components/health/HealthBar.tscn" id="2_2vbla"]
+[ext_resource type="Script" uid="uid://c0rwmgxx271u3" path="res://entities/enemy/components/vision/vision_radius.gd" id="3_3vmdj"]
+[ext_resource type="Script" uid="uid://cwqusbmtuox3n" path="res://entities/enemy/components/animation/enemy_animation.gd" id="3_23wh4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23wh4"]
 bg_color = Color(0.24313726, 0.24313726, 0.24313726, 0.7921569)

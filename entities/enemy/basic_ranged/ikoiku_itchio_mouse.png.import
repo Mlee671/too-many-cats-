@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://civxms4kcr2yc"
-path="res://.godot/imported/Run_Blue1.png-51e7499b11ff679addb1a2dc20645501.ctex"
+uid="uid://x815c1srcasp"
+path="res://.godot/imported/ikoiku_itchio_mouse.png-a15ba1aba869c8e767f665f1bf9a738a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/blue_knight/Run_Blue1.png"
-dest_files=["res://.godot/imported/Run_Blue1.png-51e7499b11ff679addb1a2dc20645501.ctex"]
+source_file="res://entities/enemy/basic_ranged/ikoiku_itchio_mouse.png"
+dest_files=["res://.godot/imported/ikoiku_itchio_mouse.png-a15ba1aba869c8e767f665f1bf9a738a.ctex"]
 
 [params]
 

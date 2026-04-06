@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7aey4jfrq2s1"
-path="res://.godot/imported/Idle_Blue.png-ebb5e9039036493de5d1f0362bbe86bf.ctex"
+uid="uid://d0xolhr72equs"
+path="res://.godot/imported/Idle_Choco_Banana1.png-7333295a1fafeacb8138dff886ccbef2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/blue_knight/Idle_Blue.png"
-dest_files=["res://.godot/imported/Idle_Blue.png-ebb5e9039036493de5d1f0362bbe86bf.ctex"]
+source_file="res://entities/player/yellow_knight/Idle_Choco_Banana1.png"
+dest_files=["res://.godot/imported/Idle_Choco_Banana1.png-7333295a1fafeacb8138dff886ccbef2.ctex"]
 
 [params]
 

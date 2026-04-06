@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cu5vxr7m0nptx"]
 
-[ext_resource type="Script" uid="uid://r45tisj2jqte" path="res://entity/main_character/main_character.gd" id="1_a3m1w"]
-[ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entity/dodge_placeholder.png" id="2_1frpi"]
-[ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entity/blue_knight/Idle_Blue.png" id="2_hj1g0"]
-[ext_resource type="Texture2D" uid="uid://civxms4kcr2yc" path="res://entity/blue_knight/Run_Blue1.png" id="3_1frpi"]
-[ext_resource type="Script" uid="uid://b1ndc5sne6j2m" path="res://entity/blue_knight/bk_stats.gd" id="3_c4o6u"]
+[ext_resource type="Script" uid="uid://r45tisj2jqte" path="res://entities/player/main_character.gd" id="1_a3m1w"]
+[ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_1frpi"]
+[ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entities/player/blue_knight/Idle_Blue.png" id="2_hj1g0"]
+[ext_resource type="Texture2D" uid="uid://civxms4kcr2yc" path="res://entities/player/blue_knight/Run_Blue1.png" id="3_1frpi"]
+[ext_resource type="Script" uid="uid://b1ndc5sne6j2m" path="res://entities/player/blue_knight/bk_stats.gd" id="3_c4o6u"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
 radius = 8.0

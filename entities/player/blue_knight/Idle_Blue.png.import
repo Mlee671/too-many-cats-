@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bavgh2guhg0fp"
-path="res://.godot/imported/Dungeon_Tileset.png-a99484c856709f2ca76ea01869f3df27.ctex"
+uid="uid://b7aey4jfrq2s1"
+path="res://.godot/imported/Idle_Blue.png-625454cdb3143bf60951baca73ca1c89.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tile_resources/Dungeon_Tileset.png"
-dest_files=["res://.godot/imported/Dungeon_Tileset.png-a99484c856709f2ca76ea01869f3df27.ctex"]
+source_file="res://entities/player/blue_knight/Idle_Blue.png"
+dest_files=["res://.godot/imported/Idle_Blue.png-625454cdb3143bf60951baca73ca1c89.ctex"]
 
 [params]
 

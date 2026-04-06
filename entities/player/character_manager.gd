@@ -6,7 +6,7 @@ enum characters {blue_knight, yellow_knight}
 
 const NAME_OF_NODE := "character_slot"
 
-var path := "res://entity/character_scenes/"
+var path := "res://entities/player/character_scenes/"
 
 # all loaded character nodes gets added to this array
 var character_nodes := []

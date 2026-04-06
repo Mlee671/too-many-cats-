@@ -1,10 +1,10 @@
 [gd_scene format=4 uid="uid://dyjum5gp0r4ku"]
 
-[ext_resource type="Script" uid="uid://cidkhr87v52xl" path="res://Scenes/main.gd" id="1_8gbba"]
-[ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://Tile_resources/Dungeon_Tileset.png" id="1_jjgbg"]
-[ext_resource type="PackedScene" uid="uid://uxtl1jypjjmq" path="res://entity/enemy/basic_ranged/BasicRangedEnemy.tscn" id="2_8gbba"]
-[ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entity/character_scenes/blue_knight.tscn" id="2_bo1nx"]
-[ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://Scenes/character_manager.gd" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://cidkhr87v52xl" path="res://main/main.gd" id="1_8gbba"]
+[ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://uxtl1jypjjmq" path="res://entities/enemy/basic_ranged/BasicRangedEnemy.tscn" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/character_scenes/blue_knight.tscn" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8gbba"]
 vertices = PackedVector2Array(8, 0, 0, 8, -8, 8, -8, -8, 8, -8)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cefmvw8mjyvnc"
-path="res://.godot/imported/dodge_placeholder.png-12311cd869a9ee760a640cdb577b8e8d.ctex"
+uid="uid://civxms4kcr2yc"
+path="res://.godot/imported/Run_Blue1.png-7c72a549908c452491fa6b97e8c38464.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/dodge_placeholder.png"
-dest_files=["res://.godot/imported/dodge_placeholder.png-12311cd869a9ee760a640cdb577b8e8d.ctex"]
+source_file="res://entities/player/blue_knight/Run_Blue1.png"
+dest_files=["res://.godot/imported/Run_Blue1.png-7c72a549908c452491fa6b97e8c38464.ctex"]
 
 [params]
 

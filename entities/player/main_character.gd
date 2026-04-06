@@ -2,7 +2,8 @@ extends CharacterBody2D
 class_name main_character
 
 # loads the bullet scene when starting the game
-@onready var projectile := preload("res://entity/Projectiles/Bullet.tscn")
+# TODO: replace with child node to generate within (e.g. AttackComponent)
+@onready var projectile := preload("res://entities/player/attacks/Bullet.tscn")
 
 @onready var attack_timer := $AttackTimer
 @onready var evade_timer := $EvadeTimer
