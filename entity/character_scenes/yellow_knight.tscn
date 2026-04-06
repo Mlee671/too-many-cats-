@@ -85,13 +85,12 @@ animations = [{
 
 [node name="YellowKnight" unique_id=2044665017 instance=ExtResource("1_bk7k0")]
 
-[node name="attack_cooldown" parent="." index="2" unique_id=190503675]
+[node name="AttackTimer" parent="." index="2" unique_id=190503675]
 wait_time = 0.1
 
-[node name="AnimatedSprite2D" parent="char_visual" parent_id_path=PackedInt32Array(569010630) index="0" unique_id=1946509894]
+[node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="0" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_bk7k0")
 animation = &"idle"
-frame_progress = 0.0
 
 [node name="Stats" parent="." index="5" unique_id=201965470]
 script = ExtResource("3_2si07")
