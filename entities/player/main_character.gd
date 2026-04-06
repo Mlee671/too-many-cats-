@@ -21,7 +21,6 @@ var evade_flag = evadeState.READY
 
 func _ready() -> void:
 	animate_2d_sprite.play("idle")
-	pass
 	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position

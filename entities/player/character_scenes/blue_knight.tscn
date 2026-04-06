@@ -88,6 +88,7 @@ animations = [{
 }]
 
 [node name="BlueKnight" type="CharacterBody2D" unique_id=2044665017]
+motion_mode = 1
 script = ExtResource("1_a3m1w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1575622610]

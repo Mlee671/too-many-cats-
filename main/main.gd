@@ -5,4 +5,3 @@ extends Node2D
 
 func _ready() -> void:
 	cm.switch_to("blue_knight")
-	pass
