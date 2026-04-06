@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		evade_timer.start(stats.evade_dur);
 	
 	if Input.is_action_just_pressed("character_change"):
-		cm.switch()
+		cm.switch_next()
 		pass
 		
 	# physics procees for moving a character2D, returns bool if collision

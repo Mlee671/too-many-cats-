@@ -112,7 +112,6 @@ texture_filter = 1
 position = Vector2(-1, -6)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"dodge"
-frame_progress = 0.7962708
 
 [node name="Stats" type="Node" parent="." unique_id=201965470]
 script = ExtResource("3_c4o6u")

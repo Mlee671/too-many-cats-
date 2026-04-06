@@ -20,43 +20,34 @@ func _ready() -> void:
 		character_nodes.append(load(path + c + ".tscn").instantiate())
 	pass
 	
-func switch():
-	call_deferred("_do_switch_next")
-	
-func _do_switch_next():
-	var old_node = get_parent().get_node("character_slot")
-	var new_node = switch_next()
-	var parent = old_node.get_parent()
-	
-	new_node.global_position = old_node.global_position
-	
-	parent.add_child(new_node)
-	parent.move_child(new_node, old_node.get_index())
-	parent.remove_child(old_node)
-	
-	new_node.name = "character_slot"
+func switch_next():
+	call_deferred("_do_switch", "")
 	
 func switch_to(target_character: String):
-	call_deferred("_do_switch_to", target_character)
+	call_deferred("_do_switch", target_character)
 	pass
 	
-func _do_switch_to(target_character: String):
+func _do_switch(target_character: String):
 	var old_node = get_parent().get_node("character_slot")
-	var new_node = character_nodes[characters.get(target_character)]
+	var new_node
+	if target_character != "":
+		new_node = character_nodes[characters.get(target_character)]
+	else:
+		new_node = get_next()
 	var parent = old_node.get_parent()
+	new_node.name = "character_slot"
 	
+	# transfer the current pos
 	new_node.global_position = old_node.global_position
 	
 	parent.add_child(new_node)
 	parent.move_child(new_node, old_node.get_index())
 	parent.remove_child(old_node)
 	
-	new_node.name = "character_slot"
-	pass
+	new_node.name = "character_slot"	
 	
-	
-# returns the scene of the next character
-func switch_next():
+# returns the node of the next character
+func get_next():
 	character_index += 1
 	if character_index == characters.size():
 		character_index = 0
