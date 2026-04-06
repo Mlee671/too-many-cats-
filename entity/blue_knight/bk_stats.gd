@@ -7,5 +7,5 @@ extends Node
 @export var evade_dur := 0.2
 @export var evade_cd := 0.5
 
-@export var fire_cd := .5 # firing cd
-@export var shots_fired :=0 #how many shots fired
+@export var fire_cd := .5
+var shots_fired := 0
