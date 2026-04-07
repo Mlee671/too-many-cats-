@@ -137,9 +137,6 @@ vframes = 6
 position = Vector2(0, -1)
 rotation = 1.5707964
 
-[node name="NavigationAgent2D" parent="." index="5" unique_id=221465016]
-debug_enabled = false
-
 [node name="AnimationPlayer" parent="." index="7" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_wswxn")
 
