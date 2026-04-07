@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cidkhr87v52xl" path="res://Scenes/main.gd" id="1_8gbba"]
 [ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://Tile_resources/Dungeon_Tileset.png" id="1_jjgbg"]
-[ext_resource type="PackedScene" uid="uid://uxtl1jypjjmq" path="res://entity/enemy/basic_ranged/BasicRangedEnemy.tscn" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://btki6vqc3kjki" path="res://Scenes/Room_manager.gd" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entity/character_scenes/blue_knight.tscn" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://Scenes/character_manager.gd" id="4_jjvhh"]
@@ -622,33 +621,3 @@ position = Vector2(576, 325)
 
 [node name="character_manager" type="Node" parent="." unique_id=1573431383]
 script = ExtResource("4_jjvhh")
-
-[node name="BasicRangedEnemy3" parent="." unique_id=310538941 node_paths=PackedStringArray("tilemap", "target") instance=ExtResource("2_8gbba")]
-position = Vector2(523, 127)
-tilemap = NodePath("../Room_manager/Hallway")
-target = NodePath("../character_slot")
-vision_range = 20.0
-
-[node name="BasicRangedEnemy" parent="." unique_id=698182397 node_paths=PackedStringArray("tilemap", "target") instance=ExtResource("2_8gbba")]
-position = Vector2(552, 106)
-tilemap = NodePath("../Room_manager/Hallway")
-target = NodePath("../character_slot")
-vision_range = 10.0
-
-[node name="BasicRangedEnemy2" parent="." unique_id=225789526 node_paths=PackedStringArray("tilemap", "target") instance=ExtResource("2_8gbba")]
-position = Vector2(566, 93)
-tilemap = NodePath("../Room_manager/Hallway")
-target = NodePath("../character_slot")
-vision_range = 20.0
-
-[node name="BasicRangedEnemy4" parent="." unique_id=1513903321 node_paths=PackedStringArray("tilemap", "target") instance=ExtResource("2_8gbba")]
-position = Vector2(519, 98)
-tilemap = NodePath("../Room_manager/Hallway")
-target = NodePath("../character_slot")
-vision_range = 20.0
-
-[node name="BasicRangedEnemy5" parent="." unique_id=1380301717 node_paths=PackedStringArray("tilemap", "target") instance=ExtResource("2_8gbba")]
-position = Vector2(542, 81)
-tilemap = NodePath("../Room_manager/Hallway")
-target = NodePath("../character_slot")
-vision_range = 20.0
