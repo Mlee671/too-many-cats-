@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://cu5vxr7m0nptx"]
+
+[ext_resource type="Script" uid="uid://r45tisj2jqte" path="res://entities/player/main_character.gd" id="1_a3m1w"]
+[ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_1frpi"]
+[ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entities/player/blue_knight/Idle_Blue.png" id="2_hj1g0"]
+[ext_resource type="Texture2D" uid="uid://civxms4kcr2yc" path="res://entities/player/blue_knight/Run_Blue1.png" id="3_1frpi"]
+[ext_resource type="Script" uid="uid://b1ndc5sne6j2m" path="res://entities/player/blue_knight/bk_stats.gd" id="3_c4o6u"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6pjh"]
+atlas = ExtResource("2_hj1g0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wstnq"]
+atlas = ExtResource("2_hj1g0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgb8v"]
+atlas = ExtResource("2_hj1g0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3hpa"]
+atlas = ExtResource("2_hj1g0")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igbh3"]
+atlas = ExtResource("3_1frpi")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bb4lm"]
+atlas = ExtResource("3_1frpi")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w8xk"]
+atlas = ExtResource("3_1frpi")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlxj6"]
+atlas = ExtResource("3_1frpi")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i0knk"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": ExtResource("2_1frpi")
+}],
+"loop": true,
+"name": &"dodge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6pjh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wstnq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgb8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3hpa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igbh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bb4lm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w8xk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlxj6")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[node name="BlueKnight" type="CharacterBody2D" unique_id=2044665017 groups=["Player"]]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_a3m1w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1575622610]
+position = Vector2(0, -4)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_bggxh")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1320116309]
+zoom = Vector2(3, 3)
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=190503675]
+one_shot = true
+
+[node name="EvadeTimer" type="Timer" parent="." unique_id=1923964845]
+wait_time = 5.0
+one_shot = true
+
+[node name="CharacterVisuals" type="Node2D" parent="." unique_id=569010630]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterVisuals" unique_id=1946509894]
+texture_filter = 1
+position = Vector2(-1, -6)
+sprite_frames = SubResource("SpriteFrames_i0knk")
+animation = &"dodge"
+
+[node name="Stats" type="Node" parent="." unique_id=201965470]
+script = ExtResource("3_c4o6u")
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
+[connection signal="timeout" from="EvadeTimer" to="." method="_on_evade_timeout"]

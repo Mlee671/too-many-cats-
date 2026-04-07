@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://uxtl1jypjjmq"]
+
+[ext_resource type="PackedScene" uid="uid://b5c58jagrlp5r" path="res://entities/enemy/Enemy.tscn" id="1_enhxg"]
+[ext_resource type="Script" uid="uid://b7rw6ss3s6dgp" path="res://entities/enemy/basic_ranged/basic_ranged_enemy.gd" id="2_ocqek"]
+[ext_resource type="Texture2D" uid="uid://x815c1srcasp" path="res://entities/enemy/basic_ranged/ikoiku_itchio_mouse.png" id="3_l8j17"]
+
+[sub_resource type="Animation" id="Animation_l8j17"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_wewrm"]
+resource_name = "damaged"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 7, 11, 15]
+}
+
+[sub_resource type="Animation" id="Animation_7g1hh"]
+resource_name = "death"
+length = 1.8333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5, 0.6667, 0.8333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 6, 10, 14, 18, 22]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8333333, 1.8333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_soa10"]
+resource_name = "idle"
+length = 0.8333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5, 0.6667, 0.8333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 4, 8, 12, 16, 20]
+}
+
+[sub_resource type="Animation" id="Animation_fn27k"]
+resource_name = "moving"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 5, 9, 13, 17, 21]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wswxn"]
+_data = {
+&"RESET": SubResource("Animation_l8j17"),
+&"damaged": SubResource("Animation_wewrm"),
+&"death": SubResource("Animation_7g1hh"),
+&"idle": SubResource("Animation_soa10"),
+&"moving": SubResource("Animation_fn27k")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tou4i"]
+radius = 80.1561
+
+[node name="BasicRangedEnemy" unique_id=310538941 instance=ExtResource("1_enhxg")]
+script = ExtResource("2_ocqek")
+
+[node name="shadow" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=167189831]
+offset_left = -5.0
+offset_right = 7.0
+offset_bottom = 6.0
+
+[node name="Sprite" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="1" unique_id=1680913945]
+texture = ExtResource("3_l8j17")
+hframes = 4
+vframes = 6
+
+[node name="Hitbox" parent="." index="1" unique_id=1076322931]
+position = Vector2(0, -1)
+rotation = 1.5707964
+
+[node name="NavigationAgent2D" parent="." index="5" unique_id=221465016]
+debug_enabled = false
+
+[node name="AnimationPlayer" parent="." index="7" unique_id=2102798003]
+libraries/ = SubResource("AnimationLibrary_wswxn")
+
+[node name="VisionCircle" parent="VisionArea" parent_id_path=PackedInt32Array(829889890) index="0" unique_id=428306925]
+shape = SubResource("CircleShape2D_tou4i")
