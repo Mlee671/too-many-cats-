@@ -25,6 +25,7 @@ var attack_logic_flag := false
 var attack_cooldown := false
 
 @onready var wander_timer := $WanderTimer
+@onready var attack_timer := $AttackTimer
 @onready var nav_agent := $NavigationAgent2D
 @onready var vision := $VisionRadius
 @onready var health := $HealthBar

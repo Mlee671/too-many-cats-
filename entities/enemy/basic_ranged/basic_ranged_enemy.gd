@@ -1,5 +1,9 @@
 extends Enemy
 
+@export var projectile := preload("res://entities/enemy/components/attacks/projectile.tscn") 
+@export var projectile_speed := 50
+@export var attack_rate : float = 1.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	move_speed = 30.0
@@ -23,6 +27,12 @@ func attack_logic(delta: float) -> void:
 	animation.play_animation("moving")
 	
 	if not attack_cooldown:
+		var attack := projectile.instantiate()
+		attack.set_velocity(-player_enemy_direction * 50)
+		attack.global_position = global_position
+		get_tree().root.add_child(attack)
+		attack_cooldown = true
+		attack_timer.start(1.0 / attack_rate)
 		# inst bullet
 		# aim raycast target and deploy
 		pass
