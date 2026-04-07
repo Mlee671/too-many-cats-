@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dgyryeova7lit"]
 
 [ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://Tile_resources/Dungeon_Tileset.png" id="1_x43pv"]
+[ext_resource type="Texture2D" uid="uid://0k7bferun6ck" path="res://Tile_resources/spikes.png" id="2_x20t4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8gbba"]
 vertices = PackedVector2Array(8, 0, 0, 8, -8, 8, -8, -8, 8, -8)
@@ -650,8 +651,13 @@ texture = ExtResource("1_x43pv")
 8:9/0 = 0
 9:9/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_unu5q"]
+texture = ExtResource("2_x20t4")
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_d2scd"]
 sources/0 = SubResource("TileSetAtlasSource_iy2pc")
+sources/1 = SubResource("TileSetAtlasSource_unu5q")
 
 [node name="Room_template" type="Node2D" unique_id=760106608]
 
