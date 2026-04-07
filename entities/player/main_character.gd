@@ -72,6 +72,12 @@ func _on_evade_timeout() -> void:
 	elif evade_flag == evadeState.COOLDOWN:
 		evade_flag = evadeState.READY
 
+func _on_swapping_character() -> void:
+	# dodge should skip straight to cooldown to prevent abuse
+	evade_flag = evadeState.COOLDOWN
+	handle_animation() # force change animation away from dodge
+	evade_timer.start(stats.evade_cd)
+
 ## Creates bullet instance and fires from sprite to target vector.
 func fire_gun(target: Vector2) -> void:
 	attack_cooldown = true
