@@ -119,8 +119,8 @@ func _on_vision_area_exited(body: Node2D) -> void:
 
 func nearby_vector(tile_range: Vector2) -> Vector2:
 	return Vector2(
-		randf_range(position.x - tile_range.x, position.x + tile_range.x),
-		randf_range(position.y - tile_range.y, position.y + tile_range.y))
+		randf_range(global_position.x - tile_range.x, global_position.x + tile_range.x),
+		randf_range(global_position.y - tile_range.y, global_position.y + tile_range.y))
 
 
 func setup_nav() -> void:

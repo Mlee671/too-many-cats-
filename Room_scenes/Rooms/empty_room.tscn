@@ -1,8 +1,12 @@
 [gd_scene format=4 uid="uid://hmyxv35xjw11"]
 
 [ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/room_template.tscn" id="1_3brm0"]
+[ext_resource type="PackedScene" uid="uid://uxtl1jypjjmq" path="res://entities/enemy/basic_ranged/BasicRangedEnemy.tscn" id="2_dbej8"]
 
 [node name="Empty_room" unique_id=760106608 instance=ExtResource("1_3brm0")]
 
 [node name="Environment" parent="TileMapOrganiser" parent_id_path=PackedInt32Array(1451625633) index="1" unique_id=90514998]
 tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAYAAAAAAAkAAAAHAAYAAAAJAP//AAAIAAQAAAAJAAAAAAAIAAUAAAD2////AAAHAAQAAAD2/wAAAAAHAAUAAAD5//n/AQAAAAAAAAD5//r/AQAAAAAAAAD5//v/AQAAAAAAAAD6//v/AQAAAAAAAAD7//v/AQAAAAAAAAD7//r/AQAAAAAAAAD7//n/AQAAAAAAAAD6//n/AQAAAAAAAAD6//r/AQAAAAAAAAAEAPn/AQAAAAAAAAAEAPr/AQAAAAAAAAAEAPv/AQAAAAAAAAAEAPz/AQAAAAAAAAAEAP3/AQAAAAAAAAAEAP7/AQAAAAAAAAAEAP//AQAAAAAAAAAEAAAAAQAAAAAAAAAFAAAAAQAAAAAAAAAFAP//AQAAAAAAAAAFAP7/AQAAAAAAAAAFAP3/AQAAAAAAAAAFAPz/AQAAAAAAAAAFAPv/AQAAAAAAAAAFAPr/AQAAAAAAAAAFAPn/AQAAAAAAAAD5/wUAAQAAAAAAAAD6/wUAAQAAAAAAAAD7/wUAAQAAAAAAAAD7/wYAAQAAAAAAAAD6/wYAAQAAAAAAAAD5/wYAAQAAAAAAAAA=")
+
+[node name="BasicRangedEnemy" parent="." index="1" unique_id=310538941 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_dbej8")]
+tilemap = NodePath("../TileMapOrganiser/Room")
