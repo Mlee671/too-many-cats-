@@ -22,6 +22,7 @@ var raycast_target: Node2D = null
 
 # debug flag for if attack is implemented - only one message activation
 var attack_logic_flag := false
+var attack_cooldown := false
 
 @onready var wander_timer := $WanderTimer
 @onready var nav_agent := $NavigationAgent2D
@@ -61,7 +62,7 @@ func _physics_process(delta: float) -> void:
 		# get new direction to get to next path node
 		var new_velocity: Vector2 = (
 				(nav_agent.get_next_path_position() - global_position)
-				.normalized()* move_speed)
+				.normalized() * move_speed)
 		var smooth_velocity: Vector2 = lerp(velocity,
 				new_velocity,
 				accel * delta)
@@ -76,7 +77,7 @@ func _physics_process(delta: float) -> void:
 	
 	# if attacking user, run corresponding logic
 	elif enemyState == BEHAVIOUR.ATTACK:
-		attack_logic()
+		attack_logic(delta)
 		# enemy should look left or right based on raycast to player
 
 
@@ -107,7 +108,7 @@ func _on_death() -> void:
 
 
 func _on_attack_timeout() -> void:
-	pass # Replace with function body.
+	attack_cooldown = false
 
 func _on_vision_area_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
@@ -116,6 +117,7 @@ func _on_vision_area_entered(body: Node2D) -> void:
 func _on_vision_area_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		raycast_target = null
+		enemyState = BEHAVIOUR.WANDER
 
 func nearby_vector(tile_range: Vector2) -> Vector2:
 	return Vector2(
@@ -135,7 +137,7 @@ func set_wander_target() -> void:
 			tilemap.map_to_local(Vector2i(pathfind_range, pathfind_range)))
 
 
-func attack_logic() -> void:
+func attack_logic(delta: float) -> void:
 	if not attack_logic_flag:
 		attack_logic_flag = true
 		push_warning("Attack Logic not implemented. Must be overwritten.")

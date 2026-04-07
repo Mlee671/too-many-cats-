@@ -22,3 +22,4 @@ tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAY
 [node name="BasicRangedEnemy" parent="." index="1" unique_id=310538941 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_g2ibq")]
 position = Vector2(-71, 2)
 tilemap = NodePath("../NavRegion/Room")
+vision_range = 120.0
