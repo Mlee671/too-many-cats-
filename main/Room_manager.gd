@@ -39,7 +39,7 @@ func generate_rooms(rooms : int) -> Vector2:
 func _get_room_positions(rooms : int):
 	room_pos.append(Vector2i(0,0))
 	for i in rooms:
-		while room_pos:
+		while true:
 			var prev_pos = room_pos[-1]
 			var new_pos := Vector2i(randi_range(-1,1),randi_range(-1,1))
 			new_pos += prev_pos
