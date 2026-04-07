@@ -42,15 +42,15 @@ collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_uy4mc")
 
-[node name="visual" type="Node2D" parent="." unique_id=1227261934]
+[node name="Visuals" type="Node2D" parent="." unique_id=1227261934]
 
-[node name="shadow" type="Panel" parent="visual" unique_id=167189831]
+[node name="shadow" type="Panel" parent="Visuals" unique_id=167189831]
 offset_left = -13.0
 offset_right = 13.0
 offset_bottom = 8.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_23wh4")
 
-[node name="texture" type="Sprite2D" parent="visual" unique_id=1680913945]
+[node name="Sprite" type="Sprite2D" parent="Visuals" unique_id=1680913945]
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1076322931]
 position = Vector2(0, -12)

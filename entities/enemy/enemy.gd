@@ -15,11 +15,12 @@ signal damage(amount: int)
 signal heal(amount: int)
 
 # the assumption that enemies do not de-aggro
-enum BEHAVIOUR {WANDER, ATTACK, DEAD}
+enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
 
 var enemyState := BEHAVIOUR.WANDER
 var wander_stalling := false
 
+# debug flag for if attack is implemented - only one message activation
 var attack_logic_flag := false
 
 @onready var wander_timer := $WanderTimer
@@ -27,32 +28,15 @@ var attack_logic_flag := false
 @onready var vision := $VisionRadius
 @onready var health := $HealthBar
 @onready var animation := $AnimationPlayer
-@onready var visual := $visual
+@onready var visual := $Visuals
 @onready var hitbox := $Hitbox
 
-func nearby_vector(tile_range: Vector2) -> Vector2:
-	return Vector2(
-		randf_range(position.x - tile_range.x, position.x + tile_range.x),
-		randf_range(position.y - tile_range.y, position.y + tile_range.y))
 
 func _ready() -> void:
 	vision.target = target
 	vision.vision_range = vision_range
 	setup_nav.call_deferred()
 
-func setup_nav() -> void:
-	# wait until map sync
-	while tilemap == null:
-		await get_tree().process_frame
-	set_wander_target()
-
-func set_wander_target() -> void:
-	nav_agent.target_position = nearby_vector(tilemap.map_to_local(Vector2i(pathfind_range, pathfind_range)))
-
-func attack_logic() -> void:
-	if not attack_logic_flag:
-		attack_logic_flag = true
-		push_warning("Attack Logic not implemented. Must be overwritten.")
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug_damage_enemy"):
@@ -75,8 +59,12 @@ func _physics_process(delta: float) -> void:
 			return
 
 		# get new direction to get to next path node
-		var new_velocity: Vector2 = (nav_agent.get_next_path_position() - global_position).normalized() * move_speed
-		var smooth_velocity: Vector2 = lerp(velocity, new_velocity, accel * delta)
+		var new_velocity: Vector2 = (
+				(nav_agent.get_next_path_position() - global_position)
+				.normalized()* move_speed)
+		var smooth_velocity: Vector2 = lerp(velocity,
+				new_velocity,
+				accel * delta)
 		nav_agent.set_velocity(smooth_velocity)
 		animation.play_animation("moving")
 		
@@ -91,14 +79,17 @@ func _physics_process(delta: float) -> void:
 		attack_logic()
 		# enemy should look left or right based on raycast to player
 
+
 ## navigation agent handles movement after adjusting vector
 func _on_nav_dist_adjust(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 	move_and_slide()
 
+
 func _on_wander_timeout() -> void:
 	wander_stalling = false
 	set_wander_target()
+
 
 ## Generic on death function:
 ## - Plays death animation
@@ -108,7 +99,7 @@ func _on_wander_timeout() -> void:
 func _on_death() -> void:
 	animation.play_animation("death")
 	enemyState = BEHAVIOUR.DEAD
-	move_speed = 0
+	nav_agent.set_velocity(Vector2.ZERO)
 	hitbox.set_deferred("disabled", true)
 	animation.no_interrupt = true
 	await animation.animation_finished
@@ -117,3 +108,27 @@ func _on_death() -> void:
 
 func _on_attack_timeout() -> void:
 	pass # Replace with function body.
+
+
+func nearby_vector(tile_range: Vector2) -> Vector2:
+	return Vector2(
+		randf_range(position.x - tile_range.x, position.x + tile_range.x),
+		randf_range(position.y - tile_range.y, position.y + tile_range.y))
+
+
+func setup_nav() -> void:
+	# wait until map sync
+	while tilemap == null:
+		await get_tree().process_frame
+	set_wander_target()
+
+
+func set_wander_target() -> void:
+	nav_agent.target_position = nearby_vector(
+			tilemap.map_to_local(Vector2i(pathfind_range, pathfind_range)))
+
+
+func attack_logic() -> void:
+	if not attack_logic_flag:
+		attack_logic_flag = true
+		push_warning("Attack Logic not implemented. Must be overwritten.")
