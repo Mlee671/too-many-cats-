@@ -72,17 +72,19 @@ func _spawn_rooms():
 
 func _spawn_corridors():
 	var hallway_tile = []
+	var remove_wall = []
 	for hallway in hallway_pos:
 		for room in room_pos:
 			var dir = (room - hallway)
 			if dir.length() == 1:
-				for i in range(16):
+				for i in range(15):
 					hallway_tile.append(hallway * ROOM_SIZE + dir * i)
-					if dir.x != 0:
-						hallway_tile.append(hallway * ROOM_SIZE + dir * i + Vector2i(0,-1))
-					else:
-						hallway_tile.append(hallway * ROOM_SIZE + dir * i + Vector2i(-1,0))
-		hall_tiles.set_cells_terrain_connect(hallway_tile,0 ,0, false)
+					hallway_tile.append(hallway * ROOM_SIZE + dir * i - abs(Vector2i(dir.y,dir.x)))
+				remove_wall.append(hallway * ROOM_SIZE + dir * 15)
+				remove_wall.append(hallway * ROOM_SIZE + dir * 15 - abs(Vector2i(dir.y,dir.x)))
+	hall_tiles.set_cells_terrain_connect(hallway_tile,0 ,0, false)
+	for cell in remove_wall:
+		hall_tiles.set_cell(cell, 0, Vector2i(9,7), 0)
 
 func _show_minimap(rooms):
 	for j in range(-rooms, rooms):
