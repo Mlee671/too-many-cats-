@@ -3,6 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="1_x43pv"]
 [ext_resource type="Texture2D" uid="uid://0k7bferun6ck" path="res://tilesets/spikes.png" id="2_x20t4"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_x20t4"]
+vertices = PackedVector2Array(131.04688, 133.9375, -133.9375, 133.04688, -133.04688, -142, 131.95313, -142)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(148, -158, -149, -158, -150, 149, 147, 150)])
+agent_radius = 16.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l17gk"]
 texture = ExtResource("1_x43pv")
 8:7/0 = 0
@@ -497,12 +503,10 @@ texture = ExtResource("2_x20t4")
 sources/0 = SubResource("TileSetAtlasSource_iy2pc")
 sources/1 = SubResource("TileSetAtlasSource_unu5q")
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_x20t4"]
-vertices = PackedVector2Array(137.03125, 139.96094, -139.96094, 139.03125, -139.03125, -148, 137.96875, -148)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(148, -158, -149, -158, -150, 149, 147, 150)])
-
 [node name="Room_template" type="Node2D" unique_id=760106608]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=389006226]
+navigation_polygon = SubResource("NavigationPolygon_x20t4")
 
 [node name="TileMapOrganiser" type="Node2D" parent="." unique_id=1451625633]
 
@@ -513,6 +517,3 @@ tile_set = SubResource("TileSet_unu5q")
 [node name="Environment" type="TileMapLayer" parent="TileMapOrganiser" unique_id=90514998]
 tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAYAAAAAAAkAAAAHAAYAAAAJAP//AAAIAAQAAAAJAAAAAAAIAAUAAAD2////AAAHAAQAAAD2/wAAAAAHAAUAAAA=")
 tile_set = SubResource("TileSet_d2scd")
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=389006226]
-navigation_polygon = SubResource("NavigationPolygon_x20t4")
