@@ -87,7 +87,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="BlueKnight" type="CharacterBody2D" unique_id=2044665017]
+[node name="BlueKnight" type="CharacterBody2D" unique_id=2044665017 groups=["Player"]]
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_a3m1w")
 

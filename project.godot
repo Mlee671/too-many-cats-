@@ -19,6 +19,10 @@ run/main_scene="uid://dyjum5gp0r4ku"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[global_group]
+
+Player="Containing all entities to be targeted by enemies"
+
 [input]
 
 left={

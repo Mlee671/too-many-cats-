@@ -117,6 +117,9 @@ _data = {
 &"moving": SubResource("Animation_fn27k")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tou4i"]
+radius = 80.1561
+
 [node name="BasicRangedEnemy" unique_id=310538941 instance=ExtResource("1_enhxg")]
 script = ExtResource("2_ocqek")
 
@@ -139,3 +142,6 @@ debug_enabled = false
 
 [node name="AnimationPlayer" parent="." index="7" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_wswxn")
+
+[node name="VisionCircle" parent="VisionArea" parent_id_path=PackedInt32Array(829889890) index="0" unique_id=428306925]
+shape = SubResource("CircleShape2D_tou4i")

@@ -2,7 +2,6 @@ extends CharacterBody2D
 class_name Enemy
 
 @export var tilemap: TileMapLayer
-@export var target: main_character
 @export var vision_range: float
 
 var move_speed: float
@@ -19,6 +18,7 @@ enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
 
 var enemyState := BEHAVIOUR.WANDER
 var wander_stalling := false
+var raycast_target: Node2D = null
 
 # debug flag for if attack is implemented - only one message activation
 var attack_logic_flag := false
@@ -30,11 +30,11 @@ var attack_logic_flag := false
 @onready var animation := $AnimationPlayer
 @onready var visual := $Visuals
 @onready var hitbox := $Hitbox
+@onready var vision_circle := $VisionArea/VisionCircle
 
 
 func _ready() -> void:
-	vision.target = target
-	vision.vision_range = vision_range
+	vision_circle.shape.radius = vision_range
 	setup_nav.call_deferred()
 
 
@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		await animation.animation_finished
 		animation.no_interrupt = false
 	
-	if vision.can_see_player():
+	if vision.can_see_player(raycast_target):
 		enemyState = BEHAVIOUR.ATTACK
 		# stop vector drift from interrupting path
 		nav_agent.target_position = global_position
@@ -109,6 +109,13 @@ func _on_death() -> void:
 func _on_attack_timeout() -> void:
 	pass # Replace with function body.
 
+func _on_vision_area_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		raycast_target = body
+	
+func _on_vision_area_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		raycast_target = null
 
 func nearby_vector(tile_range: Vector2) -> Vector2:
 	return Vector2(

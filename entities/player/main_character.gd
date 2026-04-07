@@ -17,6 +17,7 @@ var attack_cooldown := false
 var evade_flag = evadeState.READY
 
 func _ready() -> void:
+	add_to_group("Player")
 	animate_2d_sprite.play("idle")
 	
 func _process(_delta: float) -> void:
