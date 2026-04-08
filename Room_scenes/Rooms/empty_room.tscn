@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/room_template.tscn" id="1_3brm0"]
 [ext_resource type="PackedScene" uid="uid://uxtl1jypjjmq" path="res://entities/enemy/basic_ranged/BasicRangedEnemy.tscn" id="2_dbej8"]
+[ext_resource type="PackedScene" uid="uid://dxtwvxp5f4xe0" path="res://entities/enemy/basic_melee/basic_melee_enemy.tscn" id="3_mrcv6"]
 
 [node name="Empty_room" unique_id=760106608 instance=ExtResource("1_3brm0")]
 
@@ -26,3 +27,8 @@ vision_range = 120.0
 position = Vector2(-118, 60)
 tilemap = NodePath("../NavRegion/Room")
 vision_range = 120.0
+
+[node name="BasicMeleeEnemy" parent="." index="5" unique_id=2123126034 node_paths=PackedStringArray("tilemap") instance=ExtResource("3_mrcv6")]
+position = Vector2(-8, 112)
+tilemap = NodePath("../NavRegion/Room")
+vision_range = 20.0
