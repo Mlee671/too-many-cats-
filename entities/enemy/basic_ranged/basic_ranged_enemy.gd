@@ -15,7 +15,7 @@ func _ready() -> void:
 func attack_logic(delta: float) -> void:
 	var maintain_dist := 50.0
 	var player_enemy_direction := (global_position - raycast_target.global_position).normalized()
-	nav_agent.target_position = player_enemy_direction * maintain_dist
+	nav_agent.target_position = raycast_target.global_position + (player_enemy_direction * maintain_dist)
 	
 	var new_velocity: Vector2 = (
 			(nav_agent.get_next_path_position() - global_position)
