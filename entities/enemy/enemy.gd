@@ -12,7 +12,7 @@ enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
 
 var enemyState := BEHAVIOUR.INACTIVE
 var wander_stalling := false
-var raycast_target: Node2D = null
+var raycast_target: Node2D
 
 # debug flag for if attack is implemented - only one message activation
 var attack_logic_flag := false
@@ -31,6 +31,7 @@ var attack_cooldown := false
 
 func _ready() -> void:
 	vision_circle.shape.radius = 0
+	vision.set_enabled(false)
 	# once room triggers are implemented, this can be removed
 	setup_nav()
 
@@ -41,24 +42,27 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("debug_damage_enemy"):
 		take_damage(50)
-	
-	if vision.can_see_player(raycast_target) and enemyState == BEHAVIOUR.WANDER:
-		enemyState = BEHAVIOUR.ATTACK
 
 	# should not go through move logic if dead
 	if enemyState != BEHAVIOUR.DEAD:
 		_move_and_flip(delta)
 
-	if enemyState == BEHAVIOUR.WANDER and not wander_stalling:
-		# if at target node, get new target node
-		if nav_agent.is_navigation_finished():
-			wander_stalling = true
-			wander_timer.start(randf_range(1.0, 2.0))
-			animation.play_animation("idle")
-			return
-		_look_vector_direction(velocity)
+	if enemyState == BEHAVIOUR.WANDER:
+		if vision.is_enabled() and vision.can_see_player(get_tree().get_first_node_in_group("Player")):
+			enemyState = BEHAVIOUR.ATTACK
+			$VisionArea.monitoring = false
+		
+		if not wander_stalling:
+			# if at target node, get new target node
+			if nav_agent.is_navigation_finished():
+				wander_stalling = true
+				wander_timer.start(randf_range(1.0, 2.0))
+				animation.play_animation("idle")
+				return
+			_look_vector_direction(velocity)
 		
 	elif enemyState == BEHAVIOUR.ATTACK:
+		raycast_target = get_tree().get_first_node_in_group("Player")
 		attack_logic()
 		# look in direction of player
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
@@ -115,7 +119,12 @@ func _on_attack_timeout() -> void:
 
 func _on_vision_area_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		raycast_target = body
+		vision.set_enabled(true)
+
+
+func _on_vision_area_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		vision.set_enabled(false)
 
 
 ## Activates enemy to wander and attack, not stationary.
