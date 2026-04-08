@@ -8,4 +8,4 @@ extends Node2D
 func _ready() -> void:
 	character.global_position = Vector2(32,32)
 	# cm.switch_to("blue_knight")
-	room_manager.generate_rooms(1)
+	room_manager.generate_rooms(5)
