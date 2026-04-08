@@ -31,4 +31,4 @@ vision_range = 120.0
 [node name="BasicMeleeEnemy" parent="." index="5" unique_id=2123126034 node_paths=PackedStringArray("tilemap") instance=ExtResource("3_mrcv6")]
 position = Vector2(-8, 112)
 tilemap = NodePath("../NavRegion/Room")
-vision_range = 20.0
+vision_range = 100.0

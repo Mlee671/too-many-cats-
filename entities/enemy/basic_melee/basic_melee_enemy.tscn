@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://b5c58jagrlp5r" path="res://entities/enemy/Enemy.tscn" id="1_0tjeh"]
 [ext_resource type="Script" uid="uid://b32tj18164w6r" path="res://entities/enemy/basic_melee/basic_melee_enemy.gd" id="2_f0hik"]
 [ext_resource type="Texture2D" uid="uid://x815c1srcasp" path="res://entities/enemy/basic_ranged/ikoiku_itchio_mouse.png" id="3_n6v3j"]
-[ext_resource type="Texture2D" uid="uid://dmxoi4egpv14x" path="res://entities/enemy/basic_melee/melee_hitbox.png" id="4_xydfa"]
+[ext_resource type="PackedScene" uid="uid://tj78pxxxas0y" path="res://entities/enemy/components/attacks/slash/slash.tscn" id="3_xydfa"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f0hik"]
-size = Vector2(7, 12)
+[sub_resource type="Animation" id="Animation_0rl3j"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_xydfa"]
 resource_name = "damaged"
@@ -87,6 +87,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0rl3j"]
 _data = {
+&"RESET": SubResource("Animation_0rl3j"),
 &"damaged": SubResource("Animation_xydfa"),
 &"death": SubResource("Animation_3cfdl"),
 &"idle": SubResource("Animation_y8sat"),
@@ -95,10 +96,13 @@ _data = {
 
 [node name="BasicMeleeEnemy" unique_id=310538941 instance=ExtResource("1_0tjeh")]
 script = ExtResource("2_f0hik")
-speed = 30.0
-acceleration = 10.0
+melee = ExtResource("3_xydfa")
+speed = 80.0
+acceleration = 20.0
 wander_range = 6
 hp = 100
+attack_rate = 1.0
+attack_offset_magnitude = 20
 
 [node name="shadow" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=167189831]
 offset_left = -6.0
@@ -110,21 +114,6 @@ position = Vector2(5.9604645e-08, 0.14814925)
 texture = ExtResource("3_n6v3j")
 hframes = 4
 vframes = 6
-frame = 3
-
-[node name="AttackBox" type="Node2D" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="2" unique_id=1992211638]
-
-[node name="AttackSprite" type="Sprite2D" parent="Visuals/AttackBox" index="0" unique_id=981983830]
-position = Vector2(11.500001, -3.5762787e-07)
-scale = Vector2(0.4375, 0.37499997)
-texture = ExtResource("4_xydfa")
-
-[node name="AttackBox" type="Area2D" parent="Visuals/AttackBox" index="1" unique_id=1516982347]
-position = Vector2(2, 0)
-
-[node name="AttackRect" type="CollisionShape2D" parent="Visuals/AttackBox/AttackBox" index="0" unique_id=1660155371]
-position = Vector2(9.5, 0)
-shape = SubResource("RectangleShape2D_f0hik")
 
 [node name="Hitbox" parent="." index="1" unique_id=1076322931]
 position = Vector2(1, -1)

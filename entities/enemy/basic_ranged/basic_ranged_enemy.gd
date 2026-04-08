@@ -1,6 +1,6 @@
 extends Enemy
 
-@export var projectile := preload("res://entities/enemy/components/attacks/projectile.tscn") 
+@export var projectile := preload("res://entities/enemy/components/attacks/projectile/projectile.tscn") 
 @export var projectile_speed := 100
 @export var attack_rate : float = 1.0
 
