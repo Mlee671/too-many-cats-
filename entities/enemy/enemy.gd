@@ -8,9 +8,9 @@ var move_speed: float
 var accel: float
 var pathfind_range: int # tile range to pathfind to
 
-enum BEHAVIOUR {WANDER, ATTACK, DEAD}
+enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
 
-var enemyState := BEHAVIOUR.WANDER
+var enemyState := BEHAVIOUR.INACTIVE
 var wander_stalling := false
 var raycast_target: Node2D = null
 
@@ -30,11 +30,15 @@ var attack_cooldown := false
 
 
 func _ready() -> void:
-	vision_circle.shape.radius = vision_range
-	setup_nav.call_deferred()
+	vision_circle.shape.radius = 0
+	# once room triggers are implemented, this can be removed
+	setup_nav()
 
 
 func _physics_process(delta: float) -> void:
+	if enemyState == BEHAVIOUR.INACTIVE: # does nothing if inactive
+		return
+	
 	if Input.is_action_just_pressed("debug_damage_enemy"):
 		take_damage(50)
 	
@@ -113,6 +117,13 @@ func _on_vision_area_entered(body: Node2D) -> void:
 		raycast_target = body
 
 
+## Activates enemy to wander and attack, not stationary.
+func activate_enemy() -> void:
+	enemyState = BEHAVIOUR.WANDER
+	vision_circle.shape.radius = vision_range
+	set_wander_target()
+
+
 func nearby_vector(tile_range: Vector2) -> Vector2:
 	return Vector2(
 		randf_range(global_position.x - tile_range.x, global_position.x + tile_range.x),
@@ -132,7 +143,7 @@ func setup_nav() -> void:
 	# wait until map sync
 	while tilemap == null:
 		await get_tree().process_frame
-	set_wander_target()
+	activate_enemy()
 
 
 func set_wander_target() -> void:
