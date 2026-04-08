@@ -18,6 +18,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_rncab")
 
 [node name="Timer" type="Timer" parent="." unique_id=1734532827]
+one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_end_lifespan"]
