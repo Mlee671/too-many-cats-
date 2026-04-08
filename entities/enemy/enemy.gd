@@ -44,9 +44,8 @@ func _physics_process(delta: float) -> void:
 		take_damage(50)
 
 	# should not go through move logic if dead
-	if enemyState != BEHAVIOUR.DEAD:
+	if enemyState != BEHAVIOUR.DEAD and not wander_stalling:
 		_move_and_flip(delta)
-		print("move trigger")
 
 	if enemyState == BEHAVIOUR.WANDER:
 		if vision.is_enabled() and vision.can_see_player(get_tree().get_first_node_in_group("Player")):

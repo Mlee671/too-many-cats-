@@ -22,4 +22,4 @@ tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAY
 [node name="BasicMeleeEnemy" parent="." index="1" unique_id=1517034685 node_paths=PackedStringArray("tilemap") instance=ExtResource("3_xfu7a")]
 position = Vector2(-110, -54)
 tilemap = NodePath("../NavRegion/Room")
-vision_range = 10.0
+vision_range = 80.0
