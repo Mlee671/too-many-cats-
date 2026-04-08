@@ -39,7 +39,7 @@ func attack_logic() -> void:
 		# point bullet toward player (inverting path calc vector) and apply speed
 		attack.set_velocity(-player_enemy_direction * projectile_speed)
 		attack.global_position = global_position
-		get_tree().root.add_child(attack)
+		get_parent().add_child(attack)
 		# put attack on cooldown, based on inverse attack rate (higher val = lower cd)
 		attack_cooldown = true
 		attack_timer.start(1.0 / attack_rate)
