@@ -9,6 +9,7 @@ func set_health(amount: int):
 	max_health = amount
 	current_health = amount
 
+# Can be removed when debug key is no longer needed
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("debug_kill_enemy"):
 		death.emit()

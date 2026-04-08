@@ -45,6 +45,7 @@ func _physics_process(delta: float) -> void:
 	if vision.can_see_player(raycast_target) and enemyState == BEHAVIOUR.WANDER:
 		enemyState = BEHAVIOUR.ATTACK
 
+	# should not go through move logic if dead
 	if enemyState != BEHAVIOUR.DEAD:
 		_move_and_flip(delta)
 
@@ -57,9 +58,9 @@ func _physics_process(delta: float) -> void:
 			return
 		_look_vector_direction(velocity)
 		
-	# if attacking user, run corresponding logic
 	elif enemyState == BEHAVIOUR.ATTACK:
-		attack_logic(delta)
+		attack_logic()
+		# look in direction of player
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
 
 
@@ -151,7 +152,7 @@ func set_wander_target() -> void:
 			tilemap.map_to_local(Vector2i(pathfind_range, pathfind_range)))
 
 
-func attack_logic(_delta: float) -> void:
+func attack_logic() -> void:
 	if not attack_logic_flag:
 		attack_logic_flag = true
 		push_warning("Attack Logic not implemented. Must be overwritten.")
