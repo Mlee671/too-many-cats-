@@ -49,9 +49,9 @@ func _physics_process(delta: float) -> void:
 	
 	if vision.can_see_player(raycast_target):
 		enemyState = BEHAVIOUR.ATTACK
-		# stop vector drift from interrupting path
-		nav_agent.target_position = global_position
-		nav_agent.set_velocity(Vector2.ZERO)
+
+	_move_and_flip(delta)
+
 	if enemyState == BEHAVIOUR.WANDER and not wander_stalling:
 		# if at target node, get new target node
 		if nav_agent.is_navigation_finished():
@@ -59,28 +59,32 @@ func _physics_process(delta: float) -> void:
 			wander_timer.start(randf_range(1.0, 2.0))
 			animation.play_animation("idle")
 			return
-
-		# get new direction to get to next path node
-		var new_velocity: Vector2 = (
-				(nav_agent.get_next_path_position() - global_position)
-				.normalized() * move_speed)
-		var smooth_velocity: Vector2 = lerp(velocity,
-				new_velocity,
-				accel * delta)
-		nav_agent.set_velocity(smooth_velocity)
-		animation.play_animation("moving")
+		_look_vector_direction(velocity)
 		
-		# enemy looks left or right based on vector.x
-		if smooth_velocity.x < 0:
-			visual.scale.x = -1
-		else:
-			visual.scale.x = 1
-	
 	# if attacking user, run corresponding logic
 	elif enemyState == BEHAVIOUR.ATTACK:
 		attack_logic(delta)
-		# enemy should look left or right based on raycast to player
+		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
 
+
+func _move_and_flip(delta: float) -> void:
+	# get new direction to get to next path node
+	var new_velocity: Vector2 = (
+			(nav_agent.get_next_path_position() - global_position)
+			.normalized() * move_speed)
+	var smooth_velocity: Vector2 = lerp(velocity,
+			new_velocity,
+			accel * delta)
+	nav_agent.set_velocity(smooth_velocity)
+	animation.play_animation("moving")
+	
+
+func _look_vector_direction(direction: Vector2):
+	# enemy looks left or right based on vector.x
+	if direction.x < 0:
+		visual.scale.x = -1
+	else:
+		visual.scale.x = 1
 
 ## navigation agent handles movement after adjusting vector
 func _on_nav_dist_adjust(safe_velocity: Vector2) -> void:
@@ -138,7 +142,7 @@ func set_wander_target() -> void:
 			tilemap.map_to_local(Vector2i(pathfind_range, pathfind_range)))
 
 
-func attack_logic(delta: float) -> void:
+func attack_logic(_delta: float) -> void:
 	if not attack_logic_flag:
 		attack_logic_flag = true
 		push_warning("Attack Logic not implemented. Must be overwritten.")
