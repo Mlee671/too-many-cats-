@@ -1,12 +1,40 @@
-[gd_scene format=3 uid="uid://dxtwvxp5f4xe0"]
+[gd_scene format=3 uid="uid://b1tq1jgv35ch"]
 
 [ext_resource type="PackedScene" uid="uid://b5c58jagrlp5r" path="res://entities/enemy/Enemy.tscn" id="1_0tjeh"]
 [ext_resource type="Script" uid="uid://b32tj18164w6r" path="res://entities/enemy/basic_melee/basic_melee_enemy.gd" id="2_f0hik"]
-[ext_resource type="Texture2D" uid="uid://x815c1srcasp" path="res://entities/enemy/basic_ranged/ikoiku_itchio_mouse.png" id="3_n6v3j"]
 [ext_resource type="PackedScene" uid="uid://tj78pxxxas0y" path="res://entities/enemy/components/attacks/slash/slash.tscn" id="3_xydfa"]
+[ext_resource type="Texture2D" uid="uid://cq5xmes5gqfg0" path="res://entities/enemy/basic_melee/ikoiku_itchio_mouse_v2.png" id="4_xydfa"]
 
 [sub_resource type="Animation" id="Animation_0rl3j"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_uynri"]
+resource_name = "attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.15, 0.225, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 9, 14, 19, 24]
+}
 
 [sub_resource type="Animation" id="Animation_xydfa"]
 resource_name = "damaged"
@@ -21,7 +49,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [3, 7, 11, 15]
+"values": [3, 8, 13, 18]
 }
 
 [sub_resource type="Animation" id="Animation_3cfdl"]
@@ -37,7 +65,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5, 0.6667, 0.8333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [2, 6, 10, 14, 18, 22]
+"values": [2, 7, 12, 17, 22, 27]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -66,7 +94,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5, 0.6667, 0.8333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 4, 8, 12, 16, 20]
+"values": [0, 5, 10, 15, 20, 25]
 }
 
 [sub_resource type="Animation" id="Animation_g44g6"]
@@ -82,12 +110,13 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [1, 5, 9, 13, 17, 21]
+"values": [1, 6, 11, 16, 21, 26]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0rl3j"]
 _data = {
 &"RESET": SubResource("Animation_0rl3j"),
+&"attack": SubResource("Animation_uynri"),
 &"damaged": SubResource("Animation_xydfa"),
 &"death": SubResource("Animation_3cfdl"),
 &"idle": SubResource("Animation_y8sat"),
@@ -97,7 +126,7 @@ _data = {
 [node name="BasicMeleeEnemy" unique_id=310538941 instance=ExtResource("1_0tjeh")]
 script = ExtResource("2_f0hik")
 melee = ExtResource("3_xydfa")
-speed = 80.0
+speed = 50.0
 acceleration = 20.0
 wander_range = 6
 hp = 100
@@ -111,13 +140,19 @@ offset_bottom = 6.0
 
 [node name="Sprite" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="1" unique_id=1680913945]
 position = Vector2(5.9604645e-08, 0.14814925)
-texture = ExtResource("3_n6v3j")
-hframes = 4
+texture = ExtResource("4_xydfa")
+hframes = 5
 vframes = 6
+frame = 1
 
 [node name="Hitbox" parent="." index="1" unique_id=1076322931]
 position = Vector2(1, -1)
 rotation = 1.5707964
 
+[node name="NavigationAgent2D" parent="." index="5" unique_id=221465016]
+debug_enabled = true
+
 [node name="AnimationPlayer" parent="." index="7" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_0rl3j")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="_on_animation_finished"]

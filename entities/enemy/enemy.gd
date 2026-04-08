@@ -13,10 +13,10 @@ enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
 var enemyState := BEHAVIOUR.INACTIVE
 var wander_stalling := false
 var raycast_target: Node2D
+var attack_cooldown := false
 
 # debug flag for if attack is implemented - only one message activation
 var attack_logic_flag := false
-var attack_cooldown := false
 
 @onready var wander_timer := $WanderTimer
 @onready var attack_timer := $AttackTimer
@@ -44,8 +44,8 @@ func _physics_process(delta: float) -> void:
 		take_damage(50)
 
 	# should not go through move logic if dead
-	if enemyState != BEHAVIOUR.DEAD and not wander_stalling:
-		_move_and_flip(delta)
+	if enemyState != BEHAVIOUR.DEAD and not wander_stalling and not attack_cooldown:
+		_move(delta)
 
 	if enemyState == BEHAVIOUR.WANDER:
 		if vision.is_enabled() and vision.can_see_player(get_tree().get_first_node_in_group("Player")):
@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
 
 
-func _move_and_flip(delta: float) -> void:
+func _move(delta: float) -> void:
 	# get new direction to get to next path node
 	var new_velocity: Vector2 = (
 			(nav_agent.get_next_path_position() - global_position)
@@ -99,11 +99,12 @@ func _on_wander_timeout() -> void:
 
 
 ## Generic on death function:
-## - Plays death animation
+## - Plays death animation (force overwrite current animations)
 ## - prevents movement
 ## - removes hitbox
 ## - removes instance after animation plays
 func _on_death() -> void:
+	animation.no_interrupt = false
 	animation.play_animation("death")
 	enemyState = BEHAVIOUR.DEAD
 	nav_agent.set_velocity(Vector2.ZERO)
@@ -143,10 +144,7 @@ func nearby_vector(tile_range: Vector2) -> Vector2:
 func take_damage(amount: int) -> void:
 	health.take_damage(amount)
 	animation.play_animation("damaged")
-
 	animation.no_interrupt = true
-	await animation.animation_finished
-	animation.no_interrupt = false
 
 
 func setup_nav() -> void:

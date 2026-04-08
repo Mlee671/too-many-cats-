@@ -2,7 +2,7 @@ extends Enemy
 class_name BasicMeleeEnemy
 
 @export var melee := preload("res://entities/enemy/components/attacks/slash/slash.tscn") 
-@export var speed := 80.0
+@export var speed := 50.0
 @export var acceleration := 20.0
 @export var wander_range := 6
 @export var hp := 100
@@ -30,6 +30,8 @@ func attack_logic() -> void:
 	nav_agent.target_position = raycast_target.global_position
 	
 	if not attack_cooldown and player_enemy_dist < attack_offset_magnitude:
+		animation.play_animation("attack")
+		animation.no_interrupt = true
 		current_attack = melee.instantiate()
 		# point toward player
 		current_attack.global_position = global_position
@@ -39,6 +41,9 @@ func attack_logic() -> void:
 		# put attack on cooldown, based on inverse attack rate (higher val = lower cd)
 		get_tree().root.add_child(current_attack)
 		attack_cooldown = true
+		nav_agent.set_velocity(Vector2.ZERO)
 		attack_timer.start(1.0 / attack_rate)
+	
+	# if attacking, hitbox should stick to enemy
 	elif attack_cooldown and current_attack != null:
 		current_attack.global_position = global_position + attack_offset
