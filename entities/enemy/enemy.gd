@@ -8,13 +8,7 @@ var move_speed: float
 var accel: float
 var pathfind_range: int # tile range to pathfind to
 
-## Emitted when enemy has taken damage
-signal damage(amount: int)
-## Emitted when enemy has received healing
-signal heal(amount: int)
-
-# the assumption that enemies do not de-aggro
-enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
+enum BEHAVIOUR {WANDER, ATTACK, DEAD}
 
 var enemyState := BEHAVIOUR.WANDER
 var wander_stalling := false
@@ -42,15 +36,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug_damage_enemy"):
-		animation.play_animation("damaged")
-		animation.no_interrupt = true
-		await animation.animation_finished
-		animation.no_interrupt = false
+		take_damage(50)
 	
-	if vision.can_see_player(raycast_target):
+	if vision.can_see_player(raycast_target) and enemyState == BEHAVIOUR.WANDER:
 		enemyState = BEHAVIOUR.ATTACK
 
-	_move_and_flip(delta)
+	if enemyState != BEHAVIOUR.DEAD:
+		_move_and_flip(delta)
 
 	if enemyState == BEHAVIOUR.WANDER and not wander_stalling:
 		# if at target node, get new target node
@@ -115,19 +107,25 @@ func _on_death() -> void:
 func _on_attack_timeout() -> void:
 	attack_cooldown = false
 
+
 func _on_vision_area_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		raycast_target = body
-	
-func _on_vision_area_exited(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		raycast_target = null
-		enemyState = BEHAVIOUR.WANDER
+
 
 func nearby_vector(tile_range: Vector2) -> Vector2:
 	return Vector2(
 		randf_range(global_position.x - tile_range.x, global_position.x + tile_range.x),
 		randf_range(global_position.y - tile_range.y, global_position.y + tile_range.y))
+
+
+func take_damage(amount: int) -> void:
+	health.take_damage(amount)
+	animation.play_animation("damaged")
+
+	animation.no_interrupt = true
+	await animation.animation_finished
+	animation.no_interrupt = false
 
 
 func setup_nav() -> void:

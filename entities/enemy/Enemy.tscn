@@ -88,11 +88,8 @@ collision_mask = 2
 [node name="VisionCircle" type="CollisionShape2D" parent="VisionArea" unique_id=428306925]
 shape = SubResource("CircleShape2D_cn5l5")
 
-[connection signal="damage" from="." to="HealthBar" method="_on_damage"]
-[connection signal="heal" from="." to="HealthBar" method="_on_heal"]
 [connection signal="death" from="HealthBar" to="." method="_on_death"]
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_nav_dist_adjust"]
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_entered"]
-[connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_exited"]
