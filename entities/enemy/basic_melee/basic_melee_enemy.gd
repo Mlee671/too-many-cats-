@@ -50,7 +50,3 @@ func attack_logic() -> void:
 		stop_moving = true
 		nav_agent.set_velocity(Vector2.ZERO)
 		attack_timer.start(1.0 / attack_rate)
-	
-	# if attacking, hitbox should stick to enemy
-	elif attack_cooldown and current_attack != null:
-		current_attack.global_position = global_position + attack_offset
