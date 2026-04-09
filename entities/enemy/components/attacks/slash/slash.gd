@@ -19,5 +19,6 @@ func _on_hit_player(body: Node2D) -> void:
 	if body is not main_character:
 		queue_free() # what did i hit?
 	else:
+		# remove hitbox, so damages only once
 		body.take_damage(damage)
 		hitbox.queue_free()

@@ -130,8 +130,8 @@ speed = 50.0
 acceleration = 20.0
 wander_range = 6
 hp = 100
-attack_rate = 1.0
-attack_offset_magnitude = 20
+attack_rate = 1.5
+attack_offset_magnitude = 20.0
 
 [node name="shadow" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=167189831]
 offset_left = -6.0
@@ -148,9 +148,6 @@ frame = 1
 [node name="Hitbox" parent="." index="1" unique_id=1076322931]
 position = Vector2(1, -1)
 rotation = 1.5707964
-
-[node name="NavigationAgent2D" parent="." index="5" unique_id=221465016]
-debug_enabled = true
 
 [node name="AnimationPlayer" parent="." index="7" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_0rl3j")
