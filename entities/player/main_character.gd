@@ -15,6 +15,7 @@ enum evadeState {READY, ACTIVE, COOLDOWN}
 
 var attack_cooldown := false
 var evade_flag = evadeState.READY
+var is_alive := true
 
 func _ready() -> void:
 	add_to_group("Player")
@@ -73,7 +74,7 @@ func _on_evade_timeout() -> void:
 	elif evade_flag == evadeState.COOLDOWN:
 		evade_flag = evadeState.READY
 
-func _on_swapping_character() -> void:
+func swap_character() -> void:
 	# dodge should skip straight to cooldown to prevent abuse
 	evade_flag = evadeState.COOLDOWN
 	handle_animation() # force change animation away from dodge

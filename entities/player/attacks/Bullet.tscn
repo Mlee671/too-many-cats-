@@ -5,20 +5,21 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tejt7"]
 size = Vector2(2, 2)
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="Area2D" unique_id=723863815]
 script = ExtResource("1_4ck4c")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=664844149]
 offset_left = -1.0
 offset_top = -1.0
 offset_right = 1.0
 offset_bottom = 1.0
 color = Color(0.9538683, 0, 0.23396993, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=834031990]
 shape = SubResource("RectangleShape2D_tejt7")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1257420532]
+autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
