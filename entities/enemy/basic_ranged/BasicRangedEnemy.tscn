@@ -95,7 +95,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_fn27k"]
 resource_name = "moving"
-length = 0.5
+length = 0.93333334
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

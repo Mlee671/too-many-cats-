@@ -7,9 +7,10 @@ class_name main_character
 
 @onready var attack_timer := $AttackTimer
 @onready var evade_timer := $EvadeTimer
-@onready var animate_2d_sprite := $CharacterVisuals/AnimatedSprite2D
+#@onready var animation_player := $CharacterVisuals/AnimatedSprite2D
 @onready var char_visual := $CharacterVisuals
 @onready var stats := $Stats
+@onready var animation_tree := $CharacterVisuals/AnimationTree
 
 enum evadeState {READY, ACTIVE, COOLDOWN}
 
@@ -18,8 +19,9 @@ var evade_flag = evadeState.READY
 var is_alive := true
 
 func _ready() -> void:
+	stats.player_state = Stats.states.IDLE
 	add_to_group("Player")
-	animate_2d_sprite.play("idle")
+	#animation_player.play("idle")
 	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
@@ -34,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	
 	# scales movement speed if dodging
 	if evade_flag == evadeState.ACTIVE:
+		stats.player_state = Stats.states.DODGING
 		velocity = lerp(velocity,
 				input_vector * stats.speed * stats.evade_movement_scaling,
 				stats.accel * delta)
@@ -50,7 +53,7 @@ func _physics_process(delta: float) -> void:
 	if (Input.is_action_just_pressed("ability")
 			and evade_flag == evadeState.READY):
 		# change sprite
-		animate_2d_sprite.play("dodge")
+		#animation_player.play("dodge")
 		evade_flag = evadeState.ACTIVE
 		evade_timer.start(stats.evade_dur);
 		
@@ -58,6 +61,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if evade_flag != evadeState.ACTIVE:
 		handle_animation()
+	
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
@@ -104,6 +108,8 @@ func take_damage(amount: int):
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_animation():
 	if velocity.length_squared() > 0.5:
-		animate_2d_sprite.play("run")
+		stats.player_state = Stats.states.RUNNING
+		#animation_player.play("run")
 	else:
-		animate_2d_sprite.play("idle")
+		stats.player_state = Stats.states.IDLE
+		#animation_player.play("idle")
