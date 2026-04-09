@@ -78,7 +78,9 @@ debug_damage_enemy={
 [layer_names]
 
 2d_physics/layer_1="Terrain Layer"
+2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy Layer"
+2d_physics/layer_4="Projectile"
 
 [rendering]
 

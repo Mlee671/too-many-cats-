@@ -16,6 +16,7 @@ enum evadeState {READY, ACTIVE, COOLDOWN}
 
 var attack_cooldown := false
 var evade_flag = evadeState.READY
+var is_alive := true
 
 func _ready() -> void:
 	stats.player_state = Stats.states.IDLE
@@ -77,7 +78,7 @@ func _on_evade_timeout() -> void:
 	elif evade_flag == evadeState.COOLDOWN:
 		evade_flag = evadeState.READY
 
-func _on_swapping_character() -> void:
+func swap_character() -> void:
 	# dodge should skip straight to cooldown to prevent abuse
 	evade_flag = evadeState.COOLDOWN
 	handle_animation() # force change animation away from dodge
@@ -98,6 +99,11 @@ func fire_gun(target: Vector2) -> void:
 	spawn.position = position + Vector2(8,8) * direction + Vector2(0,-8)
 	get_parent().add_child(spawn)
 	stats.shots_fired += 1
+
+
+## Called by enemy attacks when colliding with body. Currently does nothing.
+func take_damage(amount: int):
+	print("[DEBUG] Player taken ", amount, " damage")
 
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_animation():
