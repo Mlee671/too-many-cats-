@@ -7,5 +7,5 @@ func play_animation(anim_name: StringName):
 		super.play(anim_name)
 
 
-func _on_animation_finished(anim_name: StringName) -> void:
+func _on_animation_finished(_anim_name: StringName) -> void:
 	no_interrupt = false
