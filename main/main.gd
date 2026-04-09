@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var cm:=$character_manager
 @onready var room_manager := $Room_manager
-@onready var character := $character_slot
+@onready var character := $character_manager/character_slot
 
 
 func _ready() -> void:

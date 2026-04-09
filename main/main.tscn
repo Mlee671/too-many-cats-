@@ -457,8 +457,8 @@ script = ExtResource("2_21xkr")
 [node name="Hallway" type="TileMapLayer" parent="Room_manager" unique_id=1399369055]
 tile_set = SubResource("TileSet_8gbba")
 
-[node name="character_slot" parent="." unique_id=1328872590 instance=ExtResource("2_bo1nx")]
-position = Vector2(576, 325)
-
-[node name="character_manager" type="Node" parent="." unique_id=1573431383]
+[node name="character_manager" type="Node2D" parent="." unique_id=1655392748]
 script = ExtResource("4_jjvhh")
+
+[node name="character_slot" parent="character_manager" unique_id=1328872590 instance=ExtResource("2_bo1nx")]
+position = Vector2(576, 325)
