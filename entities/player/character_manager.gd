@@ -1,12 +1,10 @@
-extends Node
+extends Node2D
 class_name character_manager
 
 signal swapping_character
 
 # the scene name of each character
 enum characters {blue_knight, yellow_knight}
-
-const NAME_OF_NODE := "character_slot"
 
 var path := "res://entities/player/character_scenes/"
 
@@ -23,11 +21,11 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("character_change"):
-		swapping_character.emit()
+		get_child(0).swap_character()
 		switch_next()
 
 func _do_switch(target_character: String = "") -> void:
-	var old_node: main_character = get_parent().get_node(NAME_OF_NODE)
+	var old_node: main_character = get_child(0)
 	var new_node: main_character
 	if target_character != "":
 		new_node = character_nodes[characters.get(target_character)]
@@ -37,17 +35,10 @@ func _do_switch(target_character: String = "") -> void:
 	# transfer the current pos
 	new_node.global_position = old_node.global_position
 	
-	var parent = old_node.get_parent()
-	# move receiver of the swapping signal (preventing state carryover, ideally)
-	if swapping_character.is_connected(old_node._on_swapping_character):
-		swapping_character.disconnect(old_node._on_swapping_character)
-	swapping_character.connect(new_node._on_swapping_character)
-	
 	# replace instances - swap characters
-	parent.add_child(new_node)
-	parent.move_child(new_node, old_node.get_index())
-	parent.remove_child(old_node)
-	new_node.name = NAME_OF_NODE
+	add_child(new_node)
+	move_child(new_node, 0)
+	remove_child(old_node)
 	
 	# maintain speed - should not exceed character's maximum
 	var direction := old_node.velocity.normalized()
@@ -62,6 +53,10 @@ func switch_to(target_character: String) -> void:
 	
 ## Returns Node of next character in the `character_nodes` array.
 func get_next() -> main_character:
-	character_index = (character_index + 1) % characters.size()
-	return character_nodes[character_index]
+	var next_character
+	while !next_character:
+		character_index = (character_index + 1) % characters.size()
+		if character_nodes[character_index].is_alive:
+			next_character = character_nodes[character_index]
+	return next_character
 	
