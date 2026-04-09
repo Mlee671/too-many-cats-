@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://btki6vqc3kjki" path="res://main/Room_manager.gd" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/character_scenes/blue_knight.tscn" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
+[ext_resource type="Texture2D" uid="uid://wuvfmn2vkvpm" path="res://ui_assets/healthbar_placeholder.png" id="6_kfbq2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6bp64"]
 texture = ExtResource("1_jjgbg")
@@ -462,3 +463,23 @@ script = ExtResource("4_jjvhh")
 
 [node name="character_slot" parent="character_manager" unique_id=1328872590 instance=ExtResource("2_bo1nx")]
 position = Vector2(576, 325)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="character_manager/character_slot" unique_id=1692577797]
+
+[node name="Control" type="Control" parent="character_manager/character_slot/CanvasLayer" unique_id=1392037008]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="character_manager/character_slot/CanvasLayer/Control" unique_id=1642818914]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 71.0
+offset_right = 303.0
+offset_bottom = 201.0
+value = 50.0
+nine_patch_stretch = true
+texture_progress = ExtResource("6_kfbq2")
