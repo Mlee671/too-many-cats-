@@ -95,6 +95,11 @@ func fire_gun(target: Vector2) -> void:
 	get_parent().add_child(spawn)
 	stats.shots_fired += 1
 
+
+## Called by enemy attacks when colliding with body. Currently does nothing.
+func take_damage(amount: int):
+	print("[DEBUG] Player taken ", amount, " damage")
+
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_animation():
 	if velocity.length_squared() > 0.5:

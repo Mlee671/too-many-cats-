@@ -10,3 +10,19 @@ tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAY
 
 [node name="BasicRangedEnemy" parent="." index="1" unique_id=310538941 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_dbej8")]
 tilemap = NodePath("../NavRegion/Room")
+vision_range = 120.0
+
+[node name="BasicRangedEnemy2" parent="." index="2" unique_id=472258507 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_dbej8")]
+position = Vector2(-73, -87)
+tilemap = NodePath("../NavRegion/Room")
+vision_range = 120.0
+
+[node name="BasicRangedEnemy3" parent="." index="3" unique_id=323392419 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_dbej8")]
+position = Vector2(42, 74)
+tilemap = NodePath("../NavRegion/Room")
+vision_range = 120.0
+
+[node name="BasicRangedEnemy4" parent="." index="4" unique_id=179860103 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_dbej8")]
+position = Vector2(-118, 60)
+tilemap = NodePath("../NavRegion/Room")
+vision_range = 120.0

@@ -72,7 +72,6 @@ one_shot = true
 path_max_distance = 30.0
 path_postprocessing = 1
 avoidance_enabled = true
-debug_enabled = true
 
 [node name="VisionRadius" type="RayCast2D" parent="." unique_id=883219311]
 collision_mask = 3
@@ -89,8 +88,6 @@ collision_mask = 2
 [node name="VisionCircle" type="CollisionShape2D" parent="VisionArea" unique_id=428306925]
 shape = SubResource("CircleShape2D_cn5l5")
 
-[connection signal="damage" from="." to="HealthBar" method="_on_damage"]
-[connection signal="heal" from="." to="HealthBar" method="_on_heal"]
 [connection signal="death" from="HealthBar" to="." method="_on_death"]
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
