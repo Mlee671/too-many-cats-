@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://dgyryeova7lit"]
 
+[ext_resource type="Script" uid="uid://j5cwrri58lxh" path="res://Room_scenes/room_template.gd" id="1_l17gk"]
 [ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="1_x43pv"]
 [ext_resource type="Texture2D" uid="uid://0k7bferun6ck" path="res://tilesets/spikes.png" id="2_x20t4"]
 
@@ -453,21 +454,45 @@ sources/0 = SubResource("TileSetAtlasSource_l17gk")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iy2pc"]
 texture = ExtResource("1_x43pv")
 6:3/0 = 0
+6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2.1583042, 8, -2.877739, 8, 8, -8, 8)
 7:3/0 = 0
+7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2.1583042, 8, -2.877739, 8, 8, -8, 8)
 8:3/0 = 0
 9:3/0 = 0
 6:4/0 = 0
+7:4/next_alternative_id = 2
 7:4/0 = 0
+7:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -3.956892, -8, -3.956892, 8, -8, 8)
+7:4/1 = 1
+7:4/1/transpose = true
+8:4/next_alternative_id = 2
 8:4/0 = 0
+8:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(3.956892, -8, 8, -8, 8, 8, 4.1367493, 8)
+8:4/1 = 1
+8:4/1/flip_h = true
+8:4/1/flip_v = true
+8:4/1/transpose = true
 9:4/0 = 0
 6:5/0 = 0
+7:5/next_alternative_id = 4
 7:5/0 = 0
+7:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -3.956892, -8, -3.956892, 8, -8, 8)
+7:5/1 = 1
+7:5/1/flip_h = true
+7:5/1/flip_v = true
+7:5/1/transpose = true
+8:5/next_alternative_id = 2
 8:5/0 = 0
+8:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(3.956892, -8, 8, -8, 8, 8, 4.1367493, 8)
+8:5/1 = 1
+8:5/1/transpose = true
 9:5/0 = 0
 4:6/0 = 0
 5:6/0 = 0
 6:6/0 = 0
+6:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2.1583042, 8, -2.877739, 8, 8, -8, 8)
 7:6/0 = 0
+7:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2.1583042, 8, -2.877739, 8, 8, -8, 8)
 8:6/0 = 0
 4:7/0 = 0
 5:7/0 = 0
@@ -499,10 +524,15 @@ texture = ExtResource("2_x20t4")
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_d2scd"]
+physics_layer_0/collision_layer = 15
 sources/0 = SubResource("TileSetAtlasSource_iy2pc")
 sources/1 = SubResource("TileSetAtlasSource_unu5q")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_unu5q"]
+size = Vector2(32, 32)
+
 [node name="Room_template" type="Node2D" unique_id=760106608]
+script = ExtResource("1_l17gk")
 
 [node name="NavRegion" type="NavigationRegion2D" parent="." unique_id=2019950284]
 navigation_polygon = SubResource("NavigationPolygon_x20t4")
@@ -514,3 +544,48 @@ tile_set = SubResource("TileSet_unu5q")
 [node name="Environment" type="TileMapLayer" parent="NavRegion" unique_id=90514998]
 tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAYAAAAAAAkAAAAHAAYAAAAJAP//AAAIAAQAAAAJAAAAAAAIAAUAAAD2////AAAHAAQAAAD2/wAAAAAHAAUAAAA=")
 tile_set = SubResource("TileSet_d2scd")
+
+[node name="West_door" type="Area2D" parent="." unique_id=225518144]
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="West_door" unique_id=1561475551]
+position = Vector2(-155, -1)
+shape = SubResource("RectangleShape2D_unu5q")
+
+[node name="East_door" type="Area2D" parent="." unique_id=1703263780]
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="East_door" unique_id=1225503920]
+position = Vector2(154, 0)
+shape = SubResource("RectangleShape2D_unu5q")
+
+[node name="North_door" type="Area2D" parent="." unique_id=289474314]
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="North_door" unique_id=2146460401]
+position = Vector2(0, -152)
+shape = SubResource("RectangleShape2D_unu5q")
+
+[node name="South_door" type="Area2D" parent="." unique_id=1916552762]
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="South_door" unique_id=1361741042]
+position = Vector2(0, 151)
+shape = SubResource("RectangleShape2D_unu5q")
+
+[connection signal="body_entered" from="West_door" to="." method="_on_west_door_body_entered"]
+[connection signal="body_exited" from="West_door" to="." method="_on_west_door_body_exited"]
+[connection signal="body_entered" from="East_door" to="." method="_on_east_door_body_entered"]
+[connection signal="body_exited" from="East_door" to="." method="_on_east_door_body_exited"]
+[connection signal="body_entered" from="North_door" to="." method="_on_north_door_body_entered"]
+[connection signal="body_exited" from="North_door" to="." method="_on_north_door_body_exited"]
+[connection signal="body_entered" from="South_door" to="." method="_on_south_door_body_entered"]
+[connection signal="body_exited" from="South_door" to="." method="_on_south_door_body_exited"]
