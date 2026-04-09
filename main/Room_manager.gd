@@ -32,7 +32,7 @@ func generate_rooms(rooms : int) -> Vector2:
 	# places floors to remove walls at end of hallway
 	_spawn_corridors()
 	# prints a minimap in terminal
-	# _show_minimap(rooms)
+	_show_minimap(rooms)
 	# returns spawn point for character
 	return room_pos[0]
 				
@@ -88,7 +88,11 @@ func _spawn_rooms():
 func _spawn_corridors():
 	var hallway_tile = []
 	var remove_wall = []
+	var black_tile = []
 	for hallway in hallway_pos:
+		for i in range(-15,15):
+			for j in range(-15,15):
+				black_tile.append(hallway * ROOM_SIZE + Vector2i(i,j))
 		for room in room_pos:
 			var dir = (room - hallway)
 			if dir.length() == 1:
@@ -101,6 +105,10 @@ func _spawn_corridors():
 				remove_wall.append(hallway * ROOM_SIZE + dir * 15 - abs(Vector2i(dir.y,dir.x)))
 	# terrain places hallway floors and spawns walls around it
 	hall_tiles.set_cells_terrain_connect(hallway_tile,0 ,0, false)
+	var used_cells = hall_tiles.get_used_cells()
+	for cell in black_tile:
+		if !used_cells.has(cell):
+			hall_tiles.set_cell(cell, 0, Vector2i(8,7), 0)
 	# for removing walls
 	for cell in remove_wall:
 		hall_tiles.set_cell(cell, 0, Vector2i(9,7), 0)
