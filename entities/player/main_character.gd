@@ -12,6 +12,8 @@ class_name main_character
 @onready var stats := $Stats
 @onready var animation_tree := $CharacterVisuals/AnimationTree
 
+signal taken_damage(amount)
+
 enum evadeState {READY, ACTIVE, COOLDOWN}
 
 var attack_cooldown := false
@@ -104,6 +106,7 @@ func fire_gun(target: Vector2) -> void:
 ## Called by enemy attacks when colliding with body. Currently does nothing.
 func take_damage(amount: int):
 	print("[DEBUG] Player taken ", amount, " damage")
+	taken_damage.emit(amount)
 
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_animation():
