@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://canvas_layer.gd" id="6_4dugh"]
 [ext_resource type="Texture2D" uid="uid://wuvfmn2vkvpm" path="res://ui_assets/healthbar_placeholder.png" id="6_kfbq2"]
+[ext_resource type="Texture2D" uid="uid://ciaer60vu7k63" path="res://ui_assets/healthbar_placeholder_Y.png" id="8_67ri8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6bp64"]
 texture = ExtResource("1_jjgbg")
@@ -476,7 +477,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="character_hp_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=1642818914]
+[node name="first_hp_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=1642818914]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 71.0
@@ -485,3 +486,13 @@ offset_bottom = 201.0
 value = 100.0
 nine_patch_stretch = true
 texture_progress = ExtResource("6_kfbq2")
+
+[node name="second_hp_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=377819572]
+layout_mode = 0
+offset_left = 319.0
+offset_top = 100.0
+offset_right = 452.0
+offset_bottom = 170.0
+value = 100.0
+nine_patch_stretch = true
+texture_progress = ExtResource("8_67ri8")

@@ -113,7 +113,7 @@ func take_damage(amount: int):
 	
 	print("[DEBUG] Player taken ", amount, " damage")
 	
-	character_hud.decrease_hp_bar(stats.hp - amount)
+	character_hud.set_main_hp_bar(stats.hp - amount)
 	stats.hp -=amount
 	
 	
