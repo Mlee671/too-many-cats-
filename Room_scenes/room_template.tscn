@@ -31,12 +31,19 @@ agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l17gk"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_37yay"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+agent_radius = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l17gk"]
 texture = ExtResource("1_x43pv")
 8:7/0 = 0
 8:7/0/terrain_set = 0
 9:7/0 = 0
 9:7/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_l17gk")
+9:7/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_37yay")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -505,6 +512,7 @@ terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Ground tiles"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 navigation_layer_0/layers = 2
+navigation_layer_1/layers = 4
 sources/0 = SubResource("TileSetAtlasSource_l17gk")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_i3r77"]
@@ -684,7 +692,7 @@ tile_map_data = PackedByteArray("AAD3/wgAAAAHAAEAAAD4/wgAAAAHAAEAAAD4/wkAAAADAAQ
 tile_set = SubResource("TileSet_unu5q")
 
 [node name="Environment" type="TileMapLayer" parent="NavRegion" unique_id=90514998]
-tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAYAAAAAAAkAAAAHAAYAAAAJAP//AAAIAAQAAAAJAAAAAAAIAAUAAAD2////AAAHAAQAAAD2/wAAAAAHAAUAAAAOAP//AAAJAAcAAAAOAAAAAAAJAAcAAAANAAAAAAAJAAcAAAANAP//AAAJAAcAAAAMAP//AAAJAAcAAAAMAAAAAAAJAAcAAAALAAAAAAAJAAcAAAALAP//AAAJAAcAAAAKAP//AAAJAAcAAAAKAAAAAAAJAAcAAAD//w4AAAAJAAcAAAD//w0AAAAJAAcAAAD//wwAAAAJAAcAAAD//wsAAAAJAAcAAAD//woAAAAJAAcAAAAAAA4AAAAJAAcAAAAAAA0AAAAJAAcAAAAAAAwAAAAJAAcAAAAAAAsAAAAJAAcAAAAAAAoAAAAJAAcAAADx/wAAAAAJAAcAAADy/wAAAAAJAAcAAADz/wAAAAAJAAcAAAD0/wAAAAAJAAcAAAD1/wAAAAAJAAcAAADx////AAAJAAcAAADy////AAAJAAcAAADz////AAAJAAcAAAD0////AAAJAAcAAAD1////AAAJAAcAAAD///H/AAAJAAcAAAD///L/AAAJAAcAAAD///P/AAAJAAcAAAD///T/AAAJAAcAAAD///X/AAAJAAcAAAAAAPH/AAAJAAcAAAAAAPL/AAAJAAcAAAAAAPP/AAAJAAcAAAAAAPT/AAAJAAcAAAAAAPX/AAAJAAcAAAA=")
+tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAYAAAAAAAkAAAAHAAYAAAAJAP//AAAIAAQAAAAJAAAAAAAIAAUAAAD2////AAAHAAQAAAD2/wAAAAAHAAUAAAA=")
 tile_set = SubResource("TileSet_d2scd")
 
 [node name="West_door" type="Area2D" parent="." unique_id=225518144]
