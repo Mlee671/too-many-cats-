@@ -671,7 +671,7 @@ sources/1 = SubResource("TileSetAtlasSource_unu5q")
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l17gk"]
-size = Vector2(382, 371)
+size = Vector2(288, 299)
 
 [node name="Room_template" type="Node2D" unique_id=760106608]
 script = ExtResource("1_l17gk")
@@ -725,10 +725,10 @@ shape = SubResource("RectangleShape2D_unu5q")
 
 [node name="Room_activator" type="Area2D" parent="." unique_id=1449220809]
 collision_layer = 0
-collision_mask = 7
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room_activator" unique_id=1122196058]
-position = Vector2(-1, -9.5)
+position = Vector2(0, -5.5)
 shape = SubResource("RectangleShape2D_l17gk")
 
 [connection signal="body_entered" from="West_door" to="." method="_on_west_door_body_entered"]

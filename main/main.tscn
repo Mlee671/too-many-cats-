@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://btki6vqc3kjki" path="res://main/Room_manager.gd" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/character_scenes/blue_knight.tscn" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://huhnpplg2urb" path="res://main/signal_bus.gd" id="6_kfbq2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -513,3 +514,6 @@ script = ExtResource("4_jjvhh")
 
 [node name="character_slot" parent="character_manager" unique_id=1328872590 instance=ExtResource("2_bo1nx")]
 position = Vector2(576, 325)
+
+[node name="SignalBus" type="Node" parent="." unique_id=109714485]
+script = ExtResource("6_kfbq2")

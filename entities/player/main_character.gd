@@ -23,6 +23,7 @@ var is_alive := true
 var doors_lock := false
 
 func _ready() -> void:
+	SignalBus.room_lock.connect(_on_room_lock)
 	stats.player_state = Stats.states.IDLE
 	add_to_group("Player")
 	#animation_player.play("idle")
@@ -76,6 +77,9 @@ func _physics_process(delta: float) -> void:
 	if evade_flag != evadeState.ACTIVE:
 		handle_animation()
 	
+
+func _on_room_lock(locked: bool) -> void:
+	doors_lock = locked
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
