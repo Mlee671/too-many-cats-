@@ -20,6 +20,7 @@ var attack_cooldown := false
 var evade_flag = evadeState.READY
 var ability_cooldown := false
 var is_alive := true
+var doors_lock := false
 
 func _ready() -> void:
 	stats.player_state = Stats.states.IDLE
@@ -65,6 +66,10 @@ func _physics_process(delta: float) -> void:
 		character_ability()
 		ability_cooldown = true
 		ability_timer.start(stats.ability_cd)
+		
+	if Input.is_action_just_pressed("debug_lock_doors"):
+		doors_lock = !doors_lock
+		print(doors_lock)
 		
 	# move and animate if not in dodge state
 	move_and_slide()
@@ -114,8 +119,19 @@ func fire_gun(target: Vector2) -> void:
 
 
 func character_ability():
-	var test := NavigationServer2D.map_get_path(get_world_2d().get_navigation_map(), global_position, get_global_mouse_position(), false, 3)
-	global_position = test[-1]
+	var teleport_path: PackedVector2Array
+	# if locked, disable nav tiles at and around doors via bit mask
+	if doors_lock:
+		teleport_path = NavigationServer2D.map_get_path(
+					get_world_2d().get_navigation_map(),
+					global_position, get_global_mouse_position(),
+					false, 2)
+	else:
+		teleport_path = NavigationServer2D.map_get_path(
+				get_world_2d().get_navigation_map(),
+				global_position, get_global_mouse_position(),
+				false, 6)
+	global_position = teleport_path[-1]
 
 
 ## Called by enemy attacks when colliding with body. Currently does nothing.
