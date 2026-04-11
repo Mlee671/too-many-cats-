@@ -2,6 +2,8 @@ extends Node2D
 class_name character_manager
 
 signal swapping_character
+@onready var character_hud: CanvasLayer = $character_hud
+
 
 # the scene name of each character
 enum characters {blue_knight, yellow_knight}
@@ -44,6 +46,9 @@ func _do_switch(target_character: String = "") -> void:
 	var direction := old_node.velocity.normalized()
 	var speed: float = min(old_node.velocity.length(), new_node.stats.speed)
 	new_node.velocity = direction * speed
+	
+	character_hud.switch_hp_bars()
+	
 
 func switch_next() -> void:
 	call_deferred("_do_switch")

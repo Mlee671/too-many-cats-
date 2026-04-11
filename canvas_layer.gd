@@ -2,7 +2,7 @@ extends CanvasLayer
 @onready var first_hp_bar: TextureProgressBar = $Control/first_hp_bar
 @onready var second_hp_bar: TextureProgressBar = $Control/second_hp_bar
 
-var hp_bars = [0,0,0]
+var hp_bars = [0,0]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,6 +19,10 @@ func set_main_hp_bar(amount: float) -> void:
 	hp_bars[0] = amount
 	
 	
-
+func switch_hp_bars() -> void:
+	var hold
+	hold = hp_bars[0]
+	hp_bars.pop_front()
+	hp_bars.append(hold)
 	
 		
