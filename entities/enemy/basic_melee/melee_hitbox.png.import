@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmxoi4egpv14x"
-path="res://.godot/imported/melee_hitbox.png-1e53ecb4b4b998d54237a5c9d011381b.ctex"
+path="res://.godot/imported/melee_hitbox.png-9afeb358ab70831e068ad0b454ccb764.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemy/components/attacks/slash/melee_hitbox.png"
-dest_files=["res://.godot/imported/melee_hitbox.png-1e53ecb4b4b998d54237a5c9d011381b.ctex"]
+source_file="res://entities/enemy/basic_melee/melee_hitbox.png"
+dest_files=["res://.godot/imported/melee_hitbox.png-9afeb358ab70831e068ad0b454ccb764.ctex"]
 
 [params]
 
