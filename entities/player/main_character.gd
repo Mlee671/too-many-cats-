@@ -12,7 +12,8 @@ class_name main_character
 @onready var stats := $Stats
 @onready var animation_tree := $CharacterVisuals/AnimationTree
 
-signal taken_damage(amount)
+@onready var character_hud: CanvasLayer = $"../character_hud"
+
 
 enum evadeState {READY, ACTIVE, COOLDOWN}
 
@@ -21,9 +22,13 @@ var evade_flag = evadeState.READY
 var is_alive := true
 
 func _ready() -> void:
+	
+
 	stats.player_state = Stats.states.IDLE
 	add_to_group("Player")
 	#animation_player.play("idle")
+	
+	
 	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
@@ -105,8 +110,13 @@ func fire_gun(target: Vector2) -> void:
 
 ## Called by enemy attacks when colliding with body. Currently does nothing.
 func take_damage(amount: int):
+	
 	print("[DEBUG] Player taken ", amount, " damage")
-	taken_damage.emit(amount)
+	
+	character_hud.decrease_hp_bar(stats.hp - amount)
+	stats.hp -=amount
+	
+	
 
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_animation():
@@ -116,3 +126,8 @@ func handle_animation():
 	else:
 		stats.player_state = Stats.states.IDLE
 		#animation_player.play("idle")
+
+
+	
+
+	
