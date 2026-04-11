@@ -438,7 +438,6 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1320116309]
-zoom = Vector2(3, 3)
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=190503675]
 one_shot = true
@@ -454,6 +453,7 @@ texture_filter = 1
 position = Vector2(-1.9999996, -3.9999998)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
+frame = 1
 speed_scale = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]

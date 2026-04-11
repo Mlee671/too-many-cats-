@@ -50,12 +50,15 @@ func _physics_process(delta: float) -> void:
 			fire_gun(get_local_mouse_position())
 	
 	# if user presses dodge key
-	if (Input.is_action_just_pressed("ability")
+	if (Input.is_action_just_pressed("evade")
 			and evade_flag == evadeState.READY):
 		# change sprite
 		#animation_player.play("dodge")
 		evade_flag = evadeState.ACTIVE
 		evade_timer.start(stats.evade_dur);
+		
+	if Input.is_action_just_pressed("ability"):
+		character_ability()
 		
 	# move and animate if not in dodge state
 	move_and_slide()
@@ -99,6 +102,11 @@ func fire_gun(target: Vector2) -> void:
 	spawn.position = position + Vector2(8,8) * direction + Vector2(0,-8)
 	get_parent().add_child(spawn)
 	stats.shots_fired += 1
+
+
+func character_ability():
+	print("casting")
+	pass
 
 
 ## Called by enemy attacks when colliding with body. Currently does nothing.
