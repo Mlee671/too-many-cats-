@@ -1,12 +1,14 @@
 extends CharacterBody2D
 class_name main_character
 
+
 # loads the bullet scene when starting the game
 # TODO: replace with child node to generate within (e.g. AttackComponent)
 @onready var projectile := preload("res://entities/player/attacks/Bullet.tscn")
 
 @onready var attack_timer := $AttackTimer
 @onready var evade_timer := $EvadeTimer
+@onready var ability_timer := $AbilityTimer
 #@onready var animation_player := $CharacterVisuals/AnimatedSprite2D
 @onready var char_visual := $CharacterVisuals
 @onready var stats := $Stats
@@ -16,6 +18,7 @@ enum evadeState {READY, ACTIVE, COOLDOWN}
 
 var attack_cooldown := false
 var evade_flag = evadeState.READY
+var ability_cooldown := false
 var is_alive := true
 
 func _ready() -> void:
@@ -57,8 +60,11 @@ func _physics_process(delta: float) -> void:
 		evade_flag = evadeState.ACTIVE
 		evade_timer.start(stats.evade_dur);
 		
-	if Input.is_action_just_pressed("ability"):
+	if (Input.is_action_just_pressed("ability")
+			and not ability_cooldown):
 		character_ability()
+		ability_cooldown = true
+		ability_timer.start(stats.ability_cd)
 		
 	# move and animate if not in dodge state
 	move_and_slide()
@@ -80,6 +86,9 @@ func _on_evade_timeout() -> void:
 	# after cooldown, evade is ready
 	elif evade_flag == evadeState.COOLDOWN:
 		evade_flag = evadeState.READY
+
+func _on_ability_timeout() -> void:
+	ability_cooldown = false
 
 func swap_character() -> void:
 	# dodge should skip straight to cooldown to prevent abuse
@@ -105,8 +114,8 @@ func fire_gun(target: Vector2) -> void:
 
 
 func character_ability():
-	print("casting")
-	pass
+	var test := NavigationServer2D.map_get_path(get_world_2d().get_navigation_map(), global_position, get_global_mouse_position(), false, 3)
+	global_position = test[-1]
 
 
 ## Called by enemy attacks when colliding with body. Currently does nothing.
