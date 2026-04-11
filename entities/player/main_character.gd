@@ -65,12 +65,12 @@ func _physics_process(delta: float) -> void:
 	if (Input.is_action_just_pressed("ability")
 			and not ability_cooldown):
 		character_ability()
+		# start cooldown
 		ability_cooldown = true
 		ability_timer.start(stats.ability_cd)
 		
 	if Input.is_action_just_pressed("debug_lock_doors"):
 		doors_lock = !doors_lock
-		print(doors_lock)
 		
 	# move and animate if not in dodge state
 	move_and_slide()
@@ -135,6 +135,7 @@ func character_ability():
 				get_world_2d().get_navigation_map(),
 				global_position, get_global_mouse_position(),
 				false, 6)
+	# go to final calculated path node
 	global_position = teleport_path[-1]
 
 

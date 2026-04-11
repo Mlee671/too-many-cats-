@@ -15,7 +15,8 @@ var locked := false
 @onready var door_south := $South_door
 @onready var objects := $NavRegion/Environment
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	# keypress check for toggling door locks
 	if Input.is_action_just_pressed("debug_lock_doors"):
 		locked = !locked
 		_query_doors()
@@ -78,8 +79,9 @@ func _on_south_door_body_exited(body: Node2D) -> void:
 # only mask on player layer
 func _on_room_activator_body_entered(body: Node2D) -> void:
 	locked = true
-	SignalBus.room_lock.emit(locked)
+	SignalBus.room_lock.emit(locked) # -> main_character.on_room_lock
 	
+	# close doors, and prevent from opening
 	_query_doors()
 	_on_north_door_body_exited(body)
 	_on_south_door_body_exited(body)
@@ -96,6 +98,7 @@ func _on_room_activator_body_entered(body: Node2D) -> void:
 			pass
 
 func _on_room_activator_body_exited(body: Node2D) -> void:
+	# syncs door state to debug key - all doors open, e.g.
 	locked = false
 	_query_doors()
 	

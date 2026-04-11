@@ -11,7 +11,7 @@ class_name Stats
 
 
 @export var fire_cd := .5
-@export var ability_cd := 1
+@export var ability_cd := 10
 
 # player states
 enum states{IDLE, RUNNING, DODGING}
