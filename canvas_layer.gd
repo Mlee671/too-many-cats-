@@ -14,6 +14,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+#updates the current top left hud continuously
 func _process(delta: float) -> void:
 	first_hp_bar.value = hp_bars[0]
 	second_hp_bar.value = hp_bars[1]
@@ -33,8 +34,16 @@ func switch_hp_bars() -> void:
 	hp_bars.pop_front()
 	hp_bars.append(hold)
 	
+#adds icons to the array. 
 func add_icon(icon: CompressedTexture2D):
 	icons_array.append(icon)
+	
+func switch_icon()-> void:
+	#left shifts the icons array
+	var hold
+	hold = icons_array[0]
+	icons_array.pop_front()
+	icons_array.append(hold)
 	
 	
 	

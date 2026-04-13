@@ -17,7 +17,7 @@ var character_nodes := []
 var character_index : int = 0
 
 func _ready() -> void:
-	# loads all character nodes and adds them into an array
+	# loads all character nodes and icons then adds them into an array
 	for c in characters:
 		var char_instance : main_character = load(path + c + ".tscn").instantiate()
 		var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
@@ -50,7 +50,9 @@ func _do_switch(target_character: String = "") -> void:
 	var speed: float = min(old_node.velocity.length(), new_node.stats.speed)
 	new_node.velocity = direction * speed
 	
+	#switches the character hp bars and icons to the next in line
 	character_hud.switch_hp_bars()
+	character_hud.switch_icon()
 	
 
 func switch_next() -> void:
