@@ -9,6 +9,7 @@ signal swapping_character
 enum characters {blue_knight, yellow_knight}
 
 var path := "res://entities/player/character_scenes/"
+var icon_path := "res://entities/player/character_icons/"
 
 # all loaded character nodes gets added to this array
 var character_nodes := []
@@ -19,6 +20,8 @@ func _ready() -> void:
 	# loads all character nodes and adds them into an array
 	for c in characters:
 		var char_instance : main_character = load(path + c + ".tscn").instantiate()
+		var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
+		character_hud.add_icon(char_icon)
 		character_nodes.append(char_instance)
 
 func _physics_process(_delta: float) -> void:
