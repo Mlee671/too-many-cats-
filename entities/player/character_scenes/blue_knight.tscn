@@ -454,7 +454,7 @@ texture_filter = 1
 position = Vector2(-1.9999996, -3.9999998)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
-frame = 1
+frame = 2
 speed_scale = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]

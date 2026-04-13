@@ -5,7 +5,7 @@ extends CanvasLayer
 @onready var second_char: TextureRect = $Control/second_char
 
 
-var hp_bars = [0,0]
+var hp_bars = []
 var icons_array = []
 
 
@@ -22,6 +22,9 @@ func _process(delta: float) -> void:
 	second_char.texture = icons_array[1]
 	
 
+func add_hp_bar(starting_hp : float):
+	hp_bars.append(starting_hp)
+	
 #sets amount of hp remaining for the character currently in use
 func set_main_hp_bar(amount: float) -> void:
 	hp_bars[0] = amount

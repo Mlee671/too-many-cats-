@@ -22,6 +22,8 @@ func _ready() -> void:
 		var char_instance : main_character = load(path + c + ".tscn").instantiate()
 		var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
 		character_hud.add_icon(char_icon)
+		character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
+		
 		character_nodes.append(char_instance)
 
 func _physics_process(_delta: float) -> void:
