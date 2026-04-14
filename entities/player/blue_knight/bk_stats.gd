@@ -3,6 +3,7 @@ class_name Stats
 
 @export var speed := 100
 @export var accel := 10 # how smooth stop/start movement
+@export var hp := 100
 
 @export var evade_movement_scaling := 2.5
 @export var evade_dur := 0.2
@@ -18,3 +19,7 @@ enum states{IDLE, RUNNING, DODGING}
 
 # player stats
 var shots_fired := 0
+
+func get_hp():
+	return hp
+	
