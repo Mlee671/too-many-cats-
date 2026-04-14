@@ -10,7 +10,7 @@ extends CanvasLayer
 var hp_bars = []
 var icons_array = []
 var visibility = [0,0,0]
-var number_of_bars = 0
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -60,6 +60,18 @@ func switch_icon()-> void:
 	hold = icons_array[0]
 	icons_array.pop_front()
 	icons_array.append(hold)
+
+#removes the character icon and hp bar
+func remove_char(position:int):
+	icons_array.remove_at(position)
+	hp_bars.remove_at(position)
 	
+	#removes the hp bars with no character associated to them anymore
+	third_char.texture = null
+	third_hp_bar.value = 0
 	
+	if hp_bars.size() == 1:
+		second_char.texture = null
+		second_hp_bar.value = 0
+		
 	
