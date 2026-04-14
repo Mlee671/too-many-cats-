@@ -439,13 +439,9 @@ shape = SubResource("CapsuleShape2D_bggxh")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1320116309]
 zoom = Vector2(3, 3)
-process_callback = 0
-position_smoothing_enabled = true
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=190503675]
 one_shot = true
-
-[node name="AbilityTimer" type="Timer" parent="." unique_id=2088195210]
 
 [node name="EvadeTimer" type="Timer" parent="." unique_id=1923964845]
 wait_time = 5.0
@@ -458,7 +454,7 @@ texture_filter = 1
 position = Vector2(-1.9999996, -3.9999998)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
-frame = 2
+frame = 3
 speed_scale = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]
@@ -481,5 +477,4 @@ script = ExtResource("3_c4o6u")
 script = ExtResource("6_g607o")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
-[connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timeout"]
 [connection signal="timeout" from="EvadeTimer" to="." method="_on_evade_timeout"]

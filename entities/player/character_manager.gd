@@ -2,11 +2,14 @@ extends Node2D
 class_name character_manager
 
 signal swapping_character
+@onready var character_hud: CanvasLayer = $character_hud
+
 
 # the scene name of each character
 enum characters {blue_knight, yellow_knight}
 
 var path := "res://entities/player/character_scenes/"
+var icon_path := "res://entities/player/character_icons/"
 
 # all loaded character nodes gets added to this array
 var character_nodes := []
@@ -14,9 +17,13 @@ var character_nodes := []
 var character_index : int = 0
 
 func _ready() -> void:
-	# loads all character nodes and adds them into an array
+	# loads all character nodes and icons then adds them into an array
 	for c in characters:
 		var char_instance : main_character = load(path + c + ".tscn").instantiate()
+		var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
+		character_hud.add_icon(char_icon)
+		character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
+		
 		character_nodes.append(char_instance)
 
 func _physics_process(_delta: float) -> void:
@@ -44,6 +51,11 @@ func _do_switch(target_character: String = "") -> void:
 	var direction := old_node.velocity.normalized()
 	var speed: float = min(old_node.velocity.length(), new_node.stats.speed)
 	new_node.velocity = direction * speed
+	
+	#switches the character hp bars and icons to the next in line
+	character_hud.switch_hp_bars()
+	character_hud.switch_icon()
+	
 
 func switch_next() -> void:
 	call_deferred("_do_switch")
