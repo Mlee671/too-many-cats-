@@ -13,7 +13,7 @@ var locked := false
 @onready var door_east := $East_door
 @onready var door_north := $North_door
 @onready var door_south := $South_door
-@onready var objects := $NavRegion/Environment
+@onready var objects := $Tilemaps/Environment
 
 func _physics_process(_delta: float) -> void:
 	# keypress check for toggling door locks
