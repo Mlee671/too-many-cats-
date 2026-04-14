@@ -9,20 +9,6 @@
 tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAYAAAAAAAkAAAAHAAYAAAAJAP//AAAIAAQAAAAJAAAAAAAIAAUAAAD2////AAAHAAQAAAD2/wAAAAAHAAUAAAD5//n/AQAAAAAAAAD5//r/AQAAAAAAAAD5//v/AQAAAAAAAAD6//v/AQAAAAAAAAD7//v/AQAAAAAAAAD7//r/AQAAAAAAAAD7//n/AQAAAAAAAAD6//n/AQAAAAAAAAD6//r/AQAAAAAAAAAEAPn/AQAAAAAAAAAEAPr/AQAAAAAAAAAEAPv/AQAAAAAAAAAEAPz/AQAAAAAAAAAEAP3/AQAAAAAAAAAEAP7/AQAAAAAAAAAEAP//AQAAAAAAAAAEAAAAAQAAAAAAAAAFAAAAAQAAAAAAAAAFAP//AQAAAAAAAAAFAP7/AQAAAAAAAAAFAP3/AQAAAAAAAAAFAPz/AQAAAAAAAAAFAPv/AQAAAAAAAAAFAPr/AQAAAAAAAAAFAPn/AQAAAAAAAAD5/wUAAQAAAAAAAAD6/wUAAQAAAAAAAAD7/wUAAQAAAAAAAAD7/wYAAQAAAAAAAAD6/wYAAQAAAAAAAAD5/wYAAQAAAAAAAAA=")
 
 [node name="BasicRangedEnemy" parent="." index="1" unique_id=310538941 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_dbej8")]
-tilemap = NodePath("../NavRegion/Room")
-vision_range = 120.0
-
-[node name="BasicRangedEnemy2" parent="." index="2" unique_id=472258507 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_dbej8")]
-position = Vector2(-73, -87)
-tilemap = NodePath("../NavRegion/Room")
-vision_range = 120.0
-
-[node name="BasicRangedEnemy3" parent="." index="3" unique_id=323392419 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_dbej8")]
-position = Vector2(42, 74)
-tilemap = NodePath("../NavRegion/Room")
-vision_range = 120.0
-
-[node name="BasicRangedEnemy4" parent="." index="4" unique_id=179860103 node_paths=PackedStringArray("tilemap") instance=ExtResource("2_dbej8")]
-position = Vector2(-118, 60)
+position = Vector2(-104, -121)
 tilemap = NodePath("../NavRegion/Room")
 vision_range = 120.0
