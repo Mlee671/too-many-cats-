@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diotyurjspa62"
-path="res://.godot/imported/bullet.png-221190467bfbf12b539b0f52f798205d.ctex"
+uid="uid://cq5xmes5gqfg0"
+path="res://.godot/imported/ikoiku_itchio_mouse_v2.png-5d804523d8c529867364d96d2c45372a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemy/components/attacks/bullet.png"
-dest_files=["res://.godot/imported/bullet.png-221190467bfbf12b539b0f52f798205d.ctex"]
+source_file="res://entities/enemy/basic_melee/ikoiku_itchio_mouse_v2.png"
+dest_files=["res://.godot/imported/ikoiku_itchio_mouse_v2.png-5d804523d8c529867364d96d2c45372a.ctex"]
 
 [params]
 

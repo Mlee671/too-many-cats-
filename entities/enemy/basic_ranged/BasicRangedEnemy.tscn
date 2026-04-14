@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b5c58jagrlp5r" path="res://entities/enemy/Enemy.tscn" id="1_enhxg"]
 [ext_resource type="Script" uid="uid://b7rw6ss3s6dgp" path="res://entities/enemy/basic_ranged/basic_ranged_enemy.gd" id="2_ocqek"]
-[ext_resource type="PackedScene" uid="uid://voyoh38fcwge" path="res://entities/enemy/components/attacks/projectile.tscn" id="3_hfvty"]
+[ext_resource type="PackedScene" uid="uid://voyoh38fcwge" path="res://entities/enemy/components/attacks/projectile/projectile.tscn" id="3_hfvty"]
 [ext_resource type="Texture2D" uid="uid://x815c1srcasp" path="res://entities/enemy/basic_ranged/ikoiku_itchio_mouse.png" id="3_l8j17"]
 
 [sub_resource type="Animation" id="Animation_l8j17"]
@@ -40,7 +40,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Visuals/Sprite:frame")
 tracks/0/interp = 1
-tracks/0/loop_wrap = true
+tracks/0/loop_wrap = false
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
