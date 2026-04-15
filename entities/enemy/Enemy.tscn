@@ -70,6 +70,7 @@ one_shot = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=221465016]
 path_max_distance = 30.0
+navigation_layers = 2
 path_postprocessing = 1
 avoidance_enabled = true
 
