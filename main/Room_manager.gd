@@ -1,4 +1,5 @@
 extends Node2D
+class_name Room_manager
 
 const TILE_SIZE = 16
 const ROOM_SIZE = 30
@@ -8,6 +9,7 @@ const ROOM_SIZE = 30
 var room_array : Array = []
 var hallway_pos : Array[Vector2i] = []
 var room_pos : Array[Vector2i] = []
+var enemy_array : Array = []
 
 func _ready() -> void:
 	# loads all rooms in the room folder
@@ -18,6 +20,14 @@ func _ready() -> void:
 		while file_name != "":
 			room_array.append(load("res://Room_scenes/Rooms/" + file_name))
 			file_name = dir.get_next()
+	var dir2 = DirAccess.open("res://entities/enemy/Enemy_scenes/")
+	if dir2:
+		dir2.list_dir_begin()
+		var file_name = dir2.get_next()
+		while file_name != "":
+			enemy_array.append(load("res://entities/enemy/Enemy_scenes/" + file_name))
+			file_name = dir2.get_next()
+	print(enemy_array.size())
 
 func generate_rooms(rooms : int) -> Vector2:
 	# generates positions for rooms based on previous room position starting at 0,0
@@ -32,7 +42,7 @@ func generate_rooms(rooms : int) -> Vector2:
 	# places floors to remove walls at end of hallway
 	_spawn_corridors()
 	# prints a minimap in terminal
-	_show_minimap(rooms)
+	# _show_minimap(rooms)
 	# returns spawn point for character
 	return room_pos[0]
 				
@@ -125,3 +135,6 @@ func _show_minimap(rooms):
 				char_array.append(" ")
 		print(char_array)
 	
+func get_enemy() -> PackedScene:
+	var enemy = enemy_array.pick_random()
+	return enemy

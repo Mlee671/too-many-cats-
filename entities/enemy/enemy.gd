@@ -33,7 +33,7 @@ func _ready() -> void:
 	vision_circle.shape.radius = 0
 	vision.set_enabled(false)
 	# once room triggers are implemented, this can be removed
-	setup_nav()
+	# setup_nav()
 
 
 func _physics_process(delta: float) -> void:
@@ -48,7 +48,7 @@ func _physics_process(delta: float) -> void:
 		_move(delta)
 
 	if enemyState == BEHAVIOUR.WANDER:
-		if vision.is_enabled() and vision.can_see_player(get_tree().get_first_node_in_group("Player")):
+		if vision.is_enabled() and vision.can_see_player(raycast_target):
 			enemyState = BEHAVIOUR.ATTACK
 			$VisionArea.monitoring = false
 		
@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 			_look_vector_direction(velocity)
 		
 	elif enemyState == BEHAVIOUR.ATTACK:
-		raycast_target = get_tree().get_first_node_in_group("Player")
+		# raycast_target = get_tree().get_first_node_in_group("Player")
 		attack_logic()
 		# look in direction of player
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
@@ -121,12 +121,15 @@ func _on_attack_timeout() -> void:
 
 
 ## Only has mask on player layer, thus group check not required afaik
-func _on_vision_area_entered(_body: Node2D) -> void:
-	vision.set_enabled(true)
+func _on_vision_area_entered(body: Node2D) -> void:
+	if body is main_character:
+		vision.set_enabled(true)
+		raycast_target = body
 
 
-func _on_vision_area_exited(_body: Node2D) -> void:
-	vision.set_enabled(false)
+func _on_vision_area_exited(body: Node2D) -> void:
+	if body is main_character:
+		vision.set_enabled(false)
 
 
 ## Activates enemy to wander and attack, not stationary.
@@ -137,6 +140,8 @@ func activate_enemy() -> void:
 	
 func deactivate_enemy() -> void:
 	enemyState = BEHAVIOUR.INACTIVE
+	velocity = Vector2(0,0)
+	$VisionArea.monitoring = true
 
 
 func nearby_vector(tile_range: Vector2) -> Vector2:
@@ -163,7 +168,7 @@ func setup_nav() -> void:
 
 func set_wander_target() -> void:
 	nav_agent.target_position = nearby_vector(
-			tilemap.map_to_local(Vector2i(pathfind_range, pathfind_range)))
+		(Vector2i(pathfind_range*16, pathfind_range*16)))
 
 
 func attack_logic() -> void:

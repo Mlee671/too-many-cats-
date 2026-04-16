@@ -644,6 +644,18 @@ collision_mask = 2
 position = Vector2(0, -5.5)
 shape = SubResource("RectangleShape2D_l17gk")
 
+[node name="Marker2D2" type="Marker2D" parent="." unique_id=2045915408]
+position = Vector2(0, -92)
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=391088897]
+position = Vector2(-90, 1)
+
+[node name="Marker2D3" type="Marker2D" parent="." unique_id=204097232]
+position = Vector2(81, 0)
+
+[node name="Marker2D4" type="Marker2D" parent="." unique_id=1972704901]
+position = Vector2(0, 88)
+
 [connection signal="body_entered" from="West_door" to="." method="_on_west_door_body_entered"]
 [connection signal="body_exited" from="West_door" to="." method="_on_west_door_body_exited"]
 [connection signal="body_entered" from="East_door" to="." method="_on_east_door_body_entered"]

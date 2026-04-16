@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://tnxvwrdhg8mq"]
 
 [ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/room_template.tscn" id="1_n3jkd"]
-[ext_resource type="PackedScene" uid="uid://b1tq1jgv35ch" path="res://entities/enemy/basic_melee/basic_melee_enemy.tscn" id="3_xfu7a"]
 
 [node name="Room_w_pillars" unique_id=760106608 instance=ExtResource("1_n3jkd")]
 
@@ -10,8 +9,3 @@ tile_map_data = PackedByteArray("AAD3/wgAAAAHAAEAAAD4/wgAAAAHAAEAAAD4/wkAAAADAAQ
 
 [node name="Environment" parent="Tilemaps" parent_id_path=PackedInt32Array(939615999) index="1" unique_id=90514998]
 tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAYAAAAAAAkAAAAHAAYAAAAJAP//AAAIAAQAAAAJAAAAAAAIAAUAAAD2////AAAHAAQAAAD2/wAAAAAHAAUAAAD6//3/AQAAAAAAAAD6/wEAAQAAAAAAAAD+/wEAAQAAAAAAAAD+/wAAAQAAAAAAAAD+////AQAAAAAAAAD+//7/AQAAAAAAAAD///7/AQAAAAAAAAAAAP7/AQAAAAAAAAADAPr/AQAAAAAAAAACAPr/AQAAAAAAAAABAPr/AQAAAAAAAAACAPv/AQAAAAAAAAADAPv/AQAAAAAAAAD6/wYAAAAAAAkAAAAFAPr/AAAAAAkAAAD8//b/AAAAAAkAAAD4//b/AAAAAAkAAAADAPb/AAAAAAkAAAAHAPb/AAAAAAkAAAD3/wMAAAABAAkAAAAIAAMAAAABAAkAABAIAPr/AAABAAkAABD8//r/AAAEAAgAAAA=")
-
-[node name="BasicMeleeEnemy" parent="." index="1" unique_id=1517034685 node_paths=PackedStringArray("tilemap") instance=ExtResource("3_xfu7a")]
-position = Vector2(-110, -54)
-tilemap = NodePath("../Tilemaps/Room")
-vision_range = 80.0

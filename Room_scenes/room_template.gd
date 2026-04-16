@@ -1,4 +1,5 @@
 extends Node2D
+class_name Base_room
 
 const WEST_DOOR := [Vector2i(7,4),Vector2i(7,5)]
 const EAST_DOOR := [Vector2i(8,4),Vector2i(8,5)]
@@ -17,8 +18,14 @@ var locked := false
 
 func _ready() -> void:
 	for child in get_children():
-		if child is Enemy:
-			enemy_list.append(child)
+		if child is Marker2D:
+			var parent = get_parent()
+			if parent is Room_manager:
+				var new_enemy = parent.get_enemy().instantiate()
+				new_enemy.position = child.position
+				enemy_list.append(new_enemy)
+				add_child(new_enemy)
+				child.queue_free()
 
 func enemy_died():
 	for i in range(enemy_list.size() - 1, -1, -1):
