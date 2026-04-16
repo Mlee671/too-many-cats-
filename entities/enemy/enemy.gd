@@ -111,6 +111,7 @@ func _on_death() -> void:
 	nav_agent.set_velocity(Vector2.ZERO)
 	hitbox.set_deferred("disabled", true)
 	await animation.animation_finished
+	get_parent().enemy_died()
 	queue_free()
 
 
@@ -133,6 +134,9 @@ func activate_enemy() -> void:
 	enemyState = BEHAVIOUR.WANDER
 	vision_circle.shape.radius = vision_range
 	set_wander_target()
+	
+func deactivate_enemy() -> void:
+	enemyState = BEHAVIOUR.INACTIVE
 
 
 func nearby_vector(tile_range: Vector2) -> Vector2:
@@ -155,7 +159,6 @@ func setup_nav() -> void:
 	# wait until map sync
 	while tilemap == null:
 		await get_tree().process_frame
-	activate_enemy()
 
 
 func set_wander_target() -> void:

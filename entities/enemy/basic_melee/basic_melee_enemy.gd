@@ -55,14 +55,15 @@ func _on_attack_radius_exited(_body: Node2D) -> void:
 
 
 func _on_attackbox_entered(body: Node2D) -> void:
-	attack_sprite.visible = true
-	animation.play_animation("attack", true)
-	body.take_damage(10)
-	attack_cooldown = true
-	stop_moving = true
-	nav_agent.set_velocity(Vector2.ZERO)
-	attack_timer.start(1.0 / attack_rate)
-	attack_duration_timer.start(ATTACK_DURATION)
+	if body is main_character:
+		body.take_damage(10)
+		attack_sprite.visible = true
+		animation.play_animation("attack", true)
+		attack_cooldown = true
+		stop_moving = true
+		nav_agent.set_velocity(Vector2.ZERO)
+		attack_timer.start(1.0 / attack_rate)
+		attack_duration_timer.start(ATTACK_DURATION)
 	
 
 # disables attack visuals, rotate hitbox so that body_entered can retrigger

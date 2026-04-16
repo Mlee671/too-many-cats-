@@ -15,6 +15,7 @@ class_name main_character
 @onready var animation_tree := $CharacterVisuals/AnimationTree
 
 @onready var character_hud: CanvasLayer = $"../character_hud"
+@onready var nav_agent := $NavigationAgent2D
 
 
 enum evadeState {READY, ACTIVE, COOLDOWN}
@@ -23,10 +24,8 @@ var attack_cooldown := false
 var evade_flag = evadeState.READY
 var ability_cooldown := false
 var is_alive := true
-var doors_lock := false
 
 func _ready() -> void:
-	SignalBus.room_lock.connect(_on_room_lock)
 	stats.player_state = Stats.states.IDLE
 	add_to_group("Player")
 	#animation_player.play("idle")
@@ -74,17 +73,10 @@ func _physics_process(delta: float) -> void:
 		ability_cooldown = true
 		ability_timer.start(stats.ability_cd)
 		
-	if Input.is_action_just_pressed("debug_lock_doors"):
-		doors_lock = !doors_lock
-		
 	# move and animate if not in dodge state
 	move_and_slide()
 	if evade_flag != evadeState.ACTIVE:
 		handle_animation()
-	
-
-func _on_room_lock(locked: bool) -> void:
-	doors_lock = locked
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
@@ -128,20 +120,9 @@ func fire_gun(target: Vector2) -> void:
 
 
 func character_ability():
-	var teleport_path: PackedVector2Array
-	# if locked, disable nav tiles at and around doors via bit mask
-	if doors_lock:
-		teleport_path = NavigationServer2D.map_get_path(
-					get_world_2d().get_navigation_map(),
-					global_position, get_global_mouse_position(),
-					false, 2)
-	else:
-		teleport_path = NavigationServer2D.map_get_path(
-				get_world_2d().get_navigation_map(),
-				global_position, get_global_mouse_position(),
-				false, 6)
+	nav_agent.target_position = get_global_mouse_position()
 	# go to final calculated path node
-	global_position = teleport_path[-1]
+	global_position = nav_agent.get_final_position()
 
 
 ## Called by enemy attacks when colliding with body. Currently does nothing.
