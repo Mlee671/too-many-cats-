@@ -23,8 +23,14 @@ func _ready() -> void:
 		var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
 		character_hud.add_icon(char_icon)
 		character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
-		
 		character_nodes.append(char_instance)
+
+func spawn_character(pos : Vector2):
+	var character = character_nodes[0]
+	add_child(character)
+	move_child(character, 0)
+	character.global_position = pos
+
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("character_change"):

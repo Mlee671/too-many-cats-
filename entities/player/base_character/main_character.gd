@@ -15,8 +15,6 @@ class_name main_character
 @onready var animation_tree := $CharacterVisuals/AnimationTree
 
 @onready var character_hud: CanvasLayer = $"../character_hud"
-@onready var nav_agent := $NavigationAgent2D
-
 
 enum evadeState {READY, ACTIVE, COOLDOWN}
 
@@ -31,13 +29,13 @@ func _ready() -> void:
 	#animation_player.play("idle")
 	
 	
-	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
-	if get_local_mouse_position().x < 0:
-		char_visual.scale.x = -1
-	else:
-		char_visual.scale.x = 1
+	if evade_flag != evadeState.ACTIVE:
+		if get_local_mouse_position().x < 0:
+			char_visual.scale.x = -1
+		else:
+			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
 	# gets directional vector based on keypress
@@ -98,7 +96,7 @@ func _on_ability_timeout() -> void:
 
 func swap_character() -> void:
 	# dodge should skip straight to cooldown to prevent abuse
-	evade_flag = evadeState.COOLDOWN
+	evade_flag = evadeState.READY
 	handle_animation() # force change animation away from dodge
 	evade_timer.start(stats.evade_cd)
 
@@ -120,9 +118,8 @@ func fire_gun(target: Vector2) -> void:
 
 
 func character_ability():
-	nav_agent.target_position = get_global_mouse_position()
-	# go to final calculated path node
-	global_position = nav_agent.get_final_position()
+	pass
+	# override in child
 
 
 ## Called by enemy attacks when colliding with body. Currently does nothing.

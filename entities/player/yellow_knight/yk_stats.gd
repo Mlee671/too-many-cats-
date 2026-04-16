@@ -6,8 +6,8 @@ func _ready() -> void:
 	accel = 10 # how smooth stop/start movement
 	hp = 100
 	
-	evade_movement_scaling = 2.5
-	evade_dur = 0.2
+	evade_movement_scaling = 1.75
+	evade_dur = 0.4
 	evade_cd = 0.5
 
 	fire_cd =  0
