@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://btki6vqc3kjki" path="res://main/Room_manager.gd" id="2_21xkr"]
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
-[ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://canvas_layer.gd" id="6_4dugh"]
+[ext_resource type="Script" path="res://canvas_layer.gd" id="6_4dugh"]
 [ext_resource type="Texture2D" uid="uid://wuvfmn2vkvpm" path="res://ui_assets/healthbar_placeholder.png" id="6_kfbq2"]
 [ext_resource type="Texture2D" uid="uid://ciaer60vu7k63" path="res://ui_assets/healthbar_placeholder_Y.png" id="8_67ri8"]
 

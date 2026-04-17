@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://da81t2gvppx63"]
+
+[ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/base_character/main_character.tscn" id="1_fyko8"]
+[ext_resource type="Script" uid="uid://ddj55fqq2c7gj" path="res://entities/player/pink_knight/pink_knight.gd" id="2_8fx3h"]
+[ext_resource type="Texture2D" uid="uid://dqkrxayfifxm6" path="res://entities/player/pink_knight/Full_Toothpaste1.png" id="3_8fx3h"]
+[ext_resource type="Script" uid="uid://27kcjseot6py" path="res://entities/player/pink_knight/pk_stats.gd" id="4_qs2h1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qs2h1"]
+atlas = ExtResource("3_8fx3h")
+region = Rect2(0, 0, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u81fv"]
+atlas = ExtResource("3_8fx3h")
+region = Rect2(45, 0, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2osm"]
+atlas = ExtResource("3_8fx3h")
+region = Rect2(90, 0, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhq8u"]
+atlas = ExtResource("3_8fx3h")
+region = Rect2(135, 0, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7p4y"]
+atlas = ExtResource("3_8fx3h")
+region = Rect2(5, 49, 35, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0ewk"]
+atlas = ExtResource("3_8fx3h")
+region = Rect2(50, 49, 35, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymxyg"]
+atlas = ExtResource("3_8fx3h")
+region = Rect2(95, 49, 35, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa0sl"]
+atlas = ExtResource("3_8fx3h")
+region = Rect2(140, 49, 35, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fyko8"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"dodge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qs2h1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u81fv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2osm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhq8u")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7p4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0ewk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymxyg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa0sl")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"swap",
+"speed": 5.0
+}]
+
+[node name="pink_knight" unique_id=2044665017 instance=ExtResource("1_fyko8")]
+script = ExtResource("2_8fx3h")
+
+[node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
+sprite_frames = SubResource("SpriteFrames_fyko8")
+
+[node name="Stats" parent="." index="6" unique_id=201965470]
+script = ExtResource("4_qs2h1")

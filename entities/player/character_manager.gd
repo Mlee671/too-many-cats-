@@ -6,7 +6,7 @@ signal swapping_character
 
 
 # the scene name of each character
-enum characters {blue_knight, yellow_knight}
+enum characters {blue_knight, yellow_knight, pink_knight}
 
 var path := "res://entities/player/character_scenes/"
 var icon_path := "res://entities/player/character_icons/"
