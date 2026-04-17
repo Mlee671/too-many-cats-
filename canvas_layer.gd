@@ -19,7 +19,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #updates the current top left hud continuously
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var size = hp_bars.size()
 	
 	first_hp_bar.value = hp_bars[0]
