@@ -112,11 +112,12 @@ func swap_character() -> void:
 	evade_timer.start(stats.evade_cd)
 
 ## Creates bullet instance and fires from sprite to target vector.
+## player projectiles are on collision layer 8 compared to enemies on 4 
 func fire_gun(target: Vector2) -> void:
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	
-	# Instantiates bullet
+	# Instantiates projectile
 	var spawn = projectile.instantiate()
 	var direction = target.normalized()
 	spawn.velocity = direction * projectile_speed

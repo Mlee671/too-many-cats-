@@ -10,6 +10,7 @@ var damage := 10
 func _ready() -> void:
 	lifespan.start(10)
 
+# queue free resolves after damage is returned
 func deal_damage() -> int:
 	queue_free()
 	return damage
@@ -18,6 +19,7 @@ func deal_damage() -> int:
 func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
 
+# terrain collision logic
 func _on_body_entered(body: Node2D) -> void:
 	if body is not Enemy or body is not main_character:
 		queue_free()

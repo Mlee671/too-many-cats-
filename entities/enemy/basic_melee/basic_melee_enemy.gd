@@ -49,7 +49,9 @@ func attack_logic() -> void:
 		nav_agent.target_position = raycast_target.global_position
 	frame += 1
 
-
+# attack radius is now slightly smaller than damage area so attacks happen as soon as player enters.
+# this is causing bouncing if the attackbox corner is towars the player as they will bounce off that before getting in range
+# attack box now contains the damage to work with the same system as projectiles
 func _on_attack_radius_triggered(body: Node2D) -> void:
 	if body is main_character:
 		attack_mode = true
@@ -63,7 +65,8 @@ func _on_attack_render_timeout() -> void:
 	attack_sprite.visible = false
 	attack_visual.rotate(PI)
 
-# currently causes bouncing due to shape of attack being square. once sprites are in this will fix itself
+# currently causes bouncing due to shape of attack being square and stickinging out of the attack radius. 
+# once sprites are in and the attack more circular this will fix itself mostly 
 func melee_attack():
 		attack_sprite.visible = true
 		animation.play_animation("attack", true)
