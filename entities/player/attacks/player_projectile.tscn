@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bhwtj1lyuawnt"]
+
+[ext_resource type="PackedScene" uid="uid://voyoh38fcwge" path="res://entities/enemy/components/attacks/projectile/projectile.tscn" id="1_hgki7"]
+
+[node name="Player_Projectile" unique_id=364488218 instance=ExtResource("1_hgki7")]
+collision_layer = 128
+collision_mask = 1
+
+[node name="Sprite" parent="." index="1" unique_id=2001656728]
+modulate = Color(18.892157, 9.665961, 9.665961, 1)

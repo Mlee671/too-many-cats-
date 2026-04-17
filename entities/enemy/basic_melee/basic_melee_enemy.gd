@@ -13,13 +13,12 @@ const ATTACK_DURATION := 0.5
 @export var attack_offset_magnitude := 20.0
 
 @onready var attack_visual := $AttackComponent
-
 @onready var detect_radius := $AttackComponent/AttackDetect
 @onready var attack_box := $AttackComponent/Attackbox
 @onready var attack_sprite := $AttackComponent/AttackSprite
 @onready var attack_duration_timer := $AttackRenderTimer
 
-
+var attack_mode = false
 var frame : int = 0
 
 func _ready() -> void:
@@ -28,14 +27,19 @@ func _ready() -> void:
 	pathfind_range = wander_range
 	health.set_health(hp)
 	
-	attack_box.monitoring = false
 	attack_sprite.visible = false
 	super._ready()
 
 
 func _physics_process(delta: float) -> void:
-	if attack_box.monitoring and raycast_target and not attack_cooldown:
+	if raycast_target and not attack_cooldown:
 		attack_visual.look_at(raycast_target.global_position)
+	# once maincharacter enters attack range checks each frame if they are still in range
+	if attack_mode and !attack_cooldown:
+		var bodies = detect_radius.get_overlapping_bodies()
+		for body in bodies:
+			if body is main_character:
+				melee_attack()
 	super._physics_process(delta)
 
 
@@ -46,17 +50,21 @@ func attack_logic() -> void:
 	frame += 1
 
 
-func _on_attack_radius_triggered(_body: Node2D) -> void:
-	attack_box.monitoring = true
-	
-	
-func _on_attack_radius_exited(_body: Node2D) -> void:
-	attack_box.monitoring = false
-
-
-func _on_attackbox_entered(body: Node2D) -> void:
+func _on_attack_radius_triggered(body: Node2D) -> void:
 	if body is main_character:
-		body.take_damage(10)
+		attack_mode = true
+	
+func _on_attack_radius_exited(body: Node2D) -> void:
+	if body is main_character:
+		attack_mode = false
+
+# disables attack visuals, rotate hitbox so that body_entered can retrigger
+func _on_attack_render_timeout() -> void:
+	attack_sprite.visible = false
+	attack_visual.rotate(PI)
+
+# currently causes bouncing due to shape of attack being square. once sprites are in this will fix itself
+func melee_attack():
 		attack_sprite.visible = true
 		animation.play_animation("attack", true)
 		attack_cooldown = true
@@ -64,9 +72,3 @@ func _on_attackbox_entered(body: Node2D) -> void:
 		nav_agent.set_velocity(Vector2.ZERO)
 		attack_timer.start(1.0 / attack_rate)
 		attack_duration_timer.start(ATTACK_DURATION)
-	
-
-# disables attack visuals, rotate hitbox so that body_entered can retrigger
-func _on_attack_render_timeout() -> void:
-	attack_sprite.visible = false
-	attack_visual.rotate(PI)

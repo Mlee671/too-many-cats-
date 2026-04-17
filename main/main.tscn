@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://canvas_layer.gd" id="6_4dugh"]
 [ext_resource type="Texture2D" uid="uid://wuvfmn2vkvpm" path="res://ui_assets/healthbar_placeholder.png" id="6_kfbq2"]
 [ext_resource type="Texture2D" uid="uid://ciaer60vu7k63" path="res://ui_assets/healthbar_placeholder_Y.png" id="8_67ri8"]
-[ext_resource type="Script" uid="uid://huhnpplg2urb" path="res://main/signal_bus.gd" id="9_grrlh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -41,7 +40,7 @@ texture = ExtResource("1_jjgbg")
 0:0/0/terrains_peering_bit/bottom_right_corner = 0
 1:0/0 = 0
 1:0/0/terrain_set = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0/terrains_peering_bit/bottom_right_corner = 0
 1:0/0/terrains_peering_bit/bottom_side = 0
 1:0/0/terrains_peering_bit/bottom_left_corner = 0
@@ -51,7 +50,7 @@ texture = ExtResource("1_jjgbg")
 1:0/0/terrains_peering_bit/top_right_corner = 0
 2:0/0 = 0
 2:0/0/terrain_set = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:0/0/terrains_peering_bit/right_side = 0
 2:0/0/terrains_peering_bit/bottom_right_corner = 0
 2:0/0/terrains_peering_bit/bottom_side = 0
@@ -61,7 +60,7 @@ texture = ExtResource("1_jjgbg")
 2:0/0/terrains_peering_bit/top_right_corner = 0
 3:0/0 = 0
 3:0/0/terrain_set = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:0/0/terrains_peering_bit/right_side = 0
 3:0/0/terrains_peering_bit/bottom_right_corner = 0
 3:0/0/terrains_peering_bit/bottom_side = 0
@@ -71,7 +70,7 @@ texture = ExtResource("1_jjgbg")
 3:0/0/terrains_peering_bit/top_right_corner = 0
 4:0/0 = 0
 4:0/0/terrain_set = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:0/0/terrains_peering_bit/bottom_right_corner = 0
 4:0/0/terrains_peering_bit/bottom_side = 0
 4:0/0/terrains_peering_bit/bottom_left_corner = 0
@@ -582,6 +581,3 @@ offset_top = 73.0
 offset_right = 509.0
 offset_bottom = 126.0
 expand_mode = 3
-
-[node name="SignalBus" type="Node" parent="." unique_id=109714485]
-script = ExtResource("9_grrlh")

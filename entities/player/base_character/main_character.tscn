@@ -8,8 +8,16 @@
 [ext_resource type="Script" uid="uid://bmjwwihnu1eqa" path="res://entities/player/base_character/States.gd" id="6_g607o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
-radius = 8.0
-height = 16.0
+radius = 3.0
+height = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hn4c"]
+bg_color = Color(0.24313726, 0.24313726, 0.24313726, 0.7921569)
+corner_radius_top_left = 1000
+corner_radius_top_right = 1000
+corner_radius_bottom_right = 1000
+corner_radius_bottom_left = 1000
+corner_detail = 15
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q6pjh"]
 atlas = ExtResource("2_hj1g0")
@@ -427,13 +435,16 @@ states/run/position = Vector2(584, 157)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t")]
 graph_offset = Vector2(-413, -160)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hn4c"]
+radius = 4.0
+height = 16.0
+
 [node name="main_character" type="CharacterBody2D" unique_id=2044665017 groups=["Player"]]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_a3m1w")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1575622610]
-position = Vector2(0, -4)
+[node name="terrain_collision" type="CollisionShape2D" parent="." unique_id=1575622610]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
 
@@ -446,16 +457,25 @@ position_smoothing_enabled = true
 one_shot = true
 
 [node name="AbilityTimer" type="Timer" parent="." unique_id=2088195210]
+one_shot = true
 
 [node name="EvadeTimer" type="Timer" parent="." unique_id=1923964845]
 wait_time = 5.0
 one_shot = true
 
 [node name="CharacterVisuals" type="Node2D" parent="." unique_id=569010630]
+position = Vector2(-1, -8)
+
+[node name="shadow" type="Panel" parent="CharacterVisuals" unique_id=308895081]
+offset_left = -4.0
+offset_top = 5.0
+offset_right = 6.0
+offset_bottom = 11.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3hn4c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterVisuals" unique_id=1946509894]
 texture_filter = 1
-position = Vector2(-1.9999996, -3.9999998)
+position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
 
@@ -478,6 +498,16 @@ script = ExtResource("3_c4o6u")
 [node name="Node" type="Node" parent="." unique_id=972909555]
 script = ExtResource("6_g607o")
 
+[node name="Hitbox" type="Area2D" parent="." unique_id=2022720495]
+collision_layer = 8
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=190335408]
+position = Vector2(0, -6)
+shape = SubResource("CapsuleShape2D_3hn4c")
+
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timeout"]
 [connection signal="timeout" from="EvadeTimer" to="." method="_on_evade_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

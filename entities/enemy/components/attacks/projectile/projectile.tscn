@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://voyoh38fcwge"]
 
-[ext_resource type="Script" path="res://entities/enemy/components/attacks/projectile/projectile.gd" id="1_q13ix"]
+[ext_resource type="Script" uid="uid://btqe83eqyfnp4" path="res://entities/enemy/components/attacks/projectile/projectile.gd" id="1_q13ix"]
 [ext_resource type="Texture2D" uid="uid://diotyurjspa62" path="res://entities/enemy/components/attacks/projectile/bullet.png" id="1_rncab"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q13ix"]
 radius = 2.0
 
 [node name="Projectile" type="Area2D" unique_id=364488218]
-collision_mask = 3
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("1_q13ix")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=946368817]

@@ -4,7 +4,7 @@ class_name main_character
 
 # loads the bullet scene when starting the game
 # TODO: replace with child node to generate within (e.g. AttackComponent)
-@onready var projectile := preload("res://entities/player/attacks/Bullet.tscn")
+@onready var projectile := preload("res://entities/player/attacks/player_projectile.tscn")
 
 @onready var attack_timer := $AttackTimer
 @onready var evade_timer := $EvadeTimer
@@ -16,8 +16,13 @@ class_name main_character
 
 @onready var character_hud: CanvasLayer = $"../character_hud"
 
-enum evadeState {READY, ACTIVE, COOLDOWN}
+enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 
+const KNOCKBACK_DUR := .1
+
+var projectile_speed := 200
+
+var knockback_dir : Vector2 = Vector2(0,0)
 var attack_cooldown := false
 var evade_flag = evadeState.READY
 var ability_cooldown := false
@@ -46,6 +51,12 @@ func _physics_process(delta: float) -> void:
 		stats.player_state = Stats.states.DODGING
 		velocity = lerp(velocity,
 				input_vector * stats.speed * stats.evade_movement_scaling,
+				stats.accel * delta)
+	# knockback using dodge roll speed away from attack position
+	elif evade_flag == evadeState.KNOCKBACK:
+		stats.player_state = Stats.states.DODGING
+		velocity = lerp(velocity,
+				knockback_dir * stats.speed * stats.evade_movement_scaling,
 				stats.accel * delta)
 	else:
 		velocity = lerp(velocity,
@@ -86,10 +97,10 @@ func _on_evade_timeout() -> void:
 	if evade_flag == evadeState.ACTIVE:
 		evade_flag = evadeState.COOLDOWN
 		evade_timer.start(stats.evade_cd)
-		
-	# after cooldown, evade is ready
-	elif evade_flag == evadeState.COOLDOWN:
+	# after cooldown or knockback, evade is ready
+	else:
 		evade_flag = evadeState.READY
+		modulate = Color(1,1,1)
 
 func _on_ability_timeout() -> void:
 	ability_cooldown = false
@@ -108,7 +119,7 @@ func fire_gun(target: Vector2) -> void:
 	# Instantiates bullet
 	var spawn = projectile.instantiate()
 	var direction = target.normalized()
-	spawn.velocity = direction * spawn.speed
+	spawn.velocity = direction * projectile_speed
 	
 	# spawn at sprite position in main scene, shifted
 	# for where the sprite hands would be (presumably) 
@@ -141,7 +152,15 @@ func handle_animation():
 		stats.player_state = Stats.states.IDLE
 		#animation_player.play("idle")
 
-
-	
-
-	
+# function for detecting attacks and extracting the damage done to main character
+# applys knockback which works like a short dodge away from damage
+# if dodgeing or in knockback (evadestate active) immune to damage
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if evade_flag == evadeState.ACTIVE:
+		return
+	if area is Projectile or area is Attack:
+		evade_flag = evadeState.KNOCKBACK
+		knockback_dir = (global_position - area.global_position).normalized()
+		evade_timer.start(KNOCKBACK_DUR)
+		modulate = Color(2,2,2)
+		take_damage(area.deal_damage())
