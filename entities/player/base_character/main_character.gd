@@ -4,7 +4,7 @@ class_name main_character
 
 # loads the bullet scene when starting the game
 # TODO: replace with child node to generate within (e.g. AttackComponent)
-@onready var projectile := preload("res://entities/player/attacks/Bullet.tscn")
+@onready var projectile := preload("res://entities/player/attacks/player_projectile.tscn")
 
 @onready var attack_timer := $AttackTimer
 @onready var evade_timer := $EvadeTimer
@@ -16,29 +16,31 @@ class_name main_character
 
 @onready var character_hud: CanvasLayer = $"../character_hud"
 
+enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 
-enum evadeState {READY, ACTIVE, COOLDOWN}
+const KNOCKBACK_DUR := .1
 
+var projectile_speed := 200
+
+var knockback_dir : Vector2 = Vector2(0,0)
 var attack_cooldown := false
 var evade_flag = evadeState.READY
 var ability_cooldown := false
 var is_alive := true
-var doors_lock := false
 
 func _ready() -> void:
-	SignalBus.room_lock.connect(_on_room_lock)
 	stats.player_state = Stats.states.IDLE
 	add_to_group("Player")
 	#animation_player.play("idle")
 	
 	
-	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
-	if get_local_mouse_position().x < 0:
-		char_visual.scale.x = -1
-	else:
-		char_visual.scale.x = 1
+	if evade_flag != evadeState.ACTIVE:
+		if get_local_mouse_position().x < 0:
+			char_visual.scale.x = -1
+		else:
+			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
 	# gets directional vector based on keypress
@@ -49,6 +51,12 @@ func _physics_process(delta: float) -> void:
 		stats.player_state = Stats.states.DODGING
 		velocity = lerp(velocity,
 				input_vector * stats.speed * stats.evade_movement_scaling,
+				stats.accel * delta)
+	# knockback using dodge roll speed away from attack position
+	elif evade_flag == evadeState.KNOCKBACK:
+		stats.player_state = Stats.states.DODGING
+		velocity = lerp(velocity,
+				knockback_dir * stats.speed * stats.evade_movement_scaling,
 				stats.accel * delta)
 	else:
 		velocity = lerp(velocity,
@@ -74,17 +82,10 @@ func _physics_process(delta: float) -> void:
 		ability_cooldown = true
 		ability_timer.start(stats.ability_cd)
 		
-	if Input.is_action_just_pressed("debug_lock_doors"):
-		doors_lock = !doors_lock
-		
 	# move and animate if not in dodge state
 	move_and_slide()
 	if evade_flag != evadeState.ACTIVE:
 		handle_animation()
-	
-
-func _on_room_lock(locked: bool) -> void:
-	doors_lock = locked
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
@@ -96,29 +97,30 @@ func _on_evade_timeout() -> void:
 	if evade_flag == evadeState.ACTIVE:
 		evade_flag = evadeState.COOLDOWN
 		evade_timer.start(stats.evade_cd)
-		
-	# after cooldown, evade is ready
-	elif evade_flag == evadeState.COOLDOWN:
+	# after cooldown or knockback, evade is ready
+	else:
 		evade_flag = evadeState.READY
+		modulate = Color(1,1,1)
 
 func _on_ability_timeout() -> void:
 	ability_cooldown = false
 
 func swap_character() -> void:
 	# dodge should skip straight to cooldown to prevent abuse
-	evade_flag = evadeState.COOLDOWN
+	evade_flag = evadeState.READY
 	handle_animation() # force change animation away from dodge
 	evade_timer.start(stats.evade_cd)
 
 ## Creates bullet instance and fires from sprite to target vector.
+## player projectiles are on collision layer 8 compared to enemies on 4 
 func fire_gun(target: Vector2) -> void:
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	
-	# Instantiates bullet
+	# Instantiates projectile
 	var spawn = projectile.instantiate()
 	var direction = target.normalized()
-	spawn.velocity = direction * spawn.speed
+	spawn.velocity = direction * projectile_speed
 	
 	# spawn at sprite position in main scene, shifted
 	# for where the sprite hands would be (presumably) 
@@ -128,20 +130,8 @@ func fire_gun(target: Vector2) -> void:
 
 
 func character_ability():
-	var teleport_path: PackedVector2Array
-	# if locked, disable nav tiles at and around doors via bit mask
-	if doors_lock:
-		teleport_path = NavigationServer2D.map_get_path(
-					get_world_2d().get_navigation_map(),
-					global_position, get_global_mouse_position(),
-					false, 2)
-	else:
-		teleport_path = NavigationServer2D.map_get_path(
-				get_world_2d().get_navigation_map(),
-				global_position, get_global_mouse_position(),
-				false, 6)
-	# go to final calculated path node
-	global_position = teleport_path[-1]
+	pass
+	# override in child
 
 
 ## Called by enemy attacks when colliding with body. Currently does nothing.
@@ -163,7 +153,15 @@ func handle_animation():
 		stats.player_state = Stats.states.IDLE
 		#animation_player.play("idle")
 
-
-	
-
-	
+# function for detecting attacks and extracting the damage done to main character
+# applys knockback which works like a short dodge away from damage
+# if dodgeing or in knockback (evadestate active) immune to damage
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if evade_flag == evadeState.ACTIVE:
+		return
+	if area is Projectile or area is Attack:
+		evade_flag = evadeState.KNOCKBACK
+		knockback_dir = (global_position - area.global_position).normalized()
+		evade_timer.start(KNOCKBACK_DUR)
+		modulate = Color(2,2,2)
+		take_damage(area.deal_damage())

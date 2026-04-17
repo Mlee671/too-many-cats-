@@ -141,12 +141,15 @@ texture = ExtResource("3_l8j17")
 hframes = 4
 vframes = 6
 
-[node name="Hitbox" parent="." index="1" unique_id=1076322931]
-position = Vector2(0, -1)
-rotation = 1.5707964
-
 [node name="AnimationPlayer" parent="." index="7" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_wswxn")
 
 [node name="VisionCircle" parent="VisionArea" parent_id_path=PackedInt32Array(829889890) index="0" unique_id=428306925]
 shape = SubResource("CircleShape2D_tou4i")
+
+[node name="Hitbox" parent="." index="9" unique_id=417678541]
+position = Vector2(0, -1)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" parent="Hitbox" index="0" unique_id=946156460]
+position = Vector2(1.1924868e-08, 0)

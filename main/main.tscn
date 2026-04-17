@@ -3,12 +3,10 @@
 [ext_resource type="Script" uid="uid://cidkhr87v52xl" path="res://main/main.gd" id="1_8gbba"]
 [ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://btki6vqc3kjki" path="res://main/Room_manager.gd" id="2_21xkr"]
-[ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/character_scenes/blue_knight.tscn" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
-[ext_resource type="Script" path="res://canvas_layer.gd" id="6_4dugh"]
+[ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://canvas_layer.gd" id="6_4dugh"]
 [ext_resource type="Texture2D" uid="uid://wuvfmn2vkvpm" path="res://ui_assets/healthbar_placeholder.png" id="6_kfbq2"]
 [ext_resource type="Texture2D" uid="uid://ciaer60vu7k63" path="res://ui_assets/healthbar_placeholder_Y.png" id="8_67ri8"]
-[ext_resource type="Script" uid="uid://huhnpplg2urb" path="res://main/signal_bus.gd" id="9_grrlh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -28,6 +26,12 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
 agent_radius = 0.0
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_grrlh"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+agent_radius = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6bp64"]
 texture = ExtResource("1_jjgbg")
 0:0/0 = 0
@@ -36,7 +40,7 @@ texture = ExtResource("1_jjgbg")
 0:0/0/terrains_peering_bit/bottom_right_corner = 0
 1:0/0 = 0
 1:0/0/terrain_set = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0/terrains_peering_bit/bottom_right_corner = 0
 1:0/0/terrains_peering_bit/bottom_side = 0
 1:0/0/terrains_peering_bit/bottom_left_corner = 0
@@ -46,7 +50,7 @@ texture = ExtResource("1_jjgbg")
 1:0/0/terrains_peering_bit/top_right_corner = 0
 2:0/0 = 0
 2:0/0/terrain_set = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:0/0/terrains_peering_bit/right_side = 0
 2:0/0/terrains_peering_bit/bottom_right_corner = 0
 2:0/0/terrains_peering_bit/bottom_side = 0
@@ -56,7 +60,7 @@ texture = ExtResource("1_jjgbg")
 2:0/0/terrains_peering_bit/top_right_corner = 0
 3:0/0 = 0
 3:0/0/terrain_set = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:0/0/terrains_peering_bit/right_side = 0
 3:0/0/terrains_peering_bit/bottom_right_corner = 0
 3:0/0/terrains_peering_bit/bottom_side = 0
@@ -66,7 +70,7 @@ texture = ExtResource("1_jjgbg")
 3:0/0/terrains_peering_bit/top_right_corner = 0
 4:0/0 = 0
 4:0/0/terrain_set = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:0/0/terrains_peering_bit/bottom_right_corner = 0
 4:0/0/terrains_peering_bit/bottom_side = 0
 4:0/0/terrains_peering_bit/bottom_left_corner = 0
@@ -494,6 +498,7 @@ texture = ExtResource("1_jjgbg")
 8:7/0 = 0
 8:7/0/terrain_set = 0
 9:7/0 = 0
+9:7/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_grrlh")
 
 [sub_resource type="TileSet" id="TileSet_8gbba"]
 physics_layer_0/collision_layer = 1
@@ -514,9 +519,6 @@ tile_set = SubResource("TileSet_8gbba")
 
 [node name="character_manager" type="Node2D" parent="." unique_id=1655392748]
 script = ExtResource("4_jjvhh")
-
-[node name="character_slot" parent="character_manager" unique_id=1328872590 instance=ExtResource("2_bo1nx")]
-position = Vector2(576, 325)
 
 [node name="character_hud" type="CanvasLayer" parent="character_manager" unique_id=1692577797]
 script = ExtResource("6_4dugh")
@@ -579,6 +581,3 @@ offset_top = 73.0
 offset_right = 509.0
 offset_bottom = 126.0
 expand_mode = 3
-
-[node name="SignalBus" type="Node" parent="." unique_id=109714485]
-script = ExtResource("9_grrlh")
