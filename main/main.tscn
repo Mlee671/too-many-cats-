@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://btki6vqc3kjki" path="res://main/Room_manager.gd" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/character_scenes/blue_knight.tscn" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://cqcnf15fa2rtc" path="res://fade_transition.tscn" id="6_kfbq2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6bp64"]
 texture = ExtResource("1_jjgbg")
@@ -462,3 +463,10 @@ script = ExtResource("4_jjvhh")
 
 [node name="character_slot" parent="character_manager" unique_id=1328872590 instance=ExtResource("2_bo1nx")]
 position = Vector2(576, 325)
+
+[node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("6_kfbq2")]
+offset_left = -577.0
+offset_top = -337.0
+offset_right = 575.0
+offset_bottom = 311.0
+metadata/_edit_use_anchors_ = true

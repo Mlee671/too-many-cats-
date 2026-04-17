@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bmglc58cqmuc3" path="res://main_menu/Blue_Buttons_Pixel.png" id="1_d3a7t"]
 [ext_resource type="Texture2D" uid="uid://cipi44ms8luce" path="res://icon.svg" id="3_3shxk"]
 [ext_resource type="Texture2D" uid="uid://4i74tyts3j2c" path="res://main_menu/background.jpg" id="4_bws42"]
+[ext_resource type="PackedScene" uid="uid://cqcnf15fa2rtc" path="res://fade_transition.tscn" id="5_3f7m4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3shxk"]
 atlas = ExtResource("1_d3a7t")
@@ -74,7 +75,14 @@ offset_right = 1016.0
 offset_bottom = 611.0
 texture = ExtResource("3_3shxk")
 
+[node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("5_3f7m4")]
+visible = false
+layout_mode = 0
+
+[node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=409621205]
+
 [connection signal="gui_input" from="." to="." method="_on_mouse_click"]
 [connection signal="pressed" from="start_button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="controls_button" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="fade_transition/fade_transition_timer" to="." method="_on_fade_transition_timer_timeout"]

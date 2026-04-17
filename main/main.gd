@@ -6,6 +6,9 @@ extends Node2D
 
 
 func _ready() -> void:
+	
+	$fade_transition/AnimationPlayer.play("fade_out")
+	
 	character.global_position = Vector2(32,32)
 	# cm.switch_to("blue_knight")
 	room_manager.generate_rooms(5)
