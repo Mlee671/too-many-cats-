@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cs0cs1jmgxax7"]
+
+[ext_resource type="Texture2D" uid="uid://bmglc58cqmuc3" path="res://main_menu/Blue_Buttons_Pixel.png" id="1_d3a7t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3shxk"]
+atlas = ExtResource("1_d3a7t")
+region = Rect2(160, 48, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa53l"]
+atlas = ExtResource("1_d3a7t")
+region = Rect2(80, 32, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3a7t"]
+atlas = ExtResource("1_d3a7t")
+region = Rect2(0, 64, 48, 16)
+
+[node name="MainMenu" type="Control" unique_id=1649032504]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=415491035]
+layout_mode = 1
+offset_left = 487.5
+offset_top = 293.5
+offset_right = 676.0
+offset_bottom = 365.0
+texture_normal = SubResource("AtlasTexture_3shxk")
+stretch_mode = 0
+
+[node name="TextureButton2" type="TextureButton" parent="." unique_id=2037736177]
+layout_mode = 1
+offset_left = 488.0
+offset_top = 452.0
+offset_right = 679.0
+offset_bottom = 528.0
+texture_normal = SubResource("AtlasTexture_oa53l")
+stretch_mode = 0
+
+[node name="TextureButton3" type="TextureButton" parent="." unique_id=389699356]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 373.0
+offset_right = 677.0
+offset_bottom = 446.0
+texture_normal = SubResource("AtlasTexture_d3a7t")
+stretch_mode = 0
