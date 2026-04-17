@@ -1,28 +1,43 @@
 [gd_scene format=3 uid="uid://cs0cs1jmgxax7"]
 
+[ext_resource type="Script" uid="uid://chvag2tcpmf2i" path="res://main_menu/main_menu.gd" id="1_3shxk"]
 [ext_resource type="Texture2D" uid="uid://bmglc58cqmuc3" path="res://main_menu/Blue_Buttons_Pixel.png" id="1_d3a7t"]
+[ext_resource type="Texture2D" uid="uid://cipi44ms8luce" path="res://icon.svg" id="3_3shxk"]
+[ext_resource type="Texture2D" uid="uid://4i74tyts3j2c" path="res://main_menu/background.jpg" id="4_bws42"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3shxk"]
 atlas = ExtResource("1_d3a7t")
 region = Rect2(160, 48, 32, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oa53l"]
-atlas = ExtResource("1_d3a7t")
-region = Rect2(80, 32, 32, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_d3a7t"]
 atlas = ExtResource("1_d3a7t")
 region = Rect2(0, 64, 48, 16)
 
-[node name="MainMenu" type="Control" unique_id=1649032504]
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa53l"]
+atlas = ExtResource("1_d3a7t")
+region = Rect2(80, 32, 32, 16)
+
+[node name="MainMenu" type="Control" unique_id=1649032504 node_paths=PackedStringArray("controls_image", "background_image")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3shxk")
+controls_image = NodePath("controls_image")
+background_image = NodePath("background_image")
 
-[node name="TextureButton" type="TextureButton" parent="." unique_id=415491035]
+[node name="background_image" type="TextureRect" parent="." unique_id=605810371]
+z_index = -2
+layout_mode = 0
+offset_left = -1.0
+offset_right = 1151.0
+offset_bottom = 654.0
+texture = ExtResource("4_bws42")
+expand_mode = 2
+
+[node name="start_button" type="TextureButton" parent="." unique_id=415491035]
 layout_mode = 1
 offset_left = 487.5
 offset_top = 293.5
@@ -31,7 +46,16 @@ offset_bottom = 365.0
 texture_normal = SubResource("AtlasTexture_3shxk")
 stretch_mode = 0
 
-[node name="TextureButton2" type="TextureButton" parent="." unique_id=2037736177]
+[node name="controls_button" type="TextureButton" parent="." unique_id=389699356]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 373.0
+offset_right = 677.0
+offset_bottom = 446.0
+texture_normal = SubResource("AtlasTexture_d3a7t")
+stretch_mode = 0
+
+[node name="quit_button" type="TextureButton" parent="." unique_id=2037736177]
 layout_mode = 1
 offset_left = 488.0
 offset_top = 452.0
@@ -40,11 +64,17 @@ offset_bottom = 528.0
 texture_normal = SubResource("AtlasTexture_oa53l")
 stretch_mode = 0
 
-[node name="TextureButton3" type="TextureButton" parent="." unique_id=389699356]
+[node name="controls_image" type="TextureRect" parent="." unique_id=1139116723]
+visible = false
+z_index = 1
 layout_mode = 0
-offset_left = 486.0
-offset_top = 373.0
-offset_right = 677.0
-offset_bottom = 446.0
-texture_normal = SubResource("AtlasTexture_d3a7t")
-stretch_mode = 0
+offset_left = 161.0
+offset_top = 80.0
+offset_right = 1016.0
+offset_bottom = 611.0
+texture = ExtResource("3_3shxk")
+
+[connection signal="gui_input" from="." to="." method="_on_mouse_click"]
+[connection signal="pressed" from="start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="controls_button" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]
