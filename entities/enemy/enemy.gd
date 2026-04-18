@@ -42,11 +42,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if enemyState == BEHAVIOUR.INACTIVE: # does nothing if inactive
-		return
-	
-	# stops enemy from moving while in knockback
-	if enemyState == BEHAVIOUR.KNOCKBACK:
+	if enemyState == BEHAVIOUR.INACTIVE or enemyState == BEHAVIOUR.KNOCKBACK:
 		return
 	
 	if Input.is_action_just_pressed("debug_damage_enemy"):
@@ -153,12 +149,6 @@ func deactivate_enemy() -> void:
 	$VisionArea.monitoring = true
 
 
-func nearby_vector(tile_range: Vector2) -> Vector2:
-	return Vector2(
-		randf_range(global_position.x - tile_range.x, global_position.x + tile_range.x),
-		randf_range(global_position.y - tile_range.y, global_position.y + tile_range.y))
-
-
 func take_damage(amount: int) -> void:
 	# makes sense that dealing damage to an enemy will aggro it
 	if enemyState == BEHAVIOUR.WANDER:
@@ -169,10 +159,12 @@ func take_damage(amount: int) -> void:
 	health.take_damage(amount)
 	animation.play_animation("damaged", true)
 
-
+# get position, applies vector in random direction, up to pathfind_range tiles away
 func set_wander_target() -> void:
-	nav_agent.target_position = nearby_vector(
-		(Vector2i(pathfind_range*TILE_SIZE, pathfind_range*TILE_SIZE)))
+	nav_agent.target_position = (global_position
+			+ Vector2.RIGHT.rotated(
+					randf_range(0, TAU))
+					* randi_range(1, pathfind_range * TILE_SIZE))
 
 
 func attack_logic() -> void:
@@ -183,15 +175,15 @@ func attack_logic() -> void:
 # enemy hitboc logic. basically the same as player but enemy is just stopped rather than knocked back
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area is Projectile and enemyState != BEHAVIOUR.KNOCKBACK:
-		stop_moving = true
 		nav_agent.set_velocity(Vector2.ZERO)
-		enemyState == BEHAVIOUR.KNOCKBACK
+		# deal damage before changing behaviour otherwise raycast_target not set
+		take_damage(area.deal_damage())
+		enemyState = BEHAVIOUR.KNOCKBACK
 		modulate = Color(2,2,2)
 		knockback_timer.start(knockback_dur)
-		take_damage(area.deal_damage())
+		
 
 
 func _on_knockback_timer_timeout() -> void:
-	stop_moving = false
-	enemyState == BEHAVIOUR.ATTACK
+	enemyState = BEHAVIOUR.ATTACK
 	modulate = Color(1,1,1)
