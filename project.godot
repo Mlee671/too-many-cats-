@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Too many cats"
-run/main_scene="uid://dyjum5gp0r4ku"
+run/main_scene="uid://cs0cs1jmgxax7"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
