@@ -18,11 +18,14 @@ class_name main_character
 
 enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 
-const KNOCKBACK_DUR := .1
+const KNOCKBACK_DUR := 0.1
+const KNOCKBACK_DECAY := 10.0
+const DAMAGE_KNOCKBACK := 200.0 # kb scalar
 
 var projectile_speed := 200
 
-var knockback_dir : Vector2 = Vector2(0,0)
+var knockback_vec := Vector2.ZERO
+var movement_vec := Vector2.ZERO
 var attack_cooldown := false
 var evade_flag = evadeState.READY
 var ability_cooldown := false
@@ -43,30 +46,7 @@ func _process(_delta: float) -> void:
 			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
-	# gets directional vector based on keypress
-	var input_vector = Input.get_vector("left", "right", "up", "down")
-	
-	# scales movement speed if dodging
-	if evade_flag == evadeState.ACTIVE:
-		stats.player_state = Stats.states.DODGING
-		velocity = lerp(velocity,
-				input_vector * stats.speed * stats.evade_movement_scaling,
-				stats.accel * delta)
-	# knockback using dodge roll speed away from attack position
-	elif evade_flag == evadeState.KNOCKBACK:
-		stats.player_state = Stats.states.DODGING
-		velocity = lerp(velocity,
-				knockback_dir * stats.speed * stats.evade_movement_scaling,
-				stats.accel * delta)
-	else:
-		velocity = lerp(velocity,
-				input_vector * stats.speed,
-				stats.accel * delta)
-	
-		# if user presses attack key
-		if Input.is_action_pressed("fire_gun") and not attack_cooldown:
-			fire_gun(get_local_mouse_position())
-	
+	manage_movement(delta)
 	# if user presses dodge key
 	if (Input.is_action_just_pressed("evade")
 			and evade_flag == evadeState.READY):
@@ -105,6 +85,29 @@ func _on_evade_timeout() -> void:
 func _on_ability_timeout() -> void:
 	ability_cooldown = false
 
+func manage_movement(delta: float) -> void:
+	# gets directional vector based on keypress
+	var input_vector = Input.get_vector("left", "right", "up", "down")
+	
+	# scales movement speed if dodging
+	if evade_flag == evadeState.ACTIVE:
+		stats.player_state = Stats.states.DODGING
+		movement_vec = movement_vec.lerp(
+				input_vector * stats.speed * stats.evade_movement_scaling,
+				stats.accel * delta)
+	else:
+		movement_vec = movement_vec.lerp(
+				input_vector * stats.speed,
+				stats.accel * delta)
+	
+		# if user presses attack key
+		if Input.is_action_pressed("fire_gun") and not attack_cooldown:
+			fire_gun(get_local_mouse_position())
+			
+	# apply knockback additively to movement
+	knockback_vec = knockback_vec.lerp(Vector2.ZERO, KNOCKBACK_DECAY * delta)
+	velocity = movement_vec + knockback_vec
+
 func swap_character() -> void:
 	# dodge should skip straight to cooldown to prevent abuse
 	evade_flag = evadeState.READY
@@ -119,7 +122,9 @@ func fire_gun(target: Vector2) -> void:
 	
 	# Instantiates projectile
 	var spawn = projectile.instantiate()
+	spawn.proj_frame = stats.projectile_frame
 	var direction = target.normalized()
+	spawn.look_at(direction)
 	spawn.velocity = direction * projectile_speed
 	
 	# spawn at sprite position in main scene, shifted
@@ -133,6 +138,8 @@ func character_ability():
 	pass
 	# override in child
 
+func add_knockback(vec: Vector2) -> void:
+	knockback_vec += vec
 
 ## Called by enemy attacks when colliding with body. Currently does nothing.
 func take_damage(amount: int):
@@ -141,7 +148,6 @@ func take_damage(amount: int):
 	
 	character_hud.set_main_hp_bar(stats.hp - amount)
 	stats.hp -=amount
-	
 	
 
 ## Sets run animation when in motion, otherwise idle animation.
@@ -154,14 +160,11 @@ func handle_animation():
 		#animation_player.play("idle")
 
 # function for detecting attacks and extracting the damage done to main character
-# applys knockback which works like a short dodge away from damage
-# if dodgeing or in knockback (evadestate active) immune to damage
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if evade_flag == evadeState.ACTIVE:
 		return
 	if area is Projectile or area is Attack:
-		evade_flag = evadeState.KNOCKBACK
-		knockback_dir = (global_position - area.global_position).normalized()
+		add_knockback((global_position - area.global_position).normalized() * DAMAGE_KNOCKBACK)
 		evade_timer.start(KNOCKBACK_DUR)
 		modulate = Color(2,2,2)
 		take_damage(area.deal_damage())

@@ -4,23 +4,23 @@ class_name Enemy
 
 @export var vision_range: float
 
-const TILE_SIZE = 16
+const TILE_SIZE := 16
+const KB_AMOUNT := 80
 
 var move_speed: float
 var accel: float
 var pathfind_range: int # tile range to pathfind to
 
-enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE, KNOCKBACK}
+enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
+var knockback := false # set as separate value not to overwrite DEAD state
 
 var enemyState := BEHAVIOUR.INACTIVE
 var raycast_target: Node2D
 var attack_cooldown := false
 var stop_moving := false
 
-var knockback_dur = .2
-
-# debug flag for if attack is implemented - only one message activation
-var attack_logic_flag := false
+var knockback_dur := 0.2
+var knockback_vec := Vector2.ZERO
 
 @onready var wander_timer := $WanderTimer
 @onready var attack_timer := $AttackTimer
@@ -37,23 +37,19 @@ var attack_logic_flag := false
 func _ready() -> void:
 	vision_circle.shape.radius = 0
 	vision.set_enabled(false)
-	# once room triggers are implemented, this can be removed
-	# setup_nav()
 
 
 func _physics_process(delta: float) -> void:
-	if enemyState == BEHAVIOUR.INACTIVE: # does nothing if inactive
-		return
-	
-	# stops enemy from moving while in knockback
-	if enemyState == BEHAVIOUR.KNOCKBACK:
+	if (enemyState == BEHAVIOUR.INACTIVE
+			or enemyState == BEHAVIOUR.DEAD
+			or knockback):
 		return
 	
 	if Input.is_action_just_pressed("debug_damage_enemy"):
 		take_damage(50)
 
 	# should not go through move logic if dead
-	if enemyState != BEHAVIOUR.DEAD and not stop_moving:
+	if not stop_moving:
 		_move(delta)
 
 	if enemyState == BEHAVIOUR.WANDER:
@@ -99,7 +95,7 @@ func _look_vector_direction(direction: Vector2):
 
 ## navigation agent handles movement after adjusting vector
 func _on_nav_dist_adjust(safe_velocity: Vector2) -> void:
-	velocity = safe_velocity
+	velocity = safe_velocity + knockback_vec
 	move_and_slide()
 
 
@@ -149,14 +145,8 @@ func activate_enemy() -> void:
 	
 func deactivate_enemy() -> void:
 	enemyState = BEHAVIOUR.INACTIVE
-	velocity = Vector2(0,0)
+	nav_agent.set_velocity(Vector2.ZERO)
 	$VisionArea.monitoring = true
-
-
-func nearby_vector(tile_range: Vector2) -> Vector2:
-	return Vector2(
-		randf_range(global_position.x - tile_range.x, global_position.x + tile_range.x),
-		randf_range(global_position.y - tile_range.y, global_position.y + tile_range.y))
 
 
 func take_damage(amount: int) -> void:
@@ -169,29 +159,31 @@ func take_damage(amount: int) -> void:
 	health.take_damage(amount)
 	animation.play_animation("damaged", true)
 
-
+# get position, applies vector in random direction, up to pathfind_range tiles away
 func set_wander_target() -> void:
-	nav_agent.target_position = nearby_vector(
-		(Vector2i(pathfind_range*TILE_SIZE, pathfind_range*TILE_SIZE)))
-
+	nav_agent.target_position = (global_position
+			+ Vector2.RIGHT.rotated(
+					randf_range(0, TAU))
+					* randi_range(1, pathfind_range * TILE_SIZE))
 
 func attack_logic() -> void:
-	if not attack_logic_flag:
-		attack_logic_flag = true
-		push_warning("Attack Logic not implemented. Must be overwritten.")
+	pass
 
 # enemy hitboc logic. basically the same as player but enemy is just stopped rather than knocked back
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area is Projectile and enemyState != BEHAVIOUR.KNOCKBACK:
-		stop_moving = true
-		nav_agent.set_velocity(Vector2.ZERO)
-		enemyState == BEHAVIOUR.KNOCKBACK
+	if enemyState == BEHAVIOUR.DEAD:
+		return
+	if area is Projectile:
+		knockback_vec += (global_position - area.global_position).normalized() * KB_AMOUNT
+		# deal damage before changing behaviour otherwise raycast_target not set
+		take_damage(area.deal_damage())
+		knockback = true
 		modulate = Color(2,2,2)
 		knockback_timer.start(knockback_dur)
-		take_damage(area.deal_damage())
+		
 
 
 func _on_knockback_timer_timeout() -> void:
-	stop_moving = false
-	enemyState == BEHAVIOUR.ATTACK
+	knockback = false
+	knockback_vec = Vector2.ZERO
 	modulate = Color(1,1,1)

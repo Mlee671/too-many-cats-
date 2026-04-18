@@ -19,19 +19,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #updates the current top left hud continuously
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var size = hp_bars.size()
 	
 	first_hp_bar.value = hp_bars[0]
 	first_char.texture = icons_array[0]
-	if size == 2:
+	if size >= 2:
 		second_hp_bar.value = hp_bars[1]
 		second_char.texture = icons_array[1]
-	elif size ==3:
-		second_hp_bar.value = hp_bars[1]
-		second_char.texture = icons_array[1]
+	if size == 3:
 		third_hp_bar.value = hp_bars[2]
-		third_char.texture = hp_bars[2]
+		third_char.texture = icons_array[2]
 		
 	
 

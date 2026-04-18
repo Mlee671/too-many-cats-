@@ -7,9 +7,6 @@
 [node name="blue_knight" unique_id=2044665017 instance=ExtResource("1_25u1m")]
 script = ExtResource("2_v5ijx")
 
-[node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
-frame = 2
-
 [node name="Stats" parent="." index="6" unique_id=201965470]
 script = ExtResource("3_c4o6u")
 
