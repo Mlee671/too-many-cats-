@@ -1,22 +1,26 @@
 extends CharacterBody2D
 class_name Enemy
 
-@export var tilemap: TileMapLayer
+
 @export var vision_range: float
+
+const TILE_SIZE := 16
+const KB_AMOUNT := 80
 
 var move_speed: float
 var accel: float
 var pathfind_range: int # tile range to pathfind to
 
 enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
+var knockback := false # set as separate value not to overwrite DEAD state
 
 var enemyState := BEHAVIOUR.INACTIVE
 var raycast_target: Node2D
 var attack_cooldown := false
 var stop_moving := false
 
-# debug flag for if attack is implemented - only one message activation
-var attack_logic_flag := false
+var knockback_dur := 0.2
+var knockback_vec := Vector2.ZERO
 
 @onready var wander_timer := $WanderTimer
 @onready var attack_timer := $AttackTimer
@@ -27,28 +31,29 @@ var attack_logic_flag := false
 @onready var visual := $Visuals
 @onready var hitbox := $Hitbox
 @onready var vision_circle := $VisionArea/VisionCircle
+@onready var knockback_timer := $KnockbackTimer
 
 
 func _ready() -> void:
 	vision_circle.shape.radius = 0
 	vision.set_enabled(false)
-	# once room triggers are implemented, this can be removed
-	setup_nav()
 
 
 func _physics_process(delta: float) -> void:
-	if enemyState == BEHAVIOUR.INACTIVE: # does nothing if inactive
+	if (enemyState == BEHAVIOUR.INACTIVE
+			or enemyState == BEHAVIOUR.DEAD
+			or knockback):
 		return
 	
 	if Input.is_action_just_pressed("debug_damage_enemy"):
 		take_damage(50)
 
 	# should not go through move logic if dead
-	if enemyState != BEHAVIOUR.DEAD and not stop_moving:
+	if not stop_moving:
 		_move(delta)
 
 	if enemyState == BEHAVIOUR.WANDER:
-		if vision.is_enabled() and vision.can_see_player(get_tree().get_first_node_in_group("Player")):
+		if vision.is_enabled() and vision.can_see_player(raycast_target):
 			enemyState = BEHAVIOUR.ATTACK
 			$VisionArea.monitoring = false
 		
@@ -63,7 +68,7 @@ func _physics_process(delta: float) -> void:
 			_look_vector_direction(velocity)
 		
 	elif enemyState == BEHAVIOUR.ATTACK:
-		raycast_target = get_tree().get_first_node_in_group("Player")
+		# raycast_target = get_tree().get_first_node_in_group("Player")
 		attack_logic()
 		# look in direction of player
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
@@ -90,7 +95,7 @@ func _look_vector_direction(direction: Vector2):
 
 ## navigation agent handles movement after adjusting vector
 func _on_nav_dist_adjust(safe_velocity: Vector2) -> void:
-	velocity = safe_velocity
+	velocity = safe_velocity + knockback_vec
 	move_and_slide()
 
 
@@ -111,6 +116,7 @@ func _on_death() -> void:
 	nav_agent.set_velocity(Vector2.ZERO)
 	hitbox.set_deferred("disabled", true)
 	await animation.animation_finished
+	get_parent().enemy_died()
 	queue_free()
 
 
@@ -120,12 +126,15 @@ func _on_attack_timeout() -> void:
 
 
 ## Only has mask on player layer, thus group check not required afaik
-func _on_vision_area_entered(_body: Node2D) -> void:
-	vision.set_enabled(true)
+func _on_vision_area_entered(body: Node2D) -> void:
+	if body is main_character:
+		vision.set_enabled(true)
+		raycast_target = body
 
 
-func _on_vision_area_exited(_body: Node2D) -> void:
-	vision.set_enabled(false)
+func _on_vision_area_exited(body: Node2D) -> void:
+	if body is main_character:
+		vision.set_enabled(false)
 
 
 ## Activates enemy to wander and attack, not stationary.
@@ -133,37 +142,48 @@ func activate_enemy() -> void:
 	enemyState = BEHAVIOUR.WANDER
 	vision_circle.shape.radius = vision_range
 	set_wander_target()
-
-
-func nearby_vector(tile_range: Vector2) -> Vector2:
-	return Vector2(
-		randf_range(global_position.x - tile_range.x, global_position.x + tile_range.x),
-		randf_range(global_position.y - tile_range.y, global_position.y + tile_range.y))
+	
+func deactivate_enemy() -> void:
+	enemyState = BEHAVIOUR.INACTIVE
+	nav_agent.set_velocity(Vector2.ZERO)
+	$VisionArea.monitoring = true
 
 
 func take_damage(amount: int) -> void:
 	# makes sense that dealing damage to an enemy will aggro it
 	if enemyState == BEHAVIOUR.WANDER:
+		raycast_target = get_tree().get_first_node_in_group("Player")
 		enemyState = BEHAVIOUR.ATTACK
 		$VisionArea.monitoring = false
 		
 	health.take_damage(amount)
 	animation.play_animation("damaged", true)
 
-
-func setup_nav() -> void:
-	# wait until map sync
-	while tilemap == null:
-		await get_tree().process_frame
-	activate_enemy()
-
-
+# get position, applies vector in random direction, up to pathfind_range tiles away
 func set_wander_target() -> void:
-	nav_agent.target_position = nearby_vector(
-			tilemap.map_to_local(Vector2i(pathfind_range, pathfind_range)))
-
+	nav_agent.target_position = (global_position
+			+ Vector2.RIGHT.rotated(
+					randf_range(0, TAU))
+					* randi_range(1, pathfind_range * TILE_SIZE))
 
 func attack_logic() -> void:
-	if not attack_logic_flag:
-		attack_logic_flag = true
-		push_warning("Attack Logic not implemented. Must be overwritten.")
+	pass
+
+# enemy hitboc logic. basically the same as player but enemy is just stopped rather than knocked back
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if enemyState == BEHAVIOUR.DEAD:
+		return
+	if area is Projectile:
+		knockback_vec += (global_position - area.global_position).normalized() * KB_AMOUNT
+		# deal damage before changing behaviour otherwise raycast_target not set
+		take_damage(area.deal_damage())
+		knockback = true
+		modulate = Color(2,2,2)
+		knockback_timer.start(knockback_dur)
+		
+
+
+func _on_knockback_timer_timeout() -> void:
+	knockback = false
+	knockback_vec = Vector2.ZERO
+	modulate = Color(1,1,1)

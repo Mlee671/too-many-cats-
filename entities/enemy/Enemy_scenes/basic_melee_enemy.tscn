@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b5c58jagrlp5r" path="res://entities/enemy/Enemy.tscn" id="1_0tjeh"]
 [ext_resource type="Script" uid="uid://b32tj18164w6r" path="res://entities/enemy/basic_melee/basic_melee_enemy.gd" id="2_f0hik"]
+[ext_resource type="Script" uid="uid://bqq7nw18l6cu6" path="res://entities/enemy/basic_melee/attack.gd" id="4_5nna6"]
 [ext_resource type="Texture2D" uid="uid://cq5xmes5gqfg0" path="res://entities/enemy/basic_melee/ikoiku_itchio_mouse_v2.png" id="4_xydfa"]
 [ext_resource type="Texture2D" uid="uid://dmxoi4egpv14x" path="res://entities/enemy/basic_melee/melee_hitbox.png" id="5_3cfdl"]
 
@@ -124,7 +125,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y8sat"]
-radius = 25.899279
+radius = 21.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g44g6"]
 size = Vector2(12.8046875, 25.609375)
@@ -150,14 +151,10 @@ hframes = 5
 vframes = 6
 frame = 1
 
-[node name="Hitbox" parent="." index="1" unique_id=1076322931]
-position = Vector2(1, -1)
-rotation = 1.5707964
-
 [node name="AttackRenderTimer" type="Timer" parent="." index="5" unique_id=1903920207]
 one_shot = true
 
-[node name="AnimationPlayer" parent="." index="8" unique_id=2102798003]
+[node name="AnimationPlayer" parent="." index="9" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_0rl3j")
 
 [node name="AttackComponent" type="Node2D" parent="." index="10" unique_id=2140668875]
@@ -165,13 +162,15 @@ libraries/ = SubResource("AnimationLibrary_0rl3j")
 [node name="AttackDetect" type="Area2D" parent="AttackComponent" index="0" unique_id=402176187]
 collision_layer = 8
 collision_mask = 2
+monitorable = false
 
 [node name="AttackRadius" type="CollisionShape2D" parent="AttackComponent/AttackDetect" index="0" unique_id=811149308]
 shape = SubResource("CircleShape2D_y8sat")
 
 [node name="Attackbox" type="Area2D" parent="AttackComponent" index="1" unique_id=477221986]
 collision_layer = 8
-collision_mask = 2
+collision_mask = 0
+script = ExtResource("4_5nna6")
 
 [node name="AttackRect" type="CollisionShape2D" parent="AttackComponent/Attackbox" index="0" unique_id=989070051]
 position = Vector2(16, 0)
@@ -182,8 +181,14 @@ position = Vector2(16.000002, 0)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_3cfdl")
 
+[node name="Hitbox" parent="." index="12" unique_id=417678541]
+position = Vector2(1, -1)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" parent="Hitbox" index="0" unique_id=946156460]
+position = Vector2(5.5636264e-08, 1)
+
 [connection signal="timeout" from="AttackRenderTimer" to="." method="_on_attack_render_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="_on_animation_finished"]
 [connection signal="body_entered" from="AttackComponent/AttackDetect" to="." method="_on_attack_radius_triggered"]
 [connection signal="body_exited" from="AttackComponent/AttackDetect" to="." method="_on_attack_radius_exited"]
-[connection signal="body_entered" from="AttackComponent/Attackbox" to="." method="_on_attackbox_entered"]

@@ -14,8 +14,8 @@ corner_radius_bottom_left = 1000
 corner_detail = 15
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pux1x"]
-radius = 5.0
-height = 14.0
+radius = 4.0
+height = 20.0
 
 [sub_resource type="Animation" id="Animation_3vmdj"]
 resource_name = "damaged"
@@ -40,11 +40,16 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_cn5l5"]
 radius = 1.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cn5l5"]
+radius = 8.0
+height = 16.0
+
 [node name="Enemy" type="CharacterBody2D" unique_id=310538941]
 collision_layer = 4
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_uy4mc")
+vision_range = 50.0
 
 [node name="Visuals" type="Node2D" parent="." unique_id=1227261934]
 
@@ -56,11 +61,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_23wh4")
 
 [node name="Sprite" type="Sprite2D" parent="Visuals" unique_id=1680913945]
 
-[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1076322931]
-position = Vector2(0, -12)
+[node name="Terrain_collision" type="CollisionShape2D" parent="." unique_id=1076322931]
+position = Vector2(0, 3)
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_pux1x")
 
 [node name="HealthBar" parent="." unique_id=51232230 instance=ExtResource("2_2vbla")]
+max_health = 100
 
 [node name="WanderTimer" type="Timer" parent="." unique_id=666830676]
 one_shot = true
@@ -68,8 +75,12 @@ one_shot = true
 [node name="AttackTimer" type="Timer" parent="." unique_id=338756223]
 one_shot = true
 
+[node name="KnockbackTimer" type="Timer" parent="." unique_id=1327737651]
+one_shot = true
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=221465016]
 path_max_distance = 30.0
+navigation_layers = 2
 path_postprocessing = 1
 avoidance_enabled = true
 
@@ -88,9 +99,20 @@ collision_mask = 2
 [node name="VisionCircle" type="CollisionShape2D" parent="VisionArea" unique_id=428306925]
 shape = SubResource("CircleShape2D_cn5l5")
 
+[node name="Hitbox" type="Area2D" parent="." unique_id=417678541]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=946156460]
+position = Vector2(0, -3)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_cn5l5")
+
 [connection signal="death" from="HealthBar" to="." method="_on_death"]
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_nav_dist_adjust"]
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_entered"]
 [connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

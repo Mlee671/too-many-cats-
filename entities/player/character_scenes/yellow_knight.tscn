@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://itihf4vr1umj"]
 
-[ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/character_scenes/blue_knight.tscn" id="1_bk7k0"]
+[ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/base_character/main_character.tscn" id="1_bk7k0"]
 [ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_604g3"]
 [ext_resource type="Texture2D" uid="uid://d0xolhr72equs" path="res://entities/player/yellow_knight/Idle_Choco_Banana1.png" id="2_bk7k0"]
 [ext_resource type="Script" uid="uid://dbmwv2bwa6afu" path="res://entities/player/yellow_knight/yk_stats.gd" id="3_2si07"]
@@ -90,9 +90,6 @@ wait_time = 0.1
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="0" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_bk7k0")
-animation = &"idle"
 
-[node name="Stats" parent="." index="5" unique_id=201965470]
+[node name="Stats" parent="." index="6" unique_id=201965470]
 script = ExtResource("3_2si07")
-speed = 50
-fire_cd = 0

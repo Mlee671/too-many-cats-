@@ -1,20 +1,16 @@
-extends Node
-class_name Stats
+extends Stats
+class_name bk_stats
 
-@export var speed := 100
-@export var accel := 10 # how smooth stop/start movement
+func _ready() -> void:
+	speed = 100
+	accel = 10 # how smooth stop/start movement
+	hp = 100
+	
+	evade_movement_scaling = 1.75
+	evade_dur = 0.4
+	evade_cd = 0.5
 
-@export var evade_movement_scaling := 2.5
-@export var evade_dur := 0.2
-@export var evade_cd := 0.5
-
-
-
-@export var fire_cd := .5
-
-# player states
-enum states{IDLE, RUNNING, DODGING}
-@export var player_state = states.IDLE
-
-# player stats
-var shots_fired := 0
+	fire_cd =  .5
+	ability_cd = 1
+	
+	projectile_frame = 2
