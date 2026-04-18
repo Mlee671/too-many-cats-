@@ -1,5 +1,6 @@
 extends Stats
 
+var ability_dur := 5.0
 
 func _ready() -> void:
 	speed = 70
@@ -10,4 +11,4 @@ func _ready() -> void:
 	evade_dur = 0.4
 	evade_cd = 0.5
 
-	fire_cd =  0.3
+	fire_cd =  0.6

@@ -92,8 +92,13 @@ animations = [{
 [node name="pink_knight" unique_id=2044665017 instance=ExtResource("1_fyko8")]
 script = ExtResource("2_8fx3h")
 
+[node name="AbilityUptimeTimer" type="Timer" parent="." index="5" unique_id=1547224035]
+one_shot = true
+
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_fyko8")
 
-[node name="Stats" parent="." index="6" unique_id=201965470]
+[node name="Stats" parent="." index="7" unique_id=201965470]
 script = ExtResource("4_qs2h1")
+
+[connection signal="timeout" from="AbilityUptimeTimer" to="." method="_on_ability_uptime_timeout"]
