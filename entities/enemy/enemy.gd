@@ -10,17 +10,15 @@ var move_speed: float
 var accel: float
 var pathfind_range: int # tile range to pathfind to
 
-enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE, KNOCKBACK}
+enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
+var knockback := false # set as separate value not to overwrite DEAD state
 
 var enemyState := BEHAVIOUR.INACTIVE
 var raycast_target: Node2D
 var attack_cooldown := false
 var stop_moving := false
 
-var knockback_dur = .2
-
-# debug flag for if attack is implemented - only one message activation
-var attack_logic_flag := false
+var knockback_dur = 0.2
 
 @onready var wander_timer := $WanderTimer
 @onready var attack_timer := $AttackTimer
@@ -37,19 +35,19 @@ var attack_logic_flag := false
 func _ready() -> void:
 	vision_circle.shape.radius = 0
 	vision.set_enabled(false)
-	# once room triggers are implemented, this can be removed
-	# setup_nav()
 
 
 func _physics_process(delta: float) -> void:
-	if enemyState == BEHAVIOUR.INACTIVE or enemyState == BEHAVIOUR.KNOCKBACK:
+	if (enemyState == BEHAVIOUR.INACTIVE
+			or enemyState == BEHAVIOUR.DEAD
+			or knockback):
 		return
 	
 	if Input.is_action_just_pressed("debug_damage_enemy"):
 		take_damage(50)
 
 	# should not go through move logic if dead
-	if enemyState != BEHAVIOUR.DEAD and not stop_moving:
+	if not stop_moving:
 		_move(delta)
 
 	if enemyState == BEHAVIOUR.WANDER:
@@ -113,6 +111,7 @@ func _on_death() -> void:
 	animation.no_interrupt = false
 	animation.play_animation("death", true)
 	enemyState = BEHAVIOUR.DEAD
+	print("QWD")
 	nav_agent.set_velocity(Vector2.ZERO)
 	hitbox.set_deferred("disabled", true)
 	await animation.animation_finished
@@ -168,22 +167,23 @@ func set_wander_target() -> void:
 
 
 func attack_logic() -> void:
-	if not attack_logic_flag:
-		attack_logic_flag = true
-		push_warning("Attack Logic not implemented. Must be overwritten.")
+	pass
 
 # enemy hitboc logic. basically the same as player but enemy is just stopped rather than knocked back
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area is Projectile and enemyState != BEHAVIOUR.KNOCKBACK:
+	if enemyState == BEHAVIOUR.DEAD:
+		return
+	if area is Projectile:
+		print(enemyState)
 		nav_agent.set_velocity(Vector2.ZERO)
 		# deal damage before changing behaviour otherwise raycast_target not set
 		take_damage(area.deal_damage())
-		enemyState = BEHAVIOUR.KNOCKBACK
+		knockback = true
 		modulate = Color(2,2,2)
 		knockback_timer.start(knockback_dur)
 		
 
 
 func _on_knockback_timer_timeout() -> void:
-	enemyState = BEHAVIOUR.ATTACK
+	knockback = false
 	modulate = Color(1,1,1)

@@ -15,13 +15,14 @@ func deal_damage() -> int:
 	queue_free()
 	return damage
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
 
 # terrain collision logic
 func _on_body_entered(body: Node2D) -> void:
-	if body is not Enemy or body is not main_character:
+	if body is not Enemy and body is not main_character:
 		queue_free()
 
 func _on_end_lifespan() -> void:
