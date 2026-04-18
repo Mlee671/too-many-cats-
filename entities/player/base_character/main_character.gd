@@ -31,37 +31,37 @@ var evade_flag = evadeState.READY
 var ability_cooldown := false
 var is_alive := true
 
-func _ready() -> void:
-	stats.player_state = Stats.states.IDLE
-	add_to_group("Player")
-	#animation_player.play("idle")
-	
-	
-func _process(_delta: float) -> void:
-	# flip character based on mouse position
-	if evade_flag != evadeState.ACTIVE:
-		if get_local_mouse_position().x < 0:
-			char_visual.scale.x = -1
-		else:
-			char_visual.scale.x = 1
-	
-func _physics_process(delta: float) -> void:
-	manage_movement(delta)
-	# if user presses dodge key
-	if (Input.is_action_just_pressed("evade")
-			and evade_flag == evadeState.READY):
-		# change sprite
-		#animation_player.play("dodge")
+func _input(event):
+	if (Input.is_action_just_pressed("evade") and evade_flag == evadeState.READY):
 		evade_flag = evadeState.ACTIVE
 		evade_timer.start(stats.evade_dur);
-		
+	
 	if (Input.is_action_just_pressed("ability")
 			and not ability_cooldown):
 		character_ability()
 		# start cooldown
 		ability_cooldown = true
 		ability_timer.start(stats.ability_cd)
-		
+	
+func _ready() -> void:
+	stats.player_state = Stats.states.IDLE
+	add_to_group("Player")
+	animation_tree.active = true
+	
+	
+func _process(_delta: float) -> void:
+	# flip character based on mouse position
+	if stats.player_state != stats.states.DODGING:
+		if get_local_mouse_position().x < 0:
+			char_visual.scale.x = -1
+		else:
+			char_visual.scale.x = 1
+	
+func _physics_process(delta: float) -> void:
+	if stats.player_state != stats.states.DODGING:
+		manage_movement(delta)
+		pass
+	
 	# move and animate if not in dodge state
 	move_and_slide()
 	if evade_flag != evadeState.ACTIVE:
@@ -92,9 +92,8 @@ func manage_movement(delta: float) -> void:
 	# scales movement speed if dodging
 	if evade_flag == evadeState.ACTIVE:
 		stats.player_state = Stats.states.DODGING
-		movement_vec = movement_vec.lerp(
-				input_vector * stats.speed * stats.evade_movement_scaling,
-				stats.accel * delta)
+		position = position.move_toward(input_vector * 10000, 100 *delta)
+
 	else:
 		movement_vec = movement_vec.lerp(
 				input_vector * stats.speed,
@@ -144,7 +143,7 @@ func add_knockback(vec: Vector2) -> void:
 ## Called by enemy attacks when colliding with body. Currently does nothing.
 func take_damage(amount: int):
 	
-	print("[DEBUG] Player taken ", amount, " damage")
+	#print("[DEBUG] Player taken ", amount, " damage")
 	
 	character_hud.set_main_hp_bar(stats.hp - amount)
 	stats.hp -=amount
@@ -154,10 +153,8 @@ func take_damage(amount: int):
 func handle_animation():
 	if velocity.length_squared() > 0.5:
 		stats.player_state = Stats.states.RUNNING
-		#animation_player.play("run")
 	else:
 		stats.player_state = Stats.states.IDLE
-		#animation_player.play("idle")
 
 # function for detecting attacks and extracting the damage done to main character
 func _on_hitbox_area_entered(area: Area2D) -> void:
