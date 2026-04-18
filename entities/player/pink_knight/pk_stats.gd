@@ -12,3 +12,5 @@ func _ready() -> void:
 	evade_cd = 0.5
 
 	fire_cd =  0.6
+
+	projectile_frame = 1

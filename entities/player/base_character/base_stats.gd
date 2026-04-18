@@ -12,6 +12,8 @@ var evade_cd := 0.5
 var fire_cd := .5
 var ability_cd := 10
 
+var projectile_frame := 2
+
 # player states
 enum states{IDLE, RUNNING, DODGING}
 var player_state = states.IDLE

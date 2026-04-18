@@ -122,7 +122,9 @@ func fire_gun(target: Vector2) -> void:
 	
 	# Instantiates projectile
 	var spawn = projectile.instantiate()
+	spawn.proj_frame = stats.projectile_frame
 	var direction = target.normalized()
+	spawn.look_at(direction)
 	spawn.velocity = direction * projectile_speed
 	
 	# spawn at sprite position in main scene, shifted

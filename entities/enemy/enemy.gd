@@ -144,7 +144,7 @@ func activate_enemy() -> void:
 	
 func deactivate_enemy() -> void:
 	enemyState = BEHAVIOUR.INACTIVE
-	velocity = Vector2(0,0)
+	nav_agent.set_velocity(Vector2.ZERO)
 	$VisionArea.monitoring = true
 
 
@@ -165,7 +165,6 @@ func set_wander_target() -> void:
 					randf_range(0, TAU))
 					* randi_range(1, pathfind_range * TILE_SIZE))
 
-
 func attack_logic() -> void:
 	pass
 
@@ -174,7 +173,6 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	if enemyState == BEHAVIOUR.DEAD:
 		return
 	if area is Projectile:
-		print(enemyState)
 		nav_agent.set_velocity(Vector2.ZERO)
 		# deal damage before changing behaviour otherwise raycast_target not set
 		take_damage(area.deal_damage())

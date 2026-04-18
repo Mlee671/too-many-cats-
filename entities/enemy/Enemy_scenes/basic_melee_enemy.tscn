@@ -154,7 +154,7 @@ frame = 1
 [node name="AttackRenderTimer" type="Timer" parent="." index="5" unique_id=1903920207]
 one_shot = true
 
-[node name="AnimationPlayer" parent="." index="8" unique_id=2102798003]
+[node name="AnimationPlayer" parent="." index="9" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_0rl3j")
 
 [node name="AttackComponent" type="Node2D" parent="." index="10" unique_id=2140668875]
@@ -181,7 +181,7 @@ position = Vector2(16.000002, 0)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_3cfdl")
 
-[node name="Hitbox" parent="." index="11" unique_id=417678541]
+[node name="Hitbox" parent="." index="12" unique_id=417678541]
 position = Vector2(1, -1)
 rotation = 1.5707964
 
