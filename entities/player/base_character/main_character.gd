@@ -3,7 +3,6 @@ class_name main_character
 
 
 # loads the bullet scene when starting the game
-# TODO: replace with child node to generate within (e.g. AttackComponent)
 @onready var projectile := preload("res://entities/player/attacks/player_projectile.tscn")
 
 @onready var attack_timer := $AttackTimer

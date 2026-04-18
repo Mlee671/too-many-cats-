@@ -44,9 +44,6 @@ func _physics_process(delta: float) -> void:
 			or enemyState == BEHAVIOUR.DEAD
 			or knockback):
 		return
-	
-	if Input.is_action_just_pressed("debug_damage_enemy"):
-		take_damage(50)
 
 	# should not go through move logic if dead
 	if not stop_moving:
@@ -149,15 +146,21 @@ func deactivate_enemy() -> void:
 	$VisionArea.monitoring = true
 
 
-func take_damage(amount: int) -> void:
-	# makes sense that dealing damage to an enemy will aggro it
+func take_damage(amount: int, from: Area2D, knockback : int = KB_AMOUNT) -> void:
+	if enemyState == BEHAVIOUR.DEAD:
+		return
 	if enemyState == BEHAVIOUR.WANDER:
 		raycast_target = get_tree().get_first_node_in_group("Player")
 		enemyState = BEHAVIOUR.ATTACK
 		$VisionArea.monitoring = false
 		
-	health.take_damage(amount)
-	animation.play_animation("damaged", true)
+	if from is Projectile:
+		knockback_vec += from.velocity.normalized() * knockback
+		knockback = true
+		modulate = Color(2,2,2)
+		knockback_timer.start(knockback_dur)
+		health.take_damage(amount)
+		animation.play_animation("damaged", true)
 
 # get position, applies vector in random direction, up to pathfind_range tiles away
 func set_wander_target() -> void:
@@ -169,17 +172,9 @@ func set_wander_target() -> void:
 func attack_logic() -> void:
 	pass
 
-# enemy hitboc logic. basically the same as player but enemy is just stopped rather than knocked back
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if enemyState == BEHAVIOUR.DEAD:
-		return
-	#if area is Projectile:
-	knockback_vec += (global_position - area.global_position).normalized() * KB_AMOUNT
-	# deal damage before changing behaviour otherwise raycast_target not set
-	take_damage(area.deal_damage())
-	knockback = true
-	modulate = Color(2,2,2)
-	knockback_timer.start(knockback_dur)
+	
+	pass
 		
 
 
