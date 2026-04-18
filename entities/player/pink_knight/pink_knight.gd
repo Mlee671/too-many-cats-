@@ -1,6 +1,7 @@
 extends main_character
 class_name pink_knight
 
+const ATTACK_KNOCKBACK := 300.0
 @onready var uptime_timer = $AbilityUptimeTimer
 
 func fire_gun(target: Vector2) -> void:
@@ -14,6 +15,7 @@ func fire_gun(target: Vector2) -> void:
 		spawn.position = position + Vector2(8,8) * direction + Vector2(0,-8)
 		get_parent().add_child(spawn)
 	stats.shots_fired += 1
+	add_knockback(-target.normalized() * ATTACK_KNOCKBACK)
 
 func character_ability():
 	# start ability timer
