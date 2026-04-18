@@ -4,7 +4,8 @@ class_name Enemy
 
 @export var vision_range: float
 
-const TILE_SIZE = 16
+const TILE_SIZE := 16
+const KB_AMOUNT := 80
 
 var move_speed: float
 var accel: float
@@ -18,7 +19,8 @@ var raycast_target: Node2D
 var attack_cooldown := false
 var stop_moving := false
 
-var knockback_dur = 0.2
+var knockback_dur := 0.2
+var knockback_vec := Vector2.ZERO
 
 @onready var wander_timer := $WanderTimer
 @onready var attack_timer := $AttackTimer
@@ -93,7 +95,7 @@ func _look_vector_direction(direction: Vector2):
 
 ## navigation agent handles movement after adjusting vector
 func _on_nav_dist_adjust(safe_velocity: Vector2) -> void:
-	velocity = safe_velocity
+	velocity = safe_velocity + knockback_vec
 	move_and_slide()
 
 
@@ -111,7 +113,6 @@ func _on_death() -> void:
 	animation.no_interrupt = false
 	animation.play_animation("death", true)
 	enemyState = BEHAVIOUR.DEAD
-	print("QWD")
 	nav_agent.set_velocity(Vector2.ZERO)
 	hitbox.set_deferred("disabled", true)
 	await animation.animation_finished
@@ -173,7 +174,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	if enemyState == BEHAVIOUR.DEAD:
 		return
 	if area is Projectile:
-		nav_agent.set_velocity(Vector2.ZERO)
+		knockback_vec += (global_position - area.global_position).normalized() * KB_AMOUNT
 		# deal damage before changing behaviour otherwise raycast_target not set
 		take_damage(area.deal_damage())
 		knockback = true
@@ -184,4 +185,5 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 
 func _on_knockback_timer_timeout() -> void:
 	knockback = false
+	knockback_vec = Vector2.ZERO
 	modulate = Color(1,1,1)
