@@ -173,13 +173,13 @@ func attack_logic() -> void:
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if enemyState == BEHAVIOUR.DEAD:
 		return
-	if area is Projectile:
-		knockback_vec += (global_position - area.global_position).normalized() * KB_AMOUNT
-		# deal damage before changing behaviour otherwise raycast_target not set
-		take_damage(area.deal_damage())
-		knockback = true
-		modulate = Color(2,2,2)
-		knockback_timer.start(knockback_dur)
+	#if area is Projectile:
+	knockback_vec += (global_position - area.global_position).normalized() * KB_AMOUNT
+	# deal damage before changing behaviour otherwise raycast_target not set
+	take_damage(area.deal_damage())
+	knockback = true
+	modulate = Color(2,2,2)
+	knockback_timer.start(knockback_dur)
 		
 
 
