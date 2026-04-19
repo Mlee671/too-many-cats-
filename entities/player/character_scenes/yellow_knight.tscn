@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://3wbdeqhqyixf" path="res://entities/player/yellow_knight/yellow_knight.gd" id="2_lvvd3"]
 [ext_resource type="Script" uid="uid://dbmwv2bwa6afu" path="res://entities/player/yellow_knight/yk_stats.gd" id="3_2si07"]
 [ext_resource type="Texture2D" uid="uid://bewjbmrkg2otp" path="res://entities/player/yellow_knight/Run_Choco_Banana.png" id="3_232be"]
-[ext_resource type="Script" uid="uid://b5pchnv3xojmv" path="res://entities/player/character_scenes/melee_attack.gd" id="7_gq0h7"]
+[ext_resource type="Script" uid="uid://b5pchnv3xojmv" path="res://entities/player/attacks/melee_attack.gd" id="7_gq0h7"]
 [ext_resource type="Texture2D" uid="uid://fr7i801n6k7g" path="res://entities/player/attacks/sword_slash.png" id="7_ool57"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_604g3"]
@@ -329,7 +329,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lvvd3"]
-radius = 30.016663
+radius = 39.012817
 
 [sub_resource type="Animation" id="Animation_cv4xf"]
 length = 0.001
@@ -360,7 +360,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:monitorable")
+tracks/2/path = NodePath(".:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -412,7 +412,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:monitorable")
+tracks/2/path = NodePath(".:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -433,6 +433,20 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1, 1)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reset"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3qbob"]
 _data = {
@@ -448,7 +462,7 @@ wait_time = 0.1
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_bk7k0")
-frame = 2
+frame = 3
 
 [node name="AnimationPlayer" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="2" unique_id=518671881]
 libraries/ = SubResource("AnimationLibrary_cv4xf")
@@ -458,7 +472,8 @@ script = ExtResource("3_2si07")
 
 [node name="AttackBox" type="Area2D" parent="." index="9" unique_id=468181418]
 collision_layer = 128
-collision_mask = 0
+collision_mask = 4
+monitoring = false
 monitorable = false
 script = ExtResource("7_gq0h7")
 
@@ -467,9 +482,11 @@ shape = SubResource("CircleShape2D_lvvd3")
 
 [node name="Sprite2D" type="Sprite2D" parent="AttackBox" index="1" unique_id=1830639182]
 visible = false
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_ool57")
 hframes = 6
 
 [node name="PlaceholderPlayer" type="AnimationPlayer" parent="AttackBox" index="2" unique_id=213386428]
 libraries/ = SubResource("AnimationLibrary_3qbob")
+
+[connection signal="body_entered" from="AttackBox" to="AttackBox" method="_on_enemy_in_range"]

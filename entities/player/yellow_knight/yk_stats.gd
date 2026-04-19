@@ -10,5 +10,5 @@ func _ready() -> void:
 	evade_dur = 0.4
 	evade_cd = 0.5
 
-	fire_cd =  0
+	fire_cd =  0.8
 	
