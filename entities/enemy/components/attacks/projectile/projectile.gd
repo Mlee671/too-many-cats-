@@ -5,7 +5,7 @@ class_name Projectile
 
 var velocity := Vector2.ZERO
 var damage := 10
-var knockback := 30
+var knockback := 200
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

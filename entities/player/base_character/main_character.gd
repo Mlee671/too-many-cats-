@@ -8,6 +8,7 @@ class_name main_character
 @onready var attack_timer := $AttackTimer
 @onready var evade_timer := $EvadeTimer
 @onready var ability_timer := $AbilityTimer
+@onready var iframe_timer := $IFrameTimer
 #@onready var animation_player := $CharacterVisuals/AnimatedSprite2D
 @onready var char_visual := $CharacterVisuals
 @onready var stats := $Stats
@@ -17,9 +18,11 @@ class_name main_character
 
 enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 
+var iframe_flag := false
 const KNOCKBACK_DUR := 0.1
 const KNOCKBACK_DECAY := 10.0
 const DAMAGE_KNOCKBACK := 200.0 # kb scalar
+const IFRAME_DUR := 0.3
 
 var projectile_speed := 200
 
@@ -83,6 +86,10 @@ func _on_evade_timeout() -> void:
 
 func _on_ability_timeout() -> void:
 	ability_cooldown = false
+	
+func _on_iframe_timeout() -> void:
+	iframe_flag = false
+	modulate = Color(1,1,1)
 
 func manage_movement(delta: float) -> void:
 	# gets directional vector based on keypress
@@ -140,13 +147,17 @@ func character_ability():
 func add_knockback(vec: Vector2) -> void:
 	knockback_vec += vec
 
-## Called by enemy attacks when colliding with body. Currently does nothing.
-func take_damage(amount: int):
-	
-	print("[DEBUG] Player taken ", amount, " damage")
-	
+func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBACK):
+	if evade_flag == evadeState.ACTIVE or iframe_flag:
+		return
+	if from is Projectile:
+		add_knockback(from.velocity.normalized() * knockback_scalar)
+	else:
+		add_knockback((global_position - from.global_position).normalized() * knockback_scalar)
+	modulate = Color(2,2,2)
+	iframe_timer.start(IFRAME_DUR)
 	character_hud.set_main_hp_bar(stats.hp - amount)
-	stats.hp -=amount
+	stats.hp -= amount
 	
 
 ## Sets run animation when in motion, otherwise idle animation.
@@ -163,7 +174,5 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	if evade_flag == evadeState.ACTIVE:
 		return
 	if area is Projectile or area is Attack:
-		add_knockback((global_position - area.global_position).normalized() * DAMAGE_KNOCKBACK)
-		evade_timer.start(KNOCKBACK_DUR)
-		modulate = Color(2,2,2)
-		take_damage(area.deal_damage())
+		pass
+		#take_damage(area.deal_damage())
