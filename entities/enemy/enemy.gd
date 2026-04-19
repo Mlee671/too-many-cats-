@@ -7,6 +7,8 @@ class_name Enemy
 const TILE_SIZE := 16
 const KB_AMOUNT := 80
 
+const KB_DECAY := 20
+
 var move_speed: float
 var accel: float
 var pathfind_range: int # tile range to pathfind to
@@ -48,6 +50,7 @@ func _physics_process(delta: float) -> void:
 	# should not go through move logic if dead
 	if not stop_moving:
 		_move(delta)
+		knockback_vec = knockback_vec.lerp(Vector2.ZERO, KB_DECAY * delta)
 
 	if enemyState == BEHAVIOUR.WANDER:
 		if vision.is_enabled() and vision.can_see_player(raycast_target):
@@ -71,15 +74,11 @@ func _physics_process(delta: float) -> void:
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
 
 
-func _move(delta: float) -> void:
+func _move(_delta: float) -> void:
 	# get new direction to get to next path node
 	var new_velocity: Vector2 = (
-			(nav_agent.get_next_path_position() - global_position)
-			.normalized() * move_speed)
-	var smooth_velocity: Vector2 = lerp(velocity,
-			new_velocity,
-			accel * delta)
-	nav_agent.set_velocity(smooth_velocity)
+			(nav_agent.get_next_path_position() - global_position).normalized())
+	nav_agent.set_velocity(new_velocity * move_speed)
 	animation.play_animation("moving")
 	
 
@@ -110,6 +109,8 @@ func _on_death() -> void:
 	animation.no_interrupt = false
 	animation.play_animation("death", true)
 	enemyState = BEHAVIOUR.DEAD
+	knockback_vec = Vector2.ZERO
+	collision_layer = 0
 	nav_agent.set_velocity(Vector2.ZERO)
 	hitbox.set_deferred("disabled", true)
 	await animation.animation_finished
@@ -158,9 +159,9 @@ func take_damage(amount: int, from: Area2D, knockback_scalar : int = KB_AMOUNT) 
 		apply_knockback(from.velocity.normalized(), knockback_scalar)
 	elif from is MeleeAttack:
 		apply_knockback((global_position - from.global_position).normalized(), knockback_scalar)
-		visual.modulate = Color(2,2,2)
-		health.take_damage(amount)
-		animation.play_animation("damaged", true)
+	visual.modulate = Color(2,2,2)
+	health.take_damage(amount)
+	animation.play_animation("damaged", true)
 
 # get position, applies vector in random direction, up to pathfind_range tiles away
 func set_wander_target() -> void:
@@ -179,5 +180,4 @@ func apply_knockback(direction: Vector2, scalar: int = KB_AMOUNT) -> void:
 
 func _on_knockback_timer_timeout() -> void:
 	knockback = false
-	knockback_vec = Vector2.ZERO
 	visual.modulate = Color(1,1,1)

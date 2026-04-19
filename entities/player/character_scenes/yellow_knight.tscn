@@ -462,7 +462,6 @@ wait_time = 0.1
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_bk7k0")
-frame = 3
 
 [node name="AnimationPlayer" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="2" unique_id=518671881]
 libraries/ = SubResource("AnimationLibrary_cv4xf")
