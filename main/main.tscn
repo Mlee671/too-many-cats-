@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://canvas_layer.gd" id="6_4dugh"]
 [ext_resource type="Texture2D" uid="uid://wuvfmn2vkvpm" path="res://ui_assets/healthbar_placeholder.png" id="6_kfbq2"]
 [ext_resource type="Texture2D" uid="uid://ciaer60vu7k63" path="res://ui_assets/healthbar_placeholder_Y.png" id="8_67ri8"]
+[ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -508,8 +509,9 @@ terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 navigation_layer_0/layers = 2
 sources/0 = SubResource("TileSetAtlasSource_6bp64")
 
-[node name="main" type="Node2D" unique_id=135493927]
+[node name="main" type="Node2D" unique_id=135493927 node_paths=PackedStringArray("character_hud")]
 script = ExtResource("1_8gbba")
+character_hud = NodePath("character_manager/character_hud")
 
 [node name="Room_manager" type="Node2D" parent="." unique_id=739013909]
 script = ExtResource("2_21xkr")
@@ -521,6 +523,8 @@ tile_set = SubResource("TileSet_8gbba")
 script = ExtResource("4_jjvhh")
 
 [node name="character_hud" type="CanvasLayer" parent="character_manager" unique_id=1692577797]
+layer = 0
+visible = false
 script = ExtResource("6_4dugh")
 
 [node name="Control" type="Control" parent="character_manager/character_hud" unique_id=1392037008]
@@ -581,3 +585,15 @@ offset_top = 73.0
 offset_right = 509.0
 offset_bottom = 126.0
 expand_mode = 3
+
+[node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_grrlh")]
+visible = false
+z_index = 2
+offset_left = -576.0
+offset_top = -328.0
+offset_right = 1216.0
+offset_bottom = 724.0
+
+[node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=226070120]
+
+[connection signal="timeout" from="fade_transition/fade_transition_timer" to="." method="_on_fade_transition_timer_timeout"]
