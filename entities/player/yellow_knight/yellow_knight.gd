@@ -1,21 +1,23 @@
 extends main_character
 class_name YellowKnight
 
-@onready var attack_box := $AttackBox
-@onready var animplayer := $AttackBox/PlaceholderPlayer
+@onready var attack_component := $AttackComponent
+@onready var attack_box := $AttackComponent/AttackBox
+@onready var animplayer := $AttackComponent/AttackBox/PlaceholderPlayer
 @onready var ability_shape := $AbilityArea/AbilityShape
 
 func _ready() -> void:
 	attack_box.monitoring = false
 
-func attack(target: Vector2) -> void:
+func attack(_target: Vector2) -> void:
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
-	# horizontal mirror depending on cursor location
-	if target.x < 0:
-		attack_box.scale.x = -1
+	# vertical mirror depending on cursor location
+	if get_global_mouse_position().x < 0:
+		attack_box.scale.y = -1
 	else:
-		attack_box.scale.x = 1
+		attack_box.scale.y = 1
+	attack_component.look_at(get_global_mouse_position())
 	animplayer.play("attackbox")
 	
 func character_ability() -> void:

@@ -477,27 +477,32 @@ collision_mask = 12
 scale = Vector2(1e-05, 1e-05)
 shape = SubResource("CircleShape2D_gq0h7")
 
-[node name="AttackBox" type="Area2D" parent="." index="10" unique_id=468181418]
+[node name="AttackComponent" type="Node2D" parent="." index="10" unique_id=2058541343]
+
+[node name="Marker2D" type="Marker2D" parent="AttackComponent" index="0" unique_id=1071940844]
+
+[node name="AttackBox" type="Area2D" parent="AttackComponent" index="1" unique_id=468181418]
+position = Vector2(16, 0)
 collision_layer = 128
 collision_mask = 4
 monitoring = false
 monitorable = false
 script = ExtResource("7_gq0h7")
 
-[node name="AttackShape" type="CollisionPolygon2D" parent="AttackBox" index="0" unique_id=1514422579]
-position = Vector2(-10.000001, -7)
+[node name="AttackShape" type="CollisionPolygon2D" parent="AttackComponent/AttackBox" index="0" unique_id=1514422579]
+position = Vector2(-11.000004, -8)
 scale = Vector2(2, 1.7)
 polygon = PackedVector2Array(-8.499999, -10, 22.499998, -8.823528, 22.999998, 21.17647, -4.499999, 17.647058, -11.499998, 5.294117)
 
-[node name="Sprite2D" type="Sprite2D" parent="AttackBox" index="1" unique_id=1830639182]
+[node name="Sprite2D" type="Sprite2D" parent="AttackComponent/AttackBox" index="1" unique_id=1830639182]
 visible = false
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_ool57")
 hframes = 6
 
-[node name="PlaceholderPlayer" type="AnimationPlayer" parent="AttackBox" index="2" unique_id=213386428]
+[node name="PlaceholderPlayer" type="AnimationPlayer" parent="AttackComponent/AttackBox" index="2" unique_id=213386428]
 libraries/ = SubResource("AnimationLibrary_3qbob")
 
 [connection signal="area_entered" from="AbilityArea" to="." method="_on_ability_area_projectile_entered"]
 [connection signal="body_entered" from="AbilityArea" to="." method="_on_ability_area_body_entered"]
-[connection signal="body_entered" from="AttackBox" to="AttackBox" method="_on_enemy_in_range"]
+[connection signal="body_entered" from="AttackComponent/AttackBox" to="AttackComponent/AttackBox" method="_on_enemy_in_range"]
