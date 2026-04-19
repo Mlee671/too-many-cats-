@@ -331,9 +331,6 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_gq0h7"]
 radius = 86.00581
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lvvd3"]
-radius = 39.012817
-
 [sub_resource type="Animation" id="Animation_cv4xf"]
 length = 0.001
 tracks/0/type = "value"
@@ -375,19 +372,19 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AttackRange:scale")
+tracks/3/path = NodePath("AttackShape:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(2, 1.7)]
 }
 
 [sub_resource type="Animation" id="Animation_yga7j"]
 resource_name = "attackbox"
-length = 0.2
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -395,7 +392,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0, 5]
@@ -407,7 +404,7 @@ tracks/1/path = NodePath("Sprite2D:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -419,36 +416,36 @@ tracks/2/path = NodePath(".:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
-tracks/3/type = "value"
+tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AttackRange:scale")
+tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1, 1)]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.2),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"reset"
 }]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackShape:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2, 1.7)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3qbob"]
@@ -465,7 +462,7 @@ wait_time = 0.1
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_bk7k0")
-frame = 1
+frame = 3
 
 [node name="AnimationPlayer" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="2" unique_id=518671881]
 libraries/ = SubResource("AnimationLibrary_cv4xf")
@@ -488,8 +485,10 @@ monitoring = false
 monitorable = false
 script = ExtResource("7_gq0h7")
 
-[node name="AttackRange" type="CollisionShape2D" parent="AttackBox" index="0" unique_id=886459906]
-shape = SubResource("CircleShape2D_lvvd3")
+[node name="AttackShape" type="CollisionPolygon2D" parent="AttackBox" index="0" unique_id=1514422579]
+position = Vector2(-10.000001, -7)
+scale = Vector2(2, 1.7)
+polygon = PackedVector2Array(-8.499999, -10, 22.499998, -8.823528, 22.999998, 21.17647, -4.499999, 17.647058, -11.499998, 5.294117)
 
 [node name="Sprite2D" type="Sprite2D" parent="AttackBox" index="1" unique_id=1830639182]
 visible = false

@@ -156,12 +156,9 @@ func take_damage(amount: int, from: Area2D, knockback_scalar : int = KB_AMOUNT) 
 		
 	if from is Projectile:
 		apply_knockback(from.velocity.normalized(), knockback_scalar)
-		modulate = Color(2,2,2)
-		health.take_damage(amount)
-		animation.play_animation("damaged", true)
 	elif from is MeleeAttack:
 		apply_knockback((global_position - from.global_position).normalized(), knockback_scalar)
-		modulate = Color(2,2,2)
+		visual.modulate = Color(2,2,2)
 		health.take_damage(amount)
 		animation.play_animation("damaged", true)
 
@@ -183,4 +180,4 @@ func apply_knockback(direction: Vector2, scalar: int = KB_AMOUNT) -> void:
 func _on_knockback_timer_timeout() -> void:
 	knockback = false
 	knockback_vec = Vector2.ZERO
-	modulate = Color(1,1,1)
+	visual.modulate = Color(1,1,1)

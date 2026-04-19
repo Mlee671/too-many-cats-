@@ -82,14 +82,13 @@ func _on_evade_timeout() -> void:
 	# after cooldown or knockback, evade is ready
 	else:
 		evade_flag = evadeState.READY
-		modulate = Color(1,1,1)
 
 func _on_ability_timeout() -> void:
 	ability_cooldown = false
 	
 func _on_iframe_timeout() -> void:
 	iframe_flag = false
-	modulate = Color(1,1,1)
+	char_visual.modulate = Color(1,1,1)
 
 func manage_movement(delta: float) -> void:
 	# gets directional vector based on keypress
@@ -107,8 +106,8 @@ func manage_movement(delta: float) -> void:
 				stats.accel * delta)
 	
 		# if user presses attack key
-		if Input.is_action_pressed("fire_gun") and not attack_cooldown:
-			fire_gun(get_local_mouse_position())
+		if Input.is_action_pressed("attack") and not attack_cooldown:
+			attack(get_local_mouse_position())
 			
 	# apply knockback additively to movement
 	knockback_vec = knockback_vec.lerp(Vector2.ZERO, KNOCKBACK_DECAY * delta)
@@ -122,7 +121,7 @@ func swap_character() -> void:
 
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
-func fire_gun(target: Vector2) -> void:
+func attack(target: Vector2) -> void:
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	
@@ -154,7 +153,7 @@ func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBA
 		add_knockback(from.velocity.normalized() * knockback_scalar)
 	else:
 		add_knockback((global_position - from.global_position).normalized() * knockback_scalar)
-	modulate = Color(2,2,2)
+	char_visual.modulate = Color(2,2,2)
 	iframe_timer.start(IFRAME_DUR)
 	character_hud.set_main_hp_bar(stats.hp - amount)
 	stats.hp -= amount
