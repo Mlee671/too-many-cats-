@@ -11,4 +11,5 @@ func _ready() -> void:
 	evade_cd = 0.5
 
 	fire_cd =  0.8
+	ability_cd = 1
 	

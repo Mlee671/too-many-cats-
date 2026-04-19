@@ -155,18 +155,13 @@ func take_damage(amount: int, from: Area2D, knockback_scalar : int = KB_AMOUNT) 
 		$VisionArea.monitoring = false
 		
 	if from is Projectile:
-		# same direction as bullet, rather than where hit from
-		knockback_vec += from.velocity.normalized() * knockback_scalar
-		knockback = true
+		apply_knockback(from.velocity.normalized(), knockback_scalar)
 		modulate = Color(2,2,2)
-		knockback_timer.start(knockback_dur)
 		health.take_damage(amount)
 		animation.play_animation("damaged", true)
 	elif from is MeleeAttack:
-		knockback_vec += (global_position - from.global_position).normalized() * knockback_scalar
-		knockback = true
+		apply_knockback((global_position - from.global_position).normalized(), knockback_scalar)
 		modulate = Color(2,2,2)
-		knockback_timer.start(knockback_dur)
 		health.take_damage(amount)
 		animation.play_animation("damaged", true)
 
@@ -180,6 +175,10 @@ func set_wander_target() -> void:
 func attack_logic() -> void:
 	pass
 
+func apply_knockback(direction: Vector2, scalar: int = KB_AMOUNT) -> void:
+	knockback_vec += (direction * scalar)
+	knockback = true
+	knockback_timer.start(knockback_dur)
 
 func _on_knockback_timer_timeout() -> void:
 	knockback = false

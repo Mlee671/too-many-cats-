@@ -328,6 +328,9 @@ _data = {
 &"swap": SubResource("Animation_7m1dl")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gq0h7"]
+radius = 86.00581
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_lvvd3"]
 radius = 39.012817
 
@@ -462,15 +465,23 @@ wait_time = 0.1
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_bk7k0")
-frame = 3
+frame = 1
 
 [node name="AnimationPlayer" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="2" unique_id=518671881]
 libraries/ = SubResource("AnimationLibrary_cv4xf")
 
-[node name="Stats" parent="." index="6" unique_id=201965470]
+[node name="Stats" parent="." index="7" unique_id=201965470]
 script = ExtResource("3_2si07")
 
-[node name="AttackBox" type="Area2D" parent="." index="9" unique_id=468181418]
+[node name="AbilityArea" type="Area2D" parent="." index="9" unique_id=553500514]
+collision_layer = 0
+collision_mask = 12
+
+[node name="AbilityShape" type="CollisionShape2D" parent="AbilityArea" index="0" unique_id=1760541808]
+scale = Vector2(1e-05, 1e-05)
+shape = SubResource("CircleShape2D_gq0h7")
+
+[node name="AttackBox" type="Area2D" parent="." index="10" unique_id=468181418]
 collision_layer = 128
 collision_mask = 4
 monitoring = false
@@ -489,4 +500,6 @@ hframes = 6
 [node name="PlaceholderPlayer" type="AnimationPlayer" parent="AttackBox" index="2" unique_id=213386428]
 libraries/ = SubResource("AnimationLibrary_3qbob")
 
+[connection signal="area_entered" from="AbilityArea" to="." method="_on_ability_area_projectile_entered"]
+[connection signal="body_entered" from="AbilityArea" to="." method="_on_ability_area_body_entered"]
 [connection signal="body_entered" from="AttackBox" to="AttackBox" method="_on_enemy_in_range"]
