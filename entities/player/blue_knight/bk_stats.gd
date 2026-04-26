@@ -13,5 +13,5 @@ func _ready() -> void:
 
 	fire_cd =  .5
 	ability_cd = 5
-	current_ability_cd = 1
+
 	projectile_frame = 2

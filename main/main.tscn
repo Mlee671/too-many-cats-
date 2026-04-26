@@ -8,10 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://djfped5c2log5" path="res://ui_assets/HEALTH_BAR1.png" id="6_67ri8"]
 [ext_resource type="Texture2D" uid="uid://d2q2jhq5dd150" path="res://entities/player/character_icons/blue_knight_icon.png" id="6_fwcvl"]
 [ext_resource type="Texture2D" uid="uid://dm0pyqaqiihkq" path="res://entities/player/character_icons/yellow_knight_icon.png" id="7_na0o7"]
-[ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="8_grrlh"]
+[ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
 [ext_resource type="Texture2D" uid="uid://cmphbv1iw6xj5" path="res://entities/player/character_icons/pink_knight_icon.png" id="9_fwcvl"]
-[ext_resource type="Texture2D" uid="uid://loe2uh05yvk8" path="res://ui_assets/cd_timer_background.png" id="10_73k8k"]
-[ext_resource type="Texture2D" uid="uid://dc57m7vxejrd5" path="res://ui_assets/cd_timer_fill.png" id="11_5xyti"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -593,19 +591,7 @@ offset_bottom = 162.0
 nine_patch_stretch = true
 texture_progress = ExtResource("6_67ri8")
 
-[node name="first_cd_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=1861298332]
-layout_mode = 0
-offset_left = 132.0
-offset_top = 173.0
-offset_right = 172.0
-offset_bottom = 213.0
-fill_mode = 4
-nine_patch_stretch = true
-texture_under = ExtResource("10_73k8k")
-texture_progress = ExtResource("11_5xyti")
-
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_grrlh")]
-visible = false
 z_index = 2
 offset_left = -576.0
 offset_top = -328.0

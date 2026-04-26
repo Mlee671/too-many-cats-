@@ -5,7 +5,7 @@ extends CanvasLayer
 @onready var second_char: TextureRect = $Control/second_char
 @onready var third_char: TextureRect = $Control/third_char
 @onready var third_hp_bar: TextureProgressBar = $Control/third_hp_bar
-@onready var first_cd_bar: TextureProgressBar = $Control/first_cd_bar
+
 
 var dead = false
 var hp_bars = []
@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 
 	first_hp_bar.value = hp_bars[0]
 	first_char.texture = icons_array[0]
-	first_cd_bar.value = cd_bars[0].wait_time - cd_bars[0].time_left
+	
 	if size >= 2:
 		second_hp_bar.value = hp_bars[1]
 		second_char.texture = icons_array[1]
@@ -65,18 +65,6 @@ func switch_icon()-> void:
 	icons_array.pop_front()
 	icons_array.append(hold)
 	
-#adds the circular ability cooldown bar
-func add_cd_bar(timer_instance : Timer, starting_cd : float ):
-	cd_bars.append(timer_instance)	
-	match cd_bars.size():
-		_:
-			first_cd_bar.max_value = starting_cd
-			first_cd_bar.value = starting_cd
-		
-		
-		
-func start_cd_bar(starting_cd : float):
-	cd_bars[0].start(starting_cd)
 	
 #removes the character icon and hp bar
 func remove_char(position:int):
