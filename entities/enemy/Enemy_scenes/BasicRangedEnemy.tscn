@@ -141,13 +141,13 @@ texture = ExtResource("3_l8j17")
 hframes = 4
 vframes = 6
 
-[node name="AnimationPlayer" parent="." index="7" unique_id=2102798003]
+[node name="AnimationPlayer" parent="." index="8" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_wswxn")
 
 [node name="VisionCircle" parent="VisionArea" parent_id_path=PackedInt32Array(829889890) index="0" unique_id=428306925]
 shape = SubResource("CircleShape2D_tou4i")
 
-[node name="Hitbox" parent="." index="9" unique_id=417678541]
+[node name="Hitbox" parent="." index="10" unique_id=417678541]
 position = Vector2(0, -1)
 rotation = 1.5707964
 

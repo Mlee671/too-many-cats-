@@ -28,7 +28,7 @@ func _on_quit_button_pressed() -> void:
 
 #removes the controls image when you left click anywhere
 func _on_mouse_click(event: InputEvent) -> void:
-	if event.is_action_pressed("fire_gun"):
+	if event.is_action_pressed("attack"):
 		controls_image.visible = false
 
 #when you finish fading in, loads and switches to main

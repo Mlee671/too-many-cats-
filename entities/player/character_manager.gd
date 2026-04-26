@@ -77,4 +77,3 @@ func get_next() -> main_character:
 		if character_nodes[character_index].is_alive:
 			next_character = character_nodes[character_index]
 	return next_character
-	

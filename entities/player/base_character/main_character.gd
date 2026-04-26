@@ -33,6 +33,8 @@ var evade_flag = evadeState.READY
 var ability_cooldown := false
 var is_alive := true
 
+
+
 func _ready() -> void:
 	stats.player_state = Stats.states.IDLE
 	add_to_group("Player")
@@ -158,6 +160,10 @@ func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBA
 	character_hud.set_main_hp_bar(stats.hp - amount)
 	stats.hp -= amount
 	
+	if stats.hp <=0:
+	
+		is_alive = false
+		character_hud.kill_first_char()
 
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_animation():

@@ -72,4 +72,13 @@ func remove_char(position:int):
 		second_char.texture = null
 		second_hp_bar.value = 0
 		
+func kill_first_char():
+	if self.hp_bars.size() == 1:
+		print("all characters dead")
+		get_tree().quit()
+	Input.action_press("character_change")
+	Input.action_release("character_change")
+	#timeout needed because otherwise it runs the remove_char before the switch 
+	await get_tree().create_timer(0.2).timeout
+	self.remove_char(hp_bars.size()-1)
 	
