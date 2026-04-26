@@ -37,8 +37,9 @@ func add_hp_bar(starting_hp : float):
 	hp_bars.append(starting_hp)	
 	
 #sets amount of hp remaining for the character currently in use
-func set_main_hp_bar(amount: float) -> void:
-	hp_bars[0] = amount
+func set_main_hp_bar(max_hp: float, current_hp: float) -> void:
+	
+	hp_bars[0] = current_hp/max_hp *100
 	
 	
 func switch_hp_bars() -> void:

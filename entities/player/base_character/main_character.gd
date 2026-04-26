@@ -157,7 +157,7 @@ func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBA
 		add_knockback((global_position - from.global_position).normalized() * knockback_scalar)
 	char_visual.modulate = Color(2,2,2)
 	iframe_timer.start(IFRAME_DUR)
-	character_hud.set_main_hp_bar(stats.hp - amount)
+	character_hud.set_main_hp_bar(stats.max_hp, stats.hp - amount)
 	stats.hp -= amount
 	
 	if stats.hp <=0:
