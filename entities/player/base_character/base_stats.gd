@@ -12,7 +12,9 @@ var evade_cd := 0.5
 var fire_cd := .5
 var ability_cd := 10
 
+# which bullet sprite to use
 var projectile_frame := 2
+var projectile_speed := 200
 
 # player states
 enum states{IDLE, RUNNING, DODGING}

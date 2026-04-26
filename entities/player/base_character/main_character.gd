@@ -130,7 +130,7 @@ func attack(target: Vector2) -> void:
 	spawn.proj_frame = stats.projectile_frame
 	var direction = target.normalized()
 	spawn.look_at(direction)
-	spawn.velocity = direction * projectile_speed
+	spawn.velocity = direction * stats.projectile_speed
 	
 	# spawn at sprite position in main scene, shifted
 	# for where the sprite hands would be (presumably) 

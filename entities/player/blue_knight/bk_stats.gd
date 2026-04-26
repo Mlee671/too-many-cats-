@@ -14,3 +14,4 @@ func _ready() -> void:
 	ability_cd = 1
 	
 	projectile_frame = 2
+	projectile_speed = 400
