@@ -65,6 +65,8 @@ func _physics_process(delta: float) -> void:
 		# start cooldown
 		ability_cooldown = true
 		ability_timer.start(stats.ability_cd)
+		character_hud.start_cd_bar(stats.ability_cd)
+		
 		
 	# move and animate if not in dodge state
 	move_and_slide()

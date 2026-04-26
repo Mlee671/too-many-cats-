@@ -24,6 +24,7 @@ func _ready() -> void:
 		var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
 		character_hud.add_icon(char_icon)
 		character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
+		character_hud.add_cd_bar(char_instance.get_node("AbilityTimer"),char_instance.get_node("Stats").ability_cd)
 		character_nodes.append(char_instance)
 
 func spawn_character(pos : Vector2):

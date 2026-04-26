@@ -12,6 +12,7 @@ var evade_cd := 0.5
 
 var fire_cd := .5
 var ability_cd := 10
+var current_ability_cd = 10
 
 var projectile_frame := 2
 
