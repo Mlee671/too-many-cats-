@@ -460,29 +460,29 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xv68y"]
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.DODGING"
+advance_expression = "state.player_state == state.STATES.DODGING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pg60g"]
 switch_mode = 2
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.IDLE"
+advance_expression = "state.player_state == state.STATES.IDLE"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_usgwn"]
 switch_mode = 2
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.RUNNING"
+advance_expression = "state.player_state == state.STATES.RUNNING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pau5x"]
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.DODGING"
+advance_expression = "state.player_state == state.STATES.DODGING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ocfgt"]
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.RUNNING"
+advance_expression = "state.player_state == state.STATES.RUNNING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d121t"]
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.IDLE"
+advance_expression = "state.player_state == state.STATES.IDLE"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xv68y"]
 states/End/position = Vector2(857, 157)
@@ -494,7 +494,7 @@ states/idle/position = Vector2(89, 157)
 states/run/node = SubResource("AnimationNodeBlendTree_xs0gf")
 states/run/position = Vector2(584, 157)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t")]
-graph_offset = Vector2(-413, -160)
+graph_offset = Vector2(-504, -4)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hn4c"]
 radius = 4.0
@@ -562,7 +562,7 @@ parameters/run/TimeScale/scale = 1.0
 [node name="Stats" type="Node" parent="." unique_id=201965470]
 script = ExtResource("3_c4o6u")
 
-[node name="Node" type="Node" parent="." unique_id=972909555]
+[node name="States" type="Node" parent="." unique_id=972909555]
 script = ExtResource("6_g607o")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=2022720495]

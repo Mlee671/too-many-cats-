@@ -12,6 +12,7 @@ class_name main_character
 #@onready var animation_player := $CharacterVisuals/AnimatedSprite2D
 @onready var char_visual := $CharacterVisuals
 @onready var stats := $Stats
+@onready var state:= $States
 @onready var animation_tree := $CharacterVisuals/AnimationTree
 
 @onready var character_hud: CanvasLayer = $"../character_hud"
@@ -46,21 +47,21 @@ func _input(event):
 		ability_timer.start(stats.ability_cd)
 	
 func _ready() -> void:
-	stats.player_state = Stats.states.IDLE
+	state.player_state = state.STATES.IDLE
 	add_to_group("Player")
 	animation_tree.active = true
 	
 	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
-	if stats.player_state != stats.states.DODGING:
+	if state.player_state != state.STATES.DODGING:
 		if get_local_mouse_position().x < 0:
 			char_visual.scale.x = -1
 		else:
 			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
-	if stats.player_state != stats.states.DODGING:
+	if state.player_state != state.STATES.DODGING:
 		manage_movement(delta)
 		pass
 	
@@ -96,7 +97,7 @@ func manage_movement(delta: float) -> void:
 	
 	# scales movement speed if dodging
 	if evade_flag == evadeState.ACTIVE:
-		stats.player_state = Stats.states.DODGING
+		state.player_state = state.STATES.DODGING
 		position = position.move_toward(input_vector * 10000, 100 *delta)
 
 	else:
@@ -160,9 +161,9 @@ func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBA
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_animation():
 	if velocity.length_squared() > 0.5:
-		stats.player_state = Stats.states.RUNNING
+		state.player_state = state.STATES.RUNNING
 	else:
-		stats.player_state = Stats.states.IDLE
+		state.player_state = state.STATES.IDLE
 
 # function for detecting attacks and extracting the damage done to main character
 func _on_hitbox_area_entered(area: Area2D) -> void:
