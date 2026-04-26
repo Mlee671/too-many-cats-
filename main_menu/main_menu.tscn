@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bmglc58cqmuc3" path="res://main_menu/Blue_Buttons_Pixel.png" id="1_d3a7t"]
 [ext_resource type="Texture2D" uid="uid://cipi44ms8luce" path="res://icon.svg" id="3_3shxk"]
 [ext_resource type="Texture2D" uid="uid://4i74tyts3j2c" path="res://main_menu/background.jpg" id="4_bws42"]
-[ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="5_3f7m4"]
+[ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="5_3f7m4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3shxk"]
 atlas = ExtResource("1_d3a7t")
@@ -80,6 +80,7 @@ visible = false
 layout_mode = 0
 
 [node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=409621205]
+wait_time = 0.05
 
 [connection signal="gui_input" from="." to="." method="_on_mouse_click"]
 [connection signal="pressed" from="start_button" to="." method="_on_start_button_pressed"]

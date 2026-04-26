@@ -42,8 +42,10 @@ func _input(event):
 		# start cooldown
 		ability_cooldown = true
 		ability_timer.start(stats.ability_cd)
+
 	
 func _ready() -> void:
+	print("Project path: ", ProjectSettings.globalize_path("res://"))
 	state.player_state = state.STATES.IDLE
 	add_to_group("Player")
 	animation_tree.active = true
@@ -58,13 +60,9 @@ func _process(_delta: float) -> void:
 			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
-	if state.player_state != state.STATES.DODGING:
-		manage_movement(delta)
+	if (Input.is_action_just_pressed("evade")):
 		pass
-	
-	# move and animate if not in dodge state
-	move_and_slide()
-
+	manage_movement(delta)
 	handle_state()
 
 # when attack cooldown finishes
@@ -81,12 +79,8 @@ func _on_iframe_timeout() -> void:
 func manage_movement(delta: float) -> void:
 	# gets directional vector based on keypress
 	var input_vector = Input.get_vector("left", "right", "up", "down")
-	
-	# scales movement speed if dodging
 
-	movement_vec = movement_vec.lerp(
-			input_vector * stats.speed,
-			stats.accel * delta)
+	movement_vec = lerp(movement_vec, input_vector * stats.speed, stats.accel * delta)
 
 	# if user presses attack key
 	if Input.is_action_pressed("attack") and not attack_cooldown:
@@ -95,6 +89,8 @@ func manage_movement(delta: float) -> void:
 	# apply knockback additively to movement
 	knockback_vec = knockback_vec.lerp(Vector2.ZERO, KNOCKBACK_DECAY * delta)
 	velocity = movement_vec + knockback_vec
+	move_and_slide()
+
 
 func swap_character() -> void:
 	# dodge should skip straight to cooldown to prevent abuse
@@ -140,7 +136,7 @@ func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBA
 
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_state():
-	if velocity.length_squared() > 0.5:
+	if velocity != Vector2.ZERO:
 		state.player_state = state.STATES.RUNNING
 	else:
 		state.player_state = state.STATES.IDLE

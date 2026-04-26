@@ -2,9 +2,13 @@ extends Control
 @export var controls_image: TextureRect
 @export var background_image: TextureRect
 
+@export var fade_transition_scale = 1
+@export var fade_inbetween_wait = 1
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("Project path: ", ProjectSettings.globalize_path("res://"))
 	pass # Replace with function body.
 
 
@@ -14,7 +18,7 @@ func _process(delta: float) -> void:
 
 #plays the fade in transition which will then change scene to main
 func _on_start_button_pressed() -> void:
-	
+	$fade_transition/AnimationPlayer.speed_scale = fade_transition_scale
 	$fade_transition.show()
 	$fade_transition/fade_transition_timer.start()
 	$fade_transition/AnimationPlayer.play("fade_in")
@@ -28,7 +32,7 @@ func _on_quit_button_pressed() -> void:
 
 #removes the controls image when you left click anywhere
 func _on_mouse_click(event: InputEvent) -> void:
-	if event.is_action_pressed("fire_gun"):
+	if event.is_action_pressed("attack"):
 		controls_image.visible = false
 
 #when you finish fading in, loads and switches to main
@@ -38,7 +42,7 @@ func _on_fade_transition_timer_timeout() -> void:
 	
 	var scene : PackedScene = load("res://main/main.tscn")
 	
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(fade_inbetween_wait).timeout
 	await get_tree().process_frame
 	get_tree().change_scene_to_packed(scene)
 	

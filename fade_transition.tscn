@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bljfwt02e5snj"]
+[gd_scene format=3 uid="uid://cu0f5pnu18q6n"]
 
 [sub_resource type="Animation" id="Animation_aud3v"]
 length = 0.001
@@ -17,7 +17,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_5ggkw"]
 resource_name = "fade_in"
-length = 1.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -25,7 +24,7 @@ tracks/0/path = NodePath(".:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.001, 1.3666667),
+"times": PackedFloat32Array(0.001, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
@@ -33,7 +32,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_vp514"]
 resource_name = "fade_out"
-length = 1.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -41,7 +39,7 @@ tracks/0/path = NodePath(".:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.6666666),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
