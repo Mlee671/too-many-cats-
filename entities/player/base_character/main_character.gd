@@ -35,16 +35,8 @@ var attack_cooldown := false
 var ability_cooldown := false
 var is_alive := true
 
-func _input(event):
-	
-	if (Input.is_action_just_pressed("ability")
-			and not ability_cooldown):
-		character_ability()
-		# start cooldown
-		ability_cooldown = true
-		ability_timer.start(stats.ability_cd)
 
-	
+
 func _ready() -> void:
 	print("Project path: ", ProjectSettings.globalize_path("res://"))
 	state.switch_to(state.STATES.IDLE)
@@ -53,7 +45,6 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	_input(Input)
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
 		if get_local_mouse_position().x < 0:
@@ -145,8 +136,13 @@ func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBA
 		add_knockback((global_position - from.global_position).normalized() * knockback_scalar)
 	char_visual.modulate = Color(2,2,2)
 	iframe_timer.start(IFRAME_DUR)
-## Called by enemy attacks when colliding with body. Currently does nothing.
+	character_hud.set_main_hp_bar(stats.max_hp, stats.hp - amount)
+	stats.hp -= amount
 	
+	if stats.hp <=0:
+	
+		is_alive = false
+		character_hud.kill_first_char()
 
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_state():
