@@ -5,7 +5,10 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$fade_transition.show()
+	$fade_transition/AnimationPlayer.play("fade_out")
+	await get_tree().create_timer(1.5).timeout
+	$fade_transition.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,7 +41,7 @@ func _on_fade_transition_timer_timeout() -> void:
 	
 	var scene : PackedScene = load("res://main/main.tscn")
 	
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.5).timeout
 	await get_tree().process_frame
 	get_tree().change_scene_to_packed(scene)
 	

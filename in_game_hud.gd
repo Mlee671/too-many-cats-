@@ -6,22 +6,24 @@ extends CanvasLayer
 @onready var third_char: TextureRect = $Control/third_char
 @onready var third_hp_bar: TextureProgressBar = $Control/third_hp_bar
 
-
+var dead = false
 var hp_bars = []
 var icons_array = []
 var visibility = [0,0,0]
 
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	dead = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #updates the current top left hud continuously
 func _process(_delta: float) -> void:
+
 	var size = hp_bars.size()
-	
+
 	first_hp_bar.value = hp_bars[0]
 	first_char.texture = icons_array[0]
 	if size >= 2:
@@ -75,11 +77,22 @@ func remove_char(position:int):
 		
 func kill_first_char():
 	if self.hp_bars.size() == 1:
+		self.hide()
+		self.PROCESS_MODE_DISABLED
+		emit_signal("all_char_dead")
+		var scene : PackedScene = load("res://main_menu/main_menu.tscn")
 		print("all characters dead")
-		get_tree().quit()
+		
+		
+		$"../../fade_transition".show()
+		$"../../fade_transition/AnimationPlayer".play("fade_in")
+		await get_tree().create_timer(1.2).timeout
+		await get_tree().process_frame
+		get_tree().change_scene_to_packed(scene)
+		return
+
 	Input.action_press("character_change")
 	Input.action_release("character_change")
 	#timeout needed because otherwise it runs the remove_char before the switch 
 	await get_tree().create_timer(0.2).timeout
 	self.remove_char(hp_bars.size()-1)
-	

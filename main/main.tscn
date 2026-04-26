@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://in_game_hud.gd" id="6_4dugh"]
 [ext_resource type="Texture2D" uid="uid://djfped5c2log5" path="res://ui_assets/HEALTH_BAR1.png" id="6_67ri8"]
-[ext_resource type="PackedScene" path="res://fade_transition.tscn" id="8_grrlh"]
+[ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="8_grrlh"]
 [ext_resource type="Texture2D" uid="uid://cmphbv1iw6xj5" path="res://entities/player/character_icons/pink_knight_icon.png" id="9_fwcvl"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
@@ -524,6 +524,7 @@ script = ExtResource("4_jjvhh")
 
 [node name="character_hud" type="CanvasLayer" parent="character_manager" unique_id=1692577797]
 layer = 0
+visible = false
 script = ExtResource("6_4dugh")
 
 [node name="Control" type="Control" parent="character_manager/character_hud" unique_id=1392037008]
@@ -597,5 +598,3 @@ offset_right = 1216.0
 offset_bottom = 724.0
 
 [node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=226070120]
-
-[connection signal="timeout" from="fade_transition/fade_transition_timer" to="." method="_on_fade_transition_timer_timeout"]
