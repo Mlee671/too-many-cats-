@@ -10,7 +10,7 @@ height = 10.0
 
 [node name="Player_Projectile" unique_id=364488218 instance=ExtResource("1_hgki7")]
 collision_layer = 128
-collision_mask = 1
+collision_mask = 5
 script = ExtResource("2_dwmrv")
 
 [node name="Hitbox" parent="." index="0" unique_id=946368817]

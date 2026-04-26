@@ -2,6 +2,7 @@ extends Enemy
 class_name BasicMeleeEnemy
 
 const ATTACK_DURATION := 0.5
+const DAMAGE := 15
 
 @export var speed := 50.0
 @export var acceleration := 20.0
@@ -40,6 +41,7 @@ func _physics_process(delta: float) -> void:
 		for body in bodies:
 			if body is main_character:
 				melee_attack()
+				body.take_damage(DAMAGE, self, 300)
 	super._physics_process(delta)
 
 
@@ -49,9 +51,6 @@ func attack_logic() -> void:
 		nav_agent.target_position = raycast_target.global_position
 	frame += 1
 
-# attack radius is now slightly smaller than damage area so attacks happen as soon as player enters.
-# this is causing bouncing if the attackbox corner is towars the player as they will bounce off that before getting in range
-# attack box now contains the damage to work with the same system as projectiles
 func _on_attack_radius_triggered(body: Node2D) -> void:
 	if body is main_character:
 		attack_mode = true

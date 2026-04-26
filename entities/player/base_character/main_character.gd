@@ -3,12 +3,12 @@ class_name main_character
 
 
 # loads the bullet scene when starting the game
-# TODO: replace with child node to generate within (e.g. AttackComponent)
 @onready var projectile := preload("res://entities/player/attacks/player_projectile.tscn")
 
 @onready var attack_timer := $AttackTimer
 @onready var evade_timer := $EvadeTimer
 @onready var ability_timer := $AbilityTimer
+@onready var iframe_timer := $IFrameTimer
 #@onready var animation_player := $CharacterVisuals/AnimatedSprite2D
 @onready var char_visual := $CharacterVisuals
 @onready var stats := $Stats
@@ -18,9 +18,11 @@ class_name main_character
 
 enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 
+var iframe_flag := false
 const KNOCKBACK_DUR := 0.1
 const KNOCKBACK_DECAY := 10.0
 const DAMAGE_KNOCKBACK := 200.0 # kb scalar
+const IFRAME_DUR := 0.3
 
 var projectile_speed := 200
 
@@ -80,10 +82,13 @@ func _on_evade_timeout() -> void:
 	# after cooldown or knockback, evade is ready
 	else:
 		evade_flag = evadeState.READY
-		modulate = Color(1,1,1)
 
 func _on_ability_timeout() -> void:
 	ability_cooldown = false
+	
+func _on_iframe_timeout() -> void:
+	iframe_flag = false
+	char_visual.modulate = Color(1,1,1)
 
 func manage_movement(delta: float) -> void:
 	# gets directional vector based on keypress
@@ -101,8 +106,8 @@ func manage_movement(delta: float) -> void:
 				stats.accel * delta)
 	
 		# if user presses attack key
-		if Input.is_action_pressed("fire_gun") and not attack_cooldown:
-			fire_gun(get_local_mouse_position())
+		if Input.is_action_pressed("attack") and not attack_cooldown:
+			attack(get_local_mouse_position())
 			
 	# apply knockback additively to movement
 	knockback_vec = knockback_vec.lerp(Vector2.ZERO, KNOCKBACK_DECAY * delta)
@@ -116,7 +121,7 @@ func swap_character() -> void:
 
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
-func fire_gun(target: Vector2) -> void:
+func attack(target: Vector2) -> void:
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	
@@ -141,13 +146,17 @@ func character_ability():
 func add_knockback(vec: Vector2) -> void:
 	knockback_vec += vec
 
-## Called by enemy attacks when colliding with body. Currently does nothing.
-func take_damage(amount: int):
-	
-	print("[DEBUG] Player taken ", amount, " damage")
-	
+func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBACK):
+	if evade_flag == evadeState.ACTIVE or iframe_flag:
+		return
+	if from is Projectile:
+		add_knockback(from.velocity.normalized() * knockback_scalar)
+	else:
+		add_knockback((global_position - from.global_position).normalized() * knockback_scalar)
+	char_visual.modulate = Color(2,2,2)
+	iframe_timer.start(IFRAME_DUR)
 	character_hud.set_main_hp_bar(stats.hp - amount)
-	stats.hp -=amount
+	stats.hp -= amount
 	
 
 ## Sets run animation when in motion, otherwise idle animation.
@@ -164,7 +173,5 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	if evade_flag == evadeState.ACTIVE:
 		return
 	if area is Projectile or area is Attack:
-		add_knockback((global_position - area.global_position).normalized() * DAMAGE_KNOCKBACK)
-		evade_timer.start(KNOCKBACK_DUR)
-		modulate = Color(2,2,2)
-		take_damage(area.deal_damage())
+		pass
+		#take_damage(area.deal_damage())

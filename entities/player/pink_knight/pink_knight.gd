@@ -6,11 +6,11 @@ const ATTACK_KNOCKBACK := 300.0
 
 @onready var uptime_timer = $AbilityUptimeTimer
 
-func fire_gun(target: Vector2) -> void:
+func attack(target: Vector2) -> void:
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	var mouse_angle = target.normalized()
-	for angle in [-(SPREAD_DEG / 2), 0, SPREAD_DEG / 2]:
+	for angle in [-(SPREAD_DEG / 2.0), 0, SPREAD_DEG / 2.0]:
 		var spawn = projectile.instantiate()
 		spawn.proj_frame = stats.projectile_frame
 		spawn.damage = 6

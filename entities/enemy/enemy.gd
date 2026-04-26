@@ -7,6 +7,8 @@ class_name Enemy
 const TILE_SIZE := 16
 const KB_AMOUNT := 80
 
+const KB_DECAY := 20
+
 var move_speed: float
 var accel: float
 var pathfind_range: int # tile range to pathfind to
@@ -44,13 +46,11 @@ func _physics_process(delta: float) -> void:
 			or enemyState == BEHAVIOUR.DEAD
 			or knockback):
 		return
-	
-	if Input.is_action_just_pressed("debug_damage_enemy"):
-		take_damage(50)
 
 	# should not go through move logic if dead
 	if not stop_moving:
 		_move(delta)
+		knockback_vec = knockback_vec.lerp(Vector2.ZERO, KB_DECAY * delta)
 
 	if enemyState == BEHAVIOUR.WANDER:
 		if vision.is_enabled() and vision.can_see_player(raycast_target):
@@ -74,15 +74,11 @@ func _physics_process(delta: float) -> void:
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
 
 
-func _move(delta: float) -> void:
+func _move(_delta: float) -> void:
 	# get new direction to get to next path node
 	var new_velocity: Vector2 = (
-			(nav_agent.get_next_path_position() - global_position)
-			.normalized() * move_speed)
-	var smooth_velocity: Vector2 = lerp(velocity,
-			new_velocity,
-			accel * delta)
-	nav_agent.set_velocity(smooth_velocity)
+			(nav_agent.get_next_path_position() - global_position).normalized())
+	nav_agent.set_velocity(new_velocity * move_speed)
 	animation.play_animation("moving")
 	
 
@@ -113,6 +109,8 @@ func _on_death() -> void:
 	animation.no_interrupt = false
 	animation.play_animation("death", true)
 	enemyState = BEHAVIOUR.DEAD
+	knockback_vec = Vector2.ZERO
+	collision_layer = 0
 	nav_agent.set_velocity(Vector2.ZERO)
 	hitbox.set_deferred("disabled", true)
 	await animation.animation_finished
@@ -149,13 +147,19 @@ func deactivate_enemy() -> void:
 	$VisionArea.monitoring = true
 
 
-func take_damage(amount: int) -> void:
-	# makes sense that dealing damage to an enemy will aggro it
+func take_damage(amount: int, from: Area2D, knockback_scalar : int = KB_AMOUNT) -> void:
+	if enemyState == BEHAVIOUR.DEAD:
+		return
 	if enemyState == BEHAVIOUR.WANDER:
 		raycast_target = get_tree().get_first_node_in_group("Player")
 		enemyState = BEHAVIOUR.ATTACK
 		$VisionArea.monitoring = false
 		
+	if from is Projectile:
+		apply_knockback(from.velocity.normalized(), knockback_scalar)
+	elif from is MeleeAttack:
+		apply_knockback((global_position - from.global_position).normalized(), knockback_scalar)
+	visual.modulate = Color(2,2,2)
 	health.take_damage(amount)
 	animation.play_animation("damaged", true)
 
@@ -169,21 +173,11 @@ func set_wander_target() -> void:
 func attack_logic() -> void:
 	pass
 
-# enemy hitboc logic. basically the same as player but enemy is just stopped rather than knocked back
-func _on_hitbox_area_entered(area: Area2D) -> void:
-	if enemyState == BEHAVIOUR.DEAD:
-		return
-	if area is Projectile:
-		knockback_vec += (global_position - area.global_position).normalized() * KB_AMOUNT
-		# deal damage before changing behaviour otherwise raycast_target not set
-		take_damage(area.deal_damage())
-		knockback = true
-		modulate = Color(2,2,2)
-		knockback_timer.start(knockback_dur)
-		
-
+func apply_knockback(direction: Vector2, scalar: int = KB_AMOUNT) -> void:
+	knockback_vec += (direction * scalar)
+	knockback = true
+	knockback_timer.start(knockback_dur)
 
 func _on_knockback_timer_timeout() -> void:
 	knockback = false
-	knockback_vec = Vector2.ZERO
-	modulate = Color(1,1,1)
+	visual.modulate = Color(1,1,1)
