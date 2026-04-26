@@ -4,10 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://btki6vqc3kjki" path="res://main/Room_manager.gd" id="2_21xkr"]
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
-[ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://canvas_layer.gd" id="6_4dugh"]
-[ext_resource type="Texture2D" uid="uid://wuvfmn2vkvpm" path="res://ui_assets/healthbar_placeholder.png" id="6_kfbq2"]
-[ext_resource type="Texture2D" uid="uid://ciaer60vu7k63" path="res://ui_assets/healthbar_placeholder_Y.png" id="8_67ri8"]
+[ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://in_game_hud.gd" id="6_4dugh"]
+[ext_resource type="Texture2D" uid="uid://djfped5c2log5" path="res://ui_assets/HEALTH_BAR1.png" id="6_67ri8"]
+[ext_resource type="Texture2D" uid="uid://d2q2jhq5dd150" path="res://entities/player/character_icons/blue_knight_icon.png" id="6_fwcvl"]
+[ext_resource type="Texture2D" uid="uid://dm0pyqaqiihkq" path="res://entities/player/character_icons/yellow_knight_icon.png" id="7_na0o7"]
 [ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
+[ext_resource type="Texture2D" uid="uid://cmphbv1iw6xj5" path="res://entities/player/character_icons/pink_knight_icon.png" id="9_fwcvl"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -524,7 +526,6 @@ script = ExtResource("4_jjvhh")
 
 [node name="character_hud" type="CanvasLayer" parent="character_manager" unique_id=1692577797]
 layer = 0
-visible = false
 script = ExtResource("6_4dugh")
 
 [node name="Control" type="Control" parent="character_manager/character_hud" unique_id=1392037008]
@@ -535,59 +536,62 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="first_hp_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=1642818914]
-layout_mode = 0
-offset_left = 71.0
-offset_top = 91.0
-offset_right = 299.0
-offset_bottom = 221.0
-nine_patch_stretch = true
-texture_progress = ExtResource("6_kfbq2")
-
-[node name="second_hp_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=377819572]
-layout_mode = 0
-offset_left = 315.0
-offset_top = 121.0
-offset_right = 448.0
-offset_bottom = 191.0
-nine_patch_stretch = true
-texture_progress = ExtResource("8_67ri8")
-
-[node name="third_hp_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=1066949098]
-layout_mode = 0
-offset_left = 451.0
-offset_top = 121.0
-offset_right = 584.0
-offset_bottom = 191.0
-nine_patch_stretch = true
-texture_progress = ExtResource("8_67ri8")
-
 [node name="first_char" type="TextureRect" parent="character_manager/character_hud/Control" unique_id=565147162]
 layout_mode = 0
-offset_left = 99.0
-offset_top = 3.0
-offset_right = 211.0
-offset_bottom = 132.0
+offset_left = 96.0
+offset_top = 40.0
+offset_right = 208.0
+offset_bottom = 169.0
+texture = ExtResource("6_fwcvl")
 expand_mode = 3
 
 [node name="second_char" type="TextureRect" parent="character_manager/character_hud/Control" unique_id=1573556638]
 layout_mode = 0
-offset_left = 339.0
-offset_top = 70.0
-offset_right = 384.0
-offset_bottom = 123.0
+offset_left = 224.0
+offset_top = 104.0
+offset_right = 274.0
+offset_bottom = 168.0
+texture = ExtResource("7_na0o7")
 expand_mode = 3
 
 [node name="third_char" type="TextureRect" parent="character_manager/character_hud/Control" unique_id=1331110229]
 layout_mode = 0
-offset_left = 464.0
-offset_top = 73.0
-offset_right = 509.0
-offset_bottom = 126.0
+offset_left = 280.0
+offset_top = 104.0
+offset_right = 330.0
+offset_bottom = 168.0
+texture = ExtResource("9_fwcvl")
 expand_mode = 3
 
+[node name="first_hp_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=1642818914]
+z_index = 1
+layout_mode = 0
+offset_left = 100.0
+offset_top = 140.0
+offset_right = 204.0
+offset_bottom = 158.0
+nine_patch_stretch = true
+texture_progress = ExtResource("6_67ri8")
+
+[node name="second_hp_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=377819572]
+layout_mode = 0
+offset_left = 225.0
+offset_top = 154.0
+offset_right = 273.0
+offset_bottom = 162.0
+nine_patch_stretch = true
+texture_progress = ExtResource("6_67ri8")
+
+[node name="third_hp_bar" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=34227724]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 154.0
+offset_right = 329.0
+offset_bottom = 162.0
+nine_patch_stretch = true
+texture_progress = ExtResource("6_67ri8")
+
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_grrlh")]
-visible = false
 z_index = 2
 offset_left = -576.0
 offset_top = -328.0
@@ -595,5 +599,3 @@ offset_right = 1216.0
 offset_bottom = 724.0
 
 [node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=226070120]
-
-[connection signal="timeout" from="fade_transition/fade_transition_timer" to="." method="_on_fade_transition_timer_timeout"]

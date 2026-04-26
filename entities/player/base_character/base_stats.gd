@@ -4,6 +4,7 @@ class_name Stats
 var speed := 100
 var accel := 10 # how smooth stop/start movement
 var hp := 100
+var max_hp :=100
 
 var evade_movement_scaling := 1.75
 var evade_dur := 0.4
@@ -11,6 +12,7 @@ var evade_cd := 0.5
 
 var fire_cd := .5
 var ability_cd := 10
+var current_ability_cd = 10
 
 var projectile_frame := 2
 

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://3wbdeqhqyixf" path="res://entities/player/yellow_knight/yellow_knight.gd" id="2_lvvd3"]
 [ext_resource type="Script" uid="uid://dbmwv2bwa6afu" path="res://entities/player/yellow_knight/yk_stats.gd" id="3_2si07"]
 [ext_resource type="Texture2D" uid="uid://bewjbmrkg2otp" path="res://entities/player/yellow_knight/Run_Choco_Banana.png" id="3_232be"]
-[ext_resource type="Script" uid="uid://b5pchnv3xojmv" path="res://entities/player/attacks/melee_attack.gd" id="7_gq0h7"]
+[ext_resource type="Script" path="res://entities/player/attacks/melee_attack.gd" id="7_gq0h7"]
 [ext_resource type="Texture2D" uid="uid://fr7i801n6k7g" path="res://entities/player/attacks/sword_slash.png" id="7_ool57"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_604g3"]
@@ -462,6 +462,7 @@ wait_time = 0.1
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_bk7k0")
+frame = 1
 
 [node name="AnimationPlayer" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="2" unique_id=518671881]
 libraries/ = SubResource("AnimationLibrary_cv4xf")

@@ -9,13 +9,12 @@ extends Node2D
 func _ready() -> void:
 	#finishes the fading transition
 	$fade_transition.show()
-	$fade_transition/fade_transition_timer.start()
+	
 	$fade_transition/AnimationPlayer.play("fade_out")
+
 	
 	# cm.switch_to("blue_knight")
 	room_manager.generate_rooms(5)
 	cm.spawn_character(Vector2(32,32))
-
-
-func _on_fade_transition_timer_timeout() -> void:
+	await get_tree().create_timer(1.5).timeout
 	character_hud.visible = true
