@@ -2,6 +2,7 @@ extends Control
 @export var controls_image: TextureRect
 @export var background_image: TextureRect
 
+@export var on_ready_delay = 0
 @export var fade_transition_scale = 10
 @export var fade_inbetween_wait = 0
 
@@ -10,7 +11,7 @@ extends Control
 func _ready() -> void:
 	$fade_transition.show()
 	$fade_transition/AnimationPlayer.play("fade_out")
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(on_ready_delay).timeout
 	$fade_transition.hide()
 
 

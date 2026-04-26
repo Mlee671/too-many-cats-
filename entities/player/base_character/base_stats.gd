@@ -1,8 +1,8 @@
 extends Node
 class_name Stats
 
-const dodge_speed = 100
-const dodge_accel = 50
+const dodge_speed = 250.0
+const dodge_accel = 50.0
 
 var speed := 100
 var accel := 20 # how smooth stop/start movement

@@ -494,7 +494,7 @@ states/idle/position = Vector2(89, 157)
 states/run/node = SubResource("AnimationNodeBlendTree_xs0gf")
 states/run/position = Vector2(584, 157)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t")]
-graph_offset = Vector2(-504, -4)
+graph_offset = Vector2(-610, 23)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hn4c"]
 radius = 4.0
@@ -546,7 +546,6 @@ texture_filter = 1
 position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
-frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]
 root_node = NodePath("../AnimatedSprite2D")

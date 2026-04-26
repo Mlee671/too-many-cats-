@@ -34,11 +34,11 @@ var attack_cooldown := false
 # var evade_flag = evadeState.READY
 var ability_cooldown := false
 var is_alive := true
+var dodge_direction := Vector2.ZERO
 
 
 
 func _ready() -> void:
-	print("Project path: ", ProjectSettings.globalize_path("res://"))
 	state.switch_to(state.STATES.IDLE)
 	add_to_group("Player")
 	animation_tree.active = true
@@ -53,10 +53,15 @@ func _process(_delta: float) -> void:
 			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
-	manage_movement(delta)
-	handle_state()
 	print(state.player_state)
-	#print(evade_timer.time_left)
+	var direction = Input.get_vector("left", "right", "up", "down")
+
+	if evade_duration.time_left > 0:
+		dodge_movement(delta)
+	else:
+		manage_movement(delta, direction)
+	handle_state()
+	move_and_slide()
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
@@ -69,14 +74,15 @@ func _on_iframe_timeout() -> void:
 	iframe_flag = false
 	char_visual.modulate = Color(1,1,1)
 
-func manage_movement(delta: float) -> void:
+func manage_movement(delta: float, direction: Vector2) -> void:
 	# gets directional vector based on keypress
-	var input_vector = Input.get_vector("left", "right", "up", "down")
+	
 
-	movement_vec = lerp(movement_vec, input_vector * stats.speed, stats.accel * delta)
+	movement_vec = lerp(movement_vec, direction * stats.speed, stats.accel * delta)	
 	if Input.is_action_just_pressed("evade"):
 		if(evade_cooldown.time_left == 0):
-			if(input_vector.normalized() != Vector2.ZERO):
+			dodge_direction = direction
+			if(direction.normalized() != Vector2.ZERO):
 				start_dodge_roll()
 			elif velocity.length()> 0.5:
 				start_dodge_roll()
@@ -87,20 +93,23 @@ func manage_movement(delta: float) -> void:
 	# apply knockback additively to movement
 	knockback_vec = knockback_vec.lerp(Vector2.ZERO, KNOCKBACK_DECAY * delta)
 	velocity = movement_vec + knockback_vec
-	move_and_slide()
 
 
 func start_dodge_roll():
 	state.switch_to(state.STATES.DODGING)
 	state.disable_switch()
-	evade_duration.start()
-	evade_cooldown.start()
+	evade_duration.start(stats.evade_dur)
+	evade_cooldown.start(stats.evade_cd)
+	pass
+	
+func dodge_movement(delta: float):
+	var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
+	var dodge_speed = lerp(stats.dodge_speed, stats.dodge_speed * 0.5, dodge_percent * stats.dodge_accel *delta)
+	velocity = dodge_speed * dodge_direction.normalized()
 	pass
 
 func swap_character() -> void:
-	# dodge should skip straight to cooldown to prevent abuse
-	handle_state() # force change animation away from dodge
-	evade_cooldown.start(stats.evade_cd)
+	pass
 
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
