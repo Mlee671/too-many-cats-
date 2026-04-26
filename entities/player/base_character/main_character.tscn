@@ -525,6 +525,9 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="IFrameTimer" type="Timer" parent="." unique_id=935354938]
+one_shot = true
+
 [node name="CharacterVisuals" type="Node2D" parent="." unique_id=569010630]
 position = Vector2(-1, -8)
 
@@ -540,6 +543,7 @@ texture_filter = 1
 position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]
 root_node = NodePath("../AnimatedSprite2D")
@@ -569,8 +573,10 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=190335408]
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_3hn4c")
+disabled = true
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timeout"]
 [connection signal="timeout" from="EvadeTimer" to="." method="_on_evade_timeout"]
+[connection signal="timeout" from="IFrameTimer" to="." method="_on_iframe_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
