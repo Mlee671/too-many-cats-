@@ -17,7 +17,7 @@ class_name main_character
 
 @onready var character_hud: CanvasLayer = $"../character_hud"
 
-enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
+# enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 
 var iframe_flag := false
 const KNOCKBACK_DUR := 0.1
@@ -30,14 +30,11 @@ var projectile_speed := 200
 var knockback_vec := Vector2.ZERO
 var movement_vec := Vector2.ZERO
 var attack_cooldown := false
-var evade_flag = evadeState.READY
+# var evade_flag = evadeState.READY
 var ability_cooldown := false
 var is_alive := true
 
 func _input(event):
-	if (Input.is_action_just_pressed("evade") and evade_flag == evadeState.READY):
-		evade_flag = evadeState.ACTIVE
-		evade_timer.start(stats.evade_dur);
 	
 	if (Input.is_action_just_pressed("ability")
 			and not ability_cooldown):
@@ -67,22 +64,12 @@ func _physics_process(delta: float) -> void:
 	
 	# move and animate if not in dodge state
 	move_and_slide()
-	if evade_flag != evadeState.ACTIVE:
-		handle_animation()
+
+	handle_state()
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
 	attack_cooldown = false
-
-# when evade cooldown finishes
-func _on_evade_timeout() -> void:
-	# after active, evade is cooldown
-	if evade_flag == evadeState.ACTIVE:
-		evade_flag = evadeState.COOLDOWN
-		evade_timer.start(stats.evade_cd)
-	# after cooldown or knockback, evade is ready
-	else:
-		evade_flag = evadeState.READY
 
 func _on_ability_timeout() -> void:
 	ability_cooldown = false
@@ -96,18 +83,14 @@ func manage_movement(delta: float) -> void:
 	var input_vector = Input.get_vector("left", "right", "up", "down")
 	
 	# scales movement speed if dodging
-	if evade_flag == evadeState.ACTIVE:
-		state.player_state = state.STATES.DODGING
-		position = position.move_toward(input_vector * 10000, 100 *delta)
 
-	else:
-		movement_vec = movement_vec.lerp(
-				input_vector * stats.speed,
-				stats.accel * delta)
-	
-		# if user presses attack key
-		if Input.is_action_pressed("attack") and not attack_cooldown:
-			attack(get_local_mouse_position())
+	movement_vec = movement_vec.lerp(
+			input_vector * stats.speed,
+			stats.accel * delta)
+
+	# if user presses attack key
+	if Input.is_action_pressed("attack") and not attack_cooldown:
+		attack(get_local_mouse_position())
 			
 	# apply knockback additively to movement
 	knockback_vec = knockback_vec.lerp(Vector2.ZERO, KNOCKBACK_DECAY * delta)
@@ -115,8 +98,7 @@ func manage_movement(delta: float) -> void:
 
 func swap_character() -> void:
 	# dodge should skip straight to cooldown to prevent abuse
-	evade_flag = evadeState.READY
-	handle_animation() # force change animation away from dodge
+	handle_state() # force change animation away from dodge
 	evade_timer.start(stats.evade_cd)
 
 ## Creates bullet instance and fires from sprite to target vector.
@@ -147,8 +129,6 @@ func add_knockback(vec: Vector2) -> void:
 	knockback_vec += vec
 
 func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBACK):
-	if evade_flag == evadeState.ACTIVE or iframe_flag:
-		return
 	if from is Projectile:
 		add_knockback(from.velocity.normalized() * knockback_scalar)
 	else:
@@ -159,7 +139,7 @@ func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBA
 	
 
 ## Sets run animation when in motion, otherwise idle animation.
-func handle_animation():
+func handle_state():
 	if velocity.length_squared() > 0.5:
 		state.player_state = state.STATES.RUNNING
 	else:
@@ -167,8 +147,6 @@ func handle_animation():
 
 # function for detecting attacks and extracting the damage done to main character
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if evade_flag == evadeState.ACTIVE:
-		return
 	if area is Projectile or area is Attack:
 		pass
 		#take_damage(area.deal_damage())
