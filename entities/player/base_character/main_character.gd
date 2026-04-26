@@ -6,7 +6,8 @@ class_name main_character
 @onready var projectile := preload("res://entities/player/attacks/player_projectile.tscn")
 
 @onready var attack_timer := $AttackTimer
-@onready var evade_timer := $EvadeTimer
+@onready var evade_cooldown := $EvadeDuration
+@onready var evade_duration := $EvadeCooldown
 @onready var ability_timer := $AbilityTimer
 @onready var iframe_timer := $IFrameTimer
 #@onready var animation_player := $CharacterVisuals/AnimatedSprite2D
@@ -46,12 +47,13 @@ func _input(event):
 	
 func _ready() -> void:
 	print("Project path: ", ProjectSettings.globalize_path("res://"))
-	state.player_state = state.STATES.IDLE
+	state.switch_to(state.STATES.IDLE)
 	add_to_group("Player")
 	animation_tree.active = true
 	
 	
 func _process(_delta: float) -> void:
+	_input(Input)
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
 		if get_local_mouse_position().x < 0:
@@ -60,10 +62,10 @@ func _process(_delta: float) -> void:
 			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
-	if (Input.is_action_just_pressed("evade")):
-		pass
 	manage_movement(delta)
 	handle_state()
+	print(state.player_state)
+	#print(evade_timer.time_left)
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
@@ -81,7 +83,12 @@ func manage_movement(delta: float) -> void:
 	var input_vector = Input.get_vector("left", "right", "up", "down")
 
 	movement_vec = lerp(movement_vec, input_vector * stats.speed, stats.accel * delta)
-
+	if Input.is_action_just_pressed("evade"):
+		if(evade_cooldown.time_left == 0):
+			if(input_vector.normalized() != Vector2.ZERO):
+				start_dodge_roll()
+			elif velocity.length()> 0.5:
+				start_dodge_roll()
 	# if user presses attack key
 	if Input.is_action_pressed("attack") and not attack_cooldown:
 		attack(get_local_mouse_position())
@@ -92,10 +99,17 @@ func manage_movement(delta: float) -> void:
 	move_and_slide()
 
 
+func start_dodge_roll():
+	state.switch_to(state.STATES.DODGING)
+	state.disable_switch()
+	evade_duration.start()
+	evade_cooldown.start()
+	pass
+
 func swap_character() -> void:
 	# dodge should skip straight to cooldown to prevent abuse
 	handle_state() # force change animation away from dodge
-	evade_timer.start(stats.evade_cd)
+	evade_cooldown.start(stats.evade_cd)
 
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
@@ -136,13 +150,21 @@ func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBA
 
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_state():
-	if velocity != Vector2.ZERO:
-		state.player_state = state.STATES.RUNNING
+	if velocity.length() > 0.5:
+		state.switch_to(state.STATES.RUNNING)
 	else:
-		state.player_state = state.STATES.IDLE
+		state.switch_to(state.STATES.IDLE)
 
 # function for detecting attacks and extracting the damage done to main character
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area is Projectile or area is Attack:
 		pass
 		#take_damage(area.deal_damage())
+
+
+func _on_evade_duration_timeout() -> void:
+	state.enable_switch()
+
+
+func _on_evade_cooldown_timeout() -> void:
+	pass # Replace with function body.

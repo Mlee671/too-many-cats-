@@ -521,8 +521,11 @@ one_shot = true
 [node name="AbilityTimer" type="Timer" parent="." unique_id=2088195210]
 one_shot = true
 
-[node name="EvadeTimer" type="Timer" parent="." unique_id=1923964845]
+[node name="EvadeCooldown" type="Timer" parent="." unique_id=1923964845]
 wait_time = 5.0
+one_shot = true
+
+[node name="EvadeDuration" type="Timer" parent="." unique_id=75554806]
 one_shot = true
 
 [node name="IFrameTimer" type="Timer" parent="." unique_id=935354938]
@@ -577,6 +580,7 @@ disabled = true
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timeout"]
-[connection signal="timeout" from="EvadeTimer" to="." method="_on_evade_timeout"]
+[connection signal="timeout" from="EvadeCooldown" to="." method="_on_evade_cooldown_timeout"]
+[connection signal="timeout" from="EvadeDuration" to="." method="_on_evade_duration_timeout"]
 [connection signal="timeout" from="IFrameTimer" to="." method="_on_iframe_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

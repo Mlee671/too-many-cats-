@@ -2,8 +2,8 @@ extends Control
 @export var controls_image: TextureRect
 @export var background_image: TextureRect
 
-@export var fade_transition_scale = 1
-@export var fade_inbetween_wait = 1
+@export var fade_transition_scale = 10
+@export var fade_inbetween_wait = 0
 
 
 # Called when the node enters the scene tree for the first time.
