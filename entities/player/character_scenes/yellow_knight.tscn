@@ -1,50 +1,57 @@
-[gd_scene format=3 uid="uid://itihf4vr1umj"]
+[gd_scene format=3 uid="uid://bn11dgu54p54v"]
 
 [ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/base_character/main_character.tscn" id="1_bk7k0"]
 [ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_604g3"]
 [ext_resource type="Texture2D" uid="uid://d0xolhr72equs" path="res://entities/player/yellow_knight/Idle_Choco_Banana1.png" id="2_bk7k0"]
-[ext_resource type="Script" uid="uid://3wbdeqhqyixf" path="res://entities/player/yellow_knight/yellow_knight.gd" id="2_lvvd3"]
-[ext_resource type="Script" uid="uid://dbmwv2bwa6afu" path="res://entities/player/yellow_knight/yk_stats.gd" id="3_2si07"]
+[ext_resource type="Script" uid="uid://480tn3vakaw3" path="res://entities/player/character_scenes/yk_statsstats.gd" id="2_jg6ev"]
 [ext_resource type="Texture2D" uid="uid://bewjbmrkg2otp" path="res://entities/player/yellow_knight/Run_Choco_Banana.png" id="3_232be"]
 [ext_resource type="Script" uid="uid://b5pchnv3xojmv" path="res://entities/player/attacks/melee_attack.gd" id="7_gq0h7"]
 [ext_resource type="Texture2D" uid="uid://fr7i801n6k7g" path="res://entities/player/attacks/sword_slash.png" id="7_ool57"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_604g3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ool57"]
 atlas = ExtResource("2_bk7k0")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gocql"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gq0h7"]
 atlas = ExtResource("2_bk7k0")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xeqol"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_eanfv"]
 atlas = ExtResource("2_bk7k0")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_axj4n"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_htwmp"]
 atlas = ExtResource("2_bk7k0")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gv00h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_umeqp"]
 atlas = ExtResource("3_232be")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n2mwn"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7m1dl"]
 atlas = ExtResource("3_232be")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dvy81"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv4xf"]
 atlas = ExtResource("3_232be")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sfgl4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yga7j"]
 atlas = ExtResource("3_232be")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_bk7k0"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_3qbob"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_604g3")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 5.0,
 "texture": ExtResource("2_604g3")
 }],
 "loop": true,
@@ -53,16 +60,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_604g3")
+"texture": SubResource("AtlasTexture_ool57")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gocql")
+"texture": SubResource("AtlasTexture_gq0h7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xeqol")
+"texture": SubResource("AtlasTexture_eanfv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_axj4n")
+"texture": SubResource("AtlasTexture_htwmp")
 }],
 "loop": true,
 "name": &"idle",
@@ -70,265 +77,31 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gv00h")
+"texture": SubResource("AtlasTexture_umeqp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n2mwn")
+"texture": SubResource("AtlasTexture_7m1dl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dvy81")
+"texture": SubResource("AtlasTexture_cv4xf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sfgl4")
+"texture": SubResource("AtlasTexture_yga7j")
 }],
 "loop": true,
 "name": &"run",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 10.0,
+"texture": ExtResource("2_604g3")
+}],
+"loop": true,
+"name": &"swap",
+"speed": 1.0
 }]
 
-[sub_resource type="Animation" id="Animation_ool57"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.001),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_gq0h7"]
-resource_name = "death"
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, -0.2199114857512859, -1.516691119983072]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.20392157, 0.20392157, 0.20392157, 0.38431373)]
-}
-
-[sub_resource type="Animation" id="Animation_eanfv"]
-resource_name = "dodge"
-step = 1.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 6.283185307179586]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-
-[sub_resource type="Animation" id="Animation_htwmp"]
-resource_name = "idle"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-
-[sub_resource type="Animation" id="Animation_umeqp"]
-resource_name = "run"
-length = 0.8
-loop_mode = 1
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"run"]
-}
-
-[sub_resource type="Animation" id="Animation_7m1dl"]
-resource_name = "swap"
-length = 0.8
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_cv4xf"]
-_data = {
-&"RESET": SubResource("Animation_ool57"),
-&"death": SubResource("Animation_gq0h7"),
-&"dodge": SubResource("Animation_eanfv"),
-&"idle": SubResource("Animation_htwmp"),
-&"run": SubResource("Animation_umeqp"),
-&"swap": SubResource("Animation_7m1dl")
-}
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_gq0h7"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvbsp"]
 radius = 86.00581
 
 [sub_resource type="Animation" id="Animation_cv4xf"]
@@ -448,40 +221,33 @@ tracks/4/keys = {
 "values": [Vector2(0, 0), Vector2(2, 1.7)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3qbob"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhoji"]
 _data = {
 &"RESET": SubResource("Animation_cv4xf"),
 &"attackbox": SubResource("Animation_yga7j")
 }
 
-[node name="YellowKnight" unique_id=2044665017 instance=ExtResource("1_bk7k0")]
-script = ExtResource("2_lvvd3")
-
-[node name="AttackTimer" parent="." index="2" unique_id=190503675]
-wait_time = 0.1
+[node name="main_character" unique_id=2044665017 instance=ExtResource("1_bk7k0")]
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
-sprite_frames = SubResource("SpriteFrames_bk7k0")
-
-[node name="AnimationPlayer" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="2" unique_id=518671881]
-libraries/ = SubResource("AnimationLibrary_cv4xf")
+sprite_frames = SubResource("SpriteFrames_3qbob")
 
 [node name="Stats" parent="." index="8" unique_id=201965470]
-script = ExtResource("3_2si07")
+script = ExtResource("2_jg6ev")
 
-[node name="AbilityArea" type="Area2D" parent="." index="9" unique_id=553500514]
+[node name="AbilityArea" type="Area2D" parent="." index="11" unique_id=1555698296]
 collision_layer = 0
 collision_mask = 12
 
-[node name="AbilityShape" type="CollisionShape2D" parent="AbilityArea" index="0" unique_id=1760541808]
+[node name="AbilityShape" type="CollisionShape2D" parent="AbilityArea" index="0" unique_id=982713098]
 scale = Vector2(1e-05, 1e-05)
-shape = SubResource("CircleShape2D_gq0h7")
+shape = SubResource("CircleShape2D_pvbsp")
 
-[node name="AttackComponent" type="Node2D" parent="." index="10" unique_id=2058541343]
+[node name="AttackComponent" type="Node2D" parent="." index="12" unique_id=1605473908]
 
-[node name="Marker2D" type="Marker2D" parent="AttackComponent" index="0" unique_id=1071940844]
+[node name="Marker2D" type="Marker2D" parent="AttackComponent" index="0" unique_id=1226906400]
 
-[node name="AttackBox" type="Area2D" parent="AttackComponent" index="1" unique_id=468181418]
+[node name="AttackBox" type="Area2D" parent="AttackComponent" index="1" unique_id=1379211063]
 position = Vector2(16, 0)
 collision_layer = 128
 collision_mask = 4
@@ -489,20 +255,18 @@ monitoring = false
 monitorable = false
 script = ExtResource("7_gq0h7")
 
-[node name="AttackShape" type="CollisionPolygon2D" parent="AttackComponent/AttackBox" index="0" unique_id=1514422579]
+[node name="AttackShape" type="CollisionPolygon2D" parent="AttackComponent/AttackBox" index="0" unique_id=908221566]
 position = Vector2(-11.000004, -8)
 scale = Vector2(2, 1.7)
 polygon = PackedVector2Array(-8.499999, -10, 22.499998, -8.823528, 22.999998, 21.17647, -4.499999, 17.647058, -11.499998, 5.294117)
 
-[node name="Sprite2D" type="Sprite2D" parent="AttackComponent/AttackBox" index="1" unique_id=1830639182]
+[node name="Sprite2D" type="Sprite2D" parent="AttackComponent/AttackBox" index="1" unique_id=738812245]
 visible = false
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_ool57")
 hframes = 6
 
-[node name="PlaceholderPlayer" type="AnimationPlayer" parent="AttackComponent/AttackBox" index="2" unique_id=213386428]
-libraries/ = SubResource("AnimationLibrary_3qbob")
+[node name="PlaceholderPlayer" type="AnimationPlayer" parent="AttackComponent/AttackBox" index="2" unique_id=872558254]
+libraries/ = SubResource("AnimationLibrary_qhoji")
 
-[connection signal="area_entered" from="AbilityArea" to="." method="_on_ability_area_projectile_entered"]
-[connection signal="body_entered" from="AbilityArea" to="." method="_on_ability_area_body_entered"]
 [connection signal="body_entered" from="AttackComponent/AttackBox" to="AttackComponent/AttackBox" method="_on_enemy_in_range"]
