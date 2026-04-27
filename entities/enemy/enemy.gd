@@ -50,7 +50,6 @@ func _physics_process(delta: float) -> void:
 	# should not go through move logic if dead
 	if not stop_moving:
 		_move(delta)
-		knockback_vec = knockback_vec.lerp(Vector2.ZERO, KB_DECAY * delta)
 
 	if enemyState == BEHAVIOUR.WANDER:
 		if vision.is_enabled() and vision.can_see_player(raycast_target):
@@ -72,6 +71,8 @@ func _physics_process(delta: float) -> void:
 		attack_logic()
 		# look in direction of player
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
+		
+	knockback_vec = knockback_vec.lerp(Vector2.ZERO, KB_DECAY * delta)
 
 
 func _move(_delta: float) -> void:

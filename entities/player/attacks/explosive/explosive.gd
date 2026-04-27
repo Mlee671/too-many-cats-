@@ -6,9 +6,10 @@ class_name Explosion
 
 const DAMAGE := 40
 const KNOCKBACK := 120
-const SPEED := 100
+const SPEED := 80
 
 var velocity : Vector2
+var rotate_amount := PI / 30
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,14 +18,18 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
+	rotate(rotate_amount)
 
 
 func _on_explosion_trigger(_body: Node2D) -> void:
 	velocity = Vector2.ZERO
+	rotate_amount = 0
 	$AnimationPlayer.play("explode")
+	# for each enemy in explosion radius, deal damage
 	for target in damage_area.get_overlapping_bodies():
 		if target is Enemy:
 			target.take_damage(DAMAGE, self, KNOCKBACK)
+	# delete self once animation finished
 	await $AnimationPlayer.animation_finished
 	queue_free()
 
