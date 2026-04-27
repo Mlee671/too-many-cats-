@@ -13,13 +13,14 @@ func attack(target: Vector2) -> void:
 	attack_timer.start(stats.fire_cd)
 	var mouse_angle = target.normalized()
 	for angle in [-(SPREAD_DEG / 2.0), 0, SPREAD_DEG / 2.0]:
-		var spawn = projectile.instantiate()
+		var spawn = PROJECTILE.instantiate()
 		spawn.proj_frame = stats.projectile_frame
-		spawn.damage = 6
 		var direction = mouse_angle.rotated(deg_to_rad(angle))
 		spawn.look_at(direction)
-		spawn.velocity = direction * projectile_speed
-		spawn.position = position + Vector2(8,8) * direction + Vector2(0,-8)
+		spawn.set_velocity(direction * stats.projectile_speed)
+		spawn.set_knockback(stats.projectile_knockback)
+		spawn.set_damage(stats.damage)
+		spawn.global_position = $AttackMarker.global_position + (ATTACK_OFFSET * direction)
 		get_parent().add_child(spawn)
 	stats.shots_fired += 1
 	add_knockback(-target.normalized() * ATTACK_KNOCKBACK)

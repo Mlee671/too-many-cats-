@@ -14,3 +14,6 @@ func _ready() -> void:
 	fire_cd =  0.6
 
 	projectile_frame = 1
+	projectile_knockback = 50
+
+	damage = 8

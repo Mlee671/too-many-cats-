@@ -3,19 +3,14 @@ class_name BasicMeleeEnemy
 
 const ATTACK_DURATION := 0.5
 const DAMAGE := 15
-
-@export var speed := 50.0
-@export var acceleration := 20.0
-@export var wander_range := 6
-@export var hp := 100
-@export var attack_rate : float = 1.5
-
-## The distance the melee attack spawns from the enemy position
-@export var attack_offset_magnitude := 20.0
+const SPEED := 50.0
+const ACCELERATION := 20.0
+const HP := 100
+const KNOCKBACK := 300
+const ATTACKS_PER_SECOND := 1.5
 
 @onready var attack_visual := $AttackComponent
 @onready var detect_radius := $AttackComponent/AttackDetect
-@onready var attack_box := $AttackComponent/Attackbox
 @onready var attack_sprite := $AttackComponent/AttackSprite
 @onready var attack_duration_timer := $AttackRenderTimer
 
@@ -23,13 +18,11 @@ var attack_mode = false
 var frame : int = 0
 
 func _ready() -> void:
-	move_speed = speed
-	accel = acceleration
-	pathfind_range = wander_range
-	health.set_health(hp)
-	
+	move_speed = SPEED
+	accel = ACCELERATION
+	health.set_health(HP)
 	attack_sprite.visible = false
-	super._ready()
+	super()
 
 
 func _physics_process(delta: float) -> void:

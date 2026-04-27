@@ -6,12 +6,12 @@ class_name Enemy
 
 const TILE_SIZE := 16
 const KB_AMOUNT := 80
-
 const KB_DECAY := 20
+const PATHFIND_RANGE := 6
 
 var move_speed: float
 var accel: float
-var pathfind_range: int # tile range to pathfind to
+
 
 enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
 var knockback := false # set as separate value not to overwrite DEAD state
@@ -50,7 +50,6 @@ func _physics_process(delta: float) -> void:
 	# should not go through move logic if dead
 	if not stop_moving:
 		_move(delta)
-		knockback_vec = knockback_vec.lerp(Vector2.ZERO, KB_DECAY * delta)
 
 	if enemyState == BEHAVIOUR.WANDER:
 		if vision.is_enabled() and vision.can_see_player(raycast_target):
@@ -73,6 +72,8 @@ func _physics_process(delta: float) -> void:
 		attack_logic()
 		# look in direction of player
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
+		
+	knockback_vec = knockback_vec.lerp(Vector2.ZERO, KB_DECAY * delta)
 
 
 func _move(_delta: float) -> void:
@@ -148,7 +149,7 @@ func deactivate_enemy() -> void:
 	$VisionArea.monitoring = true
 
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, from: Area2D, knockback_scalar : int = KB_AMOUNT) -> void:
 	if enemyState == BEHAVIOUR.DEAD:
 		return
 	if enemyState == BEHAVIOUR.WANDER:
@@ -156,6 +157,10 @@ func take_damage(amount: int) -> void:
 		enemyState = BEHAVIOUR.ATTACK
 		$VisionArea.monitoring = false
 		
+	if from is Projectile:
+		apply_knockback(from.velocity.normalized(), knockback_scalar)
+	elif from is MeleeAttack:
+		apply_knockback((global_position - from.global_position).normalized(), knockback_scalar)
 	visual.modulate = Color(2,2,2)
 	health.take_damage(amount)
 	animation.play_animation("damaged", true)
@@ -165,7 +170,7 @@ func set_wander_target() -> void:
 	nav_agent.target_position = (global_position
 			+ Vector2.RIGHT.rotated(
 					randf_range(0, TAU))
-					* randi_range(1, pathfind_range * TILE_SIZE))
+					* randi_range(1, PATHFIND_RANGE * TILE_SIZE))
 
 func attack_logic() -> void:
 	pass

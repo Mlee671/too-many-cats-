@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://b5c58jagrlp5r" path="res://entities/enemy/Enemy.tscn" id="1_enhxg"]
 [ext_resource type="Script" uid="uid://b7rw6ss3s6dgp" path="res://entities/enemy/basic_ranged/basic_ranged_enemy.gd" id="2_ocqek"]
-[ext_resource type="PackedScene" uid="uid://voyoh38fcwge" path="res://entities/enemy/components/attacks/projectile/projectile.tscn" id="3_hfvty"]
 [ext_resource type="Texture2D" uid="uid://x815c1srcasp" path="res://entities/enemy/basic_ranged/ikoiku_itchio_mouse.png" id="3_l8j17"]
 
 [sub_resource type="Animation" id="Animation_l8j17"]
@@ -123,7 +122,6 @@ radius = 80.1561
 
 [node name="BasicRangedEnemy" unique_id=310538941 instance=ExtResource("1_enhxg")]
 script = ExtResource("2_ocqek")
-projectile = ExtResource("3_hfvty")
 projectile_speed = 100
 attack_rate = 1.0
 speed = 30.0

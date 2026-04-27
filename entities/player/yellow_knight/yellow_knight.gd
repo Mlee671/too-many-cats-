@@ -21,7 +21,8 @@ func attack(_target: Vector2) -> void:
 		attack_box.scale.y = 1
 	attack_component.look_at(get_global_mouse_position())
 	animplayer.play("attackbox")
-	
+
+
 func character_ability() -> void:
 	# scale up ability area size to trigger area_entered
 	var scale_tween = create_tween()
