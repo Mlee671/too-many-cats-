@@ -19,10 +19,6 @@ run/main_scene="uid://cs0cs1jmgxax7"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-SignalBus="*uid://huhnpplg2urb"
-
 [global_group]
 
 Player="Containing all entities to be targeted by enemies"
@@ -102,7 +98,7 @@ debug_damage_enemy={
 2d_navigation/layer_2="PlayerTraversable"
 2d_physics/layer_3="Enemy Layer"
 2d_navigation/layer_3="PlayerTraversableToggle"
-2d_physics/layer_4="Projectile"
+2d_physics/layer_4="Enemy Projectile"
 2d_physics/layer_8="Player projectiles"
 
 [rendering]

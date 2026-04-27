@@ -90,7 +90,7 @@ func _on_south_door_body_exited(body: Node2D) -> void:
 # only mask on player layer
 func _on_room_activator_body_entered(body: Node2D) -> void:
 	if body is main_character:
-		locked = !true
+		locked = true
 		for enemy in enemy_list:
 			enemy.activate_enemy()
 

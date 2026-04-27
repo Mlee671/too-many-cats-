@@ -12,6 +12,9 @@ func _ready() -> void:
 	lifespan.start(10)
 	# subclass should have setters here
 
+func deal_damage():
+	queue_free()
+	return damage
 
 func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
@@ -19,9 +22,6 @@ func _physics_process(delta: float) -> void:
 # collision logic
 func _on_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer: # hitting wall
-		queue_free()
-	elif body is main_character and body.state.player_state != body.state.STATES.DODGING:
-		body.take_damage(damage, self, knockback)
 		queue_free()
 
 func _on_end_lifespan() -> void:

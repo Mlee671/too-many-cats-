@@ -13,6 +13,7 @@ const ATTACKS_PER_SECOND := 1.5
 @onready var detect_radius := $AttackComponent/AttackDetect
 @onready var attack_sprite := $AttackComponent/AttackSprite
 @onready var attack_duration_timer := $AttackRenderTimer
+@onready var attack_box := $AttackComponent/Attackbox
 
 var attack_mode = false
 var frame : int = 0
@@ -34,8 +35,7 @@ func _physics_process(delta: float) -> void:
 		for body in bodies:
 			if body is main_character:
 				melee_attack()
-				body.take_damage(DAMAGE, self, KNOCKBACK)
-	super(delta)
+	super._physics_process(delta)
 
 
 func attack_logic() -> void:
@@ -56,14 +56,16 @@ func _on_attack_radius_exited(body: Node2D) -> void:
 func _on_attack_render_timeout() -> void:
 	attack_sprite.visible = false
 	attack_visual.rotate(PI)
+	attack_box.toggle_disable(true)
 
 # currently causes bouncing due to shape of attack being square and stickinging out of the attack radius. 
 # once sprites are in and the attack more circular this will fix itself mostly 
 func melee_attack():
-	attack_sprite.visible = true
-	animation.play_animation("attack", true)
-	attack_cooldown = true
-	stop_moving = true
-	nav_agent.set_velocity(Vector2.ZERO)
-	attack_timer.start(1.0 / ATTACKS_PER_SECOND)
-	attack_duration_timer.start(ATTACK_DURATION)
+		attack_sprite.visible = true
+		attack_box.toggle_disable(false)
+		animation.play_animation("attack", true)
+		attack_cooldown = true
+		stop_moving = true
+		nav_agent.set_velocity(Vector2.ZERO)
+		attack_timer.start(1.0 / ATTACKS_PER_SECOND)
+		attack_duration_timer.start(ATTACK_DURATION)

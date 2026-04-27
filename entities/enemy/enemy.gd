@@ -67,7 +67,8 @@ func _physics_process(delta: float) -> void:
 			_look_vector_direction(velocity)
 		
 	elif enemyState == BEHAVIOUR.ATTACK:
-		# raycast_target = get_tree().get_first_node_in_group("Player")
+		if !raycast_target.is_inside_tree():
+			raycast_target = get_tree().get_first_node_in_group("Player")
 		attack_logic()
 		# look in direction of player
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))
@@ -148,7 +149,7 @@ func deactivate_enemy() -> void:
 	$VisionArea.monitoring = true
 
 
-func take_damage(amount: int, from: Node2D, knockback_scalar : int = KB_AMOUNT) -> void:
+func take_damage(amount: int, from: Area2D, knockback_scalar : int = KB_AMOUNT) -> void:
 	if enemyState == BEHAVIOUR.DEAD:
 		return
 	if enemyState == BEHAVIOUR.WANDER:
@@ -158,7 +159,7 @@ func take_damage(amount: int, from: Node2D, knockback_scalar : int = KB_AMOUNT) 
 		
 	if from is Projectile:
 		apply_knockback(from.velocity.normalized(), knockback_scalar)
-	elif from is MeleeAttack or from is Explosion:
+	else:
 		apply_knockback((global_position - from.global_position).normalized(), knockback_scalar)
 	visual.modulate = Color(2,2,2)
 	health.take_damage(amount)
@@ -182,3 +183,11 @@ func apply_knockback(direction: Vector2, scalar: int = KB_AMOUNT) -> void:
 func _on_knockback_timer_timeout() -> void:
 	knockback = false
 	visual.modulate = Color(1,1,1)
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if !knockback:
+		var direction = (global_position - area.global_position).normalized()
+		take_damage(area.deal_damage(), area)
+	else:
+		area.queue_free()

@@ -28,7 +28,7 @@ func _on_explosion_trigger(_body: Node2D) -> void:
 	# for each enemy in explosion radius, deal damage
 	for target in damage_area.get_overlapping_bodies():
 		if target is Enemy:
-			target.take_damage(DAMAGE, self, KNOCKBACK)
+			target.take_damage(DAMAGE, damage_area, KNOCKBACK)
 	# delete self once animation finished
 	await $AnimationPlayer.animation_finished
 	queue_free()

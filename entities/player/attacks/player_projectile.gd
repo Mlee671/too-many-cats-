@@ -8,6 +8,7 @@ var proj_frame := 2
 func _ready() -> void:
 	super()
 	sprite.frame = proj_frame
+	super._ready()
 	
 
 func set_knockback(scalar: int):
