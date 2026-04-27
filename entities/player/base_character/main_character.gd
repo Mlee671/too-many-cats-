@@ -24,7 +24,7 @@ var iframe_flag := false
 const KNOCKBACK_DUR := 0.1
 const KNOCKBACK_DECAY := 10.0
 const DAMAGE_KNOCKBACK := 200.0 # kb scalar
-const IFRAME_DUR := 0.3
+const IFRAME_DUR := 0.5
 
 var projectile_speed := 200
 
@@ -102,6 +102,7 @@ func start_dodge_roll():
 	state.disable_switch()
 	evade_duration.start(stats.evade_dur)
 	evade_cooldown.start(stats.evade_cd)
+	iframe_flag = true
 	
 func dodge_movement(delta: float):
 	var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
@@ -139,14 +140,17 @@ func add_knockback(vec: Vector2) -> void:
 	knockback_vec += vec
 
 func take_damage(amount: int):
-	char_visual.modulate = Color(2,2,2)
-	iframe_timer.start(IFRAME_DUR)
-	character_hud.set_main_hp_bar(stats.max_hp, stats.hp - amount)
-	stats.hp -= amount
+	# if you are hit you still get knocked back but do not take damage if in iframe
+	if !iframe_flag:
+		char_visual.modulate = Color(2,2,2)
+		iframe_timer.start(IFRAME_DUR)
+		iframe_flag = true
+		character_hud.set_main_hp_bar(stats.max_hp, stats.hp - amount)
+		stats.hp -= amount
 	
-	if stats.hp <=0:
-		is_alive = false
-		character_hud.kill_first_char()
+		if stats.hp <=0:
+			is_alive = false
+			character_hud.kill_first_char()
 
 ## Sets run animation when in motion, otherwise idle animation.
 func handle_state():
@@ -157,15 +161,17 @@ func handle_state():
 
 # function for detecting attacks and extracting the damage done to main character
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	var direction
-	if area is Projectile:
-		direction = area.velocity.normalized() * DAMAGE_KNOCKBACK
-	else:
-		direction = (global_position - area.global_position).normalized() * DAMAGE_KNOCKBACK
-	take_damage(area.deal_damage())
-	add_knockback(direction)
+	if !iframe_flag:
+		var direction
+		if area is Projectile:
+			direction = area.velocity.normalized() * DAMAGE_KNOCKBACK
+		else:
+			direction = (global_position - area.global_position).normalized() * DAMAGE_KNOCKBACK
+		take_damage(area.deal_damage())
+		add_knockback(direction)
 
 func _on_evade_duration_timeout() -> void:
+	iframe_flag = false
 	state.enable_switch()
 
 
