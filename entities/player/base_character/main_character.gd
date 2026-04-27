@@ -3,7 +3,7 @@ class_name main_character
 
 
 # loads the bullet scene when starting the game
-@onready var projectile := preload("res://entities/player/attacks/player_projectile.tscn")
+const PROJECTILE := preload("res://entities/player/attacks/player_projectile.tscn")
 
 @onready var attack_timer := $AttackTimer
 @onready var evade_cooldown := $EvadeDuration
@@ -23,10 +23,9 @@ class_name main_character
 var iframe_flag := false
 const KNOCKBACK_DUR := 0.1
 const KNOCKBACK_DECAY := 10.0
-const DAMAGE_KNOCKBACK := 200.0 # kb scalar
+const DAMAGE_KNOCKBACK := 20 # default catch
 const IFRAME_DUR := 0.3
-
-var projectile_speed := 200
+const ATTACK_OFFSET := 10
 
 var knockback_vec := Vector2.ZERO
 var movement_vec := Vector2.ZERO
@@ -118,15 +117,17 @@ func attack(target: Vector2) -> void:
 	attack_timer.start(stats.fire_cd)
 	
 	# Instantiates projectile
-	var spawn = projectile.instantiate()
+	var spawn = PROJECTILE.instantiate()
 	spawn.proj_frame = stats.projectile_frame
 	var direction = target.normalized()
 	spawn.look_at(direction)
-	spawn.velocity = direction * projectile_speed
+	spawn.set_velocity(direction * stats.projectile_speed)
+	spawn.set_knockback(stats.projectile_knockback)
+	spawn.set_damage(stats.damage)
 	
 	# spawn at sprite position in main scene, shifted
 	# for where the sprite hands would be (presumably) 
-	spawn.position = position + Vector2(8,8) * direction + Vector2(0,-8)
+	spawn.global_position = $AttackMarker.global_position + (ATTACK_OFFSET * direction)
 	get_parent().add_child(spawn)
 	stats.shots_fired += 1
 
@@ -162,7 +163,7 @@ func handle_state():
 
 # function for detecting attacks and extracting the damage done to main character
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area is Projectile or area is Attack:
+	if area is Projectile:
 		pass
 		#take_damage(area.deal_damage())
 

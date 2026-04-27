@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bor75m2a5ilnb"]
+
+[ext_resource type="PackedScene" uid="uid://voyoh38fcwge" path="res://entities/projectile/projectile.tscn" id="1_q6xqr"]
+[ext_resource type="Script" uid="uid://csl42gvlxd3r3" path="res://entities/enemy/components/projectile/enemy_projectile.gd" id="2_qt2gc"]
+[ext_resource type="Texture2D" uid="uid://diotyurjspa62" path="res://entities/enemy/components/projectile/bullet.png" id="3_8r7ch"]
+
+[node name="EnemyProjectile" unique_id=364488218 instance=ExtResource("1_q6xqr")]
+script = ExtResource("2_qt2gc")
+
+[node name="Sprite" parent="." index="1" unique_id=2001656728]
+texture = ExtResource("3_8r7ch")
