@@ -6,17 +6,19 @@ class_name main_character
 @onready var projectile := preload("res://entities/player/attacks/player_projectile.tscn")
 
 @onready var attack_timer := $AttackTimer
-@onready var evade_timer := $EvadeTimer
+@onready var evade_cooldown := $EvadeDuration
+@onready var evade_duration := $EvadeCooldown
 @onready var ability_timer := $AbilityTimer
 @onready var iframe_timer := $IFrameTimer
 #@onready var animation_player := $CharacterVisuals/AnimatedSprite2D
 @onready var char_visual := $CharacterVisuals
 @onready var stats := $Stats
+@onready var state:= $States
 @onready var animation_tree := $CharacterVisuals/AnimationTree
 
 @onready var character_hud: CanvasLayer = $"../character_hud"
 
-enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
+# enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 
 var iframe_flag := false
 const KNOCKBACK_DUR := 0.1
@@ -29,63 +31,41 @@ var projectile_speed := 200
 var knockback_vec := Vector2.ZERO
 var movement_vec := Vector2.ZERO
 var attack_cooldown := false
-var evade_flag = evadeState.READY
+# var evade_flag = evadeState.READY
 var ability_cooldown := false
 var is_alive := true
+var dodge_direction := Vector2.ZERO
 
 
 
 func _ready() -> void:
-	stats.player_state = Stats.states.IDLE
+	state.switch_to(state.STATES.IDLE)
 	add_to_group("Player")
-	#animation_player.play("idle")
+	animation_tree.active = true
 	
 	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
-	if evade_flag != evadeState.ACTIVE:
+	if state.player_state != state.STATES.DODGING:
 		if get_local_mouse_position().x < 0:
 			char_visual.scale.x = -1
 		else:
 			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
-	manage_movement(delta)
-	# if user presses dodge key
-	if (Input.is_action_just_pressed("evade")
-			and evade_flag == evadeState.READY):
-		# change sprite
-		#animation_player.play("dodge")
-		evade_flag = evadeState.ACTIVE
-		evade_timer.start(stats.evade_dur);
-		
-	if (Input.is_action_just_pressed("ability")
-			and not ability_cooldown):
-		character_ability()
-		# start cooldown
-		ability_cooldown = true
-		ability_timer.start(stats.ability_cd)
-		
-		
-		
-	# move and animate if not in dodge state
+	print(state.player_state)
+	var direction = Input.get_vector("left", "right", "up", "down")
+
+	if evade_duration.time_left > 0:
+		dodge_movement(delta)
+	else:
+		manage_movement(delta, direction)
+	handle_state()
 	move_and_slide()
-	if evade_flag != evadeState.ACTIVE:
-		handle_animation()
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
 	attack_cooldown = false
-
-# when evade cooldown finishes
-func _on_evade_timeout() -> void:
-	# after active, evade is cooldown
-	if evade_flag == evadeState.ACTIVE:
-		evade_flag = evadeState.COOLDOWN
-		evade_timer.start(stats.evade_cd)
-	# after cooldown or knockback, evade is ready
-	else:
-		evade_flag = evadeState.READY
 
 func _on_ability_timeout() -> void:
 	ability_cooldown = false
@@ -94,34 +74,42 @@ func _on_iframe_timeout() -> void:
 	iframe_flag = false
 	char_visual.modulate = Color(1,1,1)
 
-func manage_movement(delta: float) -> void:
+func manage_movement(delta: float, direction: Vector2) -> void:
 	# gets directional vector based on keypress
-	var input_vector = Input.get_vector("left", "right", "up", "down")
 	
-	# scales movement speed if dodging
-	if evade_flag == evadeState.ACTIVE:
-		stats.player_state = Stats.states.DODGING
-		movement_vec = movement_vec.lerp(
-				input_vector * stats.speed * stats.evade_movement_scaling,
-				stats.accel * delta)
-	else:
-		movement_vec = movement_vec.lerp(
-				input_vector * stats.speed,
-				stats.accel * delta)
-	
-		# if user presses attack key
-		if Input.is_action_pressed("attack") and not attack_cooldown:
-			attack(get_local_mouse_position())
+
+	movement_vec = lerp(movement_vec, direction * stats.speed, stats.accel * delta)	
+	if Input.is_action_just_pressed("evade"):
+		if(evade_cooldown.time_left == 0):
+			dodge_direction = direction
+			if(direction.normalized() != Vector2.ZERO):
+				start_dodge_roll()
+			elif velocity.length()> 0.5:
+				start_dodge_roll()
+	# if user presses attack key
+	if Input.is_action_pressed("attack") and not attack_cooldown:
+		attack(get_local_mouse_position())
 			
 	# apply knockback additively to movement
 	knockback_vec = knockback_vec.lerp(Vector2.ZERO, KNOCKBACK_DECAY * delta)
 	velocity = movement_vec + knockback_vec
 
+
+func start_dodge_roll():
+	state.switch_to(state.STATES.DODGING)
+	state.disable_switch()
+	evade_duration.start(stats.evade_dur)
+	evade_cooldown.start(stats.evade_cd)
+	pass
+	
+func dodge_movement(delta: float):
+	var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
+	var dodge_speed = lerp(stats.dodge_speed, stats.dodge_speed * 0.5, dodge_percent * stats.dodge_accel *delta)
+	velocity = dodge_speed * dodge_direction.normalized()
+	pass
+
 func swap_character() -> void:
-	# dodge should skip straight to cooldown to prevent abuse
-	evade_flag = evadeState.READY
-	handle_animation() # force change animation away from dodge
-	evade_timer.start(stats.evade_cd)
+	pass
 
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
@@ -151,8 +139,6 @@ func add_knockback(vec: Vector2) -> void:
 	knockback_vec += vec
 
 func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBACK):
-	if evade_flag == evadeState.ACTIVE or iframe_flag:
-		return
 	if from is Projectile:
 		add_knockback(from.velocity.normalized() * knockback_scalar)
 	else:
@@ -168,18 +154,22 @@ func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBA
 		character_hud.kill_first_char()
 
 ## Sets run animation when in motion, otherwise idle animation.
-func handle_animation():
-	if velocity.length_squared() > 0.5:
-		stats.player_state = Stats.states.RUNNING
-		#animation_player.play("run")
+func handle_state():
+	if velocity.length() > 0.5:
+		state.switch_to(state.STATES.RUNNING)
 	else:
-		stats.player_state = Stats.states.IDLE
-		#animation_player.play("idle")
+		state.switch_to(state.STATES.IDLE)
 
 # function for detecting attacks and extracting the damage done to main character
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if evade_flag == evadeState.ACTIVE:
-		return
 	if area is Projectile or area is Attack:
 		pass
 		#take_damage(area.deal_damage())
+
+
+func _on_evade_duration_timeout() -> void:
+	state.enable_switch()
+
+
+func _on_evade_cooldown_timeout() -> void:
+	pass # Replace with function body.

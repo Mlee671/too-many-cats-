@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://djfped5c2log5" path="res://ui_assets/HEALTH_BAR1.png" id="6_67ri8"]
 [ext_resource type="Texture2D" uid="uid://d2q2jhq5dd150" path="res://entities/player/character_icons/blue_knight_icon.png" id="6_fwcvl"]
 [ext_resource type="Texture2D" uid="uid://dm0pyqaqiihkq" path="res://entities/player/character_icons/yellow_knight_icon.png" id="7_na0o7"]
-[ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
+[ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="8_grrlh"]
 [ext_resource type="Texture2D" uid="uid://cmphbv1iw6xj5" path="res://entities/player/character_icons/pink_knight_icon.png" id="9_fwcvl"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]

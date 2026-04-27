@@ -162,6 +162,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:offset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_vi0cl"]
 resource_name = "death"
@@ -217,7 +229,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_g607o"]
 resource_name = "dodge"
-step = 1.0
+step = 0.033
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -225,22 +237,46 @@ tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 6.283185307179586]
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.29999998, 0.39999998, 0.5, 0.56666666, 0.6333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 0.7853981633974483, 1.5707963267948966, 2.356194490192345, 3.141592653589793, 3.9269908169872414, 4.71238898038469, 6.283185307179586]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:animation")
+tracks/1/path = NodePath(".:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666669, 0.26666668, 0.6333333, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0.9, -3), Vector2(0.075, -3.09), Vector2(-3.46, -1.6), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"idle"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.26666668, 0.8333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 3, 2, 0]
 }
 
 [sub_resource type="Animation" id="Animation_namqu"]
@@ -399,29 +435,29 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xv68y"]
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.DODGING"
+advance_expression = "state.player_state == state.STATES.DODGING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pg60g"]
 switch_mode = 2
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.IDLE"
+advance_expression = "state.player_state == state.STATES.IDLE"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_usgwn"]
 switch_mode = 2
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.RUNNING"
+advance_expression = "state.player_state == state.STATES.RUNNING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pau5x"]
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.DODGING"
+advance_expression = "state.player_state == state.STATES.DODGING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ocfgt"]
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.RUNNING"
+advance_expression = "state.player_state == state.STATES.RUNNING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d121t"]
 advance_mode = 2
-advance_expression = "stats.player_state == stats.states.IDLE"
+advance_expression = "state.player_state == state.STATES.IDLE"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xv68y"]
 states/End/position = Vector2(857, 157)
@@ -433,7 +469,7 @@ states/idle/position = Vector2(89, 157)
 states/run/node = SubResource("AnimationNodeBlendTree_xs0gf")
 states/run/position = Vector2(584, 157)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t")]
-graph_offset = Vector2(-413, -160)
+graph_offset = Vector2(-610, 23)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hn4c"]
 radius = 4.0
@@ -459,8 +495,11 @@ one_shot = true
 [node name="AbilityTimer" type="Timer" parent="." unique_id=2088195210]
 one_shot = true
 
-[node name="EvadeTimer" type="Timer" parent="." unique_id=1923964845]
+[node name="EvadeCooldown" type="Timer" parent="." unique_id=1923964845]
 wait_time = 5.0
+one_shot = true
+
+[node name="EvadeDuration" type="Timer" parent="." unique_id=75554806]
 one_shot = true
 
 [node name="IFrameTimer" type="Timer" parent="." unique_id=935354938]
@@ -481,13 +520,13 @@ texture_filter = 1
 position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
-frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]
 root_node = NodePath("../AnimatedSprite2D")
 libraries/ = SubResource("AnimationLibrary_vi0cl")
 
 [node name="AnimationTree" type="AnimationTree" parent="CharacterVisuals" unique_id=978010460]
+active = false
 root_node = NodePath("../AnimatedSprite2D")
 tree_root = SubResource("AnimationNodeStateMachine_xv68y")
 advance_expression_base_node = NodePath("../..")
@@ -499,7 +538,7 @@ parameters/run/TimeScale/scale = 1.0
 [node name="Stats" type="Node" parent="." unique_id=201965470]
 script = ExtResource("3_c4o6u")
 
-[node name="Node" type="Node" parent="." unique_id=972909555]
+[node name="States" type="Node" parent="." unique_id=972909555]
 script = ExtResource("6_g607o")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=2022720495]
@@ -514,6 +553,7 @@ disabled = true
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timeout"]
-[connection signal="timeout" from="EvadeTimer" to="." method="_on_evade_timeout"]
+[connection signal="timeout" from="EvadeCooldown" to="." method="_on_evade_cooldown_timeout"]
+[connection signal="timeout" from="EvadeDuration" to="." method="_on_evade_duration_timeout"]
 [connection signal="timeout" from="IFrameTimer" to="." method="_on_iframe_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

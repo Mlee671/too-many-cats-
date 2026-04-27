@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is not Enemy and body is not main_character:
 		queue_free()
-	else:
+	elif body is main_character and body.state.player_state != body.state.STATES.DODGING:
 		body.take_damage(damage, self, knockback)
 		queue_free()
 

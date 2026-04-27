@@ -80,6 +80,7 @@ visible = false
 layout_mode = 0
 
 [node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=409621205]
+wait_time = 0.05
 
 [connection signal="gui_input" from="." to="." method="_on_mouse_click"]
 [connection signal="pressed" from="start_button" to="." method="_on_start_button_pressed"]

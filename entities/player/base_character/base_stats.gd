@@ -1,8 +1,11 @@
 extends Node
 class_name Stats
 
+const dodge_speed = 175.0
+const dodge_accel = 25.0
+
 var speed := 100
-var accel := 10 # how smooth stop/start movement
+var accel := 20 # how smooth stop/start movement
 var hp := 100
 var max_hp :=100
 
@@ -15,10 +18,6 @@ var ability_cd := 10
 var current_ability_cd = 10
 
 var projectile_frame := 2
-
-# player states
-enum states{IDLE, RUNNING, DODGING}
-var player_state = states.IDLE
 
 # player stats
 var shots_fired := 0

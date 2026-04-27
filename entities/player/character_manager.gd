@@ -3,7 +3,7 @@ class_name character_manager
 
 #signal swapping_character
 @onready var character_hud: CanvasLayer = $character_hud
-
+const DODGING_ENUM_INDEX = 2
 
 # the scene name of each character
 enum characters {blue_knight, yellow_knight, pink_knight}
@@ -36,8 +36,11 @@ func spawn_character(pos : Vector2):
 func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("character_change") and game_over == false:
-		get_child(0).swap_character()
-		switch_next()
+		print(get_child(0).state.player_state)
+		if get_child(0).state.player_state != DODGING_ENUM_INDEX:
+			get_child(0).swap_character()
+			switch_next()
+		
 
 func _do_switch(target_character: String = "") -> void:
 	var old_node: main_character = get_child(0)
