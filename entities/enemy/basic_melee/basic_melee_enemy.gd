@@ -13,6 +13,7 @@ const ATTACKS_PER_SECOND := 1.5
 @onready var detect_radius := $AttackComponent/AttackDetect
 @onready var attack_sprite := $AttackComponent/AttackSprite
 @onready var attack_duration_timer := $AttackRenderTimer
+@onready var attack_box := $AttackComponent/Attackbox
 
 var attack_mode = false
 var frame : int = 0
@@ -66,5 +67,5 @@ func melee_attack():
 		attack_cooldown = true
 		stop_moving = true
 		nav_agent.set_velocity(Vector2.ZERO)
-		attack_timer.start(1.0 / attack_rate)
+		attack_timer.start(1.0 / ATTACKS_PER_SECOND)
 		attack_duration_timer.start(ATTACK_DURATION)

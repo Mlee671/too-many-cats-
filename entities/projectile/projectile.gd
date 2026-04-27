@@ -12,6 +12,9 @@ func _ready() -> void:
 	lifespan.start(10)
 	# subclass should have setters here
 
+func deal_damage():
+	queue_free()
+	return damage
 
 func _physics_process(delta: float) -> void:
 	global_position += velocity * delta

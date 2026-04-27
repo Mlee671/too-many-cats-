@@ -23,7 +23,7 @@ const PROJECTILE := preload("res://entities/player/attacks/player_projectile.tsc
 var iframe_flag := false
 const KNOCKBACK_DUR := 0.1
 const KNOCKBACK_DECAY := 10.0
-const DAMAGE_KNOCKBACK := 20 # default catch
+const DAMAGE_KNOCKBACK := 200 # default catch
 const IFRAME_DUR := 0.3
 const ATTACK_OFFSET := 10
 
