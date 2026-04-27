@@ -481,7 +481,7 @@ texture_filter = 1
 position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
-frame = 2
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]
 root_node = NodePath("../AnimatedSprite2D")
@@ -516,4 +516,3 @@ disabled = true
 [connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timeout"]
 [connection signal="timeout" from="EvadeTimer" to="." method="_on_evade_timeout"]
 [connection signal="timeout" from="IFrameTimer" to="." method="_on_iframe_timeout"]
-[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

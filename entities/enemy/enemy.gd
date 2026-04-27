@@ -6,12 +6,12 @@ class_name Enemy
 
 const TILE_SIZE := 16
 const KB_AMOUNT := 80
-
 const KB_DECAY := 20
+const PATHFIND_RANGE := 6
 
 var move_speed: float
 var accel: float
-var pathfind_range: int # tile range to pathfind to
+
 
 enum BEHAVIOUR {WANDER, ATTACK, DEAD, INACTIVE}
 var knockback := false # set as separate value not to overwrite DEAD state
@@ -169,7 +169,7 @@ func set_wander_target() -> void:
 	nav_agent.target_position = (global_position
 			+ Vector2.RIGHT.rotated(
 					randf_range(0, TAU))
-					* randi_range(1, pathfind_range * TILE_SIZE))
+					* randi_range(1, PATHFIND_RANGE * TILE_SIZE))
 
 func attack_logic() -> void:
 	pass

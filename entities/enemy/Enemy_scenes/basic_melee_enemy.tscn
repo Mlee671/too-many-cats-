@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://b5c58jagrlp5r" path="res://entities/enemy/Enemy.tscn" id="1_0tjeh"]
 [ext_resource type="Script" uid="uid://b32tj18164w6r" path="res://entities/enemy/basic_melee/basic_melee_enemy.gd" id="2_f0hik"]
-[ext_resource type="Script" uid="uid://bqq7nw18l6cu6" path="res://entities/enemy/basic_melee/attack.gd" id="4_5nna6"]
 [ext_resource type="Texture2D" uid="uid://cq5xmes5gqfg0" path="res://entities/enemy/basic_melee/ikoiku_itchio_mouse_v2.png" id="4_xydfa"]
 [ext_resource type="Texture2D" uid="uid://dmxoi4egpv14x" path="res://entities/enemy/basic_melee/melee_hitbox.png" id="5_3cfdl"]
 
@@ -132,12 +131,6 @@ size = Vector2(12.8046875, 25.609375)
 
 [node name="BasicMeleeEnemy" unique_id=310538941 instance=ExtResource("1_0tjeh")]
 script = ExtResource("2_f0hik")
-speed = 50.0
-acceleration = 20.0
-wander_range = 6
-hp = 100
-attack_rate = 1.5
-attack_offset_magnitude = 20.0
 
 [node name="shadow" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=167189831]
 offset_left = -6.0
@@ -170,7 +163,6 @@ shape = SubResource("CircleShape2D_y8sat")
 [node name="Attackbox" type="Area2D" parent="AttackComponent" index="1" unique_id=477221986]
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("4_5nna6")
 
 [node name="AttackRect" type="CollisionShape2D" parent="AttackComponent/Attackbox" index="0" unique_id=989070051]
 position = Vector2(16, 0)

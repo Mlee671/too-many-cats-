@@ -167,11 +167,3 @@ func handle_animation():
 	else:
 		stats.player_state = Stats.states.IDLE
 		#animation_player.play("idle")
-
-# function for detecting attacks and extracting the damage done to main character
-func _on_hitbox_area_entered(area: Area2D) -> void:
-	if evade_flag == evadeState.ACTIVE:
-		return
-	if area is Projectile or area is Attack:
-		pass
-		#take_damage(area.deal_damage())

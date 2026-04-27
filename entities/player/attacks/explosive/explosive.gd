@@ -13,7 +13,7 @@ var rotate_amount := PI / 30
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$LifespanTimer.start(10)
 
 
 func _physics_process(delta: float) -> void:
@@ -36,3 +36,7 @@ func _on_explosion_trigger(_body: Node2D) -> void:
 func set_direction(new_dir: Vector2):
 	look_at(new_dir)
 	velocity = new_dir.normalized() * SPEED
+
+
+func _on_lifespan_end() -> void:
+	queue_free()
