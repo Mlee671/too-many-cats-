@@ -13,5 +13,8 @@ func _ready() -> void:
 	fire_cd =  .5
 	ability_cd = 1
 	
+	# which bullet sprite to use
 	projectile_frame = 2
 	projectile_speed = 400
+	
+	damage = 10

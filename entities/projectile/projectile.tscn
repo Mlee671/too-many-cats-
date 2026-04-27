@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://voyoh38fcwge"]
 
-[ext_resource type="Script" uid="uid://btqe83eqyfnp4" path="res://entities/enemy/components/attacks/projectile/projectile.gd" id="1_q13ix"]
-[ext_resource type="Texture2D" uid="uid://diotyurjspa62" path="res://entities/enemy/components/attacks/projectile/bullet.png" id="1_rncab"]
+[ext_resource type="Script" uid="uid://btqe83eqyfnp4" path="res://entities/projectile/projectile.gd" id="1_n5n3x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q13ix"]
 radius = 2.0
@@ -9,14 +8,13 @@ radius = 2.0
 [node name="Projectile" type="Area2D" unique_id=364488218]
 collision_layer = 8
 collision_mask = 3
-script = ExtResource("1_q13ix")
+script = ExtResource("1_n5n3x")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=946368817]
 shape = SubResource("CircleShape2D_q13ix")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=2001656728]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_rncab")
 
 [node name="Timer" type="Timer" parent="." unique_id=1734532827]
 one_shot = true

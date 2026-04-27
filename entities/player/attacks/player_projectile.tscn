@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bhwtj1lyuawnt"]
 
-[ext_resource type="PackedScene" uid="uid://voyoh38fcwge" path="res://entities/enemy/components/attacks/projectile/projectile.tscn" id="1_hgki7"]
+[ext_resource type="PackedScene" uid="uid://voyoh38fcwge" path="res://entities/projectile/projectile.tscn" id="1_hgki7"]
 [ext_resource type="Texture2D" uid="uid://bw3idka8yfkbc" path="res://entities/player/attacks/player_projectiles.png" id="2_bopif"]
 [ext_resource type="Script" uid="uid://d1ei6vyoaw7vy" path="res://entities/player/attacks/player_projectile.gd" id="2_dwmrv"]
 

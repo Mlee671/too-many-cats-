@@ -21,10 +21,8 @@ enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 var iframe_flag := false
 const KNOCKBACK_DUR := 0.1
 const KNOCKBACK_DECAY := 10.0
-const DAMAGE_KNOCKBACK := 200.0 # kb scalar
+const DAMAGE_KNOCKBACK := 20 # default catch
 const IFRAME_DUR := 0.3
-
-var projectile_speed := 200
 
 var knockback_vec := Vector2.ZERO
 var movement_vec := Vector2.ZERO
@@ -130,7 +128,9 @@ func attack(target: Vector2) -> void:
 	spawn.proj_frame = stats.projectile_frame
 	var direction = target.normalized()
 	spawn.look_at(direction)
-	spawn.velocity = direction * stats.projectile_speed
+	spawn.set_velocity(direction * stats.projectile_speed)
+	spawn.set_knockback(stats.projectile_knockback)
+	spawn.set_damage(stats.damage)
 	
 	# spawn at sprite position in main scene, shifted
 	# for where the sprite hands would be (presumably) 

@@ -1,6 +1,5 @@
 extends Enemy
 
-@export var projectile := preload("res://entities/enemy/components/attacks/projectile/projectile.tscn") 
 @export var projectile_speed := 100
 @export var attack_rate : float = 1.0
 
@@ -8,6 +7,8 @@ extends Enemy
 @export var acceleration := 10.0 
 @export var wander_range := 6
 @export var hp := 100
+
+var projectile := preload("res://entities/enemy/components/projectile/enemy_projectile.tscn") 
 
 var orbit_dist := 80.0
 # arbitrary close up distance compared to orbit
@@ -21,7 +22,7 @@ func _ready() -> void:
 	accel = acceleration
 	pathfind_range = wander_range
 	health.set_health(hp)
-	super._ready()
+	super()
 
 func attack_logic() -> void:
 	var player_enemy_vec := global_position - raycast_target.global_position
