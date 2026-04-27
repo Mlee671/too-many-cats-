@@ -481,7 +481,7 @@ texture_filter = 1
 position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
-frame = 1
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]
 root_node = NodePath("../AnimatedSprite2D")
@@ -511,6 +511,9 @@ monitorable = false
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_3hn4c")
 disabled = true
+
+[node name="AttackMarker" type="Marker2D" parent="." unique_id=1628089577]
+position = Vector2(0, -6)
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timeout"]

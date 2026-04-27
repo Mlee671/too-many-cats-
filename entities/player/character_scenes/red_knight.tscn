@@ -99,7 +99,7 @@ animations = [{
 "speed": 1.0
 }]
 
-[node name="main_character" unique_id=2044665017 instance=ExtResource("1_x6qrl")]
+[node name="RedKnight" unique_id=2044665017 instance=ExtResource("1_x6qrl")]
 script = ExtResource("2_hchcp")
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
