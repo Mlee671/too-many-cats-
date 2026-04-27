@@ -28,9 +28,10 @@ func _ready() -> void:
 
 func spawn_character(pos : Vector2):
 	var character = character_nodes[0]
+	character.global_position = pos
 	add_child(character)
 	move_child(character, 0)
-	character.global_position = pos
+
 
 
 func _physics_process(_delta: float) -> void:

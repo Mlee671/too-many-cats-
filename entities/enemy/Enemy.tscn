@@ -54,8 +54,9 @@ height = 16.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=310538941]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 19
 motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_uy4mc")
 vision_range = 50.0
 
