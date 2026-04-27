@@ -5,7 +5,6 @@ class_name Projectile
 
 var velocity := Vector2.ZERO
 var damage := 10
-var knockback := 200
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,9 +23,6 @@ func _physics_process(delta: float) -> void:
 # terrain collision logic
 func _on_body_entered(body: Node2D) -> void:
 	if body is not Enemy and body is not main_character:
-		queue_free()
-	elif body is main_character and body.state.player_state != body.state.STATES.DODGING:
-		body.take_damage(damage, self, knockback)
 		queue_free()
 
 func _on_end_lifespan() -> void:

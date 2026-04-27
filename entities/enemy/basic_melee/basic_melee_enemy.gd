@@ -41,7 +41,6 @@ func _physics_process(delta: float) -> void:
 		for body in bodies:
 			if body is main_character:
 				melee_attack()
-				body.take_damage(DAMAGE, self, 300)
 	super._physics_process(delta)
 
 
@@ -63,11 +62,13 @@ func _on_attack_radius_exited(body: Node2D) -> void:
 func _on_attack_render_timeout() -> void:
 	attack_sprite.visible = false
 	attack_visual.rotate(PI)
+	attack_box.toggle_disable(true)
 
 # currently causes bouncing due to shape of attack being square and stickinging out of the attack radius. 
 # once sprites are in and the attack more circular this will fix itself mostly 
 func melee_attack():
 		attack_sprite.visible = true
+		attack_box.toggle_disable(false)
 		animation.play_animation("attack", true)
 		attack_cooldown = true
 		stop_moving = true

@@ -147,7 +147,7 @@ func deactivate_enemy() -> void:
 	$VisionArea.monitoring = true
 
 
-func take_damage(amount: int, from: Area2D, knockback_scalar : int = KB_AMOUNT) -> void:
+func take_damage(amount: int) -> void:
 	if enemyState == BEHAVIOUR.DEAD:
 		return
 	if enemyState == BEHAVIOUR.WANDER:
@@ -155,10 +155,6 @@ func take_damage(amount: int, from: Area2D, knockback_scalar : int = KB_AMOUNT) 
 		enemyState = BEHAVIOUR.ATTACK
 		$VisionArea.monitoring = false
 		
-	if from is Projectile:
-		apply_knockback(from.velocity.normalized(), knockback_scalar)
-	elif from is MeleeAttack:
-		apply_knockback((global_position - from.global_position).normalized(), knockback_scalar)
 	visual.modulate = Color(2,2,2)
 	health.take_damage(amount)
 	animation.play_animation("damaged", true)
@@ -181,3 +177,12 @@ func apply_knockback(direction: Vector2, scalar: int = KB_AMOUNT) -> void:
 func _on_knockback_timer_timeout() -> void:
 	knockback = false
 	visual.modulate = Color(1,1,1)
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if !knockback:
+		var direction = (global_position - area.global_position).normalized()
+		apply_knockback(direction)
+		take_damage(area.deal_damage())
+	else:
+		area.queue_free()

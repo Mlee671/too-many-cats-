@@ -53,9 +53,11 @@ func _process(_delta: float) -> void:
 			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
-	print(state.player_state)
 	var direction = Input.get_vector("left", "right", "up", "down")
-
+	
+	if Input.is_action_just_pressed("ability"):
+		character_ability()
+	
 	if evade_duration.time_left > 0:
 		dodge_movement(delta)
 	else:
@@ -100,13 +102,11 @@ func start_dodge_roll():
 	state.disable_switch()
 	evade_duration.start(stats.evade_dur)
 	evade_cooldown.start(stats.evade_cd)
-	pass
 	
 func dodge_movement(delta: float):
 	var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
 	var dodge_speed = lerp(stats.dodge_speed, stats.dodge_speed * 0.5, dodge_percent * stats.dodge_accel *delta)
 	velocity = dodge_speed * dodge_direction.normalized()
-	pass
 
 func swap_character() -> void:
 	pass
@@ -138,18 +138,13 @@ func character_ability():
 func add_knockback(vec: Vector2) -> void:
 	knockback_vec += vec
 
-func take_damage(amount: int, from: Node2D, knockback_scalar: int=DAMAGE_KNOCKBACK):
-	if from is Projectile:
-		add_knockback(from.velocity.normalized() * knockback_scalar)
-	else:
-		add_knockback((global_position - from.global_position).normalized() * knockback_scalar)
+func take_damage(amount: int):
 	char_visual.modulate = Color(2,2,2)
 	iframe_timer.start(IFRAME_DUR)
 	character_hud.set_main_hp_bar(stats.max_hp, stats.hp - amount)
 	stats.hp -= amount
 	
 	if stats.hp <=0:
-	
 		is_alive = false
 		character_hud.kill_first_char()
 
@@ -162,10 +157,13 @@ func handle_state():
 
 # function for detecting attacks and extracting the damage done to main character
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area is Projectile or area is Attack:
-		pass
-		#take_damage(area.deal_damage())
-
+	var direction
+	if area is Projectile:
+		direction = area.velocity.normalized() * DAMAGE_KNOCKBACK
+	else:
+		direction = (global_position - area.global_position).normalized() * DAMAGE_KNOCKBACK
+	take_damage(area.deal_damage())
+	add_knockback(direction)
 
 func _on_evade_duration_timeout() -> void:
 	state.enable_switch()
