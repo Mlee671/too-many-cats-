@@ -14,7 +14,7 @@ func _ready() -> void:
 
 	
 	# cm.switch_to("blue_knight")
-	room_manager.generate_rooms(5)
-	cm.spawn_character(Vector2(32,32))
+	var start = room_manager.generate_rooms(5)
+	cm.spawn_character(start)
 	await get_tree().create_timer(1.5).timeout
 	character_hud.visible = true

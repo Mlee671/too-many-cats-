@@ -178,3 +178,10 @@ func _on_evade_duration_timeout() -> void:
 
 func _on_evade_cooldown_timeout() -> void:
 	pass # Replace with function body.
+
+# logic for spikes and pits
+func _on_hazard_box_body_entered(body: Node2D) -> void:
+	if !iframe_flag:
+		if body is TileMapLayer:
+			take_damage(10)
+			add_knockback(-velocity.normalized() * DAMAGE_KNOCKBACK * 2)

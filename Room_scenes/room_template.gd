@@ -14,18 +14,47 @@ var locked := false
 @onready var door_east := $East_door
 @onready var door_north := $North_door
 @onready var door_south := $South_door
+@onready var room := $Tilemaps/Room
 @onready var objects := $Tilemaps/Environment
 
 func _ready() -> void:
+	var parent = get_parent()
 	for child in get_children():
 		if child is Marker2D:
-			var parent = get_parent()
-			if parent is Room_manager:
+			if parent is Room_manager and randf() < 0.6:
 				var new_enemy = parent.get_enemy().instantiate()
 				new_enemy.position = child.position
 				enemy_list.append(new_enemy)
 				add_child(new_enemy)
-				child.queue_free()
+			child.queue_free()
+
+func remove_direction(empty : Vector2):
+	if empty.y < 0:
+		_ns_hallway_remove([-11, -12, -13, -14, -15])
+		door_north.queue_free()
+	elif empty.y > 0:
+		_ns_hallway_remove([10, 11, 12, 13, 14])
+		door_south.queue_free()
+	elif empty.x < 0:
+		_ew_hallway_remove([-11, -12, -13, -14, -15])
+		door_west.queue_free()
+	elif empty.x > 0:
+		_ew_hallway_remove([10, 11, 12, 13, 14])
+		door_east.queue_free()
+
+func _ns_hallway_remove(array : Array):
+	for i in array:
+		room.set_cell(Vector2(-2,i), 0, Vector2i(8,7), 0)
+		room.set_cell(Vector2(-1,i), 0, Vector2i(8,7), 0)
+		room.set_cell(Vector2(0,i), 0, Vector2i(8,7), 0)
+		room.set_cell(Vector2(1,i), 0, Vector2i(8,7), 0)
+
+func _ew_hallway_remove(array : Array):
+	for i in array:
+		room.set_cell(Vector2(i, -2), 0, Vector2i(8,7), 0)
+		room.set_cell(Vector2(i, -1), 0, Vector2i(8,7), 0)
+		room.set_cell(Vector2(i, 0), 0, Vector2i(8,7), 0)
+		room.set_cell(Vector2(i, 1), 0, Vector2i(8,7), 0)
 
 func enemy_died():
 	for i in range(enemy_list.size() - 1, -1, -1):
@@ -89,14 +118,8 @@ func _on_south_door_body_exited(body: Node2D) -> void:
 
 # only mask on player layer
 func _on_room_activator_body_entered(body: Node2D) -> void:
-	if body is main_character:
+	if body is main_character and enemy_list:
 		locked = true
+		print("room locked")
 		for enemy in enemy_list:
 			enemy.activate_enemy()
-
-
-func _on_room_activator_body_exited(body: Node2D) -> void:
-	if body is main_character:
-		locked = false
-		for enemy in enemy_list:
-			enemy.deactivate_enemy()

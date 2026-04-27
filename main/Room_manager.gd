@@ -6,10 +6,13 @@ const ROOM_SIZE = 30
 
 @onready var hall_tiles := $Hallway
 
+@onready var start_room := preload("res://Room_scenes/starting_room.tscn")
+
 var room_array : Array = []
 var hallway_pos : Array[Vector2i] = []
 var room_pos : Array[Vector2i] = []
 var enemy_array : Array = []
+var neighbour_vectors : Array = [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]
 
 func _ready() -> void:
 	# loads all rooms in the room folder
@@ -27,7 +30,6 @@ func _ready() -> void:
 		while file_name != "":
 			enemy_array.append(load("res://entities/enemy/Enemy_scenes/" + file_name))
 			file_name = dir2.get_next()
-	print(enemy_array.size())
 
 func generate_rooms(rooms : int) -> Vector2:
 	# generates positions for rooms based on previous room position starting at 0,0
@@ -44,9 +46,10 @@ func generate_rooms(rooms : int) -> Vector2:
 	# prints a minimap in terminal
 	# _show_minimap(rooms)
 	# returns spawn point for character
-	return room_pos[0]
+	return room_pos[0] * ROOM_SIZE * TILE_SIZE
 				
 func _get_room_positions(rooms : int):
+	room_pos.append(Vector2i(0,1))
 	room_pos.append(Vector2i(0,0))
 	for i in rooms:
 		while true:
@@ -59,7 +62,7 @@ func _get_room_positions(rooms : int):
 
 func _connect_rooms(rooms : int):
 	var can_reach : Array[bool] = []
-	can_reach.resize(rooms + 1) 
+	can_reach.resize(rooms + 2) 
 	can_reach.fill(false)
 	_find_neighbours(can_reach, 0)
 
@@ -91,9 +94,20 @@ func _find_neighbours(can_reach : Array[bool], start):
 
 func _spawn_rooms():
 	for pos in room_pos:
-		var room = room_array.pick_random().instantiate()
-		room.global_position = pos * ROOM_SIZE * TILE_SIZE
+		var room
+		if pos == Vector2i(0,1):
+			room = start_room.instantiate()
+			room.global_position = pos * ROOM_SIZE * TILE_SIZE
+		else:
+			room = room_array.pick_random().instantiate()
+			room.global_position = pos * ROOM_SIZE * TILE_SIZE
 		add_child(room)
+		if pos != Vector2i(0,1):
+			for neighbour in neighbour_vectors:
+				if !hallway_pos.has(neighbour + pos):
+					if !room_pos.has(neighbour + pos):
+						room.remove_direction(neighbour)
+						_blank_area(neighbour + pos)
 
 func _spawn_corridors():
 	var hallway_tile = []
@@ -122,6 +136,14 @@ func _spawn_corridors():
 	# for removing walls
 	for cell in remove_wall:
 		hall_tiles.set_cell(cell, 0, Vector2i(9,7), 0)
+
+func _blank_area(pos : Vector2i):
+	var black_tile = []
+	for i in range(-15,15):
+		for j in range(-15,15):
+			black_tile.append(pos * ROOM_SIZE + Vector2i(i,j))
+	for cell in black_tile:
+		hall_tiles.set_cell(cell, 0, Vector2i(8,7), 0)
 
 func _show_minimap(rooms):
 	for j in range(-rooms, rooms):

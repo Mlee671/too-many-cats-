@@ -544,7 +544,6 @@ script = ExtResource("6_g607o")
 [node name="Hitbox" type="Area2D" parent="." unique_id=2022720495]
 collision_layer = 0
 collision_mask = 8
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=190335408]
 position = Vector2(0, -6)
@@ -553,9 +552,19 @@ shape = SubResource("CapsuleShape2D_3hn4c")
 [node name="AttackMarker" type="Marker2D" parent="." unique_id=1628089577]
 position = Vector2(0, -6)
 
+[node name="hazard_box" type="Area2D" parent="." unique_id=2056777331]
+collision_layer = 2
+collision_mask = 16
+
+[node name="terrain_collision" type="CollisionShape2D" parent="hazard_box" unique_id=265556125]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_bggxh")
+
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timeout"]
 [connection signal="timeout" from="EvadeCooldown" to="." method="_on_evade_cooldown_timeout"]
 [connection signal="timeout" from="EvadeDuration" to="." method="_on_evade_duration_timeout"]
 [connection signal="timeout" from="IFrameTimer" to="." method="_on_iframe_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="hazard_box" to="." method="_on_hazard_box_body_entered"]
