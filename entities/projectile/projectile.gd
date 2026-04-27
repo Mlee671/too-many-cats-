@@ -20,8 +20,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer: # hitting wall
 		queue_free()
-	# body is some entity, should have take_damage method
-	else: 
+	elif body is main_character and body.state.player_state != body.state.STATES.DODGING:
 		body.take_damage(damage, self, knockback)
 		queue_free()
 

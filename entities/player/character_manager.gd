@@ -1,9 +1,9 @@
 extends Node2D
 class_name character_manager
 
-signal swapping_character
+#signal swapping_character
 @onready var character_hud: CanvasLayer = $character_hud
-
+const DODGING_ENUM_INDEX = 2
 
 # the scene name of each character
 enum characters {blue_knight, pink_knight, red_knight}
@@ -11,6 +11,7 @@ enum characters {blue_knight, pink_knight, red_knight}
 var path := "res://entities/player/character_scenes/"
 var icon_path := "res://entities/player/character_icons/"
 
+var game_over = false
 # all loaded character nodes gets added to this array
 var character_nodes := []
 
@@ -33,9 +34,13 @@ func spawn_character(pos : Vector2):
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("character_change"):
-		get_child(0).swap_character()
-		switch_next()
+	
+	if Input.is_action_just_pressed("character_change") and game_over == false:
+		print(get_child(0).state.player_state)
+		if get_child(0).state.player_state != DODGING_ENUM_INDEX:
+			get_child(0).swap_character()
+			switch_next()
+		
 
 func _do_switch(target_character: String = "") -> void:
 	var old_node: main_character = get_child(0)
@@ -77,4 +82,8 @@ func get_next() -> main_character:
 		if character_nodes[character_index].is_alive:
 			next_character = character_nodes[character_index]
 	return next_character
+
+
+func _on_character_hud_all_char_dead() -> void:
+	game_over = true
 	

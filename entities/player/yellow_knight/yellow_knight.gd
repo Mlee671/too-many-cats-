@@ -8,6 +8,8 @@ class_name YellowKnight
 
 func _ready() -> void:
 	attack_box.monitoring = false
+	super()
+	
 
 func attack(_target: Vector2) -> void:
 	attack_cooldown = true

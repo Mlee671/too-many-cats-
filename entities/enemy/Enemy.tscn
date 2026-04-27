@@ -13,6 +13,14 @@ corner_radius_bottom_right = 1000
 corner_radius_bottom_left = 1000
 corner_detail = 15
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_cn5l5"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pux1x"]
 radius = 4.0
 height = 20.0
@@ -60,6 +68,10 @@ offset_bottom = 8.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_23wh4")
 
 [node name="Sprite" type="Sprite2D" parent="Visuals" unique_id=1680913945]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals" unique_id=516999520]
+sprite_frames = SubResource("SpriteFrames_cn5l5")
+animation = &"idle"
 
 [node name="Terrain_collision" type="CollisionShape2D" parent="." unique_id=1076322931]
 position = Vector2(0, 3)
