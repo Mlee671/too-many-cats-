@@ -1,6 +1,6 @@
 extends Stats
 
-var ability_dur := 5.0
+var ability_dur := 1.0
 
 func _ready() -> void:
 	speed = 70

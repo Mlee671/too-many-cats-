@@ -68,7 +68,8 @@ func _physics_process(delta: float) -> void:
 			_look_vector_direction(velocity)
 		
 	elif enemyState == BEHAVIOUR.ATTACK:
-		# raycast_target = get_tree().get_first_node_in_group("Player")
+		if !raycast_target.is_inside_tree():
+			raycast_target = get_tree().get_first_node_in_group("Player")
 		attack_logic()
 		# look in direction of player
 		_look_vector_direction(global_position.direction_to(raycast_target.global_position))

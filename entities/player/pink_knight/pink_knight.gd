@@ -4,6 +4,8 @@ class_name pink_knight
 const SPREAD_DEG := 30
 const ATTACK_KNOCKBACK := 300.0
 
+var ability_on_cooldown := false
+
 @onready var uptime_timer = $AbilityUptimeTimer
 
 func attack(target: Vector2) -> void:
@@ -24,10 +26,14 @@ func attack(target: Vector2) -> void:
 
 func character_ability():
 	# start ability timer
-	uptime_timer.start(stats.ability_dur)
-	# change attack rate
-	stats.fire_cd /= 2
+	if !ability_on_cooldown:
+		uptime_timer.start(stats.ability_dur)
+		# change attack rate
+		stats.fire_cd /= 6
+		ability_on_cooldown = true
+		attack(get_local_mouse_position())
 
 
 func _on_ability_uptime_timeout() -> void:
-	stats.fire_cd *= 2
+	stats.fire_cd *= 6
+	ability_on_cooldown = false
