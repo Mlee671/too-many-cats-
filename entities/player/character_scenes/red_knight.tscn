@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/base_character/main_character.tscn" id="1_x6qrl"]
 [ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_eyaqn"]
+[ext_resource type="Script" uid="uid://bwes0qv4l4by5" path="res://entities/player/red_knight/red_knight.gd" id="2_hchcp"]
 [ext_resource type="Texture2D" uid="uid://bdnonaug85qst" path="res://entities/player/red_knight/redknight_spritesheet.png" id="3_fauo8"]
 [ext_resource type="Script" uid="uid://bc6oukyhnwgjf" path="res://entities/player/red_knight/rk_stats.gd" id="4_fauo8"]
 
@@ -99,10 +100,10 @@ animations = [{
 }]
 
 [node name="main_character" unique_id=2044665017 instance=ExtResource("1_x6qrl")]
+script = ExtResource("2_hchcp")
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_1r2em")
-frame = 0
 
 [node name="Stats" parent="." index="7" unique_id=201965470]
 script = ExtResource("4_fauo8")

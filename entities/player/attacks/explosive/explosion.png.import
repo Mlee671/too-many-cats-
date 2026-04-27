@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dilsxjb4etpop"
-path="res://.godot/imported/rk_grenade.png-de640aa5af8391764d7ef8fdab835c07.ctex"
+uid="uid://ul8e78khkjwq"
+path="res://.godot/imported/explosion.png-656e3e488d9b74dcde0ce51c4157727c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/attacks/rk_grenade.png"
-dest_files=["res://.godot/imported/rk_grenade.png-de640aa5af8391764d7ef8fdab835c07.ctex"]
+source_file="res://entities/player/attacks/explosive/explosion.png"
+dest_files=["res://.godot/imported/explosion.png-656e3e488d9b74dcde0ce51c4157727c.ctex"]
 
 [params]
 
