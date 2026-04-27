@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/base_character/main_character.tscn" id="1_bk7k0"]
 [ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_604g3"]
 [ext_resource type="Texture2D" uid="uid://d0xolhr72equs" path="res://entities/player/yellow_knight/Idle_Choco_Banana1.png" id="2_bk7k0"]
+[ext_resource type="Script" uid="uid://3wbdeqhqyixf" path="res://entities/player/yellow_knight/yellow_knight.gd" id="2_gq0h7"]
 [ext_resource type="Script" uid="uid://480tn3vakaw3" path="res://entities/player/character_scenes/yk_statsstats.gd" id="2_jg6ev"]
 [ext_resource type="Texture2D" uid="uid://bewjbmrkg2otp" path="res://entities/player/yellow_knight/Run_Choco_Banana.png" id="3_232be"]
 [ext_resource type="Script" uid="uid://b5pchnv3xojmv" path="res://entities/player/attacks/melee_attack.gd" id="7_gq0h7"]
@@ -228,6 +229,7 @@ _data = {
 }
 
 [node name="Yellow_knight" unique_id=2044665017 instance=ExtResource("1_bk7k0")]
+script = ExtResource("2_gq0h7")
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_3qbob")
@@ -244,6 +246,7 @@ scale = Vector2(1e-05, 1e-05)
 shape = SubResource("CircleShape2D_pvbsp")
 
 [node name="AttackComponent" type="Node2D" parent="." index="12" unique_id=1605473908]
+position = Vector2(0, -5)
 
 [node name="Marker2D" type="Marker2D" parent="AttackComponent" index="0" unique_id=1226906400]
 
@@ -258,10 +261,12 @@ script = ExtResource("7_gq0h7")
 [node name="AttackShape" type="CollisionPolygon2D" parent="AttackComponent/AttackBox" index="0" unique_id=908221566]
 position = Vector2(-11.000004, -8)
 scale = Vector2(2, 1.7)
-polygon = PackedVector2Array(-8.499999, -10, 22.499998, -8.823528, 22.999998, 21.17647, -4.499999, 17.647058, -11.499998, 5.294117)
+polygon = PackedVector2Array(11.000001, -18.823528, 19.5, -1.7647057, 32.5, 4.705882, 9.500001, 13.529411, 1.9073486e-06, 4.117647)
 
 [node name="Sprite2D" type="Sprite2D" parent="AttackComponent/AttackBox" index="1" unique_id=738812245]
 visible = false
+position = Vector2(15.999999, -6)
+rotation = 0.6981317
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_ool57")
 hframes = 6

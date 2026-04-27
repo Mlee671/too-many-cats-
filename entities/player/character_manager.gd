@@ -6,7 +6,7 @@ class_name character_manager
 const DODGING_ENUM_INDEX = 2
 
 # the scene name of each character
-enum characters {blue_knight, pink_knight, red_knight}
+enum characters {blue_knight, yellow_knight, red_knight}
 
 var path := "res://entities/player/character_scenes/"
 var icon_path := "res://entities/player/character_icons/"
