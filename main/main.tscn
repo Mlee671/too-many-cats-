@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cmphbv1iw6xj5" path="res://entities/player/character_icons/pink_knight_icon.png" id="9_fwcvl"]
 [ext_resource type="Script" uid="uid://c0n4ylvv4q22d" path="res://ui_items/reward_screen.gd" id="10_bsumw"]
 [ext_resource type="Texture2D" uid="uid://djfobp5mqpc6u" path="res://ui_assets/reward_menus.png" id="11_na0o7"]
+[ext_resource type="Texture2D" uid="uid://b6e0sne4u232g" path="res://ui_assets/character_menu_sprite/pink_knight_menu.png" id="12_5xyti"]
 [ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entities/player/blue_knight/Idle_Blue.png" id="12_73k8k"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
@@ -611,7 +612,6 @@ nine_patch_stretch = true
 texture_progress = ExtResource("6_67ri8")
 
 [node name="reward_screen" type="CanvasLayer" parent="character_manager" unique_id=935846622]
-visible = false
 script = ExtResource("10_bsumw")
 
 [node name="Control" type="Control" parent="character_manager/reward_screen" unique_id=1391866545]
@@ -631,19 +631,20 @@ texture = SubResource("AtlasTexture_fwcvl")
 
 [node name="TextureRect" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=431421200]
 layout_mode = 0
-offset_left = 636.0
-offset_top = 225.0
-offset_right = 807.0
-offset_bottom = 423.0
+offset_left = 622.0
+offset_top = 233.0
+offset_right = 801.0
+offset_bottom = 408.0
 texture = SubResource("AtlasTexture_5xyti")
 
 [node name="new_char_button" type="TextureButton" parent="character_manager/reward_screen/Control/TextureRect" unique_id=1188533475]
 layout_mode = 0
-offset_left = 22.0
-offset_top = 27.0
-offset_right = 151.0
-offset_bottom = 174.0
-texture_normal = SubResource("AtlasTexture_n3o0a")
+offset_left = 19.0
+offset_top = 18.0
+offset_right = 160.0
+offset_bottom = 158.0
+texture_normal = ExtResource("12_5xyti")
+ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureRect2" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=1086176131]
