@@ -29,7 +29,7 @@ var knockback_vec := Vector2.ZERO
 @onready var nav_agent := $NavigationAgent2D
 @onready var vision := $VisionRadius
 @onready var health := $HealthBar
-@onready var animation := $AnimationPlayer
+@onready var animation = $Visuals/AnimationPlayer
 @onready var visual := $Visuals
 @onready var hitbox := $Hitbox
 @onready var vision_circle := $VisionArea/VisionCircle
@@ -104,8 +104,7 @@ func _on_wander_timeout() -> void:
 
 ## Generic on death function:
 ## - Plays death animation (force overwrite current animations)
-## - prevents movement
-## - removes hitbox
+## - prevents movementw
 ## - removes instance after animation plays
 func _on_death() -> void:
 	animation.no_interrupt = false
