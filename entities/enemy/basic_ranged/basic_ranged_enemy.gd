@@ -18,9 +18,6 @@ func _ready() -> void:
 	health.set_health(HP)
 	super()
 	
-func _physics_process(delta: float) -> void:
-	print(enemyState)
-	super(delta)
 
 func attack_logic() -> void:
 	var attack_offset = $attack_offset.position * _look_vector_direction(global_position.direction_to(raycast_target.global_position))
