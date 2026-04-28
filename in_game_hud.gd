@@ -12,7 +12,7 @@ var hp_bars = []
 var icons_array = []
 var cd_bars = []
 var visibility = [0,0,0]
-
+signal character_removed
 
 
 
@@ -83,7 +83,7 @@ func kill_first_char():
 	if self.hp_bars.size() == 1:
 		self.hide()
 		self.PROCESS_MODE_DISABLED
-		emit_signal("all_char_dead")
+		
 		var scene : PackedScene = load("res://main_menu/main_menu.tscn")
 		print("all characters dead")
 		
@@ -94,9 +94,13 @@ func kill_first_char():
 		await get_tree().process_frame
 		get_tree().change_scene_to_packed(scene)
 		return
-
+	
 	Input.action_press("character_change")
 	Input.action_release("character_change")
 	#timeout needed because otherwise it runs the remove_char before the switch 
 	await get_tree().create_timer(0.2).timeout
+	
 	self.remove_char(hp_bars.size()-1)
+
+	emit_signal("character_removed")
+	

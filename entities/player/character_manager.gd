@@ -14,6 +14,8 @@ var path := "res://entities/player/character_scenes/"
 var icon_path := "res://entities/player/character_icons/"
 
 var game_over = false
+#needed to fix a bug 
+var repeat = 1
 # all loaded character nodes gets added to this array
 var character_nodes := []
 
@@ -39,6 +41,9 @@ func spawn_character(pos : Vector2):
 func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("character_change") and game_over == false:
+		#break out if there are no characters to switch
+		if character_nodes.size() ==1:
+			return
 		print(get_child(0).state.player_state)
 		if get_child(0).state.player_state != DODGING_ENUM_INDEX:
 			get_child(0).swap_character()
@@ -46,6 +51,7 @@ func _physics_process(_delta: float) -> void:
 		
 
 func _do_switch(target_character: String = "") -> void:
+	
 	var old_node: main_character = get_child(0)
 	var new_node: main_character
 	if target_character != "":
@@ -56,10 +62,15 @@ func _do_switch(target_character: String = "") -> void:
 	# transfer the current pos
 	new_node.global_position = old_node.global_position
 	
+	#debug
+	print(character_nodes)
 	# replace instances - swap characters
+	
+	
 	add_child(new_node)
 	move_child(new_node, 0)
 	remove_child(old_node)
+	
 	
 	# maintain speed - should not exceed character's maximum
 	var direction := old_node.velocity.normalized()
@@ -79,17 +90,20 @@ func switch_to(target_character: String) -> void:
 	
 ## Returns Node of next character in the `character_nodes` array.
 func get_next() -> main_character:
-	var next_character
-	while !next_character:
-		character_index = (character_index + 1) % character_nodes.size()
-		if character_nodes[character_index].is_alive:
-			next_character = character_nodes[character_index]
-	return next_character
-
-
-func _on_character_hud_all_char_dead() -> void:
-	game_over = true
+	#var next_character
 	
+	#while !next_character:
+		#character_index = (character_index + 1) % character_nodes.size()
+		#if character_nodes[character_index].is_alive:
+			#next_character = character_nodes[character_index]
+	#return next_character
+	var hold
+	hold = character_nodes[0]
+	character_nodes.pop_front()
+	character_nodes.append(hold)
+	return character_nodes[0]
+	
+
 
 #adds character to party when selected in rewards
 func _on_new_char_button_pressed() -> void:
@@ -99,3 +113,10 @@ func _on_new_char_button_pressed() -> void:
 	character_hud.add_icon(char_icon)
 	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
 	character_nodes.append(char_instance)
+
+
+func _on_character_hud_character_removed() -> void:
+	for c in character_nodes:
+		if c.is_alive == false:
+			print(c)
+			character_nodes.erase(c)

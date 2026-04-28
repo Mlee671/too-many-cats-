@@ -669,5 +669,6 @@ offset_bottom = 700.0
 
 [node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=226070120]
 
+[connection signal="character_removed" from="character_manager/character_hud" to="character_manager" method="_on_character_hud_character_removed"]
 [connection signal="pressed" from="character_manager/reward_screen/Control/TextureRect/new_char_button" to="character_manager" method="_on_new_char_button_pressed"]
 [connection signal="pressed" from="character_manager/reward_screen/Control/TextureRect/new_char_button" to="character_manager/reward_screen" method="_on_new_char_button_pressed"]
