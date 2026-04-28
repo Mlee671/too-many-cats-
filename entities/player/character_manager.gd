@@ -3,10 +3,12 @@ class_name character_manager
 
 #signal swapping_character
 @onready var character_hud: CanvasLayer = $character_hud
+@onready var reward_screen: CanvasLayer = $reward_screen
 const DODGING_ENUM_INDEX = 2
 
+
 # the scene name of each character
-enum characters {blue_knight, yellow_knight, red_knight}
+enum characters {blue_knight, yellow_knight, red_knight,pink_knight}
 
 var path := "res://entities/player/character_scenes/"
 var icon_path := "res://entities/player/character_icons/"
@@ -19,12 +21,12 @@ var character_index : int = 0
 
 func _ready() -> void:
 	# loads all character nodes and icons then adds them into an array
-	for c in characters:
-		var char_instance : main_character = load(path + c + ".tscn").instantiate()
-		var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
-		character_hud.add_icon(char_icon)
-		character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
-		character_nodes.append(char_instance)
+	var c= reward_screen.pick_random_char()
+	var char_instance : main_character = load(path + c + ".tscn").instantiate()
+	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
+	character_hud.add_icon(char_icon)
+	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
+	character_nodes.append(char_instance)
 
 func spawn_character(pos : Vector2):
 	var character = character_nodes[0]

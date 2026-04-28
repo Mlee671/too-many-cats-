@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	#opens the reward screen and picks a random character that hasnt been picked yet
 	if Input.is_action_just_pressed("debug_open_reward_screen"):
 		self.show()
-		current_char = chars_remaining.pick_random()
+		current_char = pick_random_char()
 		var char_menu : CompressedTexture2D = load(menu_path + current_char + "_menu.png")
 		new_char_button.texture_normal = char_menu
 
@@ -33,3 +33,9 @@ func _on_new_char_button_pressed() -> main_character:
 	self.hide()
 	chars_remaining.erase(current_char)
 	return char_instance
+
+func pick_random_char() -> String:
+	current_char = chars_remaining.pick_random()
+	chars_remaining.erase(current_char)
+	return current_char
+	
