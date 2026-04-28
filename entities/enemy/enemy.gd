@@ -29,7 +29,7 @@ var knockback_vec := Vector2.ZERO
 @onready var nav_agent := $NavigationAgent2D
 @onready var vision := $VisionRadius
 @onready var health := $HealthBar
-@onready var animation := $AnimationPlayer
+@onready var animation = $Visuals/AnimationPlayer
 @onready var visual := $Visuals
 @onready var hitbox := $Hitbox
 @onready var vision_circle := $VisionArea/VisionCircle
@@ -90,6 +90,9 @@ func _look_vector_direction(direction: Vector2):
 		visual.scale.x = -1
 	else:
 		visual.scale.x = 1
+		
+		# returns a scaling vector for offset multiplication, so that any offset also "turns around" when looking left or right
+	return Vector2(visual.scale.x, 1)
 
 ## navigation agent handles movement after adjusting vector
 func _on_nav_dist_adjust(safe_velocity: Vector2) -> void:
@@ -104,8 +107,7 @@ func _on_wander_timeout() -> void:
 
 ## Generic on death function:
 ## - Plays death animation (force overwrite current animations)
-## - prevents movement
-## - removes hitbox
+## - prevents movementw
 ## - removes instance after animation plays
 func _on_death() -> void:
 	animation.no_interrupt = false

@@ -1,11 +1,11 @@
 extends Enemy
 
 const PROJECTILE := preload("res://entities/enemy/components/projectile/enemy_projectile.tscn") 
-const SPEED := 30.0
+const SPEED := 15.0
 const ACCELERATION := 10.0
 const HP := 100
 const ATTACKS_PER_SECOND := 1.0
-const PROJECTILE_SPEED := 100
+const PROJECTILE_SPEED := 75
 const ORBIT_DIST := 80.0
 const CHASE_DIST := ORBIT_DIST * 1.3
 
@@ -17,9 +17,11 @@ func _ready() -> void:
 	accel = ACCELERATION
 	health.set_health(HP)
 	super()
+	
 
 func attack_logic() -> void:
-	var player_enemy_vec := global_position - raycast_target.global_position
+	var attack_offset = $attack_offset.position * _look_vector_direction(global_position.direction_to(raycast_target.global_position))
+	var player_enemy_vec :Vector2 = global_position - raycast_target.global_position + attack_offset
 	var player_enemy_direction := player_enemy_vec.normalized()
 	var player_enemy_dist := player_enemy_vec.length()
 
@@ -35,10 +37,11 @@ func attack_logic() -> void:
 	
 	if not attack_cooldown:
 		var attack := PROJECTILE.instantiate()
+		animation.play_animation("attack", true)
 		# point bullet toward player (inverting path calc vector) and apply speed
 		attack.set_velocity(-player_enemy_direction * PROJECTILE_SPEED)
 		get_parent().add_child(attack)
-		attack.global_position = global_position
+		attack.global_position = global_position + attack_offset
 		# put attack on cooldown, based on inverse attack rate (higher val = lower cd)
 		attack_cooldown = true
 		attack_timer.start(1.0 / ATTACKS_PER_SECOND)

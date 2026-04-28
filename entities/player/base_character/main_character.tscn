@@ -409,7 +409,7 @@ animation = &"idle"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_vi0cl"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8628c"]
-graph_offset = Vector2(-61.555176, -20.816223)
+graph_offset = Vector2(-248.5138, 92.422424)
 nodes/output/position = Vector2(940, 180)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_5rfgb")
 nodes/Animation/position = Vector2(440, 160)
@@ -469,7 +469,7 @@ states/idle/position = Vector2(89, 157)
 states/run/node = SubResource("AnimationNodeBlendTree_xs0gf")
 states/run/position = Vector2(584, 157)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t")]
-graph_offset = Vector2(-610, 23)
+graph_offset = Vector2(-556, -9)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hn4c"]
 radius = 4.0
