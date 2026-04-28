@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
 [ext_resource type="Texture2D" uid="uid://cmphbv1iw6xj5" path="res://entities/player/character_icons/pink_knight_icon.png" id="9_fwcvl"]
 [ext_resource type="Script" uid="uid://c0n4ylvv4q22d" path="res://ui_items/reward_screen.gd" id="10_bsumw"]
+[ext_resource type="Texture2D" uid="uid://djfobp5mqpc6u" path="res://ui_assets/reward_menus.png" id="11_na0o7"]
+[ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entities/player/blue_knight/Idle_Blue.png" id="12_73k8k"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -519,6 +521,14 @@ load_path = "res://.godot/imported/reward_menus.png-a389dfab5aa4653e2265f3ae9ddf
 atlas = SubResource("CompressedTexture2D_bsumw")
 region = Rect2(286, 0, 551, 327)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xyti"]
+atlas = ExtResource("11_na0o7")
+region = Rect2(286, 346, 143, 149)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3o0a"]
+atlas = ExtResource("12_73k8k")
+region = Rect2(8, 6, 16, 19)
+
 [node name="main" type="Node2D" unique_id=135493927 node_paths=PackedStringArray("character_hud")]
 script = ExtResource("1_8gbba")
 character_hud = NodePath("character_manager/character_hud")
@@ -611,13 +621,48 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="TextureRect" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=2124034751]
+[node name="menu_bg" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=2124034751]
 layout_mode = 0
 offset_left = 248.0
 offset_top = 132.0
 offset_right = 894.0
 offset_bottom = 518.0
 texture = SubResource("AtlasTexture_fwcvl")
+
+[node name="TextureRect" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=431421200]
+layout_mode = 0
+offset_left = 636.0
+offset_top = 225.0
+offset_right = 807.0
+offset_bottom = 423.0
+texture = SubResource("AtlasTexture_5xyti")
+
+[node name="new_char_button" type="TextureButton" parent="character_manager/reward_screen/Control/TextureRect" unique_id=1188533475]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 27.0
+offset_right = 151.0
+offset_bottom = 174.0
+texture_normal = SubResource("AtlasTexture_n3o0a")
+stretch_mode = 0
+
+[node name="TextureRect2" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=1086176131]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 368.00003
+offset_top = 227.0
+offset_right = 539.0
+offset_bottom = 425.0
+texture = SubResource("AtlasTexture_5xyti")
+
+[node name="heal_button" type="TextureButton" parent="character_manager/reward_screen/Control/TextureRect2" unique_id=1019663641]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 26.0
+offset_right = 140.99997
+offset_bottom = 168.0
+texture_normal = SubResource("AtlasTexture_n3o0a")
+stretch_mode = 0
 
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_grrlh")]
 visible = false
@@ -628,3 +673,5 @@ offset_right = 1216.0
 offset_bottom = 700.0
 
 [node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=226070120]
+
+[connection signal="pressed" from="character_manager/reward_screen/Control/TextureRect/new_char_button" to="character_manager/reward_screen" method="_on_new_char_button_pressed"]
