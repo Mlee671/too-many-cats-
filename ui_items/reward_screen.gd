@@ -28,12 +28,13 @@ func _process(delta: float) -> void:
 		new_char_button.texture_normal = char_menu
 
 
-func _on_new_char_button_pressed() -> main_character:
-	var char_instance : main_character = load(path + current_char + ".tscn").instantiate()
+func _on_new_char_button_pressed() -> void:
+	
 	self.hide()
 	chars_remaining.erase(current_char)
-	return char_instance
 
+func get_selected_rand_char() ->String:
+	return current_char
 func pick_random_char() -> String:
 	current_char = chars_remaining.pick_random()
 	chars_remaining.erase(current_char)

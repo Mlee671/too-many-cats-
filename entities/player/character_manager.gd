@@ -20,7 +20,7 @@ var character_nodes := []
 var character_index : int = 0
 
 func _ready() -> void:
-	# loads all character nodes and icons then adds them into an array
+	# loads 1 character at random and adds it into array
 	var c= reward_screen.pick_random_char()
 	var char_instance : main_character = load(path + c + ".tscn").instantiate()
 	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
@@ -81,7 +81,7 @@ func switch_to(target_character: String) -> void:
 func get_next() -> main_character:
 	var next_character
 	while !next_character:
-		character_index = (character_index + 1) % characters.size()
+		character_index = (character_index + 1) % character_nodes.size()
 		if character_nodes[character_index].is_alive:
 			next_character = character_nodes[character_index]
 	return next_character
@@ -90,3 +90,12 @@ func get_next() -> main_character:
 func _on_character_hud_all_char_dead() -> void:
 	game_over = true
 	
+
+#adds character to party when selected in rewards
+func _on_new_char_button_pressed() -> void:
+	var c = reward_screen.get_selected_rand_char()
+	var char_instance : main_character = load(path + c + ".tscn").instantiate()
+	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
+	character_hud.add_icon(char_icon)
+	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
+	character_nodes.append(char_instance)
