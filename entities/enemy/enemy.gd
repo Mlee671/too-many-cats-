@@ -90,6 +90,9 @@ func _look_vector_direction(direction: Vector2):
 		visual.scale.x = -1
 	else:
 		visual.scale.x = 1
+		
+		# returns a scaling vector for offset multiplication, so that any offset also "turns around" when looking left or right
+	return Vector2(visual.scale.x, 1)
 
 ## navigation agent handles movement after adjusting vector
 func _on_nav_dist_adjust(safe_velocity: Vector2) -> void:
