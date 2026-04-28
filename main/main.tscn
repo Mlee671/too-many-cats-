@@ -612,6 +612,7 @@ nine_patch_stretch = true
 texture_progress = ExtResource("6_67ri8")
 
 [node name="reward_screen" type="CanvasLayer" parent="character_manager" unique_id=935846622]
+visible = false
 script = ExtResource("10_bsumw")
 
 [node name="Control" type="Control" parent="character_manager/reward_screen" unique_id=1391866545]

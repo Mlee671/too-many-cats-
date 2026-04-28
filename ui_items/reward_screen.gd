@@ -28,5 +28,8 @@ func _process(delta: float) -> void:
 		new_char_button.texture_normal = char_menu
 
 
-func _on_new_char_button_pressed() -> void:
+func _on_new_char_button_pressed() -> main_character:
+	var char_instance : main_character = load(path + current_char + ".tscn").instantiate()
 	self.hide()
+	chars_remaining.erase(current_char)
+	return char_instance
