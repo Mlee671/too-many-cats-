@@ -23,6 +23,7 @@ var stop_moving := false
 
 var knockback_dur := 0.2
 var knockback_vec := Vector2.ZERO
+var mass_coef: float
 
 @onready var wander_timer := $WanderTimer
 @onready var attack_timer := $AttackTimer
@@ -84,7 +85,7 @@ func _move(_delta: float) -> void:
 	animation.play_animation("moving")
 	
 
-func _look_vector_direction(direction: Vector2):
+func _look_vector_direction(direction: Vector2) -> Vector2:
 	# enemy looks left or right based on vector.x
 	if direction.x < 0:
 		visual.scale.x = -1
@@ -182,7 +183,7 @@ func attack_logic() -> void:
 	pass
 
 func apply_knockback(direction: Vector2, scalar: int = KB_AMOUNT) -> void:
-	knockback_vec += (direction * scalar)
+	knockback_vec += (direction * scalar / mass_coef)
 	knockback = true
 	knockback_timer.start(knockback_dur)
 

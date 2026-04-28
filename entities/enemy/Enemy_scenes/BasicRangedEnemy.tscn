@@ -428,5 +428,5 @@ rotation = 1.5707964
 [node name="CollisionShape2D" parent="Hitbox" index="0" unique_id=946156460]
 position = Vector2(-6, -0.9999997)
 
-[node name="attack_offset" type="Marker2D" parent="." index="10" unique_id=549747348]
+[node name="AttackOffset" type="Marker2D" parent="." index="10" unique_id=549747348]
 position = Vector2(-6, -9)

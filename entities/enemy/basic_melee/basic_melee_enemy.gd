@@ -6,6 +6,7 @@ const DAMAGE := 15
 const SPEED := 50.0
 const ACCELERATION := 20.0
 const HP := 100
+const WEIGHT := 0.5
 const KNOCKBACK := 300
 const ATTACKS_PER_SECOND := 1.5
 
@@ -22,6 +23,7 @@ func _ready() -> void:
 	move_speed = SPEED
 	accel = ACCELERATION
 	health.set_health(HP)
+	mass_coef = WEIGHT
 	attack_sprite.visible = false
 	super()
 
