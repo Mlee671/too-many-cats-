@@ -111,12 +111,16 @@ func _on_wander_timeout() -> void:
 ## - removes instance after animation plays
 func _on_death() -> void:
 	animation.no_interrupt = false
-	animation.play_animation("death", true)
+	hitbox.set_deferred("disabled", true)
+	
 	enemyState = BEHAVIOUR.DEAD
 	knockback_vec = Vector2.ZERO
+	set_physics_process(false)
 	collision_layer = 0
+	collision_mask = 0
 	nav_agent.set_velocity(Vector2.ZERO)
-	hitbox.set_deferred("disabled", true)
+
+	animation.play_animation("death", true)
 	await animation.animation_finished
 	get_parent().enemy_died()
 	queue_free()
