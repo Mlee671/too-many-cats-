@@ -29,8 +29,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if raycast_target and not attack_cooldown:
 		attack_visual.look_at(raycast_target.global_position)
-	# once maincharacter enters attack range checks each frame if they are still in range
-	if attack_mode and !attack_cooldown:
+		
+	# checks if character in range, per frame, while in attack phase
+	if attack_mode and !attack_cooldown and enemyState == BEHAVIOUR.ATTACK:
 		var bodies = detect_radius.get_overlapping_bodies()
 		for body in bodies:
 			if body is main_character:

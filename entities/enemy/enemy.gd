@@ -67,7 +67,7 @@ func _physics_process(delta: float) -> void:
 			_look_vector_direction(velocity)
 		
 	elif enemyState == BEHAVIOUR.ATTACK:
-		if !raycast_target.is_inside_tree():
+		if !raycast_target.is_inside_tree(): # locks to new character on swap
 			raycast_target = get_tree().get_first_node_in_group("Player")
 		attack_logic()
 		# look in direction of player
@@ -189,7 +189,6 @@ func _on_knockback_timer_timeout() -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if !knockback:
-		var direction = (global_position - area.global_position).normalized()
 		take_damage(area.deal_damage(), area)
 	else:
 		area.queue_free()
