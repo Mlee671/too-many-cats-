@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://btaq2pm0paxlb"]
+
+[ext_resource type="PackedScene" uid="uid://voyoh38fcwge" path="res://entities/projectile/projectile.tscn" id="1_4rfnj"]
+[ext_resource type="Script" uid="uid://whhxtictbbqj" path="res://entities/enemy/boss/bouncing_proj.gd" id="2_rxvuq"]
+[ext_resource type="Texture2D" uid="uid://diotyurjspa62" path="res://entities/enemy/components/projectile/bullet.png" id="3_vkus6"]
+
+[node name="BouncingProjectile" unique_id=364488218 instance=ExtResource("1_4rfnj")]
+script = ExtResource("2_rxvuq")
+
+[node name="Sprite" parent="." index="1" unique_id=2001656728]
+texture = ExtResource("3_vkus6")
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="3" unique_id=1510508848]
+target_position = Vector2(0, 2)
