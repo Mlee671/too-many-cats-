@@ -395,6 +395,7 @@ size = Vector2(12.8046875, 25.609375)
 
 [node name="BasicMeleeEnemy" unique_id=310538941 instance=ExtResource("1_0tjeh")]
 script = ExtResource("2_f0hik")
+vision_range = 0.0
 
 [node name="shadow" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=167189831]
 offset_left = -6.0

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://w07e2esriw5g" path="res://Starting_room.gd" id="1_wfpje"]
 [ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="2_cyubj"]
 [ext_resource type="Texture2D" uid="uid://0k7bferun6ck" path="res://tilesets/spikes.png" id="3_012bo"]
+[ext_resource type="PackedScene" uid="uid://cf5ky0on7f64r" path="res://entities/enemy/boss/boss_enemy.tscn" id="4_cyubj"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_unu5q"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -605,6 +606,10 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="North_door" unique_id=2146460401]
 position = Vector2(0, -152)
 shape = SubResource("RectangleShape2D_unu5q")
+
+[node name="BossEnemy" parent="." unique_id=310538941 instance=ExtResource("4_cyubj")]
+position = Vector2(-123, 100)
+vision_range = 50.0
 
 [connection signal="body_entered" from="North_door" to="." method="_on_north_door_body_entered"]
 [connection signal="body_exited" from="North_door" to="." method="_on_north_door_body_exited"]
