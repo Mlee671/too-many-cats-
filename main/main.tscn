@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
 [ext_resource type="Script" uid="uid://c0n4ylvv4q22d" path="res://ui_items/reward_screen.gd" id="10_bsumw"]
 [ext_resource type="Texture2D" uid="uid://b6d4o1fnfdppa" path="res://ui_items/hearts.png" id="10_fwcvl"]
+[ext_resource type="FontFile" uid="uid://b1bxbakchn1rb" path="res://ui_assets/Baskic8.otf" id="11_73k8k"]
 [ext_resource type="Script" uid="uid://dj0ivmhjx1p72" path="res://ui_items/replacing_char.gd" id="11_fwcvl"]
 [ext_resource type="Texture2D" uid="uid://djfobp5mqpc6u" path="res://ui_assets/reward_menus.png" id="11_na0o7"]
 [ext_resource type="Texture2D" uid="uid://b6e0sne4u232g" path="res://ui_assets/character_menu_sprite/pink_knight_menu.png" id="12_5xyti"]
@@ -630,26 +631,26 @@ texture = SubResource("AtlasTexture_fwcvl")
 modulate = Color(0.723, 1.274, 0.405, 1)
 layout_mode = 0
 offset_left = 622.0
-offset_top = 233.0
+offset_top = 232.0
 offset_right = 801.0
-offset_bottom = 408.0
+offset_bottom = 407.0
 texture = SubResource("AtlasTexture_5xyti")
 
 [node name="TextureRect2" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=1086176131]
 modulate = Color(0, 3.033895, 5.3314185, 1)
 layout_mode = 1
 anchors_preset = -1
-offset_left = 368.00003
+offset_left = 360.00003
 offset_top = 231.0
-offset_right = 547.0
+offset_right = 539.0
 offset_bottom = 406.0
 texture = SubResource("AtlasTexture_5xyti")
 
 [node name="heal_button" type="TextureButton" parent="character_manager/reward_screen/Control" unique_id=1019663641]
 layout_mode = 0
-offset_left = 396.0
+offset_left = 389.0
 offset_top = 256.0
-offset_right = 521.0
+offset_right = 514.0
 offset_bottom = 381.0
 texture_normal = SubResource("AtlasTexture_na0o7")
 stretch_mode = 0
@@ -657,12 +658,54 @@ stretch_mode = 0
 [node name="new_char_button" type="TextureButton" parent="character_manager/reward_screen/Control" unique_id=1188533475]
 layout_mode = 0
 offset_left = 642.0
-offset_top = 252.0
-offset_right = 782.0
-offset_bottom = 390.0
+offset_top = 251.0
+offset_right = 783.0
+offset_bottom = 389.0
 texture_normal = ExtResource("12_5xyti")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="character_manager/reward_screen/Control" unique_id=751873770]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 408.0
+offset_right = 802.0
+offset_bottom = 501.0
+theme_override_fonts/normal_font = ExtResource("11_73k8k")
+theme_override_font_sizes/normal_font_size = 31
+text = "Add a New Knight"
+fit_content = true
+tab_size = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="character_manager/reward_screen/Control" unique_id=2059243377]
+layout_mode = 0
+offset_left = 398.0
+offset_top = 170.0
+offset_right = 741.0
+offset_bottom = 238.0
+theme_override_fonts/normal_font = ExtResource("11_73k8k")
+theme_override_font_sizes/normal_font_size = 31
+text = "CHOOSE YOUR REWARD"
+fit_content = true
+tab_size = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="character_manager/reward_screen/Control" unique_id=1410140318]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 408.0
+offset_right = 538.0
+offset_bottom = 501.0
+theme_override_fonts/normal_font = ExtResource("11_73k8k")
+theme_override_font_sizes/normal_font_size = 31
+text = "Heal Everyone"
+fit_content = true
+tab_size = 3
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="replacing_char" type="CanvasLayer" parent="character_manager" unique_id=2016501707]
 visible = false
@@ -689,6 +732,7 @@ offset_left = 224.0
 offset_top = 376.0
 offset_right = 392.0
 offset_bottom = 534.0
+texture_normal = ExtResource("12_5xyti")
 stretch_mode = 0
 
 [node name="rep_second_slot" type="TextureButton" parent="character_manager/replacing_char/Control" unique_id=1995607250]
@@ -697,6 +741,7 @@ offset_left = 416.0
 offset_top = 375.0
 offset_right = 584.0
 offset_bottom = 533.0
+texture_normal = ExtResource("12_5xyti")
 stretch_mode = 0
 
 [node name="rep_third_slot" type="TextureButton" parent="character_manager/replacing_char/Control" unique_id=1644744550]
@@ -705,7 +750,22 @@ offset_left = 609.0
 offset_top = 376.0
 offset_right = 777.0
 offset_bottom = 534.0
+texture_normal = ExtResource("12_5xyti")
 stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="character_manager/replacing_char/Control" unique_id=2133106490]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 247.0
+offset_right = 759.0
+offset_bottom = 358.0
+theme_override_fonts/normal_font = ExtResource("11_73k8k")
+theme_override_font_sizes/normal_font_size = 57
+text = "REPLACE A CHARACTER"
+fit_content = true
+tab_size = 3
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_grrlh")]
 visible = false
