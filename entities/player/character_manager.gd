@@ -116,6 +116,7 @@ func _on_new_char_button_pressed() -> void:
 		replacing_char.update_slot_icons(character_nodes)
 		return
 		
+	await reward_screen._on_new_char_button_pressed()
 	var c = reward_screen.get_selected_rand_char()
 
 	load_char(c)

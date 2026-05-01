@@ -1,8 +1,8 @@
 extends CanvasLayer
 # the scene name of each character
 enum characters {blue_knight, yellow_knight, red_knight,pink_knight}
+@onready var new_char_button: TextureButton = $Control/new_char_button
 
-@onready var new_char_button: TextureButton = $Control/TextureRect/new_char_button
 @onready var replacing_char: CanvasLayer = $"../replacing_char"
 
 var path := "res://entities/player/character_scenes/"
@@ -50,14 +50,17 @@ func _on_new_char_button_pressed() -> void:
 	if party_full:
 		replacing_char.show()
 		
-	self.hide()
 	chars_remaining.erase(current_char)
+	self.hide()
+	
 
 func get_selected_rand_char() ->String:
 	return current_char
 	
 func pick_random_char() -> String:
 	current_char = chars_remaining.pick_random()
-	chars_remaining.erase(current_char)
+	if chars_remaining.size() ==4:
+		chars_remaining.erase(current_char)
+	
 	return current_char
 	

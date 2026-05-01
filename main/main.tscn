@@ -8,10 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://djfped5c2log5" path="res://ui_assets/HEALTH_BAR1.png" id="6_67ri8"]
 [ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
 [ext_resource type="Script" uid="uid://c0n4ylvv4q22d" path="res://ui_items/reward_screen.gd" id="10_bsumw"]
+[ext_resource type="Texture2D" uid="uid://b6d4o1fnfdppa" path="res://ui_items/hearts.png" id="10_fwcvl"]
 [ext_resource type="Script" uid="uid://dj0ivmhjx1p72" path="res://ui_items/replacing_char.gd" id="11_fwcvl"]
 [ext_resource type="Texture2D" uid="uid://djfobp5mqpc6u" path="res://ui_assets/reward_menus.png" id="11_na0o7"]
 [ext_resource type="Texture2D" uid="uid://b6e0sne4u232g" path="res://ui_assets/character_menu_sprite/pink_knight_menu.png" id="12_5xyti"]
-[ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entities/player/blue_knight/Idle_Blue.png" id="12_73k8k"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -524,9 +524,9 @@ region = Rect2(286, 0, 551, 327)
 atlas = ExtResource("11_na0o7")
 region = Rect2(286, 346, 143, 149)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n3o0a"]
-atlas = ExtResource("12_73k8k")
-region = Rect2(8, 6, 16, 19)
+[sub_resource type="AtlasTexture" id="AtlasTexture_na0o7"]
+atlas = ExtResource("10_fwcvl")
+region = Rect2(148, 51, 16, 16)
 
 [node name="main" type="Node2D" unique_id=135493927 node_paths=PackedStringArray("character_hud")]
 script = ExtResource("1_8gbba")
@@ -543,6 +543,7 @@ script = ExtResource("4_jjvhh")
 
 [node name="character_hud" type="CanvasLayer" parent="character_manager" unique_id=1692577797]
 layer = 0
+visible = false
 script = ExtResource("6_4dugh")
 
 [node name="Control" type="Control" parent="character_manager/character_hud" unique_id=1392037008]
@@ -617,6 +618,7 @@ offset_right = 1152.0
 offset_bottom = 648.0
 
 [node name="menu_bg" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=2124034751]
+modulate = Color(0.723, 1.274, 0.405, 1)
 layout_mode = 0
 offset_left = 248.0
 offset_top = 132.0
@@ -625,6 +627,7 @@ offset_bottom = 518.0
 texture = SubResource("AtlasTexture_fwcvl")
 
 [node name="TextureRect" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=431421200]
+modulate = Color(0.723, 1.274, 0.405, 1)
 layout_mode = 0
 offset_left = 622.0
 offset_top = 233.0
@@ -632,32 +635,33 @@ offset_right = 801.0
 offset_bottom = 408.0
 texture = SubResource("AtlasTexture_5xyti")
 
-[node name="new_char_button" type="TextureButton" parent="character_manager/reward_screen/Control/TextureRect" unique_id=1188533475]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 18.0
-offset_right = 160.0
-offset_bottom = 158.0
-texture_normal = ExtResource("12_5xyti")
-ignore_texture_size = true
-stretch_mode = 0
-
 [node name="TextureRect2" type="TextureRect" parent="character_manager/reward_screen/Control" unique_id=1086176131]
+modulate = Color(0, 3.033895, 5.3314185, 1)
 layout_mode = 1
 anchors_preset = -1
 offset_left = 368.00003
-offset_top = 227.0
-offset_right = 539.0
-offset_bottom = 425.0
+offset_top = 231.0
+offset_right = 547.0
+offset_bottom = 406.0
 texture = SubResource("AtlasTexture_5xyti")
 
-[node name="heal_button" type="TextureButton" parent="character_manager/reward_screen/Control/TextureRect2" unique_id=1019663641]
+[node name="heal_button" type="TextureButton" parent="character_manager/reward_screen/Control" unique_id=1019663641]
 layout_mode = 0
-offset_left = 17.0
-offset_top = 26.0
-offset_right = 140.99997
-offset_bottom = 168.0
-texture_normal = SubResource("AtlasTexture_n3o0a")
+offset_left = 396.0
+offset_top = 256.0
+offset_right = 521.0
+offset_bottom = 381.0
+texture_normal = SubResource("AtlasTexture_na0o7")
+stretch_mode = 0
+
+[node name="new_char_button" type="TextureButton" parent="character_manager/reward_screen/Control" unique_id=1188533475]
+layout_mode = 0
+offset_left = 642.0
+offset_top = 252.0
+offset_right = 782.0
+offset_bottom = 390.0
+texture_normal = ExtResource("12_5xyti")
+ignore_texture_size = true
 stretch_mode = 0
 
 [node name="replacing_char" type="CanvasLayer" parent="character_manager" unique_id=2016501707]
@@ -671,6 +675,7 @@ offset_right = 1153.0
 offset_bottom = 648.0
 
 [node name="replacing_menu" type="TextureRect" parent="character_manager/replacing_char/Control" unique_id=1606552552]
+modulate = Color(0.723, 1.274, 0.405, 1)
 layout_mode = 0
 offset_left = 161.0
 offset_top = 192.0
@@ -692,7 +697,6 @@ offset_left = 416.0
 offset_top = 375.0
 offset_right = 584.0
 offset_bottom = 533.0
-texture_normal = ExtResource("12_5xyti")
 stretch_mode = 0
 
 [node name="rep_third_slot" type="TextureButton" parent="character_manager/replacing_char/Control" unique_id=1644744550]
@@ -701,7 +705,6 @@ offset_left = 609.0
 offset_top = 376.0
 offset_right = 777.0
 offset_bottom = 534.0
-texture_normal = ExtResource("12_5xyti")
 stretch_mode = 0
 
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_grrlh")]
@@ -715,9 +718,9 @@ offset_bottom = 700.0
 [node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=226070120]
 
 [connection signal="character_removed" from="character_manager/character_hud" to="character_manager" method="_on_character_hud_character_removed"]
-[connection signal="pressed" from="character_manager/reward_screen/Control/TextureRect/new_char_button" to="character_manager" method="_on_new_char_button_pressed"]
-[connection signal="pressed" from="character_manager/reward_screen/Control/TextureRect/new_char_button" to="character_manager/reward_screen" method="_on_new_char_button_pressed"]
-[connection signal="pressed" from="character_manager/reward_screen/Control/TextureRect2/heal_button" to="character_manager" method="_on_heal_button_pressed"]
+[connection signal="pressed" from="character_manager/reward_screen/Control/heal_button" to="character_manager" method="_on_heal_button_pressed"]
+[connection signal="pressed" from="character_manager/reward_screen/Control/new_char_button" to="character_manager" method="_on_new_char_button_pressed"]
+[connection signal="pressed" from="character_manager/reward_screen/Control/new_char_button" to="character_manager/reward_screen" method="_on_new_char_button_pressed"]
 [connection signal="pressed" from="character_manager/replacing_char/Control/rep_first_slot" to="character_manager" method="_on_rep_first_slot_pressed"]
 [connection signal="pressed" from="character_manager/replacing_char/Control/rep_second_slot" to="character_manager" method="_on_rep_second_slot_pressed"]
 [connection signal="pressed" from="character_manager/replacing_char/Control/rep_third_slot" to="character_manager" method="_on_rep_third_slot_pressed"]
