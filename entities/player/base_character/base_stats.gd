@@ -1,7 +1,7 @@
 extends Node
 class_name Stats
 
-const dodge_speed = 250.0
+const dodge_speed = 150.0
 const dodge_accel = 80.0
 const evade_dur = 0.5
 var evade_cd := 1

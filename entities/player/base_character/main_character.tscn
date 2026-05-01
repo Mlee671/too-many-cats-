@@ -530,14 +530,14 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-89, 54)
 
 [sub_resource type="Gradient" id="Gradient_3hn4c"]
-offsets = PackedFloat32Array(0, 0.9917127, 1)
+offsets = PackedFloat32Array(0, 0.54972374, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.57734805, 0.57734805, 0.57734805, 0.42265195, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fgjft"]
 gradient = SubResource("Gradient_3hn4c")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.63, 0.39)
+fill_to = Vector2(0.74, 0.19)
 metadata/_snap_enabled = true
 metadata/_snap_count = 100
 
@@ -589,6 +589,7 @@ texture_filter = 1
 position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]
 root_node = NodePath("../AnimatedSprite2D")
