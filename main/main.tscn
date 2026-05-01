@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://djfped5c2log5" path="res://ui_assets/HEALTH_BAR1.png" id="6_67ri8"]
 [ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
 [ext_resource type="Script" uid="uid://c0n4ylvv4q22d" path="res://ui_items/reward_screen.gd" id="10_bsumw"]
+[ext_resource type="Script" uid="uid://dj0ivmhjx1p72" path="res://ui_items/replacing_char.gd" id="11_fwcvl"]
 [ext_resource type="Texture2D" uid="uid://djfobp5mqpc6u" path="res://ui_assets/reward_menus.png" id="11_na0o7"]
 [ext_resource type="Texture2D" uid="uid://b6e0sne4u232g" path="res://ui_assets/character_menu_sprite/pink_knight_menu.png" id="12_5xyti"]
 [ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entities/player/blue_knight/Idle_Blue.png" id="12_73k8k"]
@@ -657,6 +658,51 @@ offset_top = 26.0
 offset_right = 140.99997
 offset_bottom = 168.0
 texture_normal = SubResource("AtlasTexture_n3o0a")
+stretch_mode = 0
+
+[node name="replacing_char" type="CanvasLayer" parent="character_manager" unique_id=2016501707]
+visible = false
+script = ExtResource("11_fwcvl")
+
+[node name="Control" type="Control" parent="character_manager/replacing_char" unique_id=514687147]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1153.0
+offset_bottom = 648.0
+
+[node name="replacing_menu" type="TextureRect" parent="character_manager/replacing_char/Control" unique_id=1606552552]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 192.0
+offset_right = 838.0
+offset_bottom = 594.0
+texture = SubResource("AtlasTexture_fwcvl")
+
+[node name="first_slot" type="TextureButton" parent="character_manager/replacing_char/Control" unique_id=1280772304]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 376.0
+offset_right = 392.0
+offset_bottom = 534.0
+texture_normal = ExtResource("12_5xyti")
+stretch_mode = 0
+
+[node name="second_slot" type="TextureButton" parent="character_manager/replacing_char/Control" unique_id=1995607250]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 375.0
+offset_right = 584.0
+offset_bottom = 533.0
+texture_normal = ExtResource("12_5xyti")
+stretch_mode = 0
+
+[node name="third_slot" type="TextureButton" parent="character_manager/replacing_char/Control" unique_id=1644744550]
+layout_mode = 0
+offset_left = 609.0
+offset_top = 376.0
+offset_right = 777.0
+offset_bottom = 534.0
+texture_normal = ExtResource("12_5xyti")
 stretch_mode = 0
 
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_grrlh")]

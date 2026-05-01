@@ -3,6 +3,7 @@ extends CanvasLayer
 enum characters {blue_knight, yellow_knight, red_knight,pink_knight}
 
 @onready var new_char_button: TextureButton = $Control/TextureRect/new_char_button
+@onready var replacing_char: CanvasLayer = $"../replacing_char"
 
 var path := "res://entities/player/character_scenes/"
 var menu_path := "res://ui_assets/character_menu_sprite/"
@@ -12,6 +13,7 @@ var menu_path := "res://ui_assets/character_menu_sprite/"
 var chars_remaining = []
 var current_char 
 
+var party_full = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for c in characters:
@@ -24,6 +26,12 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug_open_reward_screen"):
 		
 		self.show()
+		#checks if user party is full to open replacing screen
+		if get_parent().character_nodes.size() == 3:
+			party_full = true
+		else:
+			party_full = false
+		#decides what character is offered that hasnt already been offered
 		if chars_remaining.size() !=0:
 			current_char = pick_random_char()
 			var char_menu : CompressedTexture2D = load(menu_path + current_char + "_menu.png")
@@ -38,6 +46,9 @@ func _process(delta: float) -> void:
 
 func _on_new_char_button_pressed() -> void:
 	
+	if party_full:
+		replacing_char.show()
+		
 	self.hide()
 	chars_remaining.erase(current_char)
 
