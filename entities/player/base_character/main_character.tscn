@@ -487,7 +487,6 @@ shape = SubResource("CapsuleShape2D_bggxh")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1320116309]
 zoom = Vector2(3, 3)
 process_callback = 0
-position_smoothing_enabled = true
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=190503675]
 one_shot = true

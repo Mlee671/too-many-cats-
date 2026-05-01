@@ -43,6 +43,7 @@ func _ready() -> void:
 	animation_tree.active = true
 	
 	
+	
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
@@ -52,6 +53,7 @@ func _process(_delta: float) -> void:
 			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
+
 	var direction = Input.get_vector("left", "right", "up", "down")
 	
 	if Input.is_action_just_pressed("ability"):
@@ -61,6 +63,7 @@ func _physics_process(delta: float) -> void:
 		dodge_movement(delta)
 	else:
 		manage_movement(delta, direction)
+		
 	handle_state()
 	move_and_slide()
 
@@ -82,11 +85,12 @@ func manage_movement(delta: float, direction: Vector2) -> void:
 	movement_vec = lerp(movement_vec, direction * stats.speed, stats.accel * delta)	
 	if Input.is_action_just_pressed("evade"):
 		if(evade_cooldown.time_left == 0):
-			dodge_direction = direction
-			if(direction.normalized() != Vector2.ZERO):
+			dodge_direction = direction.normalized()
+			if(direction.normalized() != Vector2.ZERO) or velocity.length()> 0.5:
+				velocity = dodge_direction * stats.dodge_speed
 				start_dodge_roll()
-			elif velocity.length()> 0.5:
-				start_dodge_roll()
+				return
+
 	# if user presses attack key
 	if Input.is_action_pressed("attack") and not attack_cooldown:
 		attack(get_local_mouse_position())
@@ -104,9 +108,9 @@ func start_dodge_roll():
 	iframe_flag = true
 	
 func dodge_movement(delta: float):
-	var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
-	var dodge_speed = lerp(stats.dodge_speed, stats.dodge_speed * 0.5, dodge_percent * stats.dodge_accel *delta)
-	velocity = dodge_speed * dodge_direction.normalized()
+	#var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
+	velocity = lerp(velocity , Vector2.ZERO, delta)
+
 
 func swap_character() -> void:
 	pass
@@ -172,11 +176,13 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		add_knockback(direction)
 
 func _on_evade_duration_timeout() -> void:
-	iframe_flag = false
-	state.enable_switch()
+	pass
+
 
 
 func _on_evade_cooldown_timeout() -> void:
+	iframe_flag = false
+	state.enable_switch()
 	pass # Replace with function body.
 
 # logic for spikes and pits
