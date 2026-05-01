@@ -46,6 +46,8 @@ func set_main_hp_bar(max_hp: float, current_hp: float) -> void:
 	
 	hp_bars[0] = current_hp/max_hp *100
 	
+func set_selected_hp_bar(max_hp: float, index: int) -> void:
+	hp_bars[index] = max_hp
 	
 func switch_hp_bars() -> void:
 	#left shifts the hp array

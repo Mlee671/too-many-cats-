@@ -7,7 +7,7 @@ class_name character_manager
 @onready var replacing_char: CanvasLayer = $replacing_char
 const DODGING_ENUM_INDEX = 2
 
-
+signal healing_pressed_signal
 
 # the scene name of each character
 enum characters {blue_knight, yellow_knight, red_knight,pink_knight}
@@ -131,7 +131,7 @@ func _on_character_hud_character_removed() -> void:
 func load_char(c : String):
 	var char_instance : main_character = load(path + c + ".tscn").instantiate()
 	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
-	
+	#add_child(char_instance)
 	character_hud.add_icon(char_icon)
 	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
 	character_nodes.append(char_instance)
@@ -166,3 +166,14 @@ func _on_rep_third_slot_pressed() -> void:
 	var c = reward_screen.get_selected_rand_char()
 	load_char(c)
 	replacing_char.hide()
+
+
+func _on_heal_button_pressed() -> void:
+	var count = 0
+	for i in character_nodes:
+		
+		i.heal_to_full()
+		character_hud.set_selected_hp_bar(i.stats.max_hp, count)
+		count +=1
+	reward_screen.hide()
+	
