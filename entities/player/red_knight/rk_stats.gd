@@ -5,7 +5,6 @@ func _ready() -> void:
 	speed = 100
 	hp = 100
 	
-	evade_movement_scaling = 1.75
 
 	fire_cd =  0.1
 	ability_cd = 1
