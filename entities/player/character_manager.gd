@@ -14,7 +14,7 @@ enum characters {blue_knight, yellow_knight, red_knight,pink_knight}
 
 var path := "res://entities/player/character_scenes/"
 var icon_path := "res://entities/player/character_icons/"
-
+var menu_icon_path := "res://ui_assets/character_menu_sprite/"
 var game_over = false
 #needed to fix a bug 
 var repeat = 1
@@ -109,11 +109,15 @@ func get_next() -> main_character:
 
 #adds character to party when selected in rewards
 func _on_new_char_button_pressed() -> void:
-	#function only runs if < 3 party members
+	
+	#only adds here if < 3 party members, 
 	if character_nodes.size() == 3:
+		#update the icons that will be shown in the replacement screen
+		replacing_char.update_slot_icons(character_nodes)
 		return
 		
 	var c = reward_screen.get_selected_rand_char()
+
 	load_char(c)
 
 
@@ -127,9 +131,11 @@ func _on_character_hud_character_removed() -> void:
 func load_char(c : String):
 	var char_instance : main_character = load(path + c + ".tscn").instantiate()
 	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
+	
 	character_hud.add_icon(char_icon)
 	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
 	character_nodes.append(char_instance)
+
 
 func _on_rep_first_slot_pressed() -> void:
 	#swap characters so that the first char doesnt stay on screen
@@ -144,3 +150,19 @@ func _on_rep_first_slot_pressed() -> void:
 	load_char(c)
 	replacing_char.hide()
 	
+
+
+func _on_rep_second_slot_pressed() -> void:
+	character_hud.kill_indexed_character(1)
+	character_nodes.remove_at(1)
+	var c = reward_screen.get_selected_rand_char()
+	load_char(c)
+	replacing_char.hide()
+
+
+func _on_rep_third_slot_pressed() -> void:
+	character_hud.kill_indexed_character(2)
+	character_nodes.remove_at(2)
+	var c = reward_screen.get_selected_rand_char()
+	load_char(c)
+	replacing_char.hide()

@@ -684,7 +684,6 @@ offset_left = 224.0
 offset_top = 376.0
 offset_right = 392.0
 offset_bottom = 534.0
-texture_normal = ExtResource("12_5xyti")
 stretch_mode = 0
 
 [node name="rep_second_slot" type="TextureButton" parent="character_manager/replacing_char/Control" unique_id=1995607250]
@@ -719,3 +718,5 @@ offset_bottom = 700.0
 [connection signal="pressed" from="character_manager/reward_screen/Control/TextureRect/new_char_button" to="character_manager" method="_on_new_char_button_pressed"]
 [connection signal="pressed" from="character_manager/reward_screen/Control/TextureRect/new_char_button" to="character_manager/reward_screen" method="_on_new_char_button_pressed"]
 [connection signal="pressed" from="character_manager/replacing_char/Control/rep_first_slot" to="character_manager" method="_on_rep_first_slot_pressed"]
+[connection signal="pressed" from="character_manager/replacing_char/Control/rep_second_slot" to="character_manager" method="_on_rep_second_slot_pressed"]
+[connection signal="pressed" from="character_manager/replacing_char/Control/rep_third_slot" to="character_manager" method="_on_rep_third_slot_pressed"]

@@ -12,7 +12,7 @@ var menu_path := "res://ui_assets/character_menu_sprite/"
 
 var chars_remaining = []
 var current_char 
-
+var party_menu_icons =[]
 var party_full = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -43,8 +43,9 @@ func _process(delta: float) -> void:
 			new_char_button.disabled = true
 			
 
-
+#shows the character replacing screen if the party has 3 members
 func _on_new_char_button_pressed() -> void:
+
 	
 	if party_full:
 		replacing_char.show()
