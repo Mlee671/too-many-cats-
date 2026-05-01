@@ -79,9 +79,7 @@ func remove_char(position:int):
 		second_char.texture = null
 		second_hp_bar.value = 0
 		
-func kill_first_char():
-	if self.hp_bars.size() == 1:
-		self.hide()
+func lose_game():
 		self.PROCESS_MODE_DISABLED
 		
 		var scene : PackedScene = load("res://main_menu/main_menu.tscn")
@@ -93,14 +91,27 @@ func kill_first_char():
 		await get_tree().create_timer(1.2).timeout
 		await get_tree().process_frame
 		get_tree().change_scene_to_packed(scene)
+	
+#kills first character and checks if all char dead. used for taking damage
+func kill_first_char():
+	if self.hp_bars.size() == 1:
+		self.hide()
+		lose_game()
 		return
 	
 	Input.action_press("character_change")
 	Input.action_release("character_change")
 	#timeout needed because otherwise it runs the remove_char before the switch 
-	await get_tree().create_timer(0.2).timeout
+	#await get_tree().create_timer(0.2).timeout
+	await get_parent()._do_switch()
 	
 	self.remove_char(hp_bars.size()-1)
+
+	emit_signal("character_removed")
+
+#used to remove any character from the hud
+func kill_indexed_character(index : int):
+	self.remove_char(index)
 
 	emit_signal("character_removed")
 	

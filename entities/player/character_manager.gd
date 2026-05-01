@@ -4,7 +4,9 @@ class_name character_manager
 #signal swapping_character
 @onready var character_hud: CanvasLayer = $character_hud
 @onready var reward_screen: CanvasLayer = $reward_screen
+@onready var replacing_char: CanvasLayer = $replacing_char
 const DODGING_ENUM_INDEX = 2
+
 
 
 # the scene name of each character
@@ -107,12 +109,12 @@ func get_next() -> main_character:
 
 #adds character to party when selected in rewards
 func _on_new_char_button_pressed() -> void:
+	#function only runs if < 3 party members
+	if character_nodes.size() == 3:
+		return
+		
 	var c = reward_screen.get_selected_rand_char()
-	var char_instance : main_character = load(path + c + ".tscn").instantiate()
-	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
-	character_hud.add_icon(char_icon)
-	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
-	character_nodes.append(char_instance)
+	load_char(c)
 
 
 func _on_character_hud_character_removed() -> void:
@@ -120,3 +122,25 @@ func _on_character_hud_character_removed() -> void:
 		if c.is_alive == false:
 			print(c)
 			character_nodes.erase(c)
+			
+#takes a string and then finds the corresponding scene to load including hud stuff
+func load_char(c : String):
+	var char_instance : main_character = load(path + c + ".tscn").instantiate()
+	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
+	character_hud.add_icon(char_icon)
+	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
+	character_nodes.append(char_instance)
+
+func _on_rep_first_slot_pressed() -> void:
+	#swap characters so that the first char doesnt stay on screen
+	Input.action_press("character_change")
+	Input.action_release("character_change")
+	#timeout needed because otherwise it runs the remove_char before the switch 
+	await _do_switch()
+	
+	character_hud.kill_indexed_character(character_nodes.size()-1)
+	character_nodes.remove_at(character_nodes.size()-1)
+	var c = reward_screen.get_selected_rand_char()
+	load_char(c)
+	replacing_char.hide()
+	
