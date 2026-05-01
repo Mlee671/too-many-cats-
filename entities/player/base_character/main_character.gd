@@ -45,6 +45,7 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
+
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
 		if get_local_mouse_position().x < 0:
@@ -53,19 +54,19 @@ func _process(_delta: float) -> void:
 			char_visual.scale.x = 1
 	
 func _physics_process(delta: float) -> void:
-
 	var direction = Input.get_vector("left", "right", "up", "down")
 	
 	if Input.is_action_just_pressed("ability"):
 		character_ability()
-	
-	if evade_duration.time_left > 0:
-		dodge_movement(delta)
-	else:
-		manage_movement(delta, direction)
-		
+	if state.player_state != state.STATES.SWITCHING:
+		if evade_duration.time_left > 0:
+			dodge_movement(delta)
+		else:
+			manage_movement(delta, direction)
+			
+
+		move_and_slide()
 	handle_state()
-	move_and_slide()
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
@@ -113,6 +114,8 @@ func dodge_movement(delta: float):
 
 
 func swap_character() -> void:
+	state.switch_to(States.STATES.SWITCHING)
+	state.disable_switch()
 	pass
 
 ## Creates bullet instance and fires from sprite to target vector.

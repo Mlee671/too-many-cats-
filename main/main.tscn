@@ -591,6 +591,9 @@ offset_bottom = 162.0
 nine_patch_stretch = true
 texture_progress = ExtResource("6_67ri8")
 
+[node name="swap_timer" type="Timer" parent="character_manager" unique_id=386379360]
+one_shot = true
+
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_grrlh")]
 z_index = 2
 offset_left = -576.0
@@ -599,3 +602,5 @@ offset_right = 1216.0
 offset_bottom = 724.0
 
 [node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=226070120]
+
+[connection signal="timeout" from="character_manager/swap_timer" to="character_manager" method="_on_swap_timer_timeout"]

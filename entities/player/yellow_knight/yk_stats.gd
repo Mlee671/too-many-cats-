@@ -3,7 +3,7 @@ extends Stats
 var ability_dur := 5.0
 
 func _ready() -> void:
-	speed = 400
+	speed = 50
 	hp = 150
 	max_hp = 150
 
