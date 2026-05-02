@@ -5,6 +5,7 @@ const PROJECTILE := preload("res://entities/enemy/boss/bouncing_proj.tscn")
 const TELEPORT := preload("res://entities/enemy/boss/teleport_marker.tscn")
 
 var teleport_cooldown := false
+var active_traps := []
 
 var shots_remaining := 3
 var first_attack_flag := true
@@ -33,16 +34,18 @@ func attack_logic() -> void:
 	if first_attack_flag:
 		first_attack_flag = false
 		ranged_timer.start(1)
-	if attack_cooldown:
-		if not teleport_cooldown:
+		
+	if not teleport_cooldown:
 			var tp := TELEPORT.instantiate()
+			active_traps.append(tp)
 			get_parent().add_child(tp)
 			move_to_front()
 			tp.global_position = global_position
 			tp.player_found.connect(_on_teleport_trap_activation)
 			teleport_cooldown = true
 			teleport_timer.start(10)
-
+			
+	if attack_cooldown:
 		if frame % 10 == 0:
 			var player_boss_vec := raycast_target.global_position - global_position
 			var player_boss_dist := player_boss_vec.length()
@@ -97,14 +100,22 @@ func _on_ranged_timer_timeout() -> void:
 	shots_remaining = 3
 	ranged_timer.start(3.0 * (float(health.current_health) / float(health.max_health)))
 	
-func _on_teleport_trap_activation(coords: Vector2):
+func _on_teleport_trap_activation(caller: TeleportMarker, coords: Vector2):
 	global_position = coords
 	nav_agent.set_velocity(Vector2.ZERO)
 	velocity = Vector2.ZERO
 	frame = -1 # auto re-register pathing next frame
+	# allows immediate attack next frame
 	attack_cooldown = false
 	attack_timer.stop()
+	# removes trap from traplist
+	active_traps.erase(caller)
 	
+func _on_death() -> void:
+	for trap in active_traps:
+		trap.queue_free()
+	super()
+
 
 func _on_teleport_timer_timeout() -> void:
 	teleport_cooldown = false
