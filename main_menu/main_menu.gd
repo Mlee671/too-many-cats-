@@ -3,7 +3,7 @@ extends Control
 @export var background_image: TextureRect
 
 @export var on_ready_delay = 0
-@export var fade_transition_scale = 10
+@export var fade_transition_scale = 1
 @export var fade_inbetween_wait = 0
 
 

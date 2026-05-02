@@ -18,6 +18,7 @@ const PROJECTILE := preload("res://entities/player/attacks/player_projectile.tsc
 
 @onready var character_hud: CanvasLayer = $"../character_hud"
 
+
 # enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 
 var iframe_flag := false
@@ -38,6 +39,7 @@ var dodge_direction := Vector2.ZERO
 
 
 func _ready() -> void:
+	
 	state.switch_to(state.STATES.IDLE)
 	add_to_group("Player")
 	animation_tree.active = true
@@ -78,6 +80,7 @@ func _on_ability_timeout() -> void:
 func _on_iframe_timeout() -> void:
 	iframe_flag = false
 	char_visual.modulate = Color(1,1,1)
+	
 
 func manage_movement(delta: float, direction: Vector2) -> void:
 	# gets directional vector based on keypress
@@ -155,7 +158,8 @@ func take_damage(amount: int):
 		iframe_flag = true
 		character_hud.set_main_hp_bar(stats.max_hp, stats.hp - amount)
 		stats.hp -= amount
-	
+		
+		print(stats.hp)
 		if stats.hp <=0:
 			is_alive = false
 			character_hud.kill_first_char()
@@ -194,3 +198,11 @@ func _on_hazard_box_body_entered(body: Node2D) -> void:
 		if body is TileMapLayer:
 			take_damage(10)
 			add_knockback(-velocity.normalized() * DAMAGE_KNOCKBACK * 2)
+			
+func heal_to_full()->void:
+	
+	
+	stats.hp = stats.max_hp
+	
+	
+	

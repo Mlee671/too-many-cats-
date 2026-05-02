@@ -12,7 +12,7 @@ var hp_bars = []
 var icons_array = []
 var cd_bars = []
 var visibility = [0,0,0]
-
+signal character_removed
 
 
 
@@ -46,6 +46,8 @@ func set_main_hp_bar(max_hp: float, current_hp: float) -> void:
 	
 	hp_bars[0] = current_hp/max_hp *100
 	
+func set_selected_hp_bar(max_hp: float, index: int) -> void:
+	hp_bars[index] = max_hp
 	
 func switch_hp_bars() -> void:
 	#left shifts the hp array
@@ -79,11 +81,9 @@ func remove_char(position:int):
 		second_char.texture = null
 		second_hp_bar.value = 0
 		
-func kill_first_char():
-	if self.hp_bars.size() == 1:
-		self.hide()
+func lose_game():
 		self.PROCESS_MODE_DISABLED
-		emit_signal("all_char_dead")
+		
 		var scene : PackedScene = load("res://main_menu/main_menu.tscn")
 		print("all characters dead")
 		
@@ -93,10 +93,27 @@ func kill_first_char():
 		await get_tree().create_timer(1.2).timeout
 		await get_tree().process_frame
 		get_tree().change_scene_to_packed(scene)
+	
+#kills first character and checks if all char dead. used for taking damage
+func kill_first_char():
+	if self.hp_bars.size() == 1:
+		self.hide()
+		lose_game()
 		return
-
+	
 	Input.action_press("character_change")
 	Input.action_release("character_change")
 	#timeout needed because otherwise it runs the remove_char before the switch 
-	await get_tree().create_timer(0.2).timeout
+	#await get_tree().create_timer(0.2).timeout
+	await get_parent()._do_switch()
+	
 	self.remove_char(hp_bars.size()-1)
+
+	emit_signal("character_removed")
+
+#used to remove any character from the hud
+func kill_indexed_character(index : int):
+	self.remove_char(index)
+
+	emit_signal("character_removed")
+	

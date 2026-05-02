@@ -99,7 +99,7 @@ one_shot = true
 sprite_frames = SubResource("SpriteFrames_fyko8")
 frame = 3
 
-[node name="Stats" parent="." index="8" unique_id=201965470]
+[node name="Stats" parent="." index="9" unique_id=201965470]
 script = ExtResource("4_qs2h1")
 
 [connection signal="timeout" from="AbilityUptimeTimer" to="." method="_on_ability_uptime_timeout"]
