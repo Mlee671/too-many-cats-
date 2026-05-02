@@ -312,6 +312,18 @@ tracks/10/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Visuals/AnimatedSprite2D:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_6tvfg"]
 resource_name = "attack"
@@ -450,6 +462,43 @@ tracks/10/keys = {
 
 [sub_resource type="Animation" id="Animation_msx14"]
 resource_name = "damaged"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"move"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_ideb3"]
 resource_name = "death"
@@ -635,13 +684,13 @@ one_shot = true
 
 [node name="TeleportTimer" type="Timer" parent="." index="7" unique_id=992207239]
 
-[node name="NavigationAgent2D" parent="." index="8" unique_id=221465016]
-debug_enabled = true
-
 [node name="VisionRadius" parent="." index="9" unique_id=883219311]
 visible = false
 
-[node name="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(417678541) index="0" unique_id=946156460]
+[node name="Hitbox" parent="." index="11" unique_id=417678541]
+collision_layer = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0" unique_id=946156460]
 position = Vector2(0, -18)
 rotation = 0.0
 

@@ -24,7 +24,8 @@ var frame := 0
 func _ready() -> void:
 	move_speed = 110
 	accel = 20
-	health.set_health(100)
+	health.set_health(1000)
+	mass_coef = 3
 	super()
 	attack_zone.monitoring = true
 
