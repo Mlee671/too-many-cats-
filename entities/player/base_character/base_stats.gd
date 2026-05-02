@@ -1,5 +1,6 @@
 extends Node
 class_name Stats
+# All dur/cd measurements are in seconds
 
 const dodge_speed = 150.0
 const dodge_accel = 80.0
@@ -7,6 +8,9 @@ var evade_dur = 0.5
 var evade_cd := 1
 
 const accel = 40
+
+# how quick the swap animation plays in seconds
+var swap_dur = 0.5
 
 @export var speed := 200
 var hp := 100

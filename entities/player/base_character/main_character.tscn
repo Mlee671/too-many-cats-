@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entities/player/blue_knight/Idle_Blue.png" id="2_hj1g0"]
 [ext_resource type="Texture2D" uid="uid://civxms4kcr2yc" path="res://entities/player/blue_knight/Run_Blue1.png" id="3_1frpi"]
 [ext_resource type="Script" uid="uid://b1ndc5sne6j2m" path="res://entities/player/base_character/base_stats.gd" id="3_c4o6u"]
-[ext_resource type="Script" path="res://entities/player/base_character/animation_tree.gd" id="5_fgjft"]
+[ext_resource type="Script" uid="uid://q6fl6yqkf1ms" path="res://entities/player/base_character/animation_tree.gd" id="5_fgjft"]
 [ext_resource type="Script" uid="uid://bmjwwihnu1eqa" path="res://entities/player/base_character/States.gd" id="6_g607o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
@@ -454,19 +454,19 @@ nodes/run_speed/node = SubResource("AnimationNodeTimeScale_a7a4j")
 nodes/run_speed/position = Vector2(740, 200)
 node_connections = [&"output", 0, &"run_speed", &"run_speed", 0, &"Animation"]
 
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_3hn4c"]
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fgjft"]
 animation = &"swap"
 
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_3hn4c"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kifj0"]
-graph_offset = Vector2(-309.71942, 149.02393)
+graph_offset = Vector2(-271.86078, 118.8981)
 nodes/output/position = Vector2(352, 208)
 nodes/swap/node = SubResource("AnimationNodeAnimation_fgjft")
 nodes/swap/position = Vector2(-80, 224)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_3hn4c")
-nodes/TimeScale/position = Vector2(144, 176)
-node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"swap"]
+nodes/swap_speed/node = SubResource("AnimationNodeTimeScale_3hn4c")
+nodes/swap_speed/position = Vector2(144, 176)
+node_connections = [&"output", 0, &"swap_speed", &"swap_speed", 0, &"swap"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4x0rx"]
 advance_mode = 2
@@ -527,7 +527,7 @@ states/run/position = Vector2(584, 157)
 states/swap/node = SubResource("AnimationNodeBlendTree_kifj0")
 states/swap/position = Vector2(327.4, 325.6)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t"), "idle", "swap", SubResource("AnimationNodeStateMachineTransition_jjrvv"), "swap", "idle", SubResource("AnimationNodeStateMachineTransition_1buin"), "swap", "run", SubResource("AnimationNodeStateMachineTransition_ochx4"), "run", "swap", SubResource("AnimationNodeStateMachineTransition_hqk7x")]
-graph_offset = Vector2(-89, 54)
+graph_offset = Vector2(-290, 185)
 
 [sub_resource type="Gradient" id="Gradient_3hn4c"]
 offsets = PackedFloat32Array(0, 0.54972374, 1)
@@ -557,6 +557,7 @@ shape = SubResource("CapsuleShape2D_bggxh")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1320116309]
 zoom = Vector2(3, 3)
 process_callback = 0
+position_smoothing_enabled = true
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=190503675]
 one_shot = true
@@ -604,7 +605,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/dodge/dodge_speed/scale = 1.0
 parameters/idle/TimeScale/scale = 1.0
 parameters/run/run_speed/scale = 1.0
-parameters/swap/TimeScale/scale = 1.0
+parameters/swap/swap_speed/scale = 1.0
 script = ExtResource("5_fgjft")
 
 [node name="TextureRect" type="TextureRect" parent="CharacterVisuals" unique_id=884656869]
