@@ -8,7 +8,8 @@
 script = ExtResource("2_rxvuq")
 
 [node name="Sprite" parent="." index="1" unique_id=2001656728]
+scale = Vector2(1.125, 1.125)
 texture = ExtResource("3_vkus6")
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="3" unique_id=1510508848]
-target_position = Vector2(0, 2)
+target_position = Vector2(0, 5)

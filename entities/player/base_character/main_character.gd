@@ -161,13 +161,16 @@ func handle_state():
 		state.switch_to(state.STATES.IDLE)
 
 # function for detecting attacks and extracting the damage done to main character
-func _on_hitbox_area_entered(area: Area2D) -> void:
+func _on_hitbox_area_entered(area: Area2D, knockback_amount = 200) -> void:
+	print(knockback_amount)
 	if !iframe_flag:
 		var direction
 		if area is Projectile:
-			direction = area.velocity.normalized() * DAMAGE_KNOCKBACK
+			direction = area.velocity.normalized() * knockback_amount
+		elif area is BossMelee: # scuffed but too late to rework damage system
+			direction = (global_position - area.global_position).normalized() * 1200
 		else:
-			direction = (global_position - area.global_position).normalized() * DAMAGE_KNOCKBACK
+			direction = (global_position - area.global_position).normalized() * knockback_amount
 		take_damage(area.deal_damage())
 		add_knockback(direction)
 
