@@ -29,6 +29,10 @@ func update_time_scale():
 	var swap_speed_ratio = swap_animation.length / stats.swap_dur
 	set("parameters/swap/swap_speed/scale", swap_speed_ratio)
 	
+	var ability_animation = $"../AnimationPlayer".get_animation("ability")
+	var ability_speed_ratio = ability_animation.length / stats.ability_dur
+	set("parameters/ability/ability_speed/scale", ability_speed_ratio)
+	
 	
 	
 	
