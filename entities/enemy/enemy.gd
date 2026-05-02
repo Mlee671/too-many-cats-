@@ -51,6 +51,9 @@ func _physics_process(delta: float) -> void:
 	# should not go through move logic if dead
 	if not stop_moving:
 		_move(delta)
+	else:
+		nav_agent.set_velocity(Vector2.ZERO)
+		velocity = Vector2.ZERO
 
 	if enemyState == BEHAVIOUR.WANDER:
 		if vision.is_enabled() and vision.can_see_player(raycast_target):

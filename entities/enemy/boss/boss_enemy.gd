@@ -28,7 +28,6 @@ func _ready() -> void:
 func attack_logic() -> void:
 	# first time, start ranged attack timer
 	frame += 1
-	print(raycast_target.global_position, " : ", nav_agent.target_position)
 	if first_attack_flag:
 		first_attack_flag = false
 		ranged_timer.start(1)
@@ -49,24 +48,29 @@ func attack_logic() -> void:
 			nav_agent.target_position = global_position + target_shift
 		
 	else:
-		#print((raycast_target.global_position - global_position).length())
-		if frame % 30 == 0:
+		if frame % 10 == 0:
 			print("chasing")
-			print(nav_agent.target_position)
 			nav_agent.target_position = raycast_target.global_position
 		if (raycast_target.global_position - global_position).length() < 40: # in range
-			#print("wdw")
 			stop_moving = true
+			animation.no_interrupt = false
 			animation.play_animation("attack", true)
-			#print("finished")
 			await animation.animation_finished
 			animation.no_interrupt = false # brute force lock
 			stop_moving = false
-			animation.play_animation("RESET")
-			# path out/away
+			# quite scuffed, yes
+			$AttackZone/box1.disabled = true
+			$AttackZone/box2.disabled = true
+			$AttackZone/box3.disabled = true
+			$AttackZone/box4.disabled = true
+			$AttackZone/box5.disabled = true
+			$AttackZone/AttackSprite.frame = 0
+			$AttackZone/AttackSprite.visible = false
+			
+			# determines orbit direction, random cw or acw
 			orbit_dir = (-1) ** randi_range(0,1)
+			
 			attack_cooldown = true
-			print(attack_cooldown)
 			attack_timer.start(5)
 		
 	
@@ -75,7 +79,8 @@ func attack_logic() -> void:
 func _on_ranged_timer_timeout() -> void:
 	if shots_remaining:
 		shots_remaining -= 1
-		ranged_timer.start(0.2)
+		print(float(health.current_health / health.max_health), health.current_health, health.max_health)
+		ranged_timer.start(0.2 * (float(health.current_health) / float(health.max_health)))
 		
 		var proj := PROJECTILE.instantiate()
 		get_parent().add_child(proj)
@@ -83,5 +88,5 @@ func _on_ranged_timer_timeout() -> void:
 		proj.set_velocity(100 * (raycast_target.global_position - proj.global_position).normalized())
 		return
 	shots_remaining = 3
-	ranged_timer.start(3)
+	ranged_timer.start(3.0 * (float(health.current_health) / float(health.max_health)))
 	
