@@ -5,8 +5,8 @@
 [ext_resource type="Script" uid="uid://dssaojjj4u2wk" path="res://entities/enemy/basic_melee/attack.gd" id="4_5nna6"]
 [ext_resource type="Texture2D" uid="uid://dg2le5h20hin1" path="res://entities/enemy/basic_melee/melee_idle.png" id="4_f5ifp"]
 [ext_resource type="Texture2D" uid="uid://cq5xmes5gqfg0" path="res://entities/enemy/basic_melee/ikoiku_itchio_mouse_v2.png" id="4_xydfa"]
-[ext_resource type="Texture2D" uid="uid://dmxoi4egpv14x" path="res://entities/enemy/basic_melee/melee_hitbox.png" id="5_3cfdl"]
 [ext_resource type="Texture2D" uid="uid://ddn8l63rfdqoj" path="res://entities/enemy/basic_melee/melee_cat_run.png" id="5_5jfmb"]
+[ext_resource type="Texture2D" uid="uid://bt3y02gmsgtap" path="res://entities/enemy/basic_melee/melee_cat_attack.png" id="7_5jfmb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5jfmb"]
 atlas = ExtResource("4_f5ifp")
@@ -391,7 +391,7 @@ _data = {
 radius = 21.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g44g6"]
-size = Vector2(12.8046875, 25.609375)
+size = Vector2(9.402344, 22)
 
 [node name="BasicMeleeEnemy" unique_id=310538941 instance=ExtResource("1_0tjeh")]
 script = ExtResource("2_f0hik")
@@ -423,29 +423,28 @@ one_shot = true
 [node name="AttackComponent" type="Node2D" parent="." index="10" unique_id=2140668875]
 
 [node name="AttackDetect" type="Area2D" parent="AttackComponent" index="0" unique_id=402176187]
-visible = false
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 
 [node name="AttackRadius" type="CollisionShape2D" parent="AttackComponent/AttackDetect" index="0" unique_id=811149308]
+position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_y8sat")
 
 [node name="Attackbox" type="Area2D" parent="AttackComponent" index="1" unique_id=477221986]
-visible = false
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("4_5nna6")
 
 [node name="AttackRect" type="CollisionShape2D" parent="AttackComponent/Attackbox" index="0" unique_id=989070051]
-position = Vector2(16, 0)
+position = Vector2(14.298828, 0)
 shape = SubResource("RectangleShape2D_g44g6")
 
 [node name="AttackSprite" type="Sprite2D" parent="AttackComponent" index="2" unique_id=334466102]
-visible = false
-position = Vector2(16.000002, 0)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("5_3cfdl")
+position = Vector2(15, 0)
+scale = Vector2(1.009375, 1.4585937)
+texture = ExtResource("7_5jfmb")
+hframes = 4
 
 [node name="Hitbox" parent="." index="11" unique_id=417678541]
 visible = false

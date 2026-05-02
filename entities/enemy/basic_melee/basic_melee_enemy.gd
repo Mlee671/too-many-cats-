@@ -65,6 +65,7 @@ func _on_attack_render_timeout() -> void:
 # once sprites are in and the attack more circular this will fix itself mostly 
 func melee_attack():
 		attack_sprite.visible = true
+		attack_sprite.frame = randi() % 4
 		attack_box.toggle_disable(false)
 		animation.play_animation("attack", true)
 		attack_cooldown = true

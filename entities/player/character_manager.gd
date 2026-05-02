@@ -49,7 +49,7 @@ func _physics_process(_delta: float) -> void:
 		print(get_child(0).state.player_state)
 		if get_child(0).state.player_state != DODGING_ENUM_INDEX:
 			get_child(0).swap_character()
-			$swap_timer.start()
+			$swap_timer.start(get_child(0).stats.swap_dur)
 		
 
 func _do_switch(target_character: String = "") -> void:
