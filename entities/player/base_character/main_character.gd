@@ -6,9 +6,10 @@ class_name main_character
 const PROJECTILE := preload("res://entities/player/attacks/player_projectile.tscn")
 
 @onready var attack_timer := $AttackTimer
-@onready var evade_cooldown := $EvadeDuration
-@onready var evade_duration := $EvadeCooldown
-@onready var ability_timer := $AbilityTimer
+@onready var evade_cooldown := $EvadeCooldown
+@onready var evade_duration := $EvadeDuration 
+@onready var ability_cooldown_timer := $AbilityTimer
+@onready var ability_duration_timer := $AbilityDuration
 @onready var iframe_timer := $IFrameTimer
 #@onready var animation_player := $CharacterVisuals/AnimatedSprite2D
 @onready var char_visual := $CharacterVisuals
@@ -17,6 +18,7 @@ const PROJECTILE := preload("res://entities/player/attacks/player_projectile.tsc
 @onready var animation_tree := $CharacterVisuals/AnimationTree
 
 @onready var character_hud: CanvasLayer = $"../character_hud"
+
 
 # enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
 
@@ -38,12 +40,15 @@ var dodge_direction := Vector2.ZERO
 
 
 func _ready() -> void:
+	
 	state.switch_to(state.STATES.IDLE)
 	add_to_group("Player")
 	animation_tree.active = true
 	
 	
+	
 func _process(_delta: float) -> void:
+
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
 		if get_local_mouse_position().x < 0:
@@ -54,26 +59,30 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
 	
-	if Input.is_action_just_pressed("ability"):
+	if Input.is_action_just_pressed("ability") and ability_cooldown_timer.time_left == 0:
 		character_ability()
-	
-	if evade_duration.time_left > 0:
-		dodge_movement(delta)
-	else:
-		manage_movement(delta, direction)
+		
+		
+	if state.player_state != state.STATES.SWITCHING:
+		if evade_duration.time_left > 0:
+			dodge_movement(delta)
+		else:
+			manage_movement(delta, direction)
+			
+
+		move_and_slide()
 	handle_state()
-	move_and_slide()
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
 	attack_cooldown = false
 
-func _on_ability_timeout() -> void:
-	ability_cooldown = false
+
 	
 func _on_iframe_timeout() -> void:
 	iframe_flag = false
 	char_visual.modulate = Color(1,1,1)
+	
 
 func manage_movement(delta: float, direction: Vector2) -> void:
 	# gets directional vector based on keypress
@@ -82,11 +91,12 @@ func manage_movement(delta: float, direction: Vector2) -> void:
 	movement_vec = lerp(movement_vec, direction * stats.speed, stats.accel * delta)	
 	if Input.is_action_just_pressed("evade"):
 		if(evade_cooldown.time_left == 0):
-			dodge_direction = direction
-			if(direction.normalized() != Vector2.ZERO):
+			dodge_direction = direction.normalized()
+			if(direction.normalized() != Vector2.ZERO) or velocity.length()> 0.5:
+				velocity = dodge_direction * stats.dodge_speed
 				start_dodge_roll()
-			elif velocity.length()> 0.5:
-				start_dodge_roll()
+				return
+
 	# if user presses attack key
 	if Input.is_action_pressed("attack") and not attack_cooldown:
 		attack(get_local_mouse_position())
@@ -104,11 +114,13 @@ func start_dodge_roll():
 	iframe_flag = true
 	
 func dodge_movement(delta: float):
-	var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
-	var dodge_speed = lerp(stats.dodge_speed, stats.dodge_speed * 0.5, dodge_percent * stats.dodge_accel *delta)
-	velocity = dodge_speed * dodge_direction.normalized()
+	#var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
+	velocity = lerp(velocity , Vector2.ZERO, delta)
+
 
 func swap_character() -> void:
+	state.switch_to(States.STATES.SWITCHING)
+	state.disable_switch()
 	pass
 
 ## Creates bullet instance and fires from sprite to target vector.
@@ -134,7 +146,10 @@ func attack(target: Vector2) -> void:
 
 
 func character_ability():
-	pass
+	ability_cooldown_timer.start(stats.ability_cd)
+	ability_duration_timer.start(stats.ability_dur)
+	state.switch_to(States.STATES.USING_ABILITY)
+	state.disable_switch()
 	# override in child
 
 func add_knockback(vec: Vector2) -> void:
@@ -148,7 +163,8 @@ func take_damage(amount: int):
 		iframe_flag = true
 		character_hud.set_main_hp_bar(stats.max_hp, stats.hp - amount)
 		stats.hp -= amount
-	
+		
+		print(stats.hp)
 		if stats.hp <=0:
 			is_alive = false
 			character_hud.kill_first_char()
@@ -176,6 +192,8 @@ func _on_hitbox_area_entered(area: Area2D, knockback_amount = 200) -> void:
 func _on_evade_duration_timeout() -> void:
 	iframe_flag = false
 	state.enable_switch()
+	pass
+
 
 
 func _on_evade_cooldown_timeout() -> void:
@@ -187,3 +205,19 @@ func _on_hazard_box_body_entered(body: Node2D) -> void:
 		if body is TileMapLayer:
 			take_damage(10)
 			add_knockback(-velocity.normalized() * DAMAGE_KNOCKBACK * 2)
+			
+func heal_to_full()->void:
+	
+	
+	stats.hp = stats.max_hp
+	
+	
+
+func _on_ability_timer_timeout() -> void:
+	pass # Replace with function body.
+	
+
+func _on_ability_duration_timeout() -> void:
+	state.enable_switch()
+	state.switch_to(state.STATES.IDLE)
+	pass # Replace with function body.

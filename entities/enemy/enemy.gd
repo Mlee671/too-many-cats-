@@ -24,6 +24,7 @@ var stop_moving := false
 
 var knockback_dur := 0.2
 var knockback_vec := Vector2.ZERO
+var mass_coef: float
 
 @onready var wander_timer := $WanderTimer
 @onready var attack_timer := $AttackTimer
@@ -71,7 +72,7 @@ func _physics_process(delta: float) -> void:
 			_look_vector_direction(velocity)
 		
 	elif enemyState == BEHAVIOUR.ATTACK:
-		if !raycast_target.is_inside_tree():
+		if !raycast_target.is_inside_tree(): # locks to new character on swap
 			raycast_target = get_tree().get_first_node_in_group("Player")
 		attack_logic()
 		# look in direction of player
@@ -88,7 +89,7 @@ func _move(_delta: float) -> void:
 	animation.play_animation("moving")
 	
 
-func _look_vector_direction(direction: Vector2):
+func _look_vector_direction(direction: Vector2) -> Vector2:
 	# enemy looks left or right based on vector.x
 	if direction.x < 0:
 		visual.scale.x = -1
@@ -115,12 +116,16 @@ func _on_wander_timeout() -> void:
 ## - removes instance after animation plays
 func _on_death() -> void:
 	animation.no_interrupt = false
-	animation.play_animation("death", true)
+	hitbox.set_deferred("disabled", true)
+	
 	enemyState = BEHAVIOUR.DEAD
 	knockback_vec = Vector2.ZERO
+	set_physics_process(false)
 	collision_layer = 0
+	collision_mask = 0
 	nav_agent.set_velocity(Vector2.ZERO)
-	hitbox.set_deferred("disabled", true)
+
+	animation.play_animation("death", true)
 	await animation.animation_finished
 	get_parent().enemy_died()
 	queue_free()
@@ -182,7 +187,7 @@ func attack_logic() -> void:
 	pass
 
 func apply_knockback(direction: Vector2, scalar: int = KB_AMOUNT) -> void:
-	knockback_vec += (direction * scalar)
+	knockback_vec += (direction * scalar / mass_coef)
 	knockback = true
 	knockback_timer.start(knockback_dur)
 
@@ -193,7 +198,6 @@ func _on_knockback_timer_timeout() -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if !knockback:
-		var direction = (global_position - area.global_position).normalized()
 		take_damage(area.deal_damage(), area)
 	else:
 		area.queue_free()

@@ -1,15 +1,12 @@
 extends Stats
 
-var ability_dur := 5.0
+
 
 func _ready() -> void:
-	speed = 400
-	accel = 10 # how smooth stop/start movement
+	speed = 50
 	hp = 150
 	max_hp = 150
-	
-	evade_dur = 0.4
-	evade_cd = 0.5
+	ability_dur = 0
 
 	fire_cd =  0.6
 

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bbnpwygldhc6t"]
+
+[ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/Unique_Scenes/room_template.tscn" id="1_v5wky"]
+[ext_resource type="PackedScene" uid="uid://d0yurenwp6fbi" path="res://Room_scenes/fountain.tscn" id="2_o3f7d"]
+
+[node name="Fountain_room" unique_id=760106608 instance=ExtResource("1_v5wky")]
+
+[node name="Fountain" parent="." index="6" unique_id=696087590 instance=ExtResource("2_o3f7d")]
+position = Vector2(0, -29)
+scale = Vector2(1, 1)
+collision_mask = 0

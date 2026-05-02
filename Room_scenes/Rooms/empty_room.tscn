@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://hmyxv35xjw11"]
 
-[ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/room_template.tscn" id="1_3brm0"]
+[ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/Unique_Scenes/room_template.tscn" id="1_3brm0"]
 
 [node name="Empty_room" unique_id=760106608 instance=ExtResource("1_3brm0")]
 
@@ -10,8 +10,26 @@ tile_map_data = PackedByteArray("AAD3/wgAAAAHAAEAAAD4/wgAAAAHAAEAAAD4/wkAAAADAAQ
 [node name="Environment" parent="Tilemaps" parent_id_path=PackedInt32Array(939615999) index="1" unique_id=90514998]
 tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAYAAAAAAAkAAAAHAAYAAAAJAP//AAAIAAQAAAAJAAAAAAAIAAUAAAD2////AAAHAAQAAAD2/wAAAAAHAAUAAAD5//n/AQAAAAAAAAD5//r/AQAAAAAAAAD5//v/AQAAAAAAAAD6//v/AQAAAAAAAAD7//v/AQAAAAAAAAD7//r/AQAAAAAAAAD7//n/AQAAAAAAAAD6//n/AQAAAAAAAAD6//r/AQAAAAAAAAAEAPn/AQAAAAAAAAAEAPr/AQAAAAAAAAAEAPv/AQAAAAAAAAAEAPz/AQAAAAAAAAAEAP3/AQAAAAAAAAAEAP7/AQAAAAAAAAAEAP//AQAAAAAAAAAEAAAAAQAAAAAAAAAFAAAAAQAAAAAAAAAFAP//AQAAAAAAAAAFAP7/AQAAAAAAAAAFAP3/AQAAAAAAAAAFAPz/AQAAAAAAAAAFAPv/AQAAAAAAAAAFAPr/AQAAAAAAAAAFAPn/AQAAAAAAAAD5/wUAAQAAAAAAAAD6/wUAAQAAAAAAAAD7/wUAAQAAAAAAAAD7/wYAAQAAAAAAAAD6/wYAAQAAAAAAAAD5/wYAAQAAAAAAAAD7//b/AAAEAAcAAAAFAPb/AAAEAAcAAAAGAAQAAAAIAAYAAAAFAAQAAAAIAAYAAAD7//3/AAAHAAcAAAD/////AAAFAAkAAAAAAAAAAAAFAAkAAAAAAP//AAAFAAkAAAD//wAAAAAFAAkAAAA=")
 
-[node name="Marker2D" parent="." index="7" unique_id=391088897]
-position = Vector2(74, 81)
+[node name="Marker2D5" type="Marker2D" parent="." index="6" unique_id=308724807]
+position = Vector2(-67, 64)
 
-[node name="Marker2D3" parent="." index="8" unique_id=204097232]
-position = Vector2(91, 56)
+[node name="Marker2D7" type="Marker2D" parent="." index="7" unique_id=1757713520]
+position = Vector2(31, -51)
+
+[node name="Marker2D6" type="Marker2D" parent="." index="8" unique_id=1620003015]
+position = Vector2(-75, 14)
+
+[node name="Marker2D8" type="Marker2D" parent="." index="9" unique_id=1148020469]
+position = Vector2(108, -53)
+
+[node name="Marker2D" type="Marker2D" parent="." index="10" unique_id=1687727032]
+position = Vector2(-33, -56)
+
+[node name="Marker2D2" type="Marker2D" parent="." index="11" unique_id=1807302202]
+position = Vector2(45, 77)
+
+[node name="Marker2D3" type="Marker2D" parent="." index="12" unique_id=89217436]
+position = Vector2(-96, -29)
+
+[node name="Marker2D4" type="Marker2D" parent="." index="13" unique_id=1738129459]
+position = Vector2(3, -105)

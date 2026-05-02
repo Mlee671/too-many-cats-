@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wuvfmn2vkvpm"
-path="res://.godot/imported/healthbar_placeholder.png-993549b2305c4ae63ac40db4b9b69fc6.ctex"
+uid="uid://ci2ijhrv887u0"
+path="res://.godot/imported/red_knight_menu.png-c3e68add2b2251c4ec77a63b6aaecc08.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui_assets/healthbar_placeholder.png"
-dest_files=["res://.godot/imported/healthbar_placeholder.png-993549b2305c4ae63ac40db4b9b69fc6.ctex"]
+source_file="res://ui_assets/character_menu_sprite/red_knight_menu.png"
+dest_files=["res://.godot/imported/red_knight_menu.png-c3e68add2b2251c4ec77a63b6aaecc08.ctex"]
 
 [params]
 

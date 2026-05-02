@@ -6,7 +6,8 @@ const ROOM_SIZE = 30
 
 @onready var hall_tiles := $Hallway
 
-@onready var start_room := preload("res://Room_scenes/starting_room.tscn")
+@onready var start_room := preload("res://Room_scenes/Unique_Scenes/starting_room.tscn")
+@onready var fountain_room := preload("res://Room_scenes/Rooms/fountain_room.tscn")
 
 var room_array : Array = []
 var hallway_pos : Array[Vector2i] = []
@@ -44,7 +45,8 @@ func generate_rooms(rooms : int) -> Vector2:
 	# places floors to remove walls at end of hallway
 	_spawn_corridors()
 	# prints a minimap in terminal
-	# _show_minimap(rooms)
+	_blank_area()
+	## _show_minimap(rooms)
 	# returns spawn point for character
 	return room_pos[0] * ROOM_SIZE * TILE_SIZE
 				
@@ -69,6 +71,8 @@ func _connect_rooms(rooms : int):
 func _find_neighbours(can_reach : Array[bool], start):
 	var room = room_pos[start]
 	can_reach[start] = true
+	if room == Vector2i(0,1):
+		_find_neighbours(can_reach, room_pos.find(Vector2i(0,0)))
 	# chacks all 8 directions for another room
 	for dir_x in [-1,0,1]:
 		for dir_y in [-1,0,1]:
@@ -76,20 +80,25 @@ func _find_neighbours(can_reach : Array[bool], start):
 				continue
 			var neighbour = Vector2i(room.x + dir_x, room.y + dir_y)
 			if dir_x == 0 or dir_y == 0:
-				if room_pos.has(neighbour):
+				if neighbour != Vector2i(0,1) and room_pos.has(neighbour):
 					if !can_reach[room_pos.find(neighbour)]:
-						# recursive call
+						# recursive call if find a room directly connected
 						_find_neighbours(can_reach, room_pos.find(neighbour))
 			elif room_pos.has(neighbour):
 				if !can_reach[room_pos.find(neighbour)]:
 					# generates a hallway node
 					var new_corridor = (neighbour - room)
-					new_corridor.x = 0
+					var temp = Vector2i(0, new_corridor.y)
+					# check for if corridor overlaps with origin and goes a different direction if true
+					if room + temp == Vector2i(0,1):
+						new_corridor.y = 0
+					else:
+						new_corridor.x = 0
 					new_corridor += room
-					#checks if its a room
+					# checks if corridor overlaps a room
 					if !room_pos.has(new_corridor):
 						hallway_pos.append(new_corridor)
-						# recursive call
+						# recursive call if found a room diagonally connected
 						_find_neighbours(can_reach, room_pos.find(neighbour))
 
 func _spawn_rooms():
@@ -98,16 +107,20 @@ func _spawn_rooms():
 		if pos == Vector2i(0,1):
 			room = start_room.instantiate()
 			room.global_position = pos * ROOM_SIZE * TILE_SIZE
+		elif pos == Vector2i(0,0):
+			room = fountain_room.instantiate()
+			room.global_position = pos * ROOM_SIZE * TILE_SIZE
 		else:
 			room = room_array.pick_random().instantiate()
 			room.global_position = pos * ROOM_SIZE * TILE_SIZE
 		add_child(room)
 		if pos != Vector2i(0,1):
 			for neighbour in neighbour_vectors:
-				if !hallway_pos.has(neighbour + pos):
+				if neighbour + pos == Vector2i(0,1) and pos != Vector2i(0,0):
+					room.remove_direction(neighbour)
+				elif !hallway_pos.has(neighbour + pos):
 					if !room_pos.has(neighbour + pos):
 						room.remove_direction(neighbour)
-						_blank_area(neighbour + pos)
 
 func _spawn_corridors():
 	var hallway_tile = []
@@ -137,11 +150,21 @@ func _spawn_corridors():
 	for cell in remove_wall:
 		hall_tiles.set_cell(cell, 0, Vector2i(9,7), 0)
 
-func _blank_area(pos : Vector2i):
+func _blank_area():
 	var black_tile = []
-	for i in range(-15,15):
-		for j in range(-15,15):
-			black_tile.append(pos * ROOM_SIZE + Vector2i(i,j))
+	for room in room_pos:
+		# check all dir around every room
+		for dir_x in [-1,0,1]:
+			for dir_y in [-1,0,1]:
+				var dir = Vector2i(dir_x,dir_y)
+				if dir == Vector2i(0,0):
+					continue
+				# if dir is empty fill with black area
+				if !room_pos.has(room + dir):
+					if !hallway_pos.has(room + dir):
+						for i in range(-15,15):
+							for j in range(-15,15):
+								black_tile.append((room + dir) * ROOM_SIZE + Vector2i(i,j))
 	for cell in black_tile:
 		hall_tiles.set_cell(cell, 0, Vector2i(8,7), 0)
 

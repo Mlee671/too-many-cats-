@@ -1,9 +1,8 @@
 [gd_scene format=4 uid="uid://1lpcavaugqu3"]
 
-[ext_resource type="Script" uid="uid://w07e2esriw5g" path="res://Starting_room.gd" id="1_wfpje"]
-[ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="2_cyubj"]
-[ext_resource type="Texture2D" uid="uid://0k7bferun6ck" path="res://tilesets/spikes.png" id="3_012bo"]
-[ext_resource type="PackedScene" uid="uid://cf5ky0on7f64r" path="res://entities/enemy/boss/boss_enemy.tscn" id="4_cyubj"]
+[ext_resource type="Script" uid="uid://w07e2esriw5g" path="res://Room_scenes/Unique_Scenes/Starting_room.gd" id="1_nruth"]
+[ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="2_5tg6m"]
+[ext_resource type="Texture2D" uid="uid://0k7bferun6ck" path="res://tilesets/spikes.png" id="3_wxjsk"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_unu5q"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -26,7 +25,7 @@ agent_radius = 0.0
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l17gk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l17gk"]
-texture = ExtResource("2_cyubj")
+texture = ExtResource("2_5tg6m")
 8:7/0 = 0
 8:7/0/terrain_set = 0
 9:7/0 = 0
@@ -502,7 +501,7 @@ navigation_layer_0/layers = 3
 sources/0 = SubResource("TileSetAtlasSource_l17gk")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iy2pc"]
-texture = ExtResource("2_cyubj")
+texture = ExtResource("2_5tg6m")
 6:3/0 = 0
 6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:3/0 = 0
@@ -571,7 +570,7 @@ texture = ExtResource("2_cyubj")
 9:7/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_unu5q"]
-texture = ExtResource("3_012bo")
+texture = ExtResource("3_wxjsk")
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_d2scd"]
@@ -584,7 +583,7 @@ sources/1 = SubResource("TileSetAtlasSource_unu5q")
 size = Vector2(32, 32)
 
 [node name="Starting_room" type="Node2D" unique_id=760106608]
-script = ExtResource("1_wfpje")
+script = ExtResource("1_nruth")
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=939615999]
 
