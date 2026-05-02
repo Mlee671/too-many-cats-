@@ -19,6 +19,12 @@ func _physics_process(_delta: float) -> void:
 			label.visible = false
 			explosion.visible = true
 			explosion.play()
+			
 
+			
+			
 func _on_explosion_animation_finished() -> void:
+	
 	explosion.visible = false
+	Input.action_press("debug_open_reward_screen")
+	Input.action_release("debug_open_reward_screen")
