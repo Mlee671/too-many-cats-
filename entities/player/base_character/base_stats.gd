@@ -30,7 +30,7 @@ var current_ability_cd = 10
 # which bullet sprite to use
 var projectile_frame := 2
 var projectile_speed := 200
-var projectile_knockback := 80
+var projectile_knockback := 0
 
 var damage := 10
 
