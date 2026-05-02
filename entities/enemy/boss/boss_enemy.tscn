@@ -630,6 +630,9 @@ animation = &"attack"
 [node name="AnimationPlayer" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="3" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_6tvfg")
 
+[node name="NavigationAgent2D" parent="." index="6" unique_id=221465016]
+debug_enabled = true
+
 [node name="VisionRadius" parent="." index="7" unique_id=883219311]
 visible = false
 

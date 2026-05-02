@@ -162,7 +162,6 @@ func handle_state():
 
 # function for detecting attacks and extracting the damage done to main character
 func _on_hitbox_area_entered(area: Area2D, knockback_amount = 200) -> void:
-	print(knockback_amount)
 	if !iframe_flag:
 		var direction
 		if area is Projectile:
