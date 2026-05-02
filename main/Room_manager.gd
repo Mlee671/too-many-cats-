@@ -6,7 +6,8 @@ const ROOM_SIZE = 30
 
 @onready var hall_tiles := $Hallway
 
-@onready var start_room := preload("res://Room_scenes/starting_room.tscn")
+@onready var start_room := preload("res://Room_scenes/Unique_Scenes/starting_room.tscn")
+@onready var fountain_room := preload("res://Room_scenes/Rooms/fountain_room.tscn")
 
 var room_array : Array = []
 var hallway_pos : Array[Vector2i] = []
@@ -21,6 +22,7 @@ func _ready() -> void:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
+			print(file_name)
 			room_array.append(load("res://Room_scenes/Rooms/" + file_name))
 			file_name = dir.get_next()
 	var dir2 = DirAccess.open("res://entities/enemy/Enemy_scenes/")
@@ -81,7 +83,7 @@ func _find_neighbours(can_reach : Array[bool], start):
 			if dir_x == 0 or dir_y == 0:
 				if neighbour != Vector2i(0,1) and room_pos.has(neighbour):
 					if !can_reach[room_pos.find(neighbour)]:
-						# recursive call
+						# recursive call if find a room directly connected
 						_find_neighbours(can_reach, room_pos.find(neighbour))
 			elif room_pos.has(neighbour):
 				if !can_reach[room_pos.find(neighbour)]:
@@ -94,10 +96,10 @@ func _find_neighbours(can_reach : Array[bool], start):
 					else:
 						new_corridor.x = 0
 					new_corridor += room
-					# checks if its a room
+					# checks if corridor overlaps a room
 					if !room_pos.has(new_corridor):
 						hallway_pos.append(new_corridor)
-						# recursive call
+						# recursive call if found a room diagonally connected
 						_find_neighbours(can_reach, room_pos.find(neighbour))
 
 func _spawn_rooms():
@@ -105,6 +107,9 @@ func _spawn_rooms():
 		var room
 		if pos == Vector2i(0,1):
 			room = start_room.instantiate()
+			room.global_position = pos * ROOM_SIZE * TILE_SIZE
+		elif pos == Vector2i(0,0):
+			room = fountain_room.instantiate()
 			room.global_position = pos * ROOM_SIZE * TILE_SIZE
 		else:
 			room = room_array.pick_random().instantiate()
@@ -149,11 +154,13 @@ func _spawn_corridors():
 func _blank_area():
 	var black_tile = []
 	for room in room_pos:
+		# check all dir around every room
 		for dir_x in [-1,0,1]:
 			for dir_y in [-1,0,1]:
 				var dir = Vector2i(dir_x,dir_y)
 				if dir == Vector2i(0,0):
 					continue
+				# if dir is empty fill with black area
 				if !room_pos.has(room + dir):
 					if !hallway_pos.has(room + dir):
 						for i in range(-15,15):

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://tnxvwrdhg8mq"]
 
-[ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/room_template.tscn" id="1_n3jkd"]
+[ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/Unique_Scenes/room_template.tscn" id="1_n3jkd"]
 
 [node name="Room_w_pillars" unique_id=760106608 instance=ExtResource("1_n3jkd")]
 
@@ -9,3 +9,15 @@ tile_map_data = PackedByteArray("AAD3/wgAAAAHAAEAAAD4/wgAAAAHAAEAAAD4/wkAAAADAAQ
 
 [node name="Environment" parent="Tilemaps" parent_id_path=PackedInt32Array(939615999) index="1" unique_id=90514998]
 tile_map_data = PackedByteArray("AAD///b/AAAGAAMAAAAAAPb/AAAHAAMAAAD//wkAAAAGAAYAAAAAAAkAAAAHAAYAAAAJAP//AAAIAAQAAAAJAAAAAAAIAAUAAAD2////AAAHAAQAAAD2/wAAAAAHAAUAAAD6//3/AQAAAAAAAAD6/wEAAQAAAAAAAAD+/wEAAQAAAAAAAAD+/wAAAQAAAAAAAAD+////AQAAAAAAAAD+//7/AQAAAAAAAAD///7/AQAAAAAAAAAAAP7/AQAAAAAAAAADAPr/AQAAAAAAAAACAPr/AQAAAAAAAAABAPr/AQAAAAAAAAACAPv/AQAAAAAAAAADAPv/AQAAAAAAAAD6/wYAAAAAAAkAAAAFAPr/AAAAAAkAAAD8//b/AAAAAAkAAAD4//b/AAAAAAkAAAADAPb/AAAAAAkAAAAHAPb/AAAAAAkAAAD3/wMAAAABAAkAAAAIAAMAAAABAAkAABAIAPr/AAABAAkAABAGAP3/AAAHAAcAAAAFAP3/AAAHAAcAAAD9//n/AAAIAAYAAAD8//n/AAAIAAYAAAD8/wcAAAAIAAYAAAADAAMAAAADAAkAAAD8//v/AAADAAkAAAADAPz/AAADAAkAAAD8/wMAAAADAAkAAAAIAAgAAAAGAAkAAAACAAYAAAAJAAQAAAD3//n/AAABAAkAAAA=")
+
+[node name="Marker2D" type="Marker2D" parent="." index="6" unique_id=279353419]
+position = Vector2(-50, -69)
+
+[node name="Marker2D2" type="Marker2D" parent="." index="7" unique_id=80832299]
+position = Vector2(-48, 72)
+
+[node name="Marker2D3" type="Marker2D" parent="." index="8" unique_id=2005839182]
+position = Vector2(75, 60)
+
+[node name="Marker2D4" type="Marker2D" parent="." index="9" unique_id=476051480]
+position = Vector2(85, -44)
