@@ -3,7 +3,7 @@ class_name Stats
 
 const dodge_speed = 150.0
 const dodge_accel = 80.0
-const evade_dur = 0.5
+var evade_dur = 0.5
 var evade_cd := 1
 
 const accel = 40
@@ -11,6 +11,7 @@ const accel = 40
 @export var speed := 200
 var hp := 100
 var max_hp :=100
+var evade_movement_scaling = 1.75
 
 
 var fire_cd := .5
