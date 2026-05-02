@@ -630,17 +630,22 @@ animation = &"attack"
 [node name="AnimationPlayer" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="3" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_6tvfg")
 
-[node name="NavigationAgent2D" parent="." index="6" unique_id=221465016]
+[node name="RangedTimer" type="Timer" parent="." index="6" unique_id=1886535561]
+one_shot = true
+
+[node name="TeleportTimer" type="Timer" parent="." index="7" unique_id=992207239]
+
+[node name="NavigationAgent2D" parent="." index="8" unique_id=221465016]
 debug_enabled = true
 
-[node name="VisionRadius" parent="." index="7" unique_id=883219311]
+[node name="VisionRadius" parent="." index="9" unique_id=883219311]
 visible = false
 
 [node name="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(417678541) index="0" unique_id=946156460]
 position = Vector2(0, -18)
 rotation = 0.0
 
-[node name="AttackZone" type="Area2D" parent="." index="10" unique_id=427830542]
+[node name="AttackZone" type="Area2D" parent="." index="12" unique_id=427830542]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("4_cqq3j")
@@ -675,7 +680,5 @@ position = Vector2(0, -16)
 polygon = PackedVector2Array(-40, -57, -10, -70, 11, -70, 37, -61, 53, -47, 63, -29, 0, 0, -47, -52)
 disabled = true
 
-[node name="RangedTimer" type="Timer" parent="." index="11" unique_id=1886535561]
-one_shot = true
-
 [connection signal="timeout" from="RangedTimer" to="." method="_on_ranged_timer_timeout"]
+[connection signal="timeout" from="TeleportTimer" to="." method="_on_teleport_timer_timeout"]
