@@ -26,12 +26,8 @@ var character_index : int = 0
 func _ready() -> void:
 	# loads 1 character at random and adds it into array
 	var c= reward_screen.pick_random_char()
-	var char_instance : main_character = load(path + c + ".tscn").instantiate()
-	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
-	character_hud.add_icon(char_icon)
-	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
-	character_nodes.append(char_instance)
-
+	load_char(c)
+	
 func spawn_character(pos : Vector2):
 	var character = character_nodes[0]
 	character.global_position = pos
@@ -137,11 +133,12 @@ func _on_character_hud_character_removed() -> void:
 func load_char(c : String):
 	var char_instance : main_character = load(path + c + ".tscn").instantiate()
 	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
-	#add_child(char_instance)
+	add_child(char_instance)
 	character_hud.add_icon(char_icon)
 	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
 	character_nodes.append(char_instance)
-
+	character_hud.add_cd_bar(char_instance.get_node("Stats").ability_cd)
+	remove_child(char_instance)
 
 func _on_rep_first_slot_pressed() -> void:
 	#swap characters so that the first char doesnt stay on screen
