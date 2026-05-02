@@ -9,7 +9,6 @@ script = ExtResource("2_v5ijx")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="8" unique_id=1745221434]
 navigation_layers = 3
-debug_enabled = true
 
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 frame = 3
