@@ -766,6 +766,7 @@ fit_content = true
 tab_size = 3
 horizontal_alignment = 1
 vertical_alignment = 1
+
 [node name="swap_timer" type="Timer" parent="character_manager" unique_id=386379360]
 one_shot = true
 
