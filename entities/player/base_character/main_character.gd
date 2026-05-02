@@ -39,6 +39,7 @@ var dodge_direction := Vector2.ZERO
 
 
 
+
 func _ready() -> void:
 	
 	state.switch_to(state.STATES.IDLE)
@@ -61,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("ability") and ability_cooldown_timer.time_left == 0:
 		character_ability()
-		
+		signal_bus.ability_used_signal.emit()
 		
 	if state.player_state != state.STATES.SWITCHING:
 		if evade_duration.time_left > 0:

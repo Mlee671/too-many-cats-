@@ -24,8 +24,9 @@ signal character_removed
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	signal_bus.connect("ability_used_signal",on_ability_used)
 	dead = false
-
+	
 	cd_bars_timer.append(Timer.new())
 	cd_bars_timer.append(Timer.new())
 	cd_bars_timer.append(Timer.new())
@@ -38,15 +39,15 @@ func _process(_delta: float) -> void:
 
 	first_hp_bar.value = hp_bars[0]
 	first_char.texture = icons_array[0]
-	#cd_bar_1.value =cd_bars_timer[cd_bars_index[0]].get_time_left()
+	cd_bar_1.value =cd_bars_timer[cd_bars_index[0]].get_time_left()
 	if size >= 2:
 		second_hp_bar.value = hp_bars[1]
 		second_char.texture = icons_array[1]
-		#cd_bar_2.value =cd_bars_timer[cd_bars_index[1]].get_time_left()
+		cd_bar_2.value =cd_bars_timer[cd_bars_index[1]].get_time_left()
 	if size == 3:
 		third_hp_bar.value = hp_bars[2]
 		third_char.texture = icons_array[2]
-		#cd_bar_3.value =cd_bars_timer[cd_bars_index[2]].get_time_left()
+		cd_bar_3.value =cd_bars_timer[cd_bars_index[2]].get_time_left()
 		
 	
 
@@ -133,6 +134,7 @@ func add_cd_bar(max_cd : float):
 	cd_bars_timer[cd_bars_index.size()].set_wait_time(max_cd)
 	cd_bars_index.append(cd_bars_index.size())
 	
-
+func on_ability_used():
+	print("signal bus works")
 	
 	
