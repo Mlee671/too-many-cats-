@@ -307,6 +307,9 @@ _data = {
 &"moving": SubResource("Animation_arqjm")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_msx14"]
+radius = 89.02247
+
 [node name="BossEnemy" unique_id=310538941 instance=ExtResource("1_8utkg")]
 script = ExtResource("2_msx14")
 vision_range = 0.0
@@ -324,3 +327,10 @@ visible = false
 
 [node name="Hitbox" parent="." index="9" unique_id=417678541]
 visible = false
+
+[node name="AttackZone" type="Area2D" parent="." index="10" unique_id=427830542]
+collision_layer = 0
+collision_mask = 2
+
+[node name="AttackRadius" type="CollisionShape2D" parent="AttackZone" index="0" unique_id=688904953]
+shape = SubResource("CircleShape2D_msx14")
