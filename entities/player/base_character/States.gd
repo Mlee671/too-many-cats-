@@ -2,7 +2,7 @@ extends Node
 class_name States
 
 # all possible character states
-enum STATES{IDLE, RUNNING, DODGING, KNOCKBACK}
+enum STATES{IDLE, RUNNING, DODGING, KNOCKBACK, SWITCHING}
 
 @onready var allow_state_switch = true
 @onready var player_state = STATES.IDLE

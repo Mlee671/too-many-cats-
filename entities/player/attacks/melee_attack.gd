@@ -1,7 +1,7 @@
 extends Area2D
 class_name MeleeAttack
 
-var damage = 30
+var damage = 1000
 var already_attacked := []
 
 func deal_damage() -> int:

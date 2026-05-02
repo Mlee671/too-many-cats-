@@ -47,6 +47,7 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
+
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
 		if get_local_mouse_position().x < 0:
@@ -59,13 +60,15 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("ability"):
 		character_ability()
-	
-	if evade_duration.time_left > 0:
-		dodge_movement(delta)
-	else:
-		manage_movement(delta, direction)
+	if state.player_state != state.STATES.SWITCHING:
+		if evade_duration.time_left > 0:
+			dodge_movement(delta)
+		else:
+			manage_movement(delta, direction)
+			
+
+		move_and_slide()
 	handle_state()
-	move_and_slide()
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
@@ -86,11 +89,12 @@ func manage_movement(delta: float, direction: Vector2) -> void:
 	movement_vec = lerp(movement_vec, direction * stats.speed, stats.accel * delta)	
 	if Input.is_action_just_pressed("evade"):
 		if(evade_cooldown.time_left == 0):
-			dodge_direction = direction
-			if(direction.normalized() != Vector2.ZERO):
+			dodge_direction = direction.normalized()
+			if(direction.normalized() != Vector2.ZERO) or velocity.length()> 0.5:
+				velocity = dodge_direction * stats.dodge_speed
 				start_dodge_roll()
-			elif velocity.length()> 0.5:
-				start_dodge_roll()
+				return
+
 	# if user presses attack key
 	if Input.is_action_pressed("attack") and not attack_cooldown:
 		attack(get_local_mouse_position())
@@ -108,11 +112,13 @@ func start_dodge_roll():
 	iframe_flag = true
 	
 func dodge_movement(delta: float):
-	var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
-	var dodge_speed = lerp(stats.dodge_speed, stats.dodge_speed * 0.5, dodge_percent * stats.dodge_accel *delta)
-	velocity = dodge_speed * dodge_direction.normalized()
+	#var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
+	velocity = lerp(velocity , Vector2.ZERO, delta)
+
 
 func swap_character() -> void:
+	state.switch_to(States.STATES.SWITCHING)
+	state.disable_switch()
 	pass
 
 ## Creates bullet instance and fires from sprite to target vector.
@@ -177,11 +183,13 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		add_knockback(direction)
 
 func _on_evade_duration_timeout() -> void:
-	iframe_flag = false
-	state.enable_switch()
+	pass
+
 
 
 func _on_evade_cooldown_timeout() -> void:
+	iframe_flag = false
+	state.enable_switch()
 	pass # Replace with function body.
 
 # logic for spikes and pits

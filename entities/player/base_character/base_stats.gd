@@ -1,17 +1,17 @@
 extends Node
 class_name Stats
 
-const dodge_speed = 175.0
-const dodge_accel = 25.0
+const dodge_speed = 150.0
+const dodge_accel = 80.0
+const evade_dur = 0.5
+var evade_cd := 1
 
-var speed := 100
-var accel := 20 # how smooth stop/start movement
+const accel = 40
+
+@export var speed := 200
 var hp := 100
 var max_hp :=100
 
-var evade_movement_scaling := 1.75
-var evade_dur := 0.4
-var evade_cd := 0.5
 
 var fire_cd := .5
 var ability_cd := 10

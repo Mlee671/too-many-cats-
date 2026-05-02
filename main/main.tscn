@@ -766,6 +766,8 @@ fit_content = true
 tab_size = 3
 horizontal_alignment = 1
 vertical_alignment = 1
+[node name="swap_timer" type="Timer" parent="character_manager" unique_id=386379360]
+one_shot = true
 
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_grrlh")]
 visible = false
@@ -784,3 +786,4 @@ offset_bottom = 700.0
 [connection signal="pressed" from="character_manager/replacing_char/Control/rep_first_slot" to="character_manager" method="_on_rep_first_slot_pressed"]
 [connection signal="pressed" from="character_manager/replacing_char/Control/rep_second_slot" to="character_manager" method="_on_rep_second_slot_pressed"]
 [connection signal="pressed" from="character_manager/replacing_char/Control/rep_third_slot" to="character_manager" method="_on_rep_third_slot_pressed"]
+[connection signal="timeout" from="character_manager/swap_timer" to="character_manager" method="_on_swap_timer_timeout"]

@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cu5vxr7m0nptx"]
 
 [ext_resource type="Script" uid="uid://r45tisj2jqte" path="res://entities/player/base_character/main_character.gd" id="1_a3m1w"]
-[ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_1frpi"]
 [ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entities/player/blue_knight/Idle_Blue.png" id="2_hj1g0"]
 [ext_resource type="Texture2D" uid="uid://civxms4kcr2yc" path="res://entities/player/blue_knight/Run_Blue1.png" id="3_1frpi"]
 [ext_resource type="Script" uid="uid://b1ndc5sne6j2m" path="res://entities/player/base_character/base_stats.gd" id="3_c4o6u"]
+[ext_resource type="Script" uid="uid://q6fl6yqkf1ms" path="res://entities/player/base_character/animation_tree.gd" id="5_fgjft"]
 [ext_resource type="Script" uid="uid://bmjwwihnu1eqa" path="res://entities/player/base_character/States.gd" id="6_g607o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
@@ -55,22 +55,6 @@ region = Rect2(96, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_1frpi")
-}],
-"loop": true,
-"name": &"death",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 5.0,
-"texture": ExtResource("2_1frpi")
-}],
-"loop": true,
-"name": &"dodge",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_q6pjh")
 }, {
 "duration": 1.0,
@@ -102,14 +86,6 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 10.0,
-"texture": ExtResource("2_1frpi")
-}],
-"loop": true,
-"name": &"swap",
-"speed": 1.0
 }]
 
 [sub_resource type="Animation" id="Animation_lswqs"]
@@ -173,6 +149,30 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../TextureRect:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../TextureRect:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_vi0cl"]
@@ -340,9 +340,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_8628c"]
 resource_name = "swap"
-length = 0.8
-loop_mode = 1
-step = 0.1
+step = 0.0333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -374,10 +372,34 @@ tracks/2/path = NodePath(".:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.40000004, 0.53333336, 0.6666667, 0.73333335, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../TextureRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(-0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../TextureRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.6666667, 0.8333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vi0cl"]
@@ -396,12 +418,13 @@ animation = &"dodge"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_g607o"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_namqu"]
-nodes/output/position = Vector2(1000, 160)
+graph_offset = Vector2(340.4959, 1.1966797)
+nodes/output/position = Vector2(928, 128)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_lswqs")
-nodes/Animation/position = Vector2(520, 140)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_g607o")
-nodes/TimeScale/position = Vector2(740, 120)
-node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+nodes/Animation/position = Vector2(560, 128)
+nodes/dodge_speed/node = SubResource("AnimationNodeTimeScale_g607o")
+nodes/dodge_speed/position = Vector2(740, 120)
+node_connections = [&"output", 0, &"dodge_speed", &"dodge_speed", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5rfgb"]
 animation = &"idle"
@@ -409,7 +432,7 @@ animation = &"idle"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_vi0cl"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8628c"]
-graph_offset = Vector2(-61.555176, -20.816223)
+graph_offset = Vector2(-248.5138, 92.422424)
 nodes/output/position = Vector2(940, 180)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_5rfgb")
 nodes/Animation/position = Vector2(440, 160)
@@ -423,12 +446,27 @@ animation = &"run"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_a7a4j"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xs0gf"]
+graph_offset = Vector2(4.234033, 139.32523)
 nodes/output/position = Vector2(960, 200)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_ilclx")
 nodes/Animation/position = Vector2(538, 188)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_a7a4j")
-nodes/TimeScale/position = Vector2(740, 200)
-node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+nodes/run_speed/node = SubResource("AnimationNodeTimeScale_a7a4j")
+nodes/run_speed/position = Vector2(740, 200)
+node_connections = [&"output", 0, &"run_speed", &"run_speed", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_3hn4c"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fgjft"]
+animation = &"swap"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kifj0"]
+graph_offset = Vector2(-309.71942, 149.02393)
+nodes/output/position = Vector2(352, 208)
+nodes/swap/node = SubResource("AnimationNodeAnimation_fgjft")
+nodes/swap/position = Vector2(-80, 224)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_3hn4c")
+nodes/TimeScale/position = Vector2(144, 176)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"swap"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4x0rx"]
 advance_mode = 2
@@ -459,6 +497,24 @@ advance_expression = "state.player_state == state.STATES.RUNNING"
 advance_mode = 2
 advance_expression = "state.player_state == state.STATES.IDLE"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jjrvv"]
+advance_mode = 2
+advance_expression = "state.player_state == state.STATES.SWITCHING"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1buin"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "state.player_state == state.STATES.IDLE"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ochx4"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "state.player_state == state.STATES.RUNNING"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hqk7x"]
+advance_mode = 2
+advance_expression = "state.player_state == state.STATES.SWITCHING"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xv68y"]
 states/End/position = Vector2(857, 157)
 states/Start/position = Vector2(-92, 157)
@@ -468,8 +524,22 @@ states/idle/node = SubResource("AnimationNodeBlendTree_8628c")
 states/idle/position = Vector2(89, 157)
 states/run/node = SubResource("AnimationNodeBlendTree_xs0gf")
 states/run/position = Vector2(584, 157)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t")]
-graph_offset = Vector2(-610, 23)
+states/swap/node = SubResource("AnimationNodeBlendTree_kifj0")
+states/swap/position = Vector2(327.4, 325.6)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t"), "idle", "swap", SubResource("AnimationNodeStateMachineTransition_jjrvv"), "swap", "idle", SubResource("AnimationNodeStateMachineTransition_1buin"), "swap", "run", SubResource("AnimationNodeStateMachineTransition_ochx4"), "run", "swap", SubResource("AnimationNodeStateMachineTransition_hqk7x")]
+graph_offset = Vector2(-89, 54)
+
+[sub_resource type="Gradient" id="Gradient_3hn4c"]
+offsets = PackedFloat32Array(0, 0.54972374, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.57734805, 0.57734805, 0.57734805, 0.42265195, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fgjft"]
+gradient = SubResource("Gradient_3hn4c")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.74, 0.19)
+metadata/_snap_enabled = true
+metadata/_snap_count = 100
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hn4c"]
 radius = 4.0
@@ -487,7 +557,6 @@ shape = SubResource("CapsuleShape2D_bggxh")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1320116309]
 zoom = Vector2(3, 3)
 process_callback = 0
-position_smoothing_enabled = true
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=190503675]
 one_shot = true
@@ -520,6 +589,7 @@ texture_filter = 1
 position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]
 root_node = NodePath("../AnimatedSprite2D")
@@ -531,9 +601,19 @@ root_node = NodePath("../AnimatedSprite2D")
 tree_root = SubResource("AnimationNodeStateMachine_xv68y")
 advance_expression_base_node = NodePath("../..")
 anim_player = NodePath("../AnimationPlayer")
-parameters/dodge/TimeScale/scale = 1.0
+parameters/dodge/dodge_speed/scale = 1.0
 parameters/idle/TimeScale/scale = 1.0
-parameters/run/TimeScale/scale = 1.0
+parameters/run/run_speed/scale = 1.0
+parameters/swap/TimeScale/scale = 1.0
+script = ExtResource("5_fgjft")
+
+[node name="TextureRect" type="TextureRect" parent="CharacterVisuals" unique_id=884656869]
+visible = false
+offset_left = -32.0
+offset_top = -33.0
+offset_right = 32.0
+offset_bottom = 31.0
+texture = SubResource("GradientTexture2D_fgjft")
 
 [node name="Stats" type="Node" parent="." unique_id=201965470]
 script = ExtResource("3_c4o6u")

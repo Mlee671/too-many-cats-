@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_604g3"]
 [ext_resource type="Texture2D" uid="uid://d0xolhr72equs" path="res://entities/player/yellow_knight/Idle_Choco_Banana1.png" id="2_bk7k0"]
 [ext_resource type="Script" uid="uid://3wbdeqhqyixf" path="res://entities/player/yellow_knight/yellow_knight.gd" id="2_gq0h7"]
-[ext_resource type="Script" uid="uid://480tn3vakaw3" path="res://entities/player/character_scenes/yk_statsstats.gd" id="2_jg6ev"]
+[ext_resource type="Script" uid="uid://480tn3vakaw3" path="res://entities/player/yellow_knight/yk_stats.gd" id="2_jg6ev"]
 [ext_resource type="Texture2D" uid="uid://bewjbmrkg2otp" path="res://entities/player/yellow_knight/Run_Choco_Banana.png" id="3_232be"]
 [ext_resource type="Script" uid="uid://b5pchnv3xojmv" path="res://entities/player/attacks/melee_attack.gd" id="7_gq0h7"]
 [ext_resource type="Texture2D" uid="uid://fr7i801n6k7g" path="res://entities/player/attacks/sword_slash.png" id="7_ool57"]
