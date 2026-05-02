@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cn5phiwshb0k6"]
 
-[ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/room_template.tscn" id="1_w08ti"]
+[ext_resource type="PackedScene" uid="uid://dgyryeova7lit" path="res://Room_scenes/Unique_Scenes/room_template.tscn" id="1_w08ti"]
 
 [node name="Wall_room" unique_id=760106608 instance=ExtResource("1_w08ti")]
 
@@ -28,23 +28,29 @@ visible = false
 [node name="Marker2D5" type="Marker2D" parent="." index="6" unique_id=1707177081]
 position = Vector2(-166, -142)
 
-[node name="Marker2D2" parent="." index="7" unique_id=2045915408]
-position = Vector2(-123, -168)
-
-[node name="Marker2D6" type="Marker2D" parent="." index="8" unique_id=1316717317]
+[node name="Marker2D6" type="Marker2D" parent="." index="7" unique_id=1316717317]
 position = Vector2(-135, 178)
 
-[node name="Marker2D" parent="." index="9" unique_id=391088897]
-position = Vector2(-167, 150)
-
-[node name="Marker2D3" parent="." index="10" unique_id=204097232]
-position = Vector2(161, 155)
-
-[node name="Marker2D4" parent="." index="11" unique_id=1972704901]
-position = Vector2(150, -170)
-
-[node name="Marker2D7" type="Marker2D" parent="." index="12" unique_id=2095515086]
+[node name="Marker2D7" type="Marker2D" parent="." index="8" unique_id=2095515086]
 position = Vector2(122, 179)
 
-[node name="Marker2D8" type="Marker2D" parent="." index="13" unique_id=1403637705]
+[node name="Marker2D8" type="Marker2D" parent="." index="9" unique_id=1403637705]
 position = Vector2(107, -176)
+
+[node name="Marker2D" type="Marker2D" parent="." index="10" unique_id=1262830543]
+position = Vector2(-77, 1)
+
+[node name="Marker2D2" type="Marker2D" parent="." index="11" unique_id=2100796656]
+position = Vector2(80, 6)
+
+[node name="Marker2D3" type="Marker2D" parent="." index="12" unique_id=666932885]
+position = Vector2(-126, -161)
+
+[node name="Marker2D4" type="Marker2D" parent="." index="13" unique_id=686016977]
+position = Vector2(-178, 145)
+
+[node name="Marker2D9" type="Marker2D" parent="." index="14" unique_id=1349509254]
+position = Vector2(180, 134)
+
+[node name="Marker2D10" type="Marker2D" parent="." index="15" unique_id=1430123718]
+position = Vector2(162, -145)
