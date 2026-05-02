@@ -120,6 +120,5 @@ func _on_south_door_body_exited(body: Node2D) -> void:
 func _on_room_activator_body_entered(body: Node2D) -> void:
 	if not locked and body is main_character and enemy_list:
 		locked = true
-		print("room locked")
 		for enemy in enemy_list:
 			enemy.activate_enemy()

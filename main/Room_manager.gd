@@ -22,7 +22,6 @@ func _ready() -> void:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			print(file_name)
 			room_array.append(load("res://Room_scenes/Rooms/" + file_name))
 			file_name = dir.get_next()
 	var dir2 = DirAccess.open("res://entities/enemy/Enemy_scenes/")
