@@ -1,9 +1,6 @@
 extends CharacterBody2D
 class_name Enemy
 
-
-
-
 const TILE_SIZE := 16
 const KB_AMOUNT := 80
 const KB_DECAY := 20
@@ -20,7 +17,7 @@ var enemyState := BEHAVIOUR.INACTIVE
 var raycast_target: Node2D
 var attack_cooldown := false
 var stop_moving := false
-@export var vision_range: float
+var vision_range: float
 
 var knockback_dur := 0.2
 var knockback_vec := Vector2.ZERO
