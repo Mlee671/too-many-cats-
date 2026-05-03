@@ -25,13 +25,9 @@ var character_index : int = 0
 
 func _ready() -> void:
 	# loads 1 character at random and adds it into array
-	var c = reward_screen.pick_random_char()
-	var char_instance : main_character = load(path + c + ".tscn").instantiate()
-	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
-	character_hud.add_icon(char_icon)
-	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
-	character_nodes.append(char_instance)
-
+	var c= reward_screen.pick_random_char()
+	load_char(c)
+	
 func spawn_character(pos : Vector2):
 	var character = character_nodes[0]
 	character.global_position = pos
@@ -87,7 +83,7 @@ func _do_switch(target_character: String = "") -> void:
 	#switches the character hp bars and icons to the next in line
 	character_hud.switch_hp_bars()
 	character_hud.switch_icon()
-	
+	character_hud.switch_cd_bars()
 
 func switch_next() -> void:
 	call_deferred("_do_switch")
@@ -136,11 +132,12 @@ func _on_character_hud_character_removed() -> void:
 func load_char(c : String):
 	var char_instance : main_character = load(path + c + ".tscn").instantiate()
 	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
-	#add_child(char_instance)
+	add_child(char_instance)
 	character_hud.add_icon(char_icon)
 	character_hud.add_hp_bar(char_instance.get_node("Stats").hp)
 	character_nodes.append(char_instance)
-
+	character_hud.add_cd_bar(char_instance.get_node("Stats").ability_cd)
+	remove_child(char_instance)
 
 func _on_rep_first_slot_pressed() -> void:
 	#swap characters so that the first char doesnt stay on screen
@@ -153,6 +150,8 @@ func _on_rep_first_slot_pressed() -> void:
 	character_nodes.remove_at(character_nodes.size()-1)
 	var c = reward_screen.get_selected_rand_char()
 	load_char(c)
+	character_hud.fix_cd_index_replacement()
+	character_hud.align_max_cd()
 	replacing_char.hide()
 	
 
@@ -162,6 +161,8 @@ func _on_rep_second_slot_pressed() -> void:
 	character_nodes.remove_at(1)
 	var c = reward_screen.get_selected_rand_char()
 	load_char(c)
+	character_hud.fix_cd_index_replacement()
+	character_hud.align_max_cd()
 	replacing_char.hide()
 
 
@@ -170,6 +171,8 @@ func _on_rep_third_slot_pressed() -> void:
 	character_nodes.remove_at(2)
 	var c = reward_screen.get_selected_rand_char()
 	load_char(c)
+	character_hud.fix_cd_index_replacement()
+	character_hud.align_max_cd()
 	replacing_char.hide()
 
 
