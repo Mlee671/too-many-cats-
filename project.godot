@@ -21,8 +21,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-signal_bus="*uid://dq7p1wdqroksy"
 Sfx_Manager="*uid://8t16pl1f174g"
+signal_bus="*uid://dq7p1wdqroksy"
 
 [global_group]
 
