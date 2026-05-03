@@ -21,12 +21,14 @@ func _process(_delta: float) -> void:
 
 #plays the fade in transition which will then change scene to main
 func _on_start_button_pressed() -> void:
+	Sfx_Manager.play_sound_effect_from_dictionary("undesired_effect")
 	$fade_transition/AnimationPlayer.speed_scale = fade_transition_scale
 	$fade_transition.show()
 	$fade_transition/fade_transition_timer.start()
 	$fade_transition/AnimationPlayer.play("fade_in")
 
 func _on_controls_button_pressed() -> void:
+	Sfx_Manager.play_sound_effect_from_dictionary("undesired_effect")
 	controls_image.visible = true
 	
 	

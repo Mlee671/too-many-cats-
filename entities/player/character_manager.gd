@@ -119,8 +119,10 @@ func _on_new_char_button_pressed() -> void:
 		
 	await reward_screen._on_new_char_button_pressed()
 	var c = reward_screen.get_selected_rand_char()
-
+	if character_nodes.size()<3:
+		Sfx_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
 	load_char(c)
+
 
 
 func _on_character_hud_character_removed() -> void:

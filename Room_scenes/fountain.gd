@@ -18,8 +18,10 @@ func _on_interaction_zone_body_exited(body: Node2D) -> void:
 func _physics_process(_delta: float) -> void:
 	if rich_text_label.visible and !used:
 		if Input.is_action_just_pressed("interact"):
+			
 			explosion.visible = true
 			explosion.play()
+			Sfx_Manager.play_sound_effect_from_dictionary("music_box_mystery")
 
 			used = true
 			
