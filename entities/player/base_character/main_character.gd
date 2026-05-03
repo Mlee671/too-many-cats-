@@ -16,7 +16,6 @@ const PROJECTILE := preload("res://entities/player/attacks/player_projectile.tsc
 @onready var stats := $Stats
 @onready var state:= $States
 @onready var animation_tree := $CharacterVisuals/AnimationTree
-
 @onready var character_hud: CanvasLayer = $"../character_hud"
 
 
@@ -48,7 +47,6 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
 		if get_local_mouse_position().x < 0:
@@ -107,6 +105,7 @@ func manage_movement(delta: float, direction: Vector2) -> void:
 
 
 func start_dodge_roll():
+	Sfx_Manager.play_sound_effect_from_dictionary("whoosh_1")
 	state.switch_to(state.STATES.DODGING)
 	state.disable_switch()
 	evade_duration.start(stats.evade_dur)
@@ -119,6 +118,7 @@ func dodge_movement(delta: float):
 
 
 func swap_character() -> void:
+	Sfx_Manager.play_sound_effect_from_dictionary("finger_click")
 	state.switch_to(States.STATES.SWITCHING)
 	state.disable_switch()
 	pass
@@ -126,6 +126,7 @@ func swap_character() -> void:
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
 func attack(target: Vector2) -> void:
+	Sfx_Manager.play_sound_effect_from_dictionary("pop_1")
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	
@@ -146,6 +147,7 @@ func attack(target: Vector2) -> void:
 
 
 func character_ability():
+	Sfx_Manager.play_sound_effect_from_dictionary("fire_lighting")
 	ability_cooldown_timer.start(stats.ability_cd)
 	ability_duration_timer.start(stats.ability_dur)
 	state.switch_to(States.STATES.USING_ABILITY)
