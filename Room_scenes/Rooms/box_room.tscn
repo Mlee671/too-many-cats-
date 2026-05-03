@@ -30,3 +30,9 @@ position = Vector2(159, 185)
 
 [node name="Marker2D7" type="Marker2D" parent="." index="12" unique_id=1058563653]
 position = Vector2(90, -21)
+
+[node name="Marker2D8" type="Marker2D" parent="." index="13" unique_id=166734654]
+position = Vector2(43, -64)
+
+[node name="Marker2D9" type="Marker2D" parent="." index="14" unique_id=954337997]
+position = Vector2(-153, -103)

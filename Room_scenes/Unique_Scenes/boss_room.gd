@@ -38,4 +38,3 @@ func _on_south_door_body_exited(body: Node2D) -> void:
 func enemy_died(_enemy : Enemy):
 	locked = false
 	enemy_list = []
-	get_tree().get_first_node_in_group("main").game_won()

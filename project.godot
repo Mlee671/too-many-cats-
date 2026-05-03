@@ -27,7 +27,6 @@ SFX_Manager="*uid://8t16pl1f174g"
 [global_group]
 
 Player="Containing all entities to be targeted by enemies"
-main=""
 
 [input]
 

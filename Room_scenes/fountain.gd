@@ -24,14 +24,11 @@ func _physics_process(_delta: float) -> void:
 			SFX_Manager.play_sound_effect_from_dictionary("music_box_mystery")
 
 			used = true
-			
-			
-			
+			Input.action_press("debug_open_reward_screen")
+			Input.action_release("debug_open_reward_screen")
+
+			rich_text_label.text = "\nPress 'E\nto change character\n"
 
 			
-			
 func _on_explosion_animation_finished() -> void:
-	Input.action_press("debug_open_reward_screen")
-	Input.action_release("debug_open_reward_screen")
 	explosion.visible = false
-	rich_text_label.text = "\nPress 'E\nto change character\n"
