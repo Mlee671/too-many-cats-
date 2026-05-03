@@ -9,7 +9,7 @@ var ability_on_cooldown := false
 @onready var uptime_timer = $AbilityUptimeTimer
 
 func attack(target: Vector2) -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("sword_light")
+	Sfx_Manager.play_sound_effect_from_dictionary(stats.attack_sfx)
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	var mouse_angle = target.normalized()

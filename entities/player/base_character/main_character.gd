@@ -127,7 +127,7 @@ func swap_character() -> void:
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
 func attack(target: Vector2) -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("pop_1")
+	Sfx_Manager.play_sound_effect_from_dictionary(stats.attack_sfx)
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	

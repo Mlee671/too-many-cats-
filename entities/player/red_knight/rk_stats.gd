@@ -10,7 +10,7 @@ func _ready() -> void:
 	fire_cd =  0.1
 	ability_dur = 0
 	ability_cd = 2
-	
+	attack_sfx = 'pop_1'
 	projectile_frame = 1
 	projectile_speed = 250
 	projectile_knockback = 1

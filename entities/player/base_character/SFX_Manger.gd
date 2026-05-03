@@ -6,7 +6,7 @@ class_name SFX_Manger
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	stream =AudioStreamPolyphonic.new()
-	volume_db = -28.0
+	volume_db = 0
 	pass # Replace with function body.
 
 func _process(_delta: float) -> void:
