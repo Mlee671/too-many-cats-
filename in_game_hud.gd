@@ -136,8 +136,18 @@ func kill_indexed_character(index : int):
 func add_cd_bar(max_cd : float):
 	cd_bars_timer[cd_bars_index.size()].set_wait_time(max_cd)
 	cd_bars_index.append(cd_bars_index.size())
+	align_max_cd()
 	
 func on_ability_used():
 	cd_bars_timer[cd_bars_index[0]].start()
+
+func switch_cd_bars():
+	pass
+func align_max_cd():
+	var size = hp_bars.size()
 	
-	
+	cd_bar_1.max_value = cd_bars_timer[cd_bars_index[0]].wait_time
+	if size >= 2:
+		cd_bar_2.max_value = cd_bars_timer[cd_bars_index[1]].wait_time
+	if size == 3:
+		cd_bar_3.max_value = cd_bars_timer[cd_bars_index[2]].wait_time
