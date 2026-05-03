@@ -25,6 +25,7 @@ func attack(_target: Vector2) -> void:
 
 
 func character_ability() -> void:
+	super()
 	Sfx_Manager.play_sound_effect_from_dictionary("sword_sharpen")
 	# scale up ability area size to trigger area_entered
 	var scale_tween = create_tween()

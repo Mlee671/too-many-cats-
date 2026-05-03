@@ -27,6 +27,7 @@ func attack(target: Vector2) -> void:
 	add_knockback(-target.normalized() * ATTACK_KNOCKBACK)
 
 func character_ability():
+	super()
 	char_visual.modulate = Color(0.92, 0.246, 0.744, 1.0)
 	# start ability timer
 	if !ability_on_cooldown:

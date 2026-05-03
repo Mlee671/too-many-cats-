@@ -7,7 +7,7 @@ func _ready() -> void:
 	max_hp = 100
 
 	fire_cd =  .5
-	ability_cd = 1
+	ability_cd = 5
 	
 	# which bullet sprite to use
 	projectile_frame = 2

@@ -57,8 +57,9 @@ func _process(_delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
-	
-	if Input.is_action_just_pressed("ability") and ability_cooldown_timer.time_left == 0:
+	print(ability_cooldown)
+	print(stats.ability_cd)
+	if Input.is_action_just_pressed("ability") and not ability_cooldown:
 		character_ability()
 		signal_bus.ability_used_signal.emit()
 		
@@ -149,11 +150,11 @@ func attack(target: Vector2) -> void:
 
 func character_ability():
 	Sfx_Manager.play_sound_effect_from_dictionary("fire_lighting")
+	ability_cooldown = true
 	ability_cooldown_timer.start(stats.ability_cd)
 	ability_duration_timer.start(stats.ability_dur)
 	state.switch_to(States.STATES.USING_ABILITY)
 	state.disable_switch()
-	# override in child
 
 func add_knockback(vec: Vector2) -> void:
 	knockback_vec += vec
@@ -209,18 +210,14 @@ func _on_hazard_box_body_entered(body: Node2D) -> void:
 			take_damage(10)
 			add_knockback(-velocity.normalized() * DAMAGE_KNOCKBACK * 2)
 			
-func heal_to_full()->void:
-	
-	
+func heal_to_full() -> void:
 	stats.hp = stats.max_hp
-	
 	
 
 func _on_ability_timer_timeout() -> void:
-	pass # Replace with function body.
+	ability_cooldown = false
 	
 
 func _on_ability_duration_timeout() -> void:
 	state.enable_switch()
 	state.switch_to(state.STATES.IDLE)
-	pass # Replace with function body.
