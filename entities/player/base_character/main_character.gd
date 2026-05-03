@@ -35,6 +35,7 @@ var attack_cooldown := false
 var ability_cooldown := false
 var is_alive := true
 var dodge_direction := Vector2.ZERO
+var locked := false
 
 
 
@@ -44,9 +45,8 @@ func _ready() -> void:
 	state.switch_to(state.STATES.IDLE)
 	add_to_group("Player")
 	animation_tree.active = true
-	
-	
-	
+
+
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
@@ -66,21 +66,29 @@ func _physics_process(delta: float) -> void:
 		signal_bus.ability_used_signal.emit()
 		
 	if state.player_state != state.STATES.SWITCHING:
+		if locked:
+			knockback_vec = Vector2.ZERO
+			return
 		if evade_duration.time_left > 0:
 			dodge_movement(delta)
 		else:
 			manage_movement(delta, direction)
 			
-
 		move_and_slide()
 	handle_state()
+
+func lock():
+	locked = true
+	
+func unlock():
+	locked = false
+
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
 	attack_cooldown = false
 
 
-	
 func _on_iframe_timeout() -> void:
 	iframe_flag = false
 	char_visual.modulate = Color(1,1,1)
@@ -88,7 +96,6 @@ func _on_iframe_timeout() -> void:
 
 func manage_movement(delta: float, direction: Vector2) -> void:
 	# gets directional vector based on keypress
-	
 
 	movement_vec = lerp(movement_vec, direction * stats.speed, stats.accel * delta)	
 	if Input.is_action_just_pressed("evade"):

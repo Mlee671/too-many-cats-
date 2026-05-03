@@ -1,8 +1,10 @@
 extends main_character
-class_name pink_knight
+class_name PinkKnight
 
 const SPREAD_DEG := 30
 const ATTACK_KNOCKBACK := 250.0
+
+const ABILITY_DURATION := 1.5
 
 var ability_on_cooldown := false
 
@@ -23,7 +25,6 @@ func attack(target: Vector2) -> void:
 		spawn.set_damage(stats.damage)
 		spawn.global_position = $AttackMarker.global_position + (ATTACK_OFFSET * direction)
 		get_parent().add_child(spawn)
-	stats.shots_fired += 1
 	add_knockback(-target.normalized() * ATTACK_KNOCKBACK)
 
 func character_ability():
@@ -31,11 +32,10 @@ func character_ability():
 	char_visual.modulate = Color(0.92, 0.246, 0.744, 1.0)
 	# start ability timer
 	if !ability_on_cooldown:
-		uptime_timer.start(stats.ability_dur)
+		uptime_timer.start(ABILITY_DURATION)
 		# change attack rate
 		stats.fire_cd /= 6
 		ability_on_cooldown = true
-		attack(get_local_mouse_position())
 
 
 func _on_ability_uptime_timeout() -> void:

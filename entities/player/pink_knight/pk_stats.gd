@@ -5,7 +5,7 @@ func _ready() -> void:
 	speed = 85
 	hp = 150
 	max_hp = 150
-	ability_dur = 2
+	ability_dur = 0.666
 	ability_cd = 6
 	fire_cd =  0.6
 
