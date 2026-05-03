@@ -9,7 +9,7 @@ func _ready() -> void:
 	volume_db = -28.0
 	pass # Replace with function body.
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("sfx_volume_up"):
 		volume_db += 2
 	if Input.is_action_just_pressed("sfx_volume_down"):

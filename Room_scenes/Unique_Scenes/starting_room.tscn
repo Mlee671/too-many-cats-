@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://w07e2esriw5g" path="res://Room_scenes/Unique_Scenes/Starting_room.gd" id="1_nruth"]
 [ext_resource type="Texture2D" uid="uid://bavgh2guhg0fp" path="res://tilesets/Dungeon_Tileset.png" id="2_5tg6m"]
 [ext_resource type="Texture2D" uid="uid://0k7bferun6ck" path="res://tilesets/spikes.png" id="3_wxjsk"]
+[ext_resource type="FontFile" uid="uid://b1bxbakchn1rb" path="res://ui_assets/Baskic8.otf" id="4_5tg6m"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_unu5q"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -582,6 +583,9 @@ sources/1 = SubResource("TileSetAtlasSource_unu5q")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_unu5q"]
 size = Vector2(32, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxjsk"]
+size = Vector2(288, 20)
+
 [node name="Starting_room" type="Node2D" unique_id=760106608]
 script = ExtResource("1_nruth")
 
@@ -606,5 +610,71 @@ monitorable = false
 position = Vector2(0, -152)
 shape = SubResource("RectangleShape2D_unu5q")
 
+[node name="Instruction1" type="Area2D" parent="." unique_id=48541280]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Instruction1" unique_id=1984627347]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_wxjsk")
+
+[node name="Instruction2" type="Area2D" parent="." unique_id=1336138662]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Instruction2" unique_id=997715838]
+position = Vector2(1, -34)
+shape = SubResource("RectangleShape2D_wxjsk")
+
+[node name="Instruction3" type="Area2D" parent="." unique_id=877750711]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Instruction3" unique_id=1855138910]
+position = Vector2(1, -70)
+shape = SubResource("RectangleShape2D_wxjsk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=380172828]
+visible = false
+texture_filter = 1
+offset_left = -86.0
+offset_top = -54.0
+offset_right = 84.0
+offset_bottom = 26.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("4_5tg6m")
+text = "'WASD' for movement"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=1075094181]
+visible = false
+texture_filter = 1
+offset_left = -88.0
+offset_top = -90.0
+offset_right = 82.0
+offset_bottom = -10.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("4_5tg6m")
+text = "'space' for dodgeroll"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="." unique_id=32015529]
+visible = false
+texture_filter = 1
+offset_left = -86.0
+offset_top = -128.0
+offset_right = 84.0
+offset_bottom = -48.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("4_5tg6m")
+text = "'Right click' for ability"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="body_entered" from="North_door" to="." method="_on_north_door_body_entered"]
 [connection signal="body_exited" from="North_door" to="." method="_on_north_door_body_exited"]
+[connection signal="body_entered" from="Instruction1" to="." method="_on_instruction_1_body_entered"]
+[connection signal="body_entered" from="Instruction2" to="." method="_on_instruction_2_body_entered"]
+[connection signal="body_entered" from="Instruction3" to="." method="_on_instruction_3_body_entered"]

@@ -48,6 +48,16 @@ func _ns_hallway_remove(array : Array):
 		room.set_cell(Vector2(-1,i), 0, Vector2i(8,7), 0)
 		room.set_cell(Vector2(0,i), 0, Vector2i(8,7), 0)
 		room.set_cell(Vector2(1,i), 0, Vector2i(8,7), 0)
+	if array[0] < 0:
+		room.set_cell(Vector2i(-1,-10), 0, Vector2i(2,0), 0)
+		room.set_cell(Vector2i(0,-10), 0, Vector2i(2,0), 0)
+		objects.erase_cell(Vector2i(-1,-10))
+		objects.erase_cell(Vector2i(0,-10))
+	else:
+		room.set_cell(Vector2i(-1,9), 0, Vector2i(2,4), 0)
+		room.set_cell(Vector2i(0,9), 0, Vector2i(2,4), 0)
+		objects.erase_cell(Vector2i(-1,9))
+		objects.erase_cell(Vector2i(0,9))
 
 func _ew_hallway_remove(array : Array):
 	for i in array:
@@ -55,6 +65,16 @@ func _ew_hallway_remove(array : Array):
 		room.set_cell(Vector2(i, -1), 0, Vector2i(8,7), 0)
 		room.set_cell(Vector2(i, 0), 0, Vector2i(8,7), 0)
 		room.set_cell(Vector2(i, 1), 0, Vector2i(8,7), 0)
+	if array[0] < 0:
+		room.set_cell(Vector2i(-10,-1), 0, Vector2i(0,2), 0)
+		room.set_cell(Vector2i(-10,0), 0, Vector2i(0,2), 0)
+		objects.erase_cell(Vector2i(-10,-1))
+		objects.erase_cell(Vector2i(-10,0))
+	else:
+		room.set_cell(Vector2i(9,-1), 0, Vector2i(5,2), 0)
+		room.set_cell(Vector2i(9,0), 0, Vector2i(5,2), 0)
+		objects.erase_cell(Vector2i(9,-1))
+		objects.erase_cell(Vector2i(9,0))
 
 func enemy_died(enemy : Enemy):
 	for i in range(enemy_list.size() - 1, -1, -1):

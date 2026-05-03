@@ -622,7 +622,7 @@ position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_l17gk")
 
 [node name="BossEnemy" parent="." unique_id=310538941 instance=ExtResource("3_7smms")]
-position = Vector2(0, -237)
+position = Vector2(2, -113)
 
 [connection signal="body_entered" from="South_door" to="." method="_on_south_door_body_entered"]
 [connection signal="body_exited" from="South_door" to="." method="_on_south_door_body_exited"]

@@ -8,10 +8,10 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	update_time_scale()
 
 # Updates the time scale of the animation every physics tick, in the event that the charc=acter stats are changed this function updates the asocaiated timescalee

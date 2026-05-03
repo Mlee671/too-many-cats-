@@ -34,7 +34,7 @@ func search_for_dir(base_dir: String):
 
 
 func get_audio_stream(_tag: String):
-	var index = -1 
+	var _index = -1 
 	if _tag:
 		if sound_effects.has(_tag):
 			return sound_effects[_tag]

@@ -19,3 +19,15 @@ func _on_north_door_body_exited(body: Node2D) -> void:
 		var doorway := [Vector2i(-1,-10), Vector2i(0,-10)]
 		for i in 2:
 			objects.set_cell(doorway[i],0,NORTH_DOOR_CLOSED[i],0)
+
+
+func _on_instruction_1_body_entered(body: Node2D) -> void:
+	$RichTextLabel.visible = true
+
+
+func _on_instruction_2_body_entered(body: Node2D) -> void:
+	$RichTextLabel2.visible = true
+
+
+func _on_instruction_3_body_entered(body: Node2D) -> void:
+	$RichTextLabel3.visible = true

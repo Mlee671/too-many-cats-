@@ -6,7 +6,7 @@ func _ready() -> void:
 	get_child(rand_index).playing = true	
 	pass # Replace with function body.
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	position = $"../character_manager".get_child(0).position
 
 func _on_audio_stream_player_2d_finished() -> void:
