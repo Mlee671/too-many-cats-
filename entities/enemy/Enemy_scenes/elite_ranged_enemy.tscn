@@ -279,6 +279,10 @@ _data = {
 &"moving": SubResource("Animation_3od5s")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f2e1p"]
+radius = 6.9999995
+height = 20.0
+
 [node name="BasicRangedEnemy" unique_id=310538941 instance=ExtResource("1_f2e1p")]
 script = ExtResource("2_ir3ek")
 
@@ -287,3 +291,6 @@ modulate = Color(1, 0.14901961, 0, 1)
 
 [node name="AnimationPlayer" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="3" unique_id=2102798003]
 libraries/ = SubResource("AnimationLibrary_tgo3w")
+
+[node name="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(417678541) index="0" unique_id=946156460]
+shape = SubResource("CapsuleShape2D_f2e1p")

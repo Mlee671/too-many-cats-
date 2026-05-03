@@ -7,13 +7,13 @@ const ACCELERATION := 10.0
 const WEIGHT := 2
 const ORBIT_DIST := 80.0
 const CHASE_DIST := ORBIT_DIST * 1.3
-const VISION := 80.0
 
 # functionally const, var because of subclassing
 var ATTACKS_PER_SECOND := 1.0
 var PROJECTILE_SPEED := 75
 var SPEED := 15.0
 var HP := 100
+var VISION := 80.0
 
 var frame := 0
 

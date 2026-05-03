@@ -10,6 +10,7 @@ var HP := 100
 var WEIGHT := 0.5
 var ATTACK_DURATION := 0.5
 var ATTACKS_PER_SECOND := 1.5
+var VISION := 80.0
 
 @onready var attack_visual := $AttackComponent
 @onready var detect_radius := $AttackComponent/AttackDetect

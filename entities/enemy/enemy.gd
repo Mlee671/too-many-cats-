@@ -194,7 +194,10 @@ func _on_knockback_timer_timeout() -> void:
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
+	if enemyState == BEHAVIOUR.DEAD:
+		return
 	if !knockback:
+		print("trigger")
 		take_damage(area.deal_damage(), area)
 	else:
 		area.queue_free()

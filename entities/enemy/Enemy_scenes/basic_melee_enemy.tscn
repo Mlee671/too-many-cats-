@@ -393,9 +393,12 @@ radius = 21.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g44g6"]
 size = Vector2(9.402344, 22)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5jfmb"]
+radius = 6.9999995
+height = 16.0
+
 [node name="BasicMeleeEnemy" unique_id=310538941 instance=ExtResource("1_0tjeh")]
 script = ExtResource("2_f0hik")
-vision_range = 0.0
 
 [node name="shadow" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=167189831]
 offset_left = -6.0
@@ -448,13 +451,12 @@ texture = ExtResource("7_5jfmb")
 hframes = 4
 
 [node name="Hitbox" parent="." index="11" unique_id=417678541]
-visible = false
 position = Vector2(1, -1)
 rotation = 1.5707964
 
 [node name="CollisionShape2D" parent="Hitbox" index="0" unique_id=946156460]
-visible = false
-position = Vector2(5.5636264e-08, 1)
+position = Vector2(-2, 1.0000004)
+shape = SubResource("CapsuleShape2D_5jfmb")
 
 [connection signal="animation_finished" from="Visuals/AnimationPlayer" to="Visuals/AnimationPlayer" method="_on_animation_finished"]
 [connection signal="timeout" from="AttackRenderTimer" to="." method="_on_attack_render_timeout"]
