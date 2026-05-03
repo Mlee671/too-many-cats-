@@ -83,7 +83,7 @@ func _do_switch(target_character: String = "") -> void:
 	#switches the character hp bars and icons to the next in line
 	character_hud.switch_hp_bars()
 	character_hud.switch_icon()
-	
+	character_hud.switch_cd_bars()
 
 func switch_next() -> void:
 	call_deferred("_do_switch")

@@ -142,7 +142,12 @@ func on_ability_used():
 	cd_bars_timer[cd_bars_index[0]].start()
 
 func switch_cd_bars():
-	pass
+	var hold
+	hold = cd_bars_index[0]
+	cd_bars_index.pop_front()
+	cd_bars_index.append(hold)
+	align_max_cd()
+	
 func align_max_cd():
 	var size = hp_bars.size()
 	
