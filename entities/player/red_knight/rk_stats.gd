@@ -16,4 +16,4 @@ func _ready() -> void:
 	projectile_speed = 250
 	projectile_knockback = 1
 	
-	damage = 5
+	damage = 10

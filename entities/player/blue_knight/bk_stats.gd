@@ -6,7 +6,7 @@ func _ready() -> void:
 	hp = 100
 	max_hp = 100
 
-	fire_cd =  .5
+	fire_cd =  0.5
 	ability_cd = 5
 	
 	# which bullet sprite to use
@@ -14,4 +14,4 @@ func _ready() -> void:
 	projectile_speed = 400
 	projectile_knockback = 5
 	
-	damage = 10
+	damage = 20
