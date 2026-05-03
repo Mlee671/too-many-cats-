@@ -550,6 +550,7 @@ frame = 70
 frame_progress = 1.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1717566630]
+visible = false
 texture_filter = 1
 offset_left = -60.0
 offset_top = -20.000008

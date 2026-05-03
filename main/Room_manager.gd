@@ -116,8 +116,11 @@ func _spawn_rooms():
 			room = boss_room.instantiate()
 			room.global_position = pos * ROOM_SIZE * TILE_SIZE
 		else:
-			room = room_array.pick_random().instantiate()
-			room.global_position = pos * ROOM_SIZE * TILE_SIZE
+			room = room_array.pick_random()
+			if room == fountain_room:
+				room_array.erase(fountain_room)
+			room = room.instantiate()
+			room.global_position = pos * ROOM_SIZE * TILE_SIZE 
 		add_child(room)
 		## removing hallways
 		if pos != Vector2i(0,1) and pos != room_pos[-1]:

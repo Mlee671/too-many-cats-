@@ -25,5 +25,6 @@ func _physics_process(_delta: float) -> void:
 			
 			
 func _on_explosion_animation_finished() -> void:
-	
 	explosion.visible = false
+	rich_text_label.visible = true
+	rich_text_label.text = "\nPress 'E\nto change character\n"
