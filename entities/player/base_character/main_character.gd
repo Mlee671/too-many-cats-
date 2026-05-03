@@ -41,7 +41,7 @@ var locked := false
 
 
 func _ready() -> void:
-	
+	signal_bus.connect("lose_game_signal",on_lose_game)
 	state.switch_to(state.STATES.IDLE)
 	add_to_group("Player")
 	animation_tree.active = true
@@ -137,7 +137,7 @@ func swap_character() -> void:
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
 func attack(target: Vector2) -> void:
-	SFX_Manager.play_sound_effect_from_dictionary("pop_1")
+	SFX_Manager.play_sound_effect_from_dictionary(stats.attack_sfx)
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	
@@ -157,7 +157,7 @@ func attack(target: Vector2) -> void:
 
 
 func character_ability():
-	SFX_Manager.play_sound_effect_from_dictionary("fire_lighting")
+	#SFX_Manager.play_sound_effect_from_dictionary("fire_lighting")
 	ability_cooldown = true
 	ability_cooldown_timer.start(stats.ability_cd)
 	ability_duration_timer.start(stats.ability_dur)
@@ -228,3 +228,17 @@ func _on_ability_timer_timeout() -> void:
 func _on_ability_duration_timeout() -> void:
 	state.enable_switch()
 	#state.switch_to(state.STATES.IDLE)
+
+func on_lose_game():
+	print("lost game animation played")
+	$fade_transition.show()
+	$fade_transition/fade_transition_timer.start()
+	$fade_transition/AnimationPlayer.play("fade_in")
+
+
+func _on_fade_transition_timer_timeout() -> void:
+	var scene : PackedScene = load("res://main_menu/main_menu.tscn")
+	print("all characters dead")
+		
+	await get_tree().process_frame
+	get_tree().change_scene_to_packed(scene)

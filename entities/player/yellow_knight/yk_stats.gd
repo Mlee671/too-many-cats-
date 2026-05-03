@@ -11,5 +11,5 @@ func _ready() -> void:
 
 	damage = 50
 	fire_cd =  0.6
-
+	
 	projectile_frame = 1

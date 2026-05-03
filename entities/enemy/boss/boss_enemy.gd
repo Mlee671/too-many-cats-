@@ -29,6 +29,7 @@ var first_attack_flag := true
 @onready var ranged_timer := $RangedTimer
 @onready var teleport_timer := $TeleportTimer
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	move_speed = SPEED
@@ -136,8 +137,20 @@ func _on_teleport_trap_activation(caller: TeleportMarker, coords: Vector2):
 func _on_death() -> void:
 	for trap in active_traps:
 		trap.queue_free()
+	$fade_transition.show()
+	$fade_transition/fade_transition_timer.start()
+	$fade_transition/AnimationPlayer.play("fade_in")
 	super()
 
 
 func _on_teleport_timer_timeout() -> void:
 	teleport_cooldown = false
+
+
+func _on_fade_transition_timer_timeout() -> void:
+	var scene : PackedScene = load("res://main_menu/main_menu.tscn")
+	
+	
+	await get_tree().process_frame
+	get_tree().change_scene_to_packed(scene)
+	

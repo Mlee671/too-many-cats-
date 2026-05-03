@@ -5,7 +5,7 @@ extends AudioStreamPlayer2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	stream =AudioStreamPolyphonic.new()
-	volume_db = -10.0
+	volume_db = 0
 	pass # Replace with function body.
 
 func _process(_delta: float) -> void:
@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 func play_sound_effect_from_dictionary(_tag: String)->void:
 	if _tag:
 		var audio_stream = audio_library.get_audio_stream(_tag)
-		print(audio_stream)
+		#print(audio_stream)
 		if !playing:
 			self.play()
 		var  audio_stream_playback := self.get_stream_playback()

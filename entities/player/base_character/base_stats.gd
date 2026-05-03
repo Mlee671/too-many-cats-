@@ -37,6 +37,7 @@ var damage := 10
 # player stats
 var shots_fired := 0
 
+var attack_sfx :="pop_1"
 func get_hp():
 	return hp
 	
