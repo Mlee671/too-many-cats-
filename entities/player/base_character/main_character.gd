@@ -16,8 +16,8 @@ const PROJECTILE := preload("res://entities/player/attacks/player_projectile.tsc
 @onready var stats := $Stats
 @onready var state:= $States
 @onready var animation_tree := $CharacterVisuals/AnimationTree
-
 @onready var character_hud: CanvasLayer = $"../character_hud"
+@onready var audio_stream_2d = $AudioStreamPlayer2D
 
 
 # enum evadeState {READY, ACTIVE, COOLDOWN, KNOCKBACK}
@@ -48,6 +48,12 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("sfx_volume_up"):
+		audio_stream_2d.volume_db += 1
+		pass
+	if Input.is_action_just_pressed("sfx_volume_down"):
+		pass
+		audio_stream_2d.volume_db -= 1
 
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
@@ -107,6 +113,7 @@ func manage_movement(delta: float, direction: Vector2) -> void:
 
 
 func start_dodge_roll():
+	audio_stream_2d.play_sound_effect_from_dictionary("whoosh_1")
 	state.switch_to(state.STATES.DODGING)
 	state.disable_switch()
 	evade_duration.start(stats.evade_dur)

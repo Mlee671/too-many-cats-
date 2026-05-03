@@ -14,9 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://djfobp5mqpc6u" path="res://ui_assets/reward_menus.png" id="11_na0o7"]
 [ext_resource type="Texture2D" uid="uid://b6e0sne4u232g" path="res://ui_assets/character_menu_sprite/pink_knight_menu.png" id="12_5xyti"]
 [ext_resource type="Script" uid="uid://bmt0y3f27gs4y" path="res://main/background_audio_manager.gd" id="14_5xyti"]
-[ext_resource type="AudioStream" uid="uid://dyunn4y1jgaie" path="res://audio/djartmusic-the-return-of-the-8-bit-era-301292.mp3" id="14_73k8k"]
-[ext_resource type="AudioStream" uid="uid://d0dan14kgoaio" path="res://audio/djartmusic-my-8-bit-hero-301280.mp3" id="16_s758e"]
-[ext_resource type="AudioStream" uid="uid://bu6qeoljrtvq6" path="res://audio/djartmusic-fun-with-my-8-bit-game-301278.mp3" id="17_4hmqs"]
+[ext_resource type="AudioStream" uid="uid://dyunn4y1jgaie" path="res://audio/background_music/djartmusic-the-return-of-the-8-bit-era-301292.mp3" id="14_73k8k"]
+[ext_resource type="AudioStream" uid="uid://d0dan14kgoaio" path="res://audio/background_music/djartmusic-my-8-bit-hero-301280.mp3" id="16_s758e"]
+[ext_resource type="AudioStream" uid="uid://bu6qeoljrtvq6" path="res://audio/background_music/djartmusic-fun-with-my-8-bit-game-301278.mp3" id="17_4hmqs"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3wy1v"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
