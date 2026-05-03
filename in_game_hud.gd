@@ -30,6 +30,9 @@ func _ready() -> void:
 	cd_bars_timer.append(Timer.new())
 	cd_bars_timer.append(Timer.new())
 	cd_bars_timer.append(Timer.new())
+	for i in cd_bars_timer:
+		i.one_shot = true
+		add_child(i)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #updates the current top left hud continuously
@@ -135,6 +138,6 @@ func add_cd_bar(max_cd : float):
 	cd_bars_index.append(cd_bars_index.size())
 	
 func on_ability_used():
-	print("signal bus works")
+	cd_bars_timer[cd_bars_index[0]].start()
 	
 	
