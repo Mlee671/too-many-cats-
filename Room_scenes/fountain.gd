@@ -21,7 +21,7 @@ func _physics_process(_delta: float) -> void:
 			
 			explosion.visible = true
 			explosion.play()
-			Sfx_Manager.play_sound_effect_from_dictionary("music_box_mystery")
+			SFX_Manager.play_sound_effect_from_dictionary("music_box_mystery")
 
 			used = true
 			

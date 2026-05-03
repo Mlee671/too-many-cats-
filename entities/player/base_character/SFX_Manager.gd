@@ -1,5 +1,4 @@
 extends AudioStreamPlayer2D
-class_name SFX_Manger
 
 @export var audio_library = Audio_library.new()
 
@@ -19,6 +18,7 @@ func _process(_delta: float) -> void:
 func play_sound_effect_from_dictionary(_tag: String)->void:
 	if _tag:
 		var audio_stream = audio_library.get_audio_stream(_tag)
+		#print(audio_stream)
 		if !playing:
 			self.play()
 		var  audio_stream_playback := self.get_stream_playback()

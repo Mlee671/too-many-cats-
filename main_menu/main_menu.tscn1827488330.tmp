@@ -1,0 +1,156 @@
+[gd_scene format=3 uid="uid://cs0cs1jmgxax7"]
+
+[ext_resource type="Script" uid="uid://chvag2tcpmf2i" path="res://main_menu/main_menu.gd" id="1_3shxk"]
+[ext_resource type="Texture2D" uid="uid://txidd123yxry" path="res://ui_assets/title_art.jpg" id="2_6tl50"]
+[ext_resource type="Texture2D" uid="uid://bxdt3ag5hih11" path="res://ui_assets/LOGO-1.png1.png" id="3_t6bnd"]
+[ext_resource type="Texture2D" uid="uid://ddtg1onb2q1n8" path="res://ui_assets/ui_buttons/B_Start1.png" id="4_t6bnd"]
+[ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="5_3f7m4"]
+[ext_resource type="Texture2D" uid="uid://g5ut3d02k7v7" path="res://ui_assets/ui_buttons/B_Start3.png" id="5_ia84y"]
+[ext_resource type="Texture2D" uid="uid://cryupom4tunty" path="res://ui_assets/ui_buttons/B_Start2.png" id="6_6at21"]
+[ext_resource type="Texture2D" uid="uid://xd44rxenxgx7" path="res://ui_assets/ui_buttons/B_Credits1.png" id="7_kwfav"]
+[ext_resource type="Texture2D" uid="uid://c4o6vl8bd6ygj" path="res://ui_assets/ui_buttons/B_Credits3.png" id="8_n70vs"]
+[ext_resource type="Texture2D" uid="uid://d2nircvv384ui" path="res://ui_assets/ui_buttons/B_Exit1.png" id="8_qvn4f"]
+[ext_resource type="Texture2D" uid="uid://bkgcce3lrswf3" path="res://ui_assets/ui_buttons/B_Exit2.png" id="9_g1omr"]
+[ext_resource type="Texture2D" uid="uid://ceibtljaw5spl" path="res://ui_assets/ui_buttons/B_Credits2.png" id="9_tr6y3"]
+[ext_resource type="Texture2D" uid="uid://bqspsj4pbdtn3" path="res://ui_assets/ui_buttons/B_Exit3.png" id="10_kwfav"]
+[ext_resource type="Texture2D" uid="uid://djfobp5mqpc6u" path="res://ui_assets/reward_menus.png" id="13_tr6y3"]
+[ext_resource type="FontFile" uid="uid://b1bxbakchn1rb" path="res://ui_assets/Baskic8.otf" id="14_vj6np"]
+[ext_resource type="Texture2D" uid="uid://cuoyhtm702kqf" path="res://entities/enemy/boss/boss_spritesheet.png" id="15_iri28"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq33v"]
+atlas = ExtResource("13_tr6y3")
+region = Rect2(286, 0, 551, 327)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ie3af"]
+atlas = ExtResource("15_iri28")
+region = Rect2(20, 71, 20, 31)
+
+[node name="MainMenu" type="Control" unique_id=1649032504 node_paths=PackedStringArray("controls_image", "background_image")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3shxk")
+controls_image = NodePath("controls_image")
+background_image = NodePath("background_image")
+
+[node name="background_image" type="TextureRect" parent="." unique_id=605810371]
+z_index = -2
+layout_mode = 0
+offset_left = -1.0
+offset_right = 1151.0
+offset_bottom = 654.0
+texture = ExtResource("2_6tl50")
+expand_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=268436795]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 8.0
+offset_right = 1038.0
+offset_bottom = 436.0
+texture = ExtResource("3_t6bnd")
+expand_mode = 1
+
+[node name="start_button" type="TextureButton" parent="." unique_id=415491035]
+layout_mode = 1
+offset_left = 486.0
+offset_top = 334.0
+offset_right = 676.0
+offset_bottom = 410.0
+texture_normal = ExtResource("4_t6bnd")
+texture_pressed = ExtResource("5_ia84y")
+texture_hover = ExtResource("6_6at21")
+stretch_mode = 0
+
+[node name="controls_button" type="TextureButton" parent="." unique_id=389699356]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 415.0
+offset_right = 676.0
+offset_bottom = 487.0
+texture_normal = ExtResource("7_kwfav")
+texture_pressed = ExtResource("8_n70vs")
+texture_hover = ExtResource("9_tr6y3")
+stretch_mode = 0
+
+[node name="quit_button" type="TextureButton" parent="." unique_id=2037736177]
+layout_mode = 1
+offset_left = 487.0
+offset_top = 492.0
+offset_right = 677.0
+offset_bottom = 564.0
+texture_normal = ExtResource("8_qvn4f")
+texture_pressed = ExtResource("10_kwfav")
+texture_hover = ExtResource("9_g1omr")
+stretch_mode = 0
+
+[node name="controls_image" type="TextureRect" parent="." unique_id=1139116723]
+visible = false
+z_index = 1
+layout_mode = 0
+offset_left = 200.0
+offset_top = 89.0
+offset_right = 918.0
+offset_bottom = 527.0
+texture = SubResource("AtlasTexture_qq33v")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="controls_image" unique_id=262855960]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 32.0
+offset_right = 609.0
+offset_bottom = 414.0
+theme_override_fonts/normal_font = ExtResource("14_vj6np")
+theme_override_font_sizes/normal_font_size = 19
+text = "
+Made for GDG Jam 2026 Sem 1 - Too many Cats!
+
+
+Art by Michael and Alastair
+
+Music & sfx implementation by Alastair and Jason
+
+UI by Jason
+
+Level Design by Mitchell
+
+Gameplay by Calvin, Alastair, and Mitchell
+
+
+Thanks for Playing Catsle Knights!
+
+
+"
+
+[node name="TextureRect" type="TextureRect" parent="controls_image" unique_id=1236807729]
+layout_mode = 0
+offset_left = 345.0
+offset_top = 295.0
+offset_right = 429.0
+offset_bottom = 407.0
+texture = SubResource("AtlasTexture_ie3af")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="controls_image" unique_id=1748138930]
+layout_mode = 0
+offset_left = 526.0
+offset_top = 394.0
+offset_right = 704.0
+offset_bottom = 416.0
+theme_override_fonts/normal_font = ExtResource("14_vj6np")
+text = "click anywhere to exit"
+
+[node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("5_3f7m4")]
+visible = false
+layout_mode = 0
+
+[node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=409621205]
+wait_time = 0.05
+
+[connection signal="gui_input" from="." to="." method="_on_mouse_click"]
+[connection signal="pressed" from="start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="controls_button" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="fade_transition/fade_transition_timer" to="." method="_on_fade_transition_timer_timeout"]

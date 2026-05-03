@@ -23,17 +23,21 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_explosion_trigger(_body: Node2D) -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("explosion_medium")
+	SFX_Manager.play_sound_effect_from_dictionary("explosion_medium")
 	velocity = Vector2.ZERO
 	rotate_amount = 0
 	$AnimationPlayer.play("explode")
 	# for each enemy in explosion radius, deal damage
-	for target in damage_area.get_overlapping_bodies():
-		if target is Enemy:
-			target.take_damage(DAMAGE, damage_area, KNOCKBACK)
+	call_deferred("register_damage")
 	# delete self once animation finished
 	await $AnimationPlayer.animation_finished
 	queue_free()
+
+func register_damage():
+	for target in damage_area.get_overlapping_bodies():
+		if target is Enemy:
+			print("ping")
+			target.take_damage(DAMAGE, damage_area, KNOCKBACK)
 
 func set_direction(new_dir: Vector2):
 	look_at(new_dir)

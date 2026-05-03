@@ -16,6 +16,8 @@ var path := "res://entities/player/character_scenes/"
 var icon_path := "res://entities/player/character_icons/"
 var menu_icon_path := "res://ui_assets/character_menu_sprite/"
 var game_over = false
+var swap_lock := false
+
 #needed to fix a bug 
 var repeat = 1
 # all loaded character nodes gets added to this array
@@ -39,10 +41,11 @@ func spawn_character(pos : Vector2):
 
 func _physics_process(_delta: float) -> void:
 	
-	if Input.is_action_just_pressed("character_change") and game_over == false:
+	if Input.is_action_just_pressed("character_change") and game_over == false and not swap_lock:
 		#break out if there are no characters to switch
 		if character_nodes.size() ==1:
 			return
+		swap_lock = true
 		print(get_child(0).state.player_state)
 		if get_child(0).state.player_state != DODGING_ENUM_INDEX:
 			get_child(0).swap_character()
@@ -120,7 +123,7 @@ func _on_new_char_button_pressed() -> void:
 	await reward_screen._on_new_char_button_pressed()
 	var c = reward_screen.get_selected_rand_char()
 	if character_nodes.size()<3:
-		Sfx_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
+		SFX_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
 	load_char(c)
 
 
@@ -142,7 +145,7 @@ func load_char(c : String):
 	remove_child(char_instance)
 
 func _on_rep_first_slot_pressed() -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
+	SFX_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
 	#swap characters so that the first char doesnt stay on screen
 	Input.action_press("character_change")
 	Input.action_release("character_change")
@@ -160,7 +163,7 @@ func _on_rep_first_slot_pressed() -> void:
 
 
 func _on_rep_second_slot_pressed() -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
+	SFX_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
 	character_hud.kill_indexed_character(1)
 	character_nodes.remove_at(1)
 	var c = reward_screen.get_selected_rand_char()
@@ -171,7 +174,7 @@ func _on_rep_second_slot_pressed() -> void:
 
 
 func _on_rep_third_slot_pressed() -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
+	SFX_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
 	character_hud.kill_indexed_character(2)
 	character_nodes.remove_at(2)
 	var c = reward_screen.get_selected_rand_char()
@@ -182,7 +185,7 @@ func _on_rep_third_slot_pressed() -> void:
 
 
 func _on_heal_button_pressed() -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("gem_collect")
+	SFX_Manager.play_sound_effect_from_dictionary("gem_collect")
 	var count = 0
 	
 	for j in range(character_nodes.size()):
@@ -193,10 +196,9 @@ func _on_heal_button_pressed() -> void:
 		character_hud.set_selected_hp_bar(i.stats.max_hp, count)
 		count +=1
 	reward_screen.hide()
-	
 
 
 func _on_swap_timer_timeout() -> void:
+	swap_lock = false
 	switch_next()
 	get_child(0).state.enable_switch()
-	pass # Replace with function body.

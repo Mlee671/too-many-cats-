@@ -39,6 +39,18 @@ func _ready() -> void:
 	super()
 	attack_zone.monitoring = true
 
+
+func set_trap():
+	var tp := TELEPORT.instantiate()
+	active_traps.append(tp)
+	get_parent().add_child(tp)
+	move_to_front()
+	tp.global_position = global_position
+	tp.player_found.connect(_on_teleport_trap_activation)
+	teleport_cooldown = true
+	teleport_timer.start(TELEPORT_TRAP_COOLDOWN)
+
+
 func attack_logic() -> void:
 	# first time, start ranged attack timer
 	frame += 1
@@ -47,14 +59,13 @@ func attack_logic() -> void:
 		ranged_timer.start(1)
 		
 	if not teleport_cooldown:
-			var tp := TELEPORT.instantiate()
-			active_traps.append(tp)
-			get_parent().add_child(tp)
-			move_to_front()
-			tp.global_position = global_position
-			tp.player_found.connect(_on_teleport_trap_activation)
-			teleport_cooldown = true
-			teleport_timer.start(TELEPORT_TRAP_COOLDOWN)
+		stop_moving = true
+		animation.no_interrupt = false
+		animation.play_animation("deploy_trap", true)
+		await animation.animation_finished
+		animation.no_interrupt = false
+		stop_moving = false
+		
 			
 	if attack_cooldown:
 		if frame % 10 == 0:
