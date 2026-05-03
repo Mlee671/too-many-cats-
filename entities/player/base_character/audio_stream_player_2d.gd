@@ -1,4 +1,5 @@
 extends AudioStreamPlayer2D
+class_name Audio_Stream_Player_2D
 
 @export var audio_library = Audio_library.new()
 
