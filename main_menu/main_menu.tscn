@@ -145,6 +145,10 @@ text = "click anywhere to exit"
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("5_3f7m4")]
 visible = false
 layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 2620.0
+offset_bottom = 1672.0
 
 [node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=409621205]
 wait_time = 0.05

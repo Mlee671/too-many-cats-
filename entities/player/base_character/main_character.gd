@@ -41,7 +41,7 @@ var locked := false
 
 
 func _ready() -> void:
-	
+	signal_bus.connect("lose_game_signal",on_lose_game)
 	state.switch_to(state.STATES.IDLE)
 	add_to_group("Player")
 	animation_tree.active = true
@@ -228,3 +228,17 @@ func _on_ability_timer_timeout() -> void:
 func _on_ability_duration_timeout() -> void:
 	state.enable_switch()
 	#state.switch_to(state.STATES.IDLE)
+
+func on_lose_game():
+	print("lost game animation played")
+	$fade_transition.show()
+	$fade_transition/fade_transition_timer.start()
+	$fade_transition/AnimationPlayer.play("fade_in")
+
+
+func _on_fade_transition_timer_timeout() -> void:
+	var scene : PackedScene = load("res://main_menu/main_menu.tscn")
+	print("all characters dead")
+		
+	await get_tree().process_frame
+	get_tree().change_scene_to_packed(scene)

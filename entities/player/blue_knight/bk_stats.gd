@@ -14,4 +14,4 @@ func _ready() -> void:
 	projectile_speed = 400
 	projectile_knockback = 5
 	attack_sfx = "hurt"
-	damage = 20
+	damage = 25

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b1ndc5sne6j2m" path="res://entities/player/base_character/base_stats.gd" id="3_c4o6u"]
 [ext_resource type="Script" uid="uid://q6fl6yqkf1ms" path="res://entities/player/base_character/animation_tree.gd" id="5_fgjft"]
 [ext_resource type="Script" uid="uid://bmjwwihnu1eqa" path="res://entities/player/base_character/States.gd" id="6_g607o"]
+[ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="8_kifj0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
 radius = 3.0
@@ -795,6 +796,11 @@ collision_mask = 16
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
 
+[node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("8_kifj0")]
+visible = false
+
+[node name="fade_transition_timer" type="Timer" parent="fade_transition" unique_id=933260005]
+
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timer_timeout"]
 [connection signal="timeout" from="AbilityDuration" to="." method="_on_ability_duration_timeout"]
@@ -804,3 +810,4 @@ shape = SubResource("CapsuleShape2D_bggxh")
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="hazard_box" to="." method="_on_hazard_box_body_entered"]
+[connection signal="timeout" from="fade_transition/fade_transition_timer" to="." method="_on_fade_transition_timer_timeout"]

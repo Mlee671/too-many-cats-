@@ -550,7 +550,6 @@ frame = 70
 frame_progress = 1.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1717566630]
-visible = false
 texture_filter = 1
 offset_left = -60.0
 offset_top = -20.000008
@@ -559,7 +558,7 @@ offset_bottom = 59.999992
 theme_override_constants/outline_size = 4
 theme_override_fonts/normal_font = ExtResource("3_06mia")
 text = "
-Press 'F' 
+Press ' F ' 
 to Interact"
 horizontal_alignment = 1
 vertical_alignment = 1

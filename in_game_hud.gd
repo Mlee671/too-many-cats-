@@ -20,6 +20,7 @@ var cd_bars_index = []
 var visibility = [0,0,0]
 var last_removed_index
 signal character_removed
+var lost_game = false
 
 
 
@@ -104,16 +105,10 @@ func remove_char(position:int):
 		cd_bar_2.hide()
 func lose_game():
 		self.PROCESS_MODE_DISABLED
+		if lost_game == false:
+			lost_game = true
+			signal_bus.lose_game_signal.emit()
 		
-		var scene : PackedScene = load("res://main_menu/main_menu.tscn")
-		print("all characters dead")
-		
-		
-		$"../../fade_transition".show()
-		$"../../fade_transition/AnimationPlayer".play("fade_in")
-		await get_tree().create_timer(1.2).timeout
-		await get_tree().process_frame
-		get_tree().change_scene_to_packed(scene)
 	
 #kills first character and checks if all char dead. used for taking damage
 func kill_first_char():

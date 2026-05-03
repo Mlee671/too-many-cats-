@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://crhlcpj28pb1l" path="res://entities/enemy/boss/boss_sprites.png" id="3_msx14"]
 [ext_resource type="Script" uid="uid://durpnt0ktuukh" path="res://entities/enemy/boss/melee_attack.gd" id="4_cqq3j"]
 [ext_resource type="Texture2D" uid="uid://c3ifccawv0oee" path="res://entities/enemy/boss/spin_attack.png" id="5_msx14"]
+[ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="6_ideb3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ideb3"]
 atlas = ExtResource("3_msx14")
@@ -853,5 +854,11 @@ position = Vector2(0, -16)
 polygon = PackedVector2Array(-40, -57, -10, -70, 11, -70, 37, -61, 53, -47, 63, -29, 0, 0, -47, -52)
 disabled = true
 
+[node name="fade_transition" parent="." index="13" unique_id=1501326469 instance=ExtResource("6_ideb3")]
+visible = false
+
+[node name="fade_transition_timer" type="Timer" parent="fade_transition" index="1" unique_id=1925433710]
+
 [connection signal="timeout" from="RangedTimer" to="." method="_on_ranged_timer_timeout"]
 [connection signal="timeout" from="TeleportTimer" to="." method="_on_teleport_timer_timeout"]
+[connection signal="timeout" from="fade_transition/fade_transition_timer" to="." method="_on_fade_transition_timer_timeout"]

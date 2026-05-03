@@ -2,7 +2,7 @@ extends Control
 @export var controls_image: TextureRect
 @export var background_image: TextureRect
 
-@export var on_ready_delay = 0
+@export var on_ready_delay = 1.3
 @export var fade_transition_scale = 1
 @export var fade_inbetween_wait = 1
 
