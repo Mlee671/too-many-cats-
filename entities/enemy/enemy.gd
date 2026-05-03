@@ -124,8 +124,9 @@ func _on_death() -> void:
 
 	animation.play_animation("death", true)
 	await animation.animation_finished
-	get_parent().enemy_died()
+	get_parent().enemy_died(self)
 	queue_free()
+
 
 
 func _on_attack_timeout() -> void:

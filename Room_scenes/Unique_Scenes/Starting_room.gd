@@ -13,7 +13,6 @@ func _on_north_door_body_entered(body: Node2D) -> void:
 		var doorway := [Vector2i(-1,-10), Vector2i(0,-10)]
 		for i in 2:
 			objects.set_cell(doorway[i],0,NS_DOOR_OPEN[i],0)
-	$BossEnemy.activate_enemy()
 
 func _on_north_door_body_exited(body: Node2D) -> void:
 	if body is main_character:
