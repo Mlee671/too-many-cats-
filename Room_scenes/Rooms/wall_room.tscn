@@ -54,3 +54,15 @@ position = Vector2(180, 134)
 
 [node name="Marker2D10" type="Marker2D" parent="." index="15" unique_id=1430123718]
 position = Vector2(162, -145)
+
+[node name="Marker2D11" type="Marker2D" parent="." index="16" unique_id=370338432]
+position = Vector2(75, -40)
+
+[node name="Marker2D12" type="Marker2D" parent="." index="17" unique_id=1314177340]
+position = Vector2(-92, -47)
+
+[node name="Marker2D13" type="Marker2D" parent="." index="18" unique_id=207948009]
+position = Vector2(-85, -142)
+
+[node name="Marker2D14" type="Marker2D" parent="." index="19" unique_id=1392179765]
+position = Vector2(157, 160)

@@ -17,7 +17,6 @@ func search_for_dir(base_dir: String):
 	var array_of_files = DirAccess.get_files_at(base_dir)
 	
 	# add all files in the dir to the dictionary
-	print(array_of_files)
 	for file in array_of_files:
 		if file.ends_with(".import"):
 			if OS.has_feature("template"):
@@ -26,7 +25,6 @@ func search_for_dir(base_dir: String):
 				continue
 		var path := base_dir.path_join(file)
 		var stream := load(path)
-		print(stream)
 		if stream is AudioStream:
 			# Key however you like; basename() gives "click" from "click.ogg"
 			sound_effects[file.get_basename()] = stream

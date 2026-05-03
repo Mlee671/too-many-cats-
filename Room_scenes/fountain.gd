@@ -1,5 +1,6 @@
 extends StaticBody2D
 class_name fountain
+
 @onready var rich_text_label: RichTextLabel = $RichTextLabel
 @onready var explosion := $Explosion
 
@@ -11,9 +12,8 @@ func _on_interaction_zone_body_entered(body: Node2D) -> void:
 		
 
 func _on_interaction_zone_body_exited(body: Node2D) -> void:
-	pass
-	#if body is main_character:
-		#rich_text_label.visible = false
+	if body is main_character:
+		rich_text_label.visible = false
 
 func _physics_process(_delta: float) -> void:
 	if rich_text_label.visible and !used:
@@ -23,15 +23,12 @@ func _physics_process(_delta: float) -> void:
 			explosion.play()
 			SFX_Manager.play_sound_effect_from_dictionary("music_box_mystery")
 
-			used = true
-			
-			
-			
+			self.used = true
+			Input.action_press("debug_open_reward_screen")
+			Input.action_release("debug_open_reward_screen")
+
+			self.rich_text_label.text = "\nPress 'E\nto change character\n"
 
 			
-			
 func _on_explosion_animation_finished() -> void:
-	Input.action_press("debug_open_reward_screen")
-	Input.action_release("debug_open_reward_screen")
 	explosion.visible = false
-	rich_text_label.text = "\nPress 'E\nto change character\n"

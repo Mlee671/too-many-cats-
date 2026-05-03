@@ -41,6 +41,11 @@ func _ready() -> void:
 	attack_zone.monitoring = true
 
 
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("exit"):
+		_on_death()
+	super(delta)
+
 func set_trap():
 	var tp := TELEPORT.instantiate()
 	active_traps.append(tp)

@@ -535,6 +535,7 @@ shape = SubResource("CapsuleShape2D_06mia")
 [node name="Interaction_zone" type="Area2D" parent="." unique_id=716080431]
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction_zone" unique_id=360899538]
 position = Vector2(6.7762636e-21, 20)
@@ -550,6 +551,7 @@ frame = 70
 frame_progress = 1.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1717566630]
+visible = false
 texture_filter = 1
 offset_left = -60.0
 offset_top = -20.000008

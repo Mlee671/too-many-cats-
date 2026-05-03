@@ -535,7 +535,7 @@ region = Rect2(286, 346, 143, 149)
 atlas = ExtResource("10_fwcvl")
 region = Rect2(148, 51, 16, 16)
 
-[node name="main" type="Node2D" unique_id=135493927 node_paths=PackedStringArray("character_hud")]
+[node name="main" type="Node2D" unique_id=135493927 node_paths=PackedStringArray("character_hud") groups=["main"]]
 script = ExtResource("1_8gbba")
 character_hud = NodePath("character_manager/character_hud")
 
