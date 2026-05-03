@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://chvag2tcpmf2i" path="res://main_menu/main_menu.gd" id="1_3shxk"]
 [ext_resource type="Texture2D" uid="uid://txidd123yxry" path="res://ui_assets/title_art.jpg" id="2_6tl50"]
-[ext_resource type="Texture2D" uid="uid://cipi44ms8luce" path="res://icon.svg" id="3_3shxk"]
 [ext_resource type="Texture2D" uid="uid://bxdt3ag5hih11" path="res://ui_assets/LOGO-1.png1.png" id="3_t6bnd"]
 [ext_resource type="Texture2D" uid="uid://ddtg1onb2q1n8" path="res://ui_assets/ui_buttons/B_Start1.png" id="4_t6bnd"]
 [ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="5_3f7m4"]
@@ -14,6 +13,17 @@
 [ext_resource type="Texture2D" uid="uid://bkgcce3lrswf3" path="res://ui_assets/ui_buttons/B_Exit2.png" id="9_g1omr"]
 [ext_resource type="Texture2D" uid="uid://ceibtljaw5spl" path="res://ui_assets/ui_buttons/B_Credits2.png" id="9_tr6y3"]
 [ext_resource type="Texture2D" uid="uid://bqspsj4pbdtn3" path="res://ui_assets/ui_buttons/B_Exit3.png" id="10_kwfav"]
+[ext_resource type="Texture2D" uid="uid://djfobp5mqpc6u" path="res://ui_assets/reward_menus.png" id="13_tr6y3"]
+[ext_resource type="FontFile" uid="uid://b1bxbakchn1rb" path="res://ui_assets/Baskic8.otf" id="14_vj6np"]
+[ext_resource type="Texture2D" uid="uid://cuoyhtm702kqf" path="res://entities/enemy/boss/boss_spritesheet.png" id="15_iri28"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq33v"]
+atlas = ExtResource("13_tr6y3")
+region = Rect2(286, 0, 551, 327)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ie3af"]
+atlas = ExtResource("15_iri28")
+region = Rect2(20, 71, 20, 31)
 
 [node name="MainMenu" type="Control" unique_id=1649032504 node_paths=PackedStringArray("controls_image", "background_image")]
 layout_mode = 3
@@ -81,11 +91,56 @@ stretch_mode = 0
 visible = false
 z_index = 1
 layout_mode = 0
-offset_left = 161.0
-offset_top = 80.0
-offset_right = 1016.0
-offset_bottom = 611.0
-texture = ExtResource("3_3shxk")
+offset_left = 200.0
+offset_top = 89.0
+offset_right = 918.0
+offset_bottom = 527.0
+texture = SubResource("AtlasTexture_qq33v")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="controls_image" unique_id=262855960]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 32.0
+offset_right = 609.0
+offset_bottom = 414.0
+theme_override_fonts/normal_font = ExtResource("14_vj6np")
+theme_override_font_sizes/normal_font_size = 19
+text = "
+Made for GDG Jam 2026 Sem 1 - Too many Cats!
+
+
+Art by Michael and Alastair
+
+Music & sfx implementation by Alastair and Jason
+
+UI by Jason
+
+Level Design by Mitchell
+
+Gameplay by Calvin, Alastair, and Mitchell
+
+
+Thanks for Playing Catsle Knights!
+
+
+"
+
+[node name="TextureRect" type="TextureRect" parent="controls_image" unique_id=1236807729]
+layout_mode = 0
+offset_left = 345.0
+offset_top = 295.0
+offset_right = 429.0
+offset_bottom = 407.0
+texture = SubResource("AtlasTexture_ie3af")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="controls_image" unique_id=1748138930]
+layout_mode = 0
+offset_left = 526.0
+offset_top = 394.0
+offset_right = 704.0
+offset_bottom = 416.0
+theme_override_fonts/normal_font = ExtResource("14_vj6np")
+text = "click anywhere to exit"
 
 [node name="fade_transition" parent="." unique_id=1501326469 instance=ExtResource("5_3f7m4")]
 visible = false
