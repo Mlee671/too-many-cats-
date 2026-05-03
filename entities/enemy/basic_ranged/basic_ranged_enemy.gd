@@ -2,15 +2,18 @@ extends Enemy
 class_name RangedEnemy
 
 const PROJECTILE := preload("res://entities/enemy/components/projectile/enemy_projectile.tscn") 
-const SPEED := 15.0
+
 const ACCELERATION := 10.0
-const HP := 100
 const WEIGHT := 2
-const ATTACKS_PER_SECOND := 1.0
-const PROJECTILE_SPEED := 75
 const ORBIT_DIST := 80.0
 const CHASE_DIST := ORBIT_DIST * 1.3
-const VISION := 80.0
+
+# functionally const, var because of subclassing
+var ATTACKS_PER_SECOND := 1.0
+var PROJECTILE_SPEED := 75
+var SPEED := 15.0
+var HP := 100
+var VISION := 80.0
 
 var frame := 0
 
@@ -22,7 +25,22 @@ func _ready() -> void:
 	health.set_health(HP)
 	vision_range = VISION
 	super()
-	
+
+func fire_bullet(dir: Vector2, pos: Vector2):
+	var attack := PROJECTILE.instantiate()
+	animation.play_animation("attack", true)
+	attack.set_velocity(dir * PROJECTILE_SPEED)
+	get_parent().add_child(attack)
+	attack.global_position = pos
+
+func attack_check(dir: Vector2, pos: Vector2):
+	if not attack_cooldown:
+		fire_bullet(
+			dir,
+			pos
+		)
+		attack_cooldown = true
+		attack_timer.start(1.0 / ATTACKS_PER_SECOND)
 
 func attack_logic() -> void:
 	var attack_offset = $AttackOffset.position * _look_vector_direction(
@@ -44,14 +62,7 @@ func attack_logic() -> void:
 					+ (orbit_vector * ORBIT_DIST))
 	frame += 1
 	
-	if not attack_cooldown:
-		var attack := PROJECTILE.instantiate()
-		animation.play_animation("attack", true)
-		# point bullet toward player (inverting path calc vector) and apply speed
-		attack.set_velocity(-player_enemy_direction * PROJECTILE_SPEED)
-		get_parent().add_child(attack)
-		attack.global_position = global_position + attack_offset
-		# put attack on cooldown, based on inverse attack rate (higher val = lower cd)
-		attack_cooldown = true
-		attack_timer.start(1.0 / ATTACKS_PER_SECOND)
+	attack_check(
+			-player_enemy_direction,
+			global_position + attack_offset)
 	

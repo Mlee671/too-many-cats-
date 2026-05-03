@@ -4,8 +4,19 @@
 [ext_resource type="Script" uid="uid://csl42gvlxd3r3" path="res://entities/enemy/components/projectile/enemy_projectile.gd" id="2_qt2gc"]
 [ext_resource type="Texture2D" uid="uid://diotyurjspa62" path="res://entities/enemy/components/projectile/bullet.png" id="3_8r7ch"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8r7ch"]
+radius = 2.0
+
 [node name="EnemyProjectile" unique_id=364488218 instance=ExtResource("1_q6xqr")]
+collision_mask = 2
 script = ExtResource("2_qt2gc")
+
+[node name="Hitbox" parent="." index="0" unique_id=946368817]
+shape = SubResource("CircleShape2D_8r7ch")
 
 [node name="Sprite" parent="." index="1" unique_id=2001656728]
 texture = ExtResource("3_8r7ch")
+
+[node name="UnwallTimer" type="Timer" parent="." index="3" unique_id=1311475267]
+
+[connection signal="timeout" from="UnwallTimer" to="." method="_on_unwall"]

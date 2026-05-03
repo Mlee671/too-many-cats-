@@ -1,115 +1,9 @@
-[gd_scene format=3 uid="uid://uxtl1jypjjmq"]
+[gd_scene format=3 uid="uid://csido2d8lgsro"]
 
-[ext_resource type="PackedScene" uid="uid://b5c58jagrlp5r" path="res://entities/enemy/Enemy.tscn" id="1_enhxg"]
-[ext_resource type="Script" uid="uid://b7rw6ss3s6dgp" path="res://entities/enemy/basic_ranged/basic_ranged_enemy.gd" id="2_ocqek"]
-[ext_resource type="Texture2D" uid="uid://x815c1srcasp" path="res://entities/enemy/basic_ranged/ikoiku_itchio_mouse.png" id="3_l8j17"]
-[ext_resource type="Texture2D" uid="uid://bf066hohf52cy" path="res://entities/enemy/basic_ranged/idle_ranged.png" id="4_8a0ya"]
-[ext_resource type="Texture2D" uid="uid://bjik88oiupa36" path="res://entities/enemy/basic_ranged/throw_ranged.png" id="4_ugtb8"]
-[ext_resource type="Texture2D" uid="uid://b08tlx0usu2dk" path="res://entities/enemy/basic_ranged/run_ranged.png" id="5_ugtb8"]
+[ext_resource type="PackedScene" uid="uid://uxtl1jypjjmq" path="res://entities/enemy/Enemy_scenes/BasicRangedEnemy.tscn" id="1_f2e1p"]
+[ext_resource type="Script" uid="uid://fpuyf7b33j1k" path="res://entities/enemy/elite_ranged/elite_ranged_enemy.gd" id="2_ir3ek"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jmhof"]
-atlas = ExtResource("4_ugtb8")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qrd01"]
-atlas = ExtResource("4_ugtb8")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4514x"]
-atlas = ExtResource("4_ugtb8")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dvvk1"]
-atlas = ExtResource("4_ugtb8")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dnq1q"]
-atlas = ExtResource("4_8a0ya")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nja2k"]
-atlas = ExtResource("4_8a0ya")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jcwfe"]
-atlas = ExtResource("4_8a0ya")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_syvn2"]
-atlas = ExtResource("4_8a0ya")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_puqb0"]
-atlas = ExtResource("5_ugtb8")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lbaap"]
-atlas = ExtResource("5_ugtb8")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r6mh6"]
-atlas = ExtResource("5_ugtb8")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wbmuv"]
-atlas = ExtResource("5_ugtb8")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_jmhof"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jmhof")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qrd01")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4514x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dvvk1")
-}],
-"loop": true,
-"name": &"attack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dnq1q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nja2k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jcwfe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_syvn2")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_puqb0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lbaap")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r6mh6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wbmuv")
-}],
-"loop": true,
-"name": &"move",
-"speed": 5.0
-}]
-
-[sub_resource type="Animation" id="Animation_l8j17"]
+[sub_resource type="Animation" id="Animation_f2e1p"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -196,8 +90,9 @@ tracks/6/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_sbicg"]
+[sub_resource type="Animation" id="Animation_ir3ek"]
 resource_name = "attack"
+length = 0.5
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -218,13 +113,13 @@ tracks/1/path = NodePath("Visuals/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.06666669, 0.099999994, 0.4666667),
+"times": PackedFloat32Array(0, 0.0333, 0.05, 0.2333),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 0]
 }
 
-[sub_resource type="Animation" id="Animation_wewrm"]
+[sub_resource type="Animation" id="Animation_ckupr"]
 resource_name = "damaged"
 length = 0.5
 tracks/0/type = "value"
@@ -240,7 +135,7 @@ tracks/0/keys = {
 "values": [3, 7, 11, 15]
 }
 
-[sub_resource type="Animation" id="Animation_7g1hh"]
+[sub_resource type="Animation" id="Animation_yut4t"]
 resource_name = "death"
 length = 1.2
 tracks/0/type = "value"
@@ -316,7 +211,7 @@ tracks/5/keys = {
 "values": [0.0, -2.49, -3.705, -8.345]
 }
 
-[sub_resource type="Animation" id="Animation_soa10"]
+[sub_resource type="Animation" id="Animation_n21ax"]
 resource_name = "idle"
 length = 0.8
 loop_mode = 1
@@ -345,7 +240,7 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_fn27k"]
+[sub_resource type="Animation" id="Animation_3od5s"]
 resource_name = "moving"
 length = 1.6
 loop_mode = 1
@@ -374,64 +269,28 @@ tracks/1/keys = {
 "values": [0, 1, 0, 2, 0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wswxn"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tgo3w"]
 _data = {
-&"RESET": SubResource("Animation_l8j17"),
-&"attack": SubResource("Animation_sbicg"),
-&"damaged": SubResource("Animation_wewrm"),
-&"death": SubResource("Animation_7g1hh"),
-&"idle": SubResource("Animation_soa10"),
-&"moving": SubResource("Animation_fn27k")
+&"RESET": SubResource("Animation_f2e1p"),
+&"attack": SubResource("Animation_ir3ek"),
+&"damaged": SubResource("Animation_ckupr"),
+&"death": SubResource("Animation_yut4t"),
+&"idle": SubResource("Animation_n21ax"),
+&"moving": SubResource("Animation_3od5s")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tou4i"]
-radius = 80.1561
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ugtb8"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f2e1p"]
 radius = 6.9999995
 height = 20.0
 
-[node name="BasicRangedEnemy" unique_id=310538941 instance=ExtResource("1_enhxg")]
-script = ExtResource("2_ocqek")
-
-[node name="shadow" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="0" unique_id=167189831]
-offset_left = -6.0
-offset_right = 6.0
-offset_bottom = 6.0
-
-[node name="Sprite" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="1" unique_id=1680913945]
-visible = false
-texture = ExtResource("3_l8j17")
-hframes = 4
-vframes = 6
-frame = 15
+[node name="BasicRangedEnemy" unique_id=310538941 instance=ExtResource("1_f2e1p")]
+script = ExtResource("2_ir3ek")
 
 [node name="AnimatedSprite2D" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="2" unique_id=516999520]
-position = Vector2(2, -7)
-sprite_frames = SubResource("SpriteFrames_jmhof")
-animation = &"move"
-flip_h = true
+modulate = Color(1, 0.14901961, 0, 1)
 
 [node name="AnimationPlayer" parent="Visuals" parent_id_path=PackedInt32Array(1227261934) index="3" unique_id=2102798003]
-libraries/ = SubResource("AnimationLibrary_wswxn")
+libraries/ = SubResource("AnimationLibrary_tgo3w")
 
-[node name="Terrain_collision" parent="." index="1" unique_id=1076322931]
-visible = false
-
-[node name="VisionArea" parent="." index="8" unique_id=829889890]
-visible = false
-
-[node name="VisionCircle" parent="VisionArea" index="0" unique_id=428306925]
-visible = false
-shape = SubResource("CircleShape2D_tou4i")
-
-[node name="Hitbox" parent="." index="9" unique_id=417678541]
-position = Vector2(0, -1)
-rotation = 1.5707964
-
-[node name="CollisionShape2D" parent="Hitbox" index="0" unique_id=946156460]
-position = Vector2(-5, -0.9999995)
-shape = SubResource("CapsuleShape2D_ugtb8")
-
-[node name="AttackOffset" type="Marker2D" parent="." index="10" unique_id=549747348]
-position = Vector2(-6, -9)
+[node name="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(417678541) index="0" unique_id=946156460]
+shape = SubResource("CapsuleShape2D_f2e1p")
