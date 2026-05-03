@@ -24,8 +24,8 @@ func _ready() -> void:
 			if parent is Room_manager and randf() < 0.6:
 				var new_enemy = parent.get_enemy().instantiate()
 				new_enemy.position = child.position
-				enemy_list.append(new_enemy)
 				add_child(new_enemy)
+				enemy_list.append(new_enemy)
 			child.queue_free()
 
 func remove_direction(empty : Vector2):
@@ -56,9 +56,9 @@ func _ew_hallway_remove(array : Array):
 		room.set_cell(Vector2(i, 0), 0, Vector2i(8,7), 0)
 		room.set_cell(Vector2(i, 1), 0, Vector2i(8,7), 0)
 
-func enemy_died():
+func enemy_died(enemy : Enemy):
 	for i in range(enemy_list.size() - 1, -1, -1):
-			if enemy_list[i]:
+			if enemy_list[i] == enemy:
 				enemy_list.remove_at(i)
 	if !enemy_list:
 		locked = false
