@@ -1,7 +1,6 @@
 extends Stats
 
 
-
 func _ready() -> void:
 	speed = 85
 	hp = 150

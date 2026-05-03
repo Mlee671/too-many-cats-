@@ -57,6 +57,10 @@ func _process(_delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
+	
+	if Input.is_action_just_pressed("debug_tp"):
+		global_position = get_global_mouse_position()
+	
 	if Input.is_action_just_pressed("ability") and not ability_cooldown:
 		character_ability()
 		signal_bus.ability_used_signal.emit()
