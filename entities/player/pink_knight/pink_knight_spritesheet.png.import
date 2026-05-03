@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0xolhr72equs"
-path="res://.godot/imported/Idle_Choco_Banana1.png-7333295a1fafeacb8138dff886ccbef2.ctex"
+uid="uid://dfg16abgbmtsv"
+path="res://.godot/imported/pink_knight_spritesheet.png-287e2122d2a669d08033ffa5fa158495.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/yellow_knight/Idle_Choco_Banana1.png"
-dest_files=["res://.godot/imported/Idle_Choco_Banana1.png-7333295a1fafeacb8138dff886ccbef2.ctex"]
+source_file="res://entities/player/pink_knight/pink_knight_spritesheet.png"
+dest_files=["res://.godot/imported/pink_knight_spritesheet.png-287e2122d2a669d08033ffa5fa158495.ctex"]
 
 [params]
 

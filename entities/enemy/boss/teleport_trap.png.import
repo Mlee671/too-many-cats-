@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cefmvw8mjyvnc"
-path="res://.godot/imported/dodge_placeholder.png-0f2950ea82453d529a45cc90b02b3f44.ctex"
+uid="uid://bi2gdhdwsrkfw"
+path="res://.godot/imported/teleport_trap.png-50989db06b9769f47be8b883fd2dd0b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/dodge_placeholder.png"
-dest_files=["res://.godot/imported/dodge_placeholder.png-0f2950ea82453d529a45cc90b02b3f44.ctex"]
+source_file="res://entities/enemy/boss/teleport_trap.png"
+dest_files=["res://.godot/imported/teleport_trap.png-50989db06b9769f47be8b883fd2dd0b4.ctex"]
 
 [params]
 

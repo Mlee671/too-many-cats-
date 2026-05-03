@@ -1,10 +1,80 @@
 [gd_scene format=3 uid="uid://bt2dap0mh3f4a"]
 
-[ext_resource type="Texture2D" uid="uid://diotyurjspa62" path="res://entities/enemy/components/projectile/bullet.png" id="1_d2qve"]
 [ext_resource type="Script" uid="uid://2p7fdgodeflt" path="res://entities/enemy/boss/teleport_marker.gd" id="1_wbeli"]
+[ext_resource type="Texture2D" uid="uid://bi2gdhdwsrkfw" path="res://entities/enemy/boss/teleport_trap.png" id="2_wbeli"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ukv2f"]
-radius = 17.029387
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wbeli"]
+radius = 7.0
+height = 38.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbeli"]
+atlas = ExtResource("2_wbeli")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nl71i"]
+atlas = ExtResource("2_wbeli")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24501"]
+atlas = ExtResource("2_wbeli")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1xxs"]
+atlas = ExtResource("2_wbeli")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpnaw"]
+atlas = ExtResource("2_wbeli")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ad86i"]
+atlas = ExtResource("2_wbeli")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjk5w"]
+atlas = ExtResource("2_wbeli")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwem3"]
+atlas = ExtResource("2_wbeli")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nl71i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbeli")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nl71i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24501")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1xxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpnaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ad86i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjk5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwem3")
+}],
+"loop": false,
+"name": &"trigger",
+"speed": 20.0
+}]
 
 [node name="TeleportMarker" type="Area2D" unique_id=648715498]
 collision_layer = 0
@@ -12,11 +82,16 @@ collision_mask = 2
 script = ExtResource("1_wbeli")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=621968235]
-shape = SubResource("CircleShape2D_ukv2f")
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_wbeli")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1502025006]
-modulate = Color(2.0002677, 0, 0.9536301, 1)
-scale = Vector2(4.3125, 4.3125)
-texture = ExtResource("1_d2qve")
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1968384437]
+position = Vector2(0, -12)
+scale = Vector2(1.21875, 1.21875)
+sprite_frames = SubResource("SpriteFrames_nl71i")
+animation = &"trigger"
+frame = 5
+frame_progress = 0.1994291
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]

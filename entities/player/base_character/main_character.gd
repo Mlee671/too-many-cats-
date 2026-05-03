@@ -35,6 +35,7 @@ var attack_cooldown := false
 var ability_cooldown := false
 var is_alive := true
 var dodge_direction := Vector2.ZERO
+var locked := false
 
 
 
@@ -44,9 +45,8 @@ func _ready() -> void:
 	state.switch_to(state.STATES.IDLE)
 	add_to_group("Player")
 	animation_tree.active = true
-	
-	
-	
+
+
 func _process(_delta: float) -> void:
 	# flip character based on mouse position
 	if state.player_state != state.STATES.DODGING:
@@ -58,26 +58,37 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
 	
-	if Input.is_action_just_pressed("ability") and ability_cooldown_timer.time_left == 0:
+	if Input.is_action_just_pressed("debug_tp"):
+		global_position = get_global_mouse_position()
+	
+	if Input.is_action_just_pressed("ability") and not ability_cooldown:
 		character_ability()
 		signal_bus.ability_used_signal.emit()
 		
 	if state.player_state != state.STATES.SWITCHING:
+		if locked:
+			knockback_vec = Vector2.ZERO
+			return
 		if evade_duration.time_left > 0:
 			dodge_movement(delta)
 		else:
 			manage_movement(delta, direction)
 			
-
 		move_and_slide()
 	handle_state()
+
+func lock():
+	locked = true
+	
+func unlock():
+	locked = false
+
 
 # when attack cooldown finishes
 func _on_attack_timeout() -> void:
 	attack_cooldown = false
 
 
-	
 func _on_iframe_timeout() -> void:
 	iframe_flag = false
 	char_visual.modulate = Color(1,1,1)
@@ -85,7 +96,6 @@ func _on_iframe_timeout() -> void:
 
 func manage_movement(delta: float, direction: Vector2) -> void:
 	# gets directional vector based on keypress
-	
 
 	movement_vec = lerp(movement_vec, direction * stats.speed, stats.accel * delta)	
 	if Input.is_action_just_pressed("evade"):
@@ -112,17 +122,17 @@ func start_dodge_roll():
 	evade_duration.start(stats.evade_dur)
 	evade_cooldown.start(stats.evade_cd)
 	iframe_flag = true
-	
+
+
 func dodge_movement(delta: float):
-	#var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
-	velocity = lerp(velocity , Vector2.ZERO, delta)
+	velocity = lerp(velocity, Vector2.ZERO, delta)
 
 
 func swap_character() -> void:
 	SFX_Manager.play_sound_effect_from_dictionary("finger_click")
 	state.switch_to(States.STATES.SWITCHING)
 	state.disable_switch()
-	pass
+
 
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
@@ -144,16 +154,15 @@ func attack(target: Vector2) -> void:
 	# for where the sprite hands would be (presumably) 
 	spawn.global_position = $AttackMarker.global_position + (ATTACK_OFFSET * direction)
 	get_parent().add_child(spawn)
-	stats.shots_fired += 1
 
 
 func character_ability():
 	SFX_Manager.play_sound_effect_from_dictionary("fire_lighting")
+	ability_cooldown = true
 	ability_cooldown_timer.start(stats.ability_cd)
 	ability_duration_timer.start(stats.ability_dur)
 	state.switch_to(States.STATES.USING_ABILITY)
 	state.disable_switch()
-	# override in child
 
 func add_knockback(vec: Vector2) -> void:
 	knockback_vec += vec
@@ -195,7 +204,6 @@ func _on_hitbox_area_entered(area: Area2D, knockback_amount = 200) -> void:
 func _on_evade_duration_timeout() -> void:
 	iframe_flag = false
 	state.enable_switch()
-	pass
 
 
 
@@ -209,18 +217,14 @@ func _on_hazard_box_body_entered(body: Node2D) -> void:
 			take_damage(10)
 			add_knockback(-velocity.normalized() * DAMAGE_KNOCKBACK * 2)
 			
-func heal_to_full()->void:
-	
-	
+func heal_to_full() -> void:
 	stats.hp = stats.max_hp
-	
 	
 
 func _on_ability_timer_timeout() -> void:
-	pass # Replace with function body.
+	ability_cooldown = false
 	
 
 func _on_ability_duration_timeout() -> void:
 	state.enable_switch()
-	state.switch_to(state.STATES.IDLE)
-	pass # Replace with function body.
+	#state.switch_to(state.STATES.IDLE)

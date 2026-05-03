@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bewjbmrkg2otp"
-path="res://.godot/imported/Run_Choco_Banana.png-bdc563e6d72644649e650ed724267522.ctex"
+uid="uid://dutqm2qncd1t3"
+path="res://.godot/imported/ground_pound.png-ae1c36839d6a136e25a48791bb832441.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/yellow_knight/Run_Choco_Banana.png"
-dest_files=["res://.godot/imported/Run_Choco_Banana.png-bdc563e6d72644649e650ed724267522.ctex"]
+source_file="res://entities/player/yellow_knight/ground_pound.png"
+dest_files=["res://.godot/imported/ground_pound.png-ae1c36839d6a136e25a48791bb832441.ctex"]
 
 [params]
 

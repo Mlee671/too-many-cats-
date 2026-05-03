@@ -3,8 +3,6 @@ class_name blue_knight
 
 @onready var nav_agent := $NavigationAgent2D
 
-
-
 func character_ability():
 	super()
 	nav_agent.target_position = get_global_mouse_position()
