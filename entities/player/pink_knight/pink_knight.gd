@@ -11,7 +11,7 @@ var ability_on_cooldown := false
 @onready var uptime_timer = $AbilityUptimeTimer
 
 func attack(target: Vector2) -> void:
-	SFX_Manager.play_sound_effect_from_dictionary("sword_light")
+	SFX_Manager.play_sound_effect_from_dictionary(stats.attack_sfx)
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	var mouse_angle = target.normalized()
@@ -29,6 +29,7 @@ func attack(target: Vector2) -> void:
 
 func character_ability():
 	super()
+	SFX_Manager.play_sound_effect_from_dictionary("power_up")
 	char_visual.modulate = Color(0.92, 0.246, 0.744, 1.0)
 	# start ability timer
 	if !ability_on_cooldown:

@@ -30,7 +30,7 @@ func attack(_target: Vector2) -> void:
 
 func character_ability() -> void:
 	super()
-	SFX_Manager.play_sound_effect_from_dictionary("sword_sharpen") # change noise
+	SFX_Manager.play_sound_effect_from_dictionary("explosion_quick") # change noise
 	# scale up ability area size to trigger area_entered
 	
 

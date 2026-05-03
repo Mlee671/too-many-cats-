@@ -11,21 +11,27 @@ func _on_interaction_zone_body_entered(body: Node2D) -> void:
 		
 
 func _on_interaction_zone_body_exited(body: Node2D) -> void:
-	if body is main_character:
-		rich_text_label.visible = false
+	pass
+	#if body is main_character:
+		#rich_text_label.visible = false
 
 func _physics_process(_delta: float) -> void:
 	if rich_text_label.visible and !used:
 		if Input.is_action_just_pressed("interact"):
-			Input.action_press("debug_open_reward_screen")
-			Input.action_release("debug_open_reward_screen")
-			used = true
-			rich_text_label.text = "\nPress 'E\nto change character\n"
+			
 			explosion.visible = true
 			explosion.play()
+			SFX_Manager.play_sound_effect_from_dictionary("music_box_mystery")
+
+			used = true
+			
+			
 			
 
 			
 			
 func _on_explosion_animation_finished() -> void:
+	Input.action_press("debug_open_reward_screen")
+	Input.action_release("debug_open_reward_screen")
 	explosion.visible = false
+	rich_text_label.text = "\nPress 'E\nto change character\n"

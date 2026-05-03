@@ -45,6 +45,7 @@ func _process(_delta: float) -> void:
 
 #shows the character replacing screen if the party has 3 members
 func _on_new_char_button_pressed() -> void:
+	
 
 	
 	if party_full:

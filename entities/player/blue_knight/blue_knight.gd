@@ -3,8 +3,11 @@ class_name blue_knight
 
 @onready var nav_agent := $NavigationAgent2D
 
+
+
 func character_ability():
 	super()
+	SFX_Manager.play_sound_effect_from_dictionary("fire_lighting")
 	nav_agent.target_position = get_global_mouse_position()
 	await get_tree().create_timer(stats.ability_dur/2.0).timeout
 	# go to final calculated path node

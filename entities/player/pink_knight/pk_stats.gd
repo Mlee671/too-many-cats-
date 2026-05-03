@@ -11,5 +11,5 @@ func _ready() -> void:
 
 	projectile_frame = 1
 	projectile_knockback = 50
-
+	attack_sfx = "sword_light"
 	damage = 16

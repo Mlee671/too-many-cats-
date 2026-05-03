@@ -8,6 +8,8 @@ func _ready() -> void:
 	max_hp = 100
 
 	fire_cd =  0.1
+	
+	attack_sfx = 'pop_1'
 
 	ability_dur = 0.1
 	ability_cd = 5

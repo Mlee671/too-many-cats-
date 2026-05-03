@@ -121,8 +121,10 @@ func _on_new_char_button_pressed() -> void:
 		
 	await reward_screen._on_new_char_button_pressed()
 	var c = reward_screen.get_selected_rand_char()
-
+	if character_nodes.size()<3:
+		SFX_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
 	load_char(c)
+
 
 
 func _on_character_hud_character_removed() -> void:
@@ -142,6 +144,7 @@ func load_char(c : String):
 	remove_child(char_instance)
 
 func _on_rep_first_slot_pressed() -> void:
+	SFX_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
 	#swap characters so that the first char doesnt stay on screen
 	Input.action_press("character_change")
 	Input.action_release("character_change")
@@ -159,6 +162,7 @@ func _on_rep_first_slot_pressed() -> void:
 
 
 func _on_rep_second_slot_pressed() -> void:
+	SFX_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
 	character_hud.kill_indexed_character(1)
 	character_nodes.remove_at(1)
 	var c = reward_screen.get_selected_rand_char()
@@ -169,6 +173,7 @@ func _on_rep_second_slot_pressed() -> void:
 
 
 func _on_rep_third_slot_pressed() -> void:
+	SFX_Manager.play_sound_effect_from_dictionary("sci_fi_select_big")
 	character_hud.kill_indexed_character(2)
 	character_nodes.remove_at(2)
 	var c = reward_screen.get_selected_rand_char()
@@ -179,6 +184,7 @@ func _on_rep_third_slot_pressed() -> void:
 
 
 func _on_heal_button_pressed() -> void:
+	SFX_Manager.play_sound_effect_from_dictionary("gem_collect")
 	var count = 0
 	
 	for j in range(character_nodes.size()):
