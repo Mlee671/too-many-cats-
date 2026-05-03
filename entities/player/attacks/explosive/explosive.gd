@@ -23,7 +23,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_explosion_trigger(_body: Node2D) -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("explosion_medium")
+	SFX_Manager.play_sound_effect_from_dictionary("explosion_medium")
 	velocity = Vector2.ZERO
 	rotate_amount = 0
 	$AnimationPlayer.play("explode")

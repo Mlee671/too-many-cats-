@@ -16,7 +16,7 @@ func _ready() -> void:
 	
 
 func attack(_target: Vector2) -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("sword_slice")
+	SFX_Manager.play_sound_effect_from_dictionary("sword_slice")
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	# vertical mirror depending on cursor location
@@ -30,7 +30,7 @@ func attack(_target: Vector2) -> void:
 
 func character_ability() -> void:
 	super()
-	Sfx_Manager.play_sound_effect_from_dictionary("sword_sharpen") # change noise
+	SFX_Manager.play_sound_effect_from_dictionary("sword_sharpen") # change noise
 	# scale up ability area size to trigger area_entered
 	
 
