@@ -157,7 +157,7 @@ func attack(target: Vector2) -> void:
 
 
 func character_ability():
-	SFX_Manager.play_sound_effect_from_dictionary("fire_lighting")
+	#SFX_Manager.play_sound_effect_from_dictionary("fire_lighting")
 	ability_cooldown = true
 	ability_cooldown_timer.start(stats.ability_cd)
 	ability_duration_timer.start(stats.ability_dur)

@@ -29,6 +29,7 @@ func attack(target: Vector2) -> void:
 
 func character_ability():
 	super()
+	SFX_Manager.play_sound_effect_from_dictionary("power_up")
 	char_visual.modulate = Color(0.92, 0.246, 0.744, 1.0)
 	# start ability timer
 	if !ability_on_cooldown:
