@@ -6,13 +6,10 @@ func _ready() -> void:
 	hp = 100
 
 	max_hp = 100
-	evade_movement_scaling = 1.75
-	evade_dur = 0.4
-	evade_cd = 0.5
-
 
 	fire_cd =  0.1
-	ability_cd = 1
+	ability_dur = 0
+	ability_cd = 2
 	
 	projectile_frame = 1
 	projectile_speed = 250

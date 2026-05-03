@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bt2dap0mh3f4a"]
+
+[ext_resource type="Texture2D" uid="uid://diotyurjspa62" path="res://entities/enemy/components/projectile/bullet.png" id="1_d2qve"]
+[ext_resource type="Script" uid="uid://2p7fdgodeflt" path="res://entities/enemy/boss/teleport_marker.gd" id="1_wbeli"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ukv2f"]
+radius = 17.029387
+
+[node name="TeleportMarker" type="Area2D" unique_id=648715498]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_wbeli")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=621968235]
+shape = SubResource("CircleShape2D_ukv2f")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1502025006]
+modulate = Color(2.0002677, 0, 0.9536301, 1)
+scale = Vector2(4.3125, 4.3125)
+texture = ExtResource("1_d2qve")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,13 +1,28 @@
 [gd_scene format=3 uid="uid://bn11dgu54p54v"]
 
 [ext_resource type="PackedScene" uid="uid://cu5vxr7m0nptx" path="res://entities/player/base_character/main_character.tscn" id="1_bk7k0"]
-[ext_resource type="Texture2D" uid="uid://cefmvw8mjyvnc" path="res://entities/player/dodge_placeholder.png" id="2_604g3"]
 [ext_resource type="Texture2D" uid="uid://d0xolhr72equs" path="res://entities/player/yellow_knight/Idle_Choco_Banana1.png" id="2_bk7k0"]
 [ext_resource type="Script" uid="uid://3wbdeqhqyixf" path="res://entities/player/yellow_knight/yellow_knight.gd" id="2_gq0h7"]
 [ext_resource type="Script" uid="uid://480tn3vakaw3" path="res://entities/player/yellow_knight/yk_stats.gd" id="2_jg6ev"]
 [ext_resource type="Texture2D" uid="uid://bewjbmrkg2otp" path="res://entities/player/yellow_knight/Run_Choco_Banana.png" id="3_232be"]
 [ext_resource type="Script" uid="uid://b5pchnv3xojmv" path="res://entities/player/attacks/melee_attack.gd" id="7_gq0h7"]
 [ext_resource type="Texture2D" uid="uid://fr7i801n6k7g" path="res://entities/player/attacks/sword_slash.png" id="7_ool57"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qbob"]
+atlas = ExtResource("2_bk7k0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8up7b"]
+atlas = ExtResource("2_bk7k0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxsh3"]
+atlas = ExtResource("2_bk7k0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44y3t"]
+atlas = ExtResource("2_bk7k0")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ool57"]
 atlas = ExtResource("2_bk7k0")
@@ -45,18 +60,19 @@ region = Rect2(96, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_604g3")
-}],
-"loop": true,
-"name": &"death",
-"speed": 5.0
+"texture": SubResource("AtlasTexture_3qbob")
 }, {
-"frames": [{
-"duration": 5.0,
-"texture": ExtResource("2_604g3")
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8up7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxsh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44y3t")
 }],
 "loop": true,
-"name": &"dodge",
+"name": &"ability",
 "speed": 5.0
 }, {
 "frames": [{
@@ -92,14 +108,6 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 10.0,
-"texture": ExtResource("2_604g3")
-}],
-"loop": true,
-"name": &"swap",
-"speed": 1.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pvbsp"]
@@ -234,7 +242,7 @@ script = ExtResource("2_gq0h7")
 [node name="AnimatedSprite2D" parent="CharacterVisuals" parent_id_path=PackedInt32Array(569010630) index="1" unique_id=1946509894]
 sprite_frames = SubResource("SpriteFrames_3qbob")
 
-[node name="Stats" parent="." index="8" unique_id=201965470]
+[node name="Stats" parent="." index="9" unique_id=201965470]
 script = ExtResource("2_jg6ev")
 
 [node name="AbilityArea" type="Area2D" parent="." index="11" unique_id=1555698296]

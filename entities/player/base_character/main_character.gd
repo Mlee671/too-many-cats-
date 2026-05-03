@@ -6,9 +6,10 @@ class_name main_character
 const PROJECTILE := preload("res://entities/player/attacks/player_projectile.tscn")
 
 @onready var attack_timer := $AttackTimer
-@onready var evade_cooldown := $EvadeDuration
-@onready var evade_duration := $EvadeCooldown
-@onready var ability_timer := $AbilityTimer
+@onready var evade_cooldown := $EvadeCooldown
+@onready var evade_duration := $EvadeDuration 
+@onready var ability_cooldown_timer := $AbilityTimer
+@onready var ability_duration_timer := $AbilityDuration
 @onready var iframe_timer := $IFrameTimer
 #@onready var animation_player := $CharacterVisuals/AnimatedSprite2D
 @onready var char_visual := $CharacterVisuals
@@ -58,8 +59,10 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
 	
-	if Input.is_action_just_pressed("ability"):
+	if Input.is_action_just_pressed("ability") and ability_cooldown_timer.time_left == 0:
 		character_ability()
+		
+		
 	if state.player_state != state.STATES.SWITCHING:
 		if evade_duration.time_left > 0:
 			dodge_movement(delta)
@@ -74,8 +77,7 @@ func _physics_process(delta: float) -> void:
 func _on_attack_timeout() -> void:
 	attack_cooldown = false
 
-func _on_ability_timeout() -> void:
-	ability_cooldown = false
+
 	
 func _on_iframe_timeout() -> void:
 	iframe_flag = false
@@ -144,7 +146,10 @@ func attack(target: Vector2) -> void:
 
 
 func character_ability():
-	pass
+	ability_cooldown_timer.start(stats.ability_cd)
+	ability_duration_timer.start(stats.ability_dur)
+	state.switch_to(States.STATES.USING_ABILITY)
+	state.disable_switch()
 	# override in child
 
 func add_knockback(vec: Vector2) -> void:
@@ -172,24 +177,26 @@ func handle_state():
 		state.switch_to(state.STATES.IDLE)
 
 # function for detecting attacks and extracting the damage done to main character
-func _on_hitbox_area_entered(area: Area2D) -> void:
+func _on_hitbox_area_entered(area: Area2D, knockback_amount = 200) -> void:
 	if !iframe_flag:
 		var direction
 		if area is Projectile:
-			direction = area.velocity.normalized() * DAMAGE_KNOCKBACK
+			direction = area.velocity.normalized() * knockback_amount
+		elif area is BossMelee: # scuffed but too late to rework damage system
+			direction = (global_position - area.global_position).normalized() * 1200
 		else:
-			direction = (global_position - area.global_position).normalized() * DAMAGE_KNOCKBACK
+			direction = (global_position - area.global_position).normalized() * knockback_amount
 		take_damage(area.deal_damage())
 		add_knockback(direction)
 
 func _on_evade_duration_timeout() -> void:
+	iframe_flag = false
+	state.enable_switch()
 	pass
 
 
 
 func _on_evade_cooldown_timeout() -> void:
-	iframe_flag = false
-	state.enable_switch()
 	pass # Replace with function body.
 
 # logic for spikes and pits
@@ -205,4 +212,12 @@ func heal_to_full()->void:
 	stats.hp = stats.max_hp
 	
 	
+
+func _on_ability_timer_timeout() -> void:
+	pass # Replace with function body.
 	
+
+func _on_ability_duration_timeout() -> void:
+	state.enable_switch()
+	state.switch_to(state.STATES.IDLE)
+	pass # Replace with function body.

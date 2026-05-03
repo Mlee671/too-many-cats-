@@ -9,6 +9,7 @@ const HP := 100
 const WEIGHT := 0.5
 const KNOCKBACK := 300
 const ATTACKS_PER_SECOND := 1.5
+const VISION := 50.0
 
 @onready var attack_visual := $AttackComponent
 @onready var detect_radius := $AttackComponent/AttackDetect
@@ -24,6 +25,7 @@ func _ready() -> void:
 	accel = ACCELERATION
 	health.set_health(HP)
 	mass_coef = WEIGHT
+	vision_range = VISION
 	attack_sprite.visible = false
 	super()
 
@@ -65,6 +67,7 @@ func _on_attack_render_timeout() -> void:
 # once sprites are in and the attack more circular this will fix itself mostly 
 func melee_attack():
 		attack_sprite.visible = true
+		attack_sprite.frame = randi() % 4
 		attack_box.toggle_disable(false)
 		animation.play_animation("attack", true)
 		attack_cooldown = true

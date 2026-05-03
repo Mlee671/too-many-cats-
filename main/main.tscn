@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://in_game_hud.gd" id="6_4dugh"]
 [ext_resource type="Texture2D" uid="uid://djfped5c2log5" path="res://ui_assets/HEALTH_BAR1.png" id="6_67ri8"]
-[ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
+[ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="8_grrlh"]
 [ext_resource type="Script" uid="uid://c0n4ylvv4q22d" path="res://ui_items/reward_screen.gd" id="10_bsumw"]
 [ext_resource type="Texture2D" uid="uid://b6d4o1fnfdppa" path="res://ui_items/hearts.png" id="10_fwcvl"]
 [ext_resource type="FontFile" uid="uid://b1bxbakchn1rb" path="res://ui_assets/Baskic8.otf" id="11_73k8k"]
@@ -671,6 +671,7 @@ offset_left = 624.0
 offset_top = 408.0
 offset_right = 802.0
 offset_bottom = 501.0
+theme_override_constants/outline_size = 10
 theme_override_fonts/normal_font = ExtResource("11_73k8k")
 theme_override_font_sizes/normal_font_size = 31
 text = "Add a New Knight"
@@ -685,6 +686,7 @@ offset_left = 398.0
 offset_top = 170.0
 offset_right = 741.0
 offset_bottom = 238.0
+theme_override_constants/outline_size = 10
 theme_override_fonts/normal_font = ExtResource("11_73k8k")
 theme_override_font_sizes/normal_font_size = 31
 text = "CHOOSE YOUR REWARD"
@@ -699,6 +701,7 @@ offset_left = 360.0
 offset_top = 408.0
 offset_right = 538.0
 offset_bottom = 501.0
+theme_override_constants/outline_size = 10
 theme_override_fonts/normal_font = ExtResource("11_73k8k")
 theme_override_font_sizes/normal_font_size = 31
 text = "Heal Everyone"
@@ -766,6 +769,7 @@ fit_content = true
 tab_size = 3
 horizontal_alignment = 1
 vertical_alignment = 1
+
 [node name="swap_timer" type="Timer" parent="character_manager" unique_id=386379360]
 one_shot = true
 

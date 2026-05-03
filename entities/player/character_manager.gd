@@ -37,6 +37,7 @@ func spawn_character(pos : Vector2):
 	character.global_position = pos
 	add_child(character)
 	move_child(character, 0)
+	character.show()
 
 
 
@@ -49,11 +50,14 @@ func _physics_process(_delta: float) -> void:
 		print(get_child(0).state.player_state)
 		if get_child(0).state.player_state != DODGING_ENUM_INDEX:
 			get_child(0).swap_character()
-			$swap_timer.start()
+			$swap_timer.start(get_child(0).stats.swap_dur)
 		
 
 func _do_switch(target_character: String = "") -> void:
 	
+	if character_nodes.size() == 1:
+		return
+		
 	var old_node: main_character = get_child(0)
 	var new_node: main_character
 	if target_character != "":
@@ -61,6 +65,7 @@ func _do_switch(target_character: String = "") -> void:
 	else:
 		new_node = get_next()
 	
+	new_node.show()
 	# transfer the current pos
 	new_node.global_position = old_node.global_position
 	
@@ -171,6 +176,9 @@ func _on_rep_third_slot_pressed() -> void:
 
 func _on_heal_button_pressed() -> void:
 	var count = 0
+	
+	for j in range(character_nodes.size()):
+		_do_switch()
 	for i in character_nodes:
 		
 		i.heal_to_full()

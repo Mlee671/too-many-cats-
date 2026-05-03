@@ -10,6 +10,7 @@ const ATTACKS_PER_SECOND := 1.0
 const PROJECTILE_SPEED := 75
 const ORBIT_DIST := 80.0
 const CHASE_DIST := ORBIT_DIST * 1.3
+const VISION := 80.0
 
 var frame := 0
 
@@ -19,6 +20,7 @@ func _ready() -> void:
 	accel = ACCELERATION
 	mass_coef = WEIGHT
 	health.set_health(HP)
+	vision_range = VISION
 	super()
 	
 

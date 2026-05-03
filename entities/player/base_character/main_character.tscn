@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://cu5vxr7m0nptx"]
 
 [ext_resource type="Script" uid="uid://r45tisj2jqte" path="res://entities/player/base_character/main_character.gd" id="1_a3m1w"]
+[ext_resource type="Texture2D" uid="uid://bwpgdkqhcgxkh" path="res://entities/player/blue_knight/FULL_Blue3.png" id="2_fgjft"]
 [ext_resource type="Texture2D" uid="uid://b7aey4jfrq2s1" path="res://entities/player/blue_knight/Idle_Blue.png" id="2_hj1g0"]
 [ext_resource type="Texture2D" uid="uid://civxms4kcr2yc" path="res://entities/player/blue_knight/Run_Blue1.png" id="3_1frpi"]
 [ext_resource type="Script" uid="uid://b1ndc5sne6j2m" path="res://entities/player/base_character/base_stats.gd" id="3_c4o6u"]
-[ext_resource type="Script" path="res://entities/player/base_character/animation_tree.gd" id="5_fgjft"]
+[ext_resource type="Script" uid="uid://q6fl6yqkf1ms" path="res://entities/player/base_character/animation_tree.gd" id="5_fgjft"]
 [ext_resource type="Script" uid="uid://bmjwwihnu1eqa" path="res://entities/player/base_character/States.gd" id="6_g607o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
@@ -18,6 +19,54 @@ corner_radius_top_right = 1000
 corner_radius_bottom_right = 1000
 corner_radius_bottom_left = 1000
 corner_detail = 15
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kifj0"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(0, 225, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjrvv"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(45, 225, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1buin"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(90, 225, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ochx4"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(135, 225, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqk7x"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(180, 225, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixuwc"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(225, 225, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fx2r5"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(0, 270, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2447"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(45, 270, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6662"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(90, 270, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xi7ij"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(135, 270, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sn315"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(180, 270, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lkkr"]
+atlas = ExtResource("2_fgjft")
+region = Rect2(225, 270, 45, 45)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q6pjh"]
 atlas = ExtResource("2_hj1g0")
@@ -53,6 +102,47 @@ region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i0knk"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kifj0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjrvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1buin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ochx4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqk7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixuwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fx2r5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2447")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6662")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xi7ij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sn315")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lkkr")
+}],
+"loop": true,
+"name": &"ability",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q6pjh")
@@ -173,6 +263,34 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_j3d6w"]
+resource_name = "ability"
+length = 0.6666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"ability"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.33333334, 0.4, 0.46666667, 0.53333336, 0.6, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]
 }
 
 [sub_resource type="Animation" id="Animation_vi0cl"]
@@ -405,12 +523,26 @@ tracks/4/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vi0cl"]
 _data = {
 &"RESET": SubResource("Animation_lswqs"),
+&"ability": SubResource("Animation_j3d6w"),
 &"death": SubResource("Animation_vi0cl"),
 &"dodge": SubResource("Animation_g607o"),
 &"idle": SubResource("Animation_namqu"),
 &"run": SubResource("Animation_5rfgb"),
 &"swap": SubResource("Animation_8628c")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kifj0"]
+animation = &"ability"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jjrvv"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1buin"]
+nodes/output/position = Vector2(740, 220)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_kifj0")
+nodes/Animation/position = Vector2(300, 240)
+nodes/ability_speed/node = SubResource("AnimationNodeTimeScale_jjrvv")
+nodes/ability_speed/position = Vector2(500, 200)
+node_connections = [&"output", 0, &"ability_speed", &"ability_speed", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lswqs"]
 animation = &"dodge"
@@ -454,19 +586,19 @@ nodes/run_speed/node = SubResource("AnimationNodeTimeScale_a7a4j")
 nodes/run_speed/position = Vector2(740, 200)
 node_connections = [&"output", 0, &"run_speed", &"run_speed", 0, &"Animation"]
 
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_3hn4c"]
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fgjft"]
 animation = &"swap"
 
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_3hn4c"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kifj0"]
-graph_offset = Vector2(-309.71942, 149.02393)
+graph_offset = Vector2(-271.86078, 118.8981)
 nodes/output/position = Vector2(352, 208)
 nodes/swap/node = SubResource("AnimationNodeAnimation_fgjft")
 nodes/swap/position = Vector2(-80, 224)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_3hn4c")
-nodes/TimeScale/position = Vector2(144, 176)
-node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"swap"]
+nodes/swap_speed/node = SubResource("AnimationNodeTimeScale_3hn4c")
+nodes/swap_speed/position = Vector2(144, 176)
+node_connections = [&"output", 0, &"swap_speed", &"swap_speed", 0, &"swap"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4x0rx"]
 advance_mode = 2
@@ -515,9 +647,29 @@ advance_expression = "state.player_state == state.STATES.RUNNING"
 advance_mode = 2
 advance_expression = "state.player_state == state.STATES.SWITCHING"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fgjft"]
+advance_mode = 2
+advance_expression = "state.player_state == state.STATES.USING_ABILITY"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kifj0"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "state.player_state == state.STATES.IDLE"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ixuwc"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "state.player_state == state.STATES.RUNNING"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fx2r5"]
+advance_mode = 2
+advance_expression = "state.player_state == state.STATES.USING_ABILITY"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xv68y"]
 states/End/position = Vector2(857, 157)
 states/Start/position = Vector2(-92, 157)
+states/ability/node = SubResource("AnimationNodeBlendTree_1buin")
+states/ability/position = Vector2(178, 342)
 states/dodge/node = SubResource("AnimationNodeBlendTree_namqu")
 states/dodge/position = Vector2(320, -25)
 states/idle/node = SubResource("AnimationNodeBlendTree_8628c")
@@ -525,9 +677,9 @@ states/idle/position = Vector2(89, 157)
 states/run/node = SubResource("AnimationNodeBlendTree_xs0gf")
 states/run/position = Vector2(584, 157)
 states/swap/node = SubResource("AnimationNodeBlendTree_kifj0")
-states/swap/position = Vector2(327.4, 325.6)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t"), "idle", "swap", SubResource("AnimationNodeStateMachineTransition_jjrvv"), "swap", "idle", SubResource("AnimationNodeStateMachineTransition_1buin"), "swap", "run", SubResource("AnimationNodeStateMachineTransition_ochx4"), "run", "swap", SubResource("AnimationNodeStateMachineTransition_hqk7x")]
-graph_offset = Vector2(-89, 54)
+states/swap/position = Vector2(491.4, 336.6)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4x0rx"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_xv68y"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_pg60g"), "dodge", "run", SubResource("AnimationNodeStateMachineTransition_usgwn"), "run", "dodge", SubResource("AnimationNodeStateMachineTransition_pau5x"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ocfgt"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_d121t"), "idle", "swap", SubResource("AnimationNodeStateMachineTransition_jjrvv"), "swap", "idle", SubResource("AnimationNodeStateMachineTransition_1buin"), "swap", "run", SubResource("AnimationNodeStateMachineTransition_ochx4"), "run", "swap", SubResource("AnimationNodeStateMachineTransition_hqk7x"), "idle", "ability", SubResource("AnimationNodeStateMachineTransition_fgjft"), "ability", "idle", SubResource("AnimationNodeStateMachineTransition_kifj0"), "ability", "run", SubResource("AnimationNodeStateMachineTransition_ixuwc"), "run", "ability", SubResource("AnimationNodeStateMachineTransition_fx2r5")]
+graph_offset = Vector2(-480, 38)
 
 [sub_resource type="Gradient" id="Gradient_3hn4c"]
 offsets = PackedFloat32Array(0, 0.54972374, 1)
@@ -557,12 +709,15 @@ shape = SubResource("CapsuleShape2D_bggxh")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1320116309]
 zoom = Vector2(3, 3)
 process_callback = 0
+limit_enabled = false
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=190503675]
 one_shot = true
 
 [node name="AbilityTimer" type="Timer" parent="." unique_id=2088195210]
 one_shot = true
+
+[node name="AbilityDuration" type="Timer" parent="." unique_id=1840081008]
 
 [node name="EvadeCooldown" type="Timer" parent="." unique_id=1923964845]
 wait_time = 5.0
@@ -589,7 +744,6 @@ texture_filter = 1
 position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_i0knk")
 animation = &"idle"
-frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVisuals" unique_id=518671881]
 root_node = NodePath("../AnimatedSprite2D")
@@ -601,10 +755,11 @@ root_node = NodePath("../AnimatedSprite2D")
 tree_root = SubResource("AnimationNodeStateMachine_xv68y")
 advance_expression_base_node = NodePath("../..")
 anim_player = NodePath("../AnimationPlayer")
+parameters/ability/ability_speed/scale = 1.0
 parameters/dodge/dodge_speed/scale = 1.0
 parameters/idle/TimeScale/scale = 1.0
 parameters/run/run_speed/scale = 1.0
-parameters/swap/TimeScale/scale = 1.0
+parameters/swap/swap_speed/scale = 1.0
 script = ExtResource("5_fgjft")
 
 [node name="TextureRect" type="TextureRect" parent="CharacterVisuals" unique_id=884656869]
@@ -641,7 +796,8 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
-[connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timeout"]
+[connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timer_timeout"]
+[connection signal="timeout" from="AbilityDuration" to="." method="_on_ability_duration_timeout"]
 [connection signal="timeout" from="EvadeCooldown" to="." method="_on_evade_cooldown_timeout"]
 [connection signal="timeout" from="EvadeDuration" to="." method="_on_evade_duration_timeout"]
 [connection signal="timeout" from="IFrameTimer" to="." method="_on_iframe_timeout"]
