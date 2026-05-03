@@ -25,6 +25,7 @@ func _ready() -> void:
 	accel = ACCELERATION
 	health.set_health(HP)
 	mass_coef = WEIGHT
+	vision_range = VISION
 	attack_sprite.visible = false
 	super()
 

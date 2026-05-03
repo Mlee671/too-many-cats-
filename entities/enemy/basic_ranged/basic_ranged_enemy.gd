@@ -7,6 +7,7 @@ const ACCELERATION := 10.0
 const WEIGHT := 2
 const ORBIT_DIST := 80.0
 const CHASE_DIST := ORBIT_DIST * 1.3
+const VISION := 80.0
 
 # functionally const, var because of subclassing
 var ATTACKS_PER_SECOND := 1.0
@@ -22,6 +23,7 @@ func _ready() -> void:
 	accel = ACCELERATION
 	mass_coef = WEIGHT
 	health.set_health(HP)
+	vision_range = VISION
 	super()
 
 func fire_bullet(dir: Vector2, pos: Vector2):

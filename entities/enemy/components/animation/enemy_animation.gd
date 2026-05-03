@@ -1,4 +1,5 @@
 extends AnimationPlayer
+class_name EnemyAnimationPlayer
 
 var no_interrupt := false
 
