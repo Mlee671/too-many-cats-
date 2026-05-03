@@ -3,8 +3,10 @@ class_name fountain
 @onready var rich_text_label: RichTextLabel = $RichTextLabel
 @onready var explosion := $Explosion
 
+var used := false
+
 func _on_interaction_zone_body_entered(body: Node2D) -> void:
-	if body is main_character:
+	if body is main_character and !used:
 		rich_text_label.visible = true
 		
 
@@ -13,11 +15,12 @@ func _on_interaction_zone_body_exited(body: Node2D) -> void:
 		rich_text_label.visible = false
 
 func _physics_process(_delta: float) -> void:
-	if rich_text_label.visible:
+	if rich_text_label.visible and !used:
 		if Input.is_action_just_pressed("interact"):
 			Input.action_press("debug_open_reward_screen")
 			Input.action_release("debug_open_reward_screen")
-			rich_text_label.visible = false
+			used = true
+			rich_text_label.text = "\nPress 'E\nto change character\n"
 			explosion.visible = true
 			explosion.play()
 			
@@ -26,5 +29,3 @@ func _physics_process(_delta: float) -> void:
 			
 func _on_explosion_animation_finished() -> void:
 	explosion.visible = false
-	rich_text_label.visible = true
-	rich_text_label.text = "\nPress 'E\nto change character\n"
