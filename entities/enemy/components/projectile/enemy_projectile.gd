@@ -6,4 +6,7 @@ class_name EnemyProjectile
 func _ready() -> void:
 	super()
 	knockback = 200
-	
+	$UnwallTimer.start(0.5)
+
+func _on_unwall() -> void:
+	collision_mask = 3 # players and walls

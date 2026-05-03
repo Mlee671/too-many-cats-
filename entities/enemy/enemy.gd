@@ -1,9 +1,6 @@
 extends CharacterBody2D
 class_name Enemy
 
-
-@export var vision_range: float
-
 const TILE_SIZE := 16
 const KB_AMOUNT := 80
 const KB_DECAY := 20
@@ -20,6 +17,7 @@ var enemyState := BEHAVIOUR.INACTIVE
 var raycast_target: Node2D
 var attack_cooldown := false
 var stop_moving := false
+var vision_range: float
 
 var knockback_dur := 0.2
 var knockback_vec := Vector2.ZERO
@@ -35,11 +33,14 @@ var mass_coef: float
 @onready var hitbox := $Hitbox
 @onready var vision_circle := $VisionArea/VisionCircle
 @onready var knockback_timer := $KnockbackTimer
+@onready var raycast_sc := $NavigationAgent2D/RoutingShortCircuit
+@onready var path_panic_timer := $NavigationAgent2D/PathingPanicTimer
 
 
 func _ready() -> void:
 	vision_circle.shape.radius = 0
 	vision.set_enabled(false)
+	path_panic_timer.start(10)
 
 
 func _physics_process(delta: float) -> void:
@@ -51,6 +52,9 @@ func _physics_process(delta: float) -> void:
 	# should not go through move logic if dead
 	if not stop_moving:
 		_move(delta)
+	else:
+		nav_agent.set_velocity(Vector2.ZERO)
+		velocity = Vector2.ZERO
 
 	if enemyState == BEHAVIOUR.WANDER:
 		if vision.is_enabled() and vision.can_see_player(raycast_target):
@@ -58,8 +62,9 @@ func _physics_process(delta: float) -> void:
 			$VisionArea.monitoring = false
 		
 		if not stop_moving:
+			raycast_sc.target_position = velocity.normalized()
 			# if at target node, get new target node
-			if nav_agent.is_navigation_finished():
+			if nav_agent.is_navigation_finished() or raycast_sc.is_colliding():
 				stop_moving = true
 				nav_agent.set_velocity(Vector2.ZERO)
 				wander_timer.start(randf_range(1.0, 2.0))
@@ -100,6 +105,9 @@ func _on_nav_dist_adjust(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity + knockback_vec
 	move_and_slide()
 
+func _on_pathing_panic() -> void:
+	stop_moving = false
+	set_wander_target()
 
 func _on_wander_timeout() -> void:
 	stop_moving = false
@@ -123,8 +131,9 @@ func _on_death() -> void:
 
 	animation.play_animation("death", true)
 	await animation.animation_finished
-	get_parent().enemy_died()
+	get_parent().enemy_died(self)
 	queue_free()
+
 
 
 func _on_attack_timeout() -> void:
@@ -178,6 +187,7 @@ func set_wander_target() -> void:
 			+ Vector2.RIGHT.rotated(
 					randf_range(0, TAU))
 					* randi_range(1, PATHFIND_RANGE * TILE_SIZE))
+	path_panic_timer.start(10)
 
 func attack_logic() -> void:
 	pass
@@ -193,6 +203,8 @@ func _on_knockback_timer_timeout() -> void:
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
+	if enemyState == BEHAVIOUR.DEAD:
+		return
 	if !knockback:
 		take_damage(area.deal_damage(), area)
 	else:

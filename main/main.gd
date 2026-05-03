@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var cm:=$character_manager
 @onready var room_manager := $Room_manager
+@onready var audio_manager := $background_audio_manager
+
 @export var character_hud: CanvasLayer
 
 

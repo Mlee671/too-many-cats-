@@ -21,7 +21,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#opens the reward screen and picks a random character that hasnt been picked yet
 	if Input.is_action_just_pressed("debug_open_reward_screen"):
 		

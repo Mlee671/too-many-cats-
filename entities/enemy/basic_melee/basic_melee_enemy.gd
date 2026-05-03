@@ -1,14 +1,16 @@
 extends Enemy
 class_name BasicMeleeEnemy
 
-const ATTACK_DURATION := 0.5
 const DAMAGE := 15
-const SPEED := 50.0
 const ACCELERATION := 20.0
-const HP := 100
-const WEIGHT := 0.5
 const KNOCKBACK := 300
-const ATTACKS_PER_SECOND := 1.5
+
+var SPEED := 50.0
+var HP := 100
+var WEIGHT := 0.5
+var ATTACK_DURATION := 0.5
+var ATTACKS_PER_SECOND := 1.5
+var VISION := 80.0
 
 @onready var attack_visual := $AttackComponent
 @onready var detect_radius := $AttackComponent/AttackDetect
@@ -24,6 +26,7 @@ func _ready() -> void:
 	accel = ACCELERATION
 	health.set_health(HP)
 	mass_coef = WEIGHT
+	vision_range = VISION
 	attack_sprite.visible = false
 	super()
 
@@ -61,8 +64,6 @@ func _on_attack_render_timeout() -> void:
 	attack_visual.rotate(PI)
 	attack_box.toggle_disable(true)
 
-# currently causes bouncing due to shape of attack being square and stickinging out of the attack radius. 
-# once sprites are in and the attack more circular this will fix itself mostly 
 func melee_attack():
 		attack_sprite.visible = true
 		attack_sprite.frame = randi() % 4

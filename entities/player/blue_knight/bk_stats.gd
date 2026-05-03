@@ -12,5 +12,6 @@ func _ready() -> void:
 	# which bullet sprite to use
 	projectile_frame = 2
 	projectile_speed = 400
+	projectile_knockback = 5
 	
 	damage = 10

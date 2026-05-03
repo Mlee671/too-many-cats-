@@ -7,7 +7,7 @@ class_name blue_knight
 
 func character_ability():
 	super()
-	await get_tree().create_timer(stats.ability_dur/2.0).timeout
 	nav_agent.target_position = get_global_mouse_position()
+	await get_tree().create_timer(stats.ability_dur/2.0).timeout
 	# go to final calculated path node
 	global_position = nav_agent.get_final_position()

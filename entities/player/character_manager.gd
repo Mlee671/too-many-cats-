@@ -126,7 +126,6 @@ func _on_new_char_button_pressed() -> void:
 func _on_character_hud_character_removed() -> void:
 	for c in character_nodes:
 		if c.is_alive == false:
-			print(c)
 			character_nodes.erase(c)
 			
 #takes a string and then finds the corresponding scene to load including hud stuff
