@@ -193,7 +193,6 @@ func _on_hitbox_area_entered(area: Area2D, knockback_amount = 200) -> void:
 func _on_evade_duration_timeout() -> void:
 	iframe_flag = false
 	state.enable_switch()
-	pass
 
 
 
@@ -217,4 +216,4 @@ func _on_ability_timer_timeout() -> void:
 
 func _on_ability_duration_timeout() -> void:
 	state.enable_switch()
-	state.switch_to(state.STATES.IDLE)
+	#state.switch_to(state.STATES.IDLE)

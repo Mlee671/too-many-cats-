@@ -16,6 +16,8 @@ var path := "res://entities/player/character_scenes/"
 var icon_path := "res://entities/player/character_icons/"
 var menu_icon_path := "res://ui_assets/character_menu_sprite/"
 var game_over = false
+var swap_lock := false
+
 #needed to fix a bug 
 var repeat = 1
 # all loaded character nodes gets added to this array
@@ -39,10 +41,11 @@ func spawn_character(pos : Vector2):
 
 func _physics_process(_delta: float) -> void:
 	
-	if Input.is_action_just_pressed("character_change") and game_over == false:
+	if Input.is_action_just_pressed("character_change") and game_over == false and not swap_lock:
 		#break out if there are no characters to switch
 		if character_nodes.size() ==1:
 			return
+		swap_lock = true
 		print(get_child(0).state.player_state)
 		if get_child(0).state.player_state != DODGING_ENUM_INDEX:
 			get_child(0).swap_character()
@@ -187,10 +190,9 @@ func _on_heal_button_pressed() -> void:
 		character_hud.set_selected_hp_bar(i.stats.max_hp, count)
 		count +=1
 	reward_screen.hide()
-	
 
 
 func _on_swap_timer_timeout() -> void:
+	swap_lock = false
 	switch_next()
 	get_child(0).state.enable_switch()
-	pass # Replace with function body.
