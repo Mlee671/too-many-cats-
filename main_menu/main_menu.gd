@@ -4,7 +4,7 @@ extends Control
 
 @export var on_ready_delay = 0
 @export var fade_transition_scale = 1
-@export var fade_inbetween_wait = 0
+@export var fade_inbetween_wait = 1
 
 
 # Called when the node enters the scene tree for the first time.
