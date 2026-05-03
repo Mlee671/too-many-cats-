@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://b1ndc5sne6j2m" path="res://entities/player/base_character/base_stats.gd" id="3_c4o6u"]
 [ext_resource type="Script" uid="uid://q6fl6yqkf1ms" path="res://entities/player/base_character/animation_tree.gd" id="5_fgjft"]
 [ext_resource type="Script" uid="uid://bmjwwihnu1eqa" path="res://entities/player/base_character/States.gd" id="6_g607o"]
-[ext_resource type="Script" uid="uid://8t16pl1f174g" path="res://entities/player/base_character/audio_stream_player_2d.gd" id="8_kifj0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bggxh"]
 radius = 3.0
@@ -698,8 +697,6 @@ metadata/_snap_count = 100
 radius = 4.0
 height = 16.0
 
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_1buin"]
-
 [node name="main_character" type="CharacterBody2D" unique_id=2044665017 groups=["Player"]]
 collision_layer = 2
 motion_mode = 1
@@ -797,12 +794,6 @@ collision_mask = 16
 [node name="terrain_collision" type="CollisionShape2D" parent="hazard_box" unique_id=265556125]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bggxh")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1652703863]
-stream = SubResource("AudioStreamPolyphonic_1buin")
-volume_db = -3.346
-max_polyphony = 32
-script = ExtResource("8_kifj0")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="AbilityTimer" to="." method="_on_ability_timer_timeout"]
