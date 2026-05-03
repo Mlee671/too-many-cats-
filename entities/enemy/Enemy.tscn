@@ -96,10 +96,18 @@ one_shot = true
 one_shot = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=221465016]
+path_desired_distance = 50.0
 path_max_distance = 30.0
 navigation_layers = 2
 path_postprocessing = 1
 avoidance_enabled = true
+debug_enabled = true
+
+[node name="RoutingShortCircuit" type="RayCast2D" parent="NavigationAgent2D" unique_id=1526879057]
+target_position = Vector2(0, 7)
+
+[node name="PathingPanicTimer" type="Timer" parent="NavigationAgent2D" unique_id=634058637]
+one_shot = true
 
 [node name="VisionRadius" type="RayCast2D" parent="." unique_id=883219311]
 collision_mask = 3
@@ -127,6 +135,7 @@ shape = SubResource("CapsuleShape2D_cn5l5")
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_nav_dist_adjust"]
+[connection signal="timeout" from="NavigationAgent2D/PathingPanicTimer" to="." method="_on_pathing_panic"]
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_entered"]
 [connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_exited"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
