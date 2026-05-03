@@ -12,7 +12,7 @@ func _ready() -> void:
 	
 
 func attack(_target: Vector2) -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("sword_slice")
+	SFX_Manager.play_sound_effect_from_dictionary("sword_slice")
 	attack_cooldown = true
 	attack_timer.start(stats.fire_cd)
 	# vertical mirror depending on cursor location
@@ -25,7 +25,7 @@ func attack(_target: Vector2) -> void:
 
 
 func character_ability() -> void:
-	Sfx_Manager.play_sound_effect_from_dictionary("sword_sharpen")
+	SFX_Manager.play_sound_effect_from_dictionary("sword_sharpen")
 	# scale up ability area size to trigger area_entered
 	var scale_tween = create_tween()
 	scale_tween.tween_property(ability_shape, "scale", Vector2.ONE, 0.3)
