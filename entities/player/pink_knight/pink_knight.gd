@@ -2,7 +2,7 @@ extends main_character
 class_name pink_knight
 
 const SPREAD_DEG := 30
-const ATTACK_KNOCKBACK := 300.0
+const ATTACK_KNOCKBACK := 250.0
 
 var ability_on_cooldown := false
 

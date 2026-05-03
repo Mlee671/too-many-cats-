@@ -57,8 +57,6 @@ func _process(_delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
-	print(ability_cooldown)
-	print(stats.ability_cd)
 	if Input.is_action_just_pressed("ability") and not ability_cooldown:
 		character_ability()
 		signal_bus.ability_used_signal.emit()
@@ -113,17 +111,17 @@ func start_dodge_roll():
 	evade_duration.start(stats.evade_dur)
 	evade_cooldown.start(stats.evade_cd)
 	iframe_flag = true
-	
+
+
 func dodge_movement(delta: float):
-	#var dodge_percent = 1 - (evade_duration.time_left / stats.evade_dur)
-	velocity = lerp(velocity , Vector2.ZERO, delta)
+	velocity = lerp(velocity, Vector2.ZERO, delta)
 
 
 func swap_character() -> void:
 	Sfx_Manager.play_sound_effect_from_dictionary("finger_click")
 	state.switch_to(States.STATES.SWITCHING)
 	state.disable_switch()
-	pass
+
 
 ## Creates bullet instance and fires from sprite to target vector.
 ## player projectiles are on collision layer 8 compared to enemies on 4 
@@ -145,7 +143,6 @@ func attack(target: Vector2) -> void:
 	# for where the sprite hands would be (presumably) 
 	spawn.global_position = $AttackMarker.global_position + (ATTACK_OFFSET * direction)
 	get_parent().add_child(spawn)
-	stats.shots_fired += 1
 
 
 func character_ability():
