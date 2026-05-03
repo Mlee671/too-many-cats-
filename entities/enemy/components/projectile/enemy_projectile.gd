@@ -9,4 +9,4 @@ func _ready() -> void:
 	$UnwallTimer.start(0.5)
 
 func _on_unwall() -> void:
-	collision_mask = 3
+	collision_mask = 3 # players and walls
