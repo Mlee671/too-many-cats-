@@ -37,4 +37,4 @@ func _on_south_door_body_exited(body: Node2D) -> void:
 
 func enemy_died(_enemy : Enemy):
 	locked = false
-	## Victory code here
+	enemy_list = []

@@ -17,21 +17,21 @@ var enemy_array : Array = []
 var neighbour_vectors : Array = [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]
 
 func _ready() -> void:
-	# loads all rooms in the room folder
-	var dir = DirAccess.open("res://Room_scenes/Rooms/")
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			room_array.append(load("res://Room_scenes/Rooms/" + file_name))
-			file_name = dir.get_next()
-	var dir2 = DirAccess.open("res://entities/enemy/Enemy_scenes/")
-	if dir2:
-		dir2.list_dir_begin()
-		var file_name = dir2.get_next()
-		while file_name != "":
-			enemy_array.append(load("res://entities/enemy/Enemy_scenes/" + file_name))
-			file_name = dir2.get_next()
+	load_rooms()
+	load_enemies()
+	
+func load_rooms():
+	room_array.append(load("res://Room_scenes/Rooms/box_room.tscn"))
+	room_array.append(load("res://Room_scenes/Rooms/empty_room.tscn"))
+	room_array.append(load("res://Room_scenes/Rooms/room_w_pillars.tscn"))
+	room_array.append(load("res://Room_scenes/Rooms/wall_room.tscn"))
+	room_array.append(fountain_room)
+
+func load_enemies():
+	enemy_array.append(load("res://entities/enemy/Enemy_scenes/BasicRangedEnemy.tscn"))
+	enemy_array.append(load("res://entities/enemy/Enemy_scenes/basic_melee_enemy.tscn"))
+	enemy_array.append(load("res://entities/enemy/Enemy_scenes/elite_melee_enemy.tscn"))
+	enemy_array.append(load("res://entities/enemy/Enemy_scenes/elite_ranged_enemy.tscn"))
 
 func generate_rooms(rooms : int) -> Vector2:
 	# generates positions for rooms based on previous room position starting at 0,0

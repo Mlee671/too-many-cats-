@@ -15,6 +15,8 @@ func _on_interaction_zone_body_exited(body: Node2D) -> void:
 func _physics_process(_delta: float) -> void:
 	if rich_text_label.visible:
 		if Input.is_action_just_pressed("interact"):
+			Input.action_press("debug_open_reward_screen")
+			Input.action_release("debug_open_reward_screen")
 			rich_text_label.visible = false
 			explosion.visible = true
 			explosion.play()
@@ -25,5 +27,3 @@ func _physics_process(_delta: float) -> void:
 func _on_explosion_animation_finished() -> void:
 	
 	explosion.visible = false
-	Input.action_press("debug_open_reward_screen")
-	Input.action_release("debug_open_reward_screen")

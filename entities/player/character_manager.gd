@@ -25,7 +25,7 @@ var character_index : int = 0
 
 func _ready() -> void:
 	# loads 1 character at random and adds it into array
-	var c= reward_screen.pick_random_char()
+	var c = reward_screen.pick_random_char()
 	var char_instance : main_character = load(path + c + ".tscn").instantiate()
 	var char_icon : CompressedTexture2D = load(icon_path + c + "_icon.png")
 	character_hud.add_icon(char_icon)
