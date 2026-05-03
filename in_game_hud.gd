@@ -106,7 +106,7 @@ func lose_game():
 		self.PROCESS_MODE_DISABLED
 		
 		var scene : PackedScene = load("res://main_menu/main_menu.tscn")
-		print("all characters dead")
+		## print("all characters dead")
 		
 		
 		$"../../fade_transition".show()

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://pg3efh5m3awv" path="res://entities/player/character_manager.gd" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://dgrwfswwj50og" path="res://in_game_hud.gd" id="6_4dugh"]
 [ext_resource type="Texture2D" uid="uid://djfped5c2log5" path="res://ui_assets/HEALTH_BAR1.png" id="6_67ri8"]
-[ext_resource type="PackedScene" uid="uid://bljfwt02e5snj" path="res://fade_transition.tscn" id="8_grrlh"]
+[ext_resource type="PackedScene" uid="uid://cu0f5pnu18q6n" path="res://fade_transition.tscn" id="8_grrlh"]
 [ext_resource type="Texture2D" uid="uid://loe2uh05yvk8" path="res://ui_assets/cd_timer_background.png" id="8_s758e"]
 [ext_resource type="Texture2D" uid="uid://dc57m7vxejrd5" path="res://ui_assets/cd_timer_fill.png" id="9_4hmqs"]
 [ext_resource type="Script" uid="uid://c0n4ylvv4q22d" path="res://ui_items/reward_screen.gd" id="10_bsumw"]
@@ -535,7 +535,7 @@ region = Rect2(286, 346, 143, 149)
 atlas = ExtResource("10_fwcvl")
 region = Rect2(148, 51, 16, 16)
 
-[node name="main" type="Node2D" unique_id=135493927 node_paths=PackedStringArray("character_hud")]
+[node name="main" type="Node2D" unique_id=135493927 node_paths=PackedStringArray("character_hud") groups=["main"]]
 script = ExtResource("1_8gbba")
 character_hud = NodePath("character_manager/character_hud")
 

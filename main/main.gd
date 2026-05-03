@@ -3,6 +3,7 @@ extends Node2D
 @onready var cm:=$character_manager
 @onready var room_manager := $Room_manager
 @onready var audio_manager := $background_audio_manager
+@onready var hud := $character_manager/character_hud
 
 @export var character_hud: CanvasLayer
 
@@ -20,3 +21,10 @@ func _ready() -> void:
 	cm.spawn_character(start)
 	await get_tree().create_timer(1.5).timeout
 	character_hud.visible = true
+
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("exit"):
+		game_won()
+
+func game_won():
+	hud.lose_game()

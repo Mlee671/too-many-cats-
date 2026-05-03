@@ -21,13 +21,13 @@ func _on_north_door_body_exited(body: Node2D) -> void:
 			objects.set_cell(doorway[i],0,NORTH_DOOR_CLOSED[i],0)
 
 
-func _on_instruction_1_body_entered(body: Node2D) -> void:
+func _on_instruction_1_body_entered(_body: Node2D) -> void:
 	$RichTextLabel.visible = true
 
 
-func _on_instruction_2_body_entered(body: Node2D) -> void:
+func _on_instruction_2_body_entered(_body: Node2D) -> void:
 	$RichTextLabel2.visible = true
 
 
-func _on_instruction_3_body_entered(body: Node2D) -> void:
+func _on_instruction_3_body_entered(_body: Node2D) -> void:
 	$RichTextLabel3.visible = true

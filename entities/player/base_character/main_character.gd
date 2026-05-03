@@ -176,7 +176,6 @@ func take_damage(amount: int):
 		character_hud.set_main_hp_bar(stats.max_hp, stats.hp - amount)
 		stats.hp -= amount
 		
-		print(stats.hp)
 		if stats.hp <=0:
 			is_alive = false
 			character_hud.kill_first_char()
