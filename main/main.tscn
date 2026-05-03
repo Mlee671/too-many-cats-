@@ -621,6 +621,7 @@ texture_under = ExtResource("8_s758e")
 texture_progress = ExtResource("9_4hmqs")
 
 [node name="cd_bar_2" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=427168525]
+visible = false
 layout_mode = 0
 offset_left = 223.0
 offset_top = 176.0
@@ -633,6 +634,7 @@ texture_under = ExtResource("8_s758e")
 texture_progress = ExtResource("9_4hmqs")
 
 [node name="cd_bar_3" type="TextureProgressBar" parent="character_manager/character_hud/Control" unique_id=822167944]
+visible = false
 layout_mode = 0
 offset_left = 285.0
 offset_top = 176.0

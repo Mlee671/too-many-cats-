@@ -151,6 +151,8 @@ func _on_rep_first_slot_pressed() -> void:
 	character_nodes.remove_at(character_nodes.size()-1)
 	var c = reward_screen.get_selected_rand_char()
 	load_char(c)
+	character_hud.fix_cd_index_replacement()
+	character_hud.align_max_cd()
 	replacing_char.hide()
 	
 
@@ -160,6 +162,8 @@ func _on_rep_second_slot_pressed() -> void:
 	character_nodes.remove_at(1)
 	var c = reward_screen.get_selected_rand_char()
 	load_char(c)
+	character_hud.fix_cd_index_replacement()
+	character_hud.align_max_cd()
 	replacing_char.hide()
 
 
@@ -168,6 +172,8 @@ func _on_rep_third_slot_pressed() -> void:
 	character_nodes.remove_at(2)
 	var c = reward_screen.get_selected_rand_char()
 	load_char(c)
+	character_hud.fix_cd_index_replacement()
+	character_hud.align_max_cd()
 	replacing_char.hide()
 
 

@@ -18,6 +18,7 @@ var cd_bars = []
 var cd_bars_timer = []
 var cd_bars_index = []
 var visibility = [0,0,0]
+var last_removed_index
 signal character_removed
 
 
@@ -32,6 +33,7 @@ func _ready() -> void:
 	cd_bars_timer.append(Timer.new())
 	for i in cd_bars_timer:
 		i.one_shot = true
+		i.set_wait_time(0.1)
 		add_child(i)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -88,15 +90,18 @@ func switch_icon()-> void:
 func remove_char(position:int):
 	icons_array.remove_at(position)
 	hp_bars.remove_at(position)
+	last_removed_index = cd_bars_index[position]
+	cd_bars_timer[cd_bars_index[position]].set_wait_time(0.1)
+	cd_bars_index.remove_at(position)
 	
 	#removes the hp bars with no character associated to them anymore
 	third_char.texture = null
 	third_hp_bar.value = 0
-	
+	cd_bar_3.hide()
 	if hp_bars.size() == 1:
 		second_char.texture = null
 		second_hp_bar.value = 0
-		
+		cd_bar_2.hide()
 func lose_game():
 		self.PROCESS_MODE_DISABLED
 		
@@ -134,10 +139,16 @@ func kill_indexed_character(index : int):
 	emit_signal("character_removed")
 	
 func add_cd_bar(max_cd : float):
-	cd_bars_timer[cd_bars_index.size()].set_wait_time(max_cd)
+	for i in cd_bars_timer:
+		if i.wait_time == 0.1:
+			i.set_wait_time(max_cd)
+			break
+	#cd_bars_timer[cd_bars_index.size()].set_wait_time(max_cd)
 	cd_bars_index.append(cd_bars_index.size())
 	align_max_cd()
 	
+func fix_cd_index_replacement():
+	cd_bars_index[2] = last_removed_index
 func on_ability_used():
 	cd_bars_timer[cd_bars_index[0]].start()
 
@@ -154,5 +165,7 @@ func align_max_cd():
 	cd_bar_1.max_value = cd_bars_timer[cd_bars_index[0]].wait_time
 	if size >= 2:
 		cd_bar_2.max_value = cd_bars_timer[cd_bars_index[1]].wait_time
+		cd_bar_2.show()
 	if size == 3:
 		cd_bar_3.max_value = cd_bars_timer[cd_bars_index[2]].wait_time
+		cd_bar_3.show()
