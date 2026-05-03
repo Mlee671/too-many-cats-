@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://crlxgoahpvvhh" path="res://Room_scenes/fountain.gd" id="1_1j1lg"]
 [ext_resource type="Texture2D" uid="uid://buo667oxtml67" path="res://Room_scenes/Fountain-2.png1.webp" id="1_4v5q7"]
+[ext_resource type="FontFile" uid="uid://b1bxbakchn1rb" path="res://ui_assets/Baskic8.otf" id="3_06mia"]
 [ext_resource type="Texture2D" uid="uid://ul8e78khkjwq" path="res://entities/player/attacks/explosive/explosion.png" id="3_i4500"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06mia"]
@@ -9,11 +10,8 @@ radius = 35.0
 height = 120.000015
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nuauu"]
-radius = 30.000004
-height = 119.999985
-
-[sub_resource type="LabelSettings" id="LabelSettings_q2sls"]
-font_color = Color(1, 0.37666667, 0.14999998, 1)
+radius = 59.999992
+height = 159.99998
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cgev1"]
 atlas = ExtResource("3_i4500")
@@ -302,7 +300,7 @@ region = Rect2(0, 700, 100, 100)
 [sub_resource type="SpriteFrames" id="SpriteFrames_4f5u7"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 0.6,
 "texture": SubResource("AtlasTexture_cgev1")
 }, {
 "duration": 1.0,
@@ -517,7 +515,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 20.0
+"speed": 25.0
 }]
 
 [node name="Fountain" type="StaticBody2D" unique_id=696087590]
@@ -539,27 +537,30 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction_zone" unique_id=360899538]
-position = Vector2(1.7053026e-13, 59.999992)
+position = Vector2(6.7762636e-21, 20)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_nuauu")
 
-[node name="Label" type="Label" parent="." unique_id=888515476]
-visible = false
-offset_left = -40.0
-offset_top = -30.0
-offset_right = 49.999985
-offset_bottom = 22.999996
-text = "Press 'R' 
-To interact"
-label_settings = SubResource("LabelSettings_q2sls")
-
 [node name="Explosion" type="AnimatedSprite2D" parent="." unique_id=466729675]
 visible = false
-position = Vector2(4.7683716e-06, 10.000001)
+texture_filter = 1
 scale = Vector2(1.5999999, 1.3999999)
 sprite_frames = SubResource("SpriteFrames_4f5u7")
 frame = 70
 frame_progress = 1.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1717566630]
+texture_filter = 1
+offset_left = -59.999996
+offset_top = -80.0
+offset_right = 59.99999
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("3_06mia")
+text = "
+Press 'R' 
+to Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="Interaction_zone" to="." method="_on_interaction_zone_body_entered"]
 [connection signal="body_exited" from="Interaction_zone" to="." method="_on_interaction_zone_body_exited"]

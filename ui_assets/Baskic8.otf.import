@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/Baskic8.otf-4ecfff56c01c6b2f2387307e8be8e60c.
 [params]
 
 Rendering=null
-antialiasing=1
+antialiasing=0
 generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://btqe83eqyfnp4" path="res://entities/projectile/projectile.gd" id="1_n5n3x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q13ix"]
-radius = 2.0
+radius = 5.0
 
 [node name="Projectile" type="Area2D" unique_id=364488218]
 collision_layer = 8
