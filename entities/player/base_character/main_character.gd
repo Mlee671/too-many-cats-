@@ -171,6 +171,7 @@ func add_knockback(vec: Vector2) -> void:
 func take_damage(amount: int):
 	# if you are hit you still get knocked back but do not take damage if in iframe
 	if !iframe_flag:
+		SFX_Manager.play_sound_effect_from_dictionary("slap")
 		char_visual.modulate = Color(2,2,2)
 		iframe_timer.start(IFRAME_DUR)
 		iframe_flag = true

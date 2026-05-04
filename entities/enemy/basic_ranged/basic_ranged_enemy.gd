@@ -27,6 +27,7 @@ func _ready() -> void:
 	super()
 
 func fire_bullet(dir: Vector2, pos: Vector2):
+	SFX_Manager.play_sound_effect_from_dictionary("whoosh_2")
 	var attack := PROJECTILE.instantiate()
 	animation.play_animation("attack", true)
 	attack.set_velocity(dir * PROJECTILE_SPEED)

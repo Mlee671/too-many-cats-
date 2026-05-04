@@ -65,6 +65,7 @@ func _on_attack_render_timeout() -> void:
 	attack_box.toggle_disable(true)
 
 func melee_attack():
+		SFX_Manager.play_sound_effect_from_dictionary("swipe")
 		attack_sprite.visible = true
 		attack_sprite.frame = randi() % 4
 		attack_box.toggle_disable(false)

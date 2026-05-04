@@ -166,6 +166,7 @@ func deactivate_enemy() -> void:
 
 
 func take_damage(amount: int, from: Area2D, knockback_scalar : int = KB_AMOUNT) -> void:
+	SFX_Manager.play_sound_effect_from_dictionary("kick")
 	if enemyState == BEHAVIOUR.DEAD:
 		return
 	if enemyState == BEHAVIOUR.WANDER:
