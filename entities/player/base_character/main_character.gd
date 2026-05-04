@@ -54,6 +54,7 @@ func _process(_delta: float) -> void:
 			char_visual.scale.x = -1
 		else:
 			char_visual.scale.x = 1
+	SFX_Manager.update_position(self)
 	
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
