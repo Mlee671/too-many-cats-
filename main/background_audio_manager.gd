@@ -4,10 +4,18 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	get_child(rand_index).playing = true	
-	pass # Replace with function body.
+	for audio_stream in get_children():
+			audio_stream.volume_db = -10
 
 func _process(_delta: float) -> void:
 	position = $"../character_manager".get_child(0).position
+	if Input.is_action_just_pressed("sfx_volume_up"):
+		for audio_stream in get_children():
+			audio_stream.volume_db += 2
+	if Input.is_action_just_pressed("sfx_volume_down"):
+		for audio_stream in get_children():
+			audio_stream.volume_db -= 2
+	
 
 func _on_audio_stream_player_2d_finished() -> void:
 	var new_rand_index = randi()%get_child_count()

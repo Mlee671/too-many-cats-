@@ -68,7 +68,7 @@ func _do_switch(target_character: String = "") -> void:
 	new_node.global_position = old_node.global_position
 	
 	#debug
-	## print(character_nodes)
+	# print(character_nodes)
 	# replace instances - swap characters
 	
 	
